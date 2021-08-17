@@ -1,0 +1,8 @@
+export const USER_URL = "http://munkybox-admin.herokuapp.com/api/users"
+export const CUISINE_URL = "http://munkybox-admin.herokuapp.com/api/cuisine"
+export const RESTAURANT_URL = "http://munkybox-admin.herokuapp.com/api/newrest"
+export const CHECKOUT_URL = "http://munkybox-admin.herokuapp.com/api/checkout/6088240787ea8208fcb85863"
+export const COUPON_URL = "http://munkybox-admin.herokuapp.com/api/coupon"
+export const ORDER_URL = "http://munkybox-admin.herokuapp.com/api/orders"
+export const CUISINE_TYPE_URL="http://munkybox-admin.herokuapp.com/api/newrest/cuisine_type"
+export const MEALS="http://munkybox-admin.herokuapp.com/api/newrest/category/"
