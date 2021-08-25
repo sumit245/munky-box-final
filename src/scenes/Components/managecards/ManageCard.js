@@ -11,9 +11,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import { TextInput } from "react-native-paper";
 import { SafeAreaView } from "react-native";
-import { getUser } from "../../../services/user/getuser";
+import { getUser,saveUser } from "../../../services/user/getuser";
 import axios from "axios";
-import { saveUser } from "../../../services/user/saveuser";
 import { Actions } from "react-native-router-flux";
 import { KeyboardAvoidingView } from "react-native";
 import { Platform } from "react-native";
@@ -76,11 +75,6 @@ export default class ManageCard extends Component {
     //   ToastAndroid.show("Check your details and try again :(", 1000);
     // }
   };
-  componentDidMount() {
-    alert("Please login first");
-    Actions.jump("auth");
-  }
-
   render() {
     const { cards, message, selected } = this.state;
     return (

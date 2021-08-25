@@ -10,8 +10,8 @@ export default class CheckoutHeader extends Component {
     return (
       <Image
         source={{ uri: uri }}
-        style={{ width: width, height: 120 }}
-        height={100}
+        style={{ width: width, height: 150 }}
+        height={150}
       />
     );
   }

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import Icon from "react-native-vector-icons/Fontisto";
-import { getAddress, removeAddress } from "../../../services/addressHandler";
 import { Actions } from "react-native-router-flux";
 
 export default class CheckoutAddress extends Component {

@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import MaterialMapView from "./MaterialMapView";
 import ManualEntry from "./ManualEntry";
-import { setAddress } from "../../../services/addressHandler";
 import { Actions } from "react-native-router-flux";
 import axios from "axios";
 import { USER_URL } from "../../../services/EndPoints";
@@ -56,14 +55,14 @@ export default class ManageAddress extends Component {
     setAddress("@address", JSON.stringify(address));
     Actions.push("home", { ...this.state });
   };
-  componentDidMount() {
-    getUser("user").then((res) => {
-      if(res===null){
-        alert('Please login first')
-        Actions.jump('auth')
-      }
-    });
-  }
+  // componentDidMount() {
+  //   getUser("user").then((res) => {
+  //     if(res===null){
+  //       alert('Please login first')
+  //       Actions.jump('auth')
+  //     }
+  //   });
+  // }
 
   render() {
     return (

@@ -7,7 +7,6 @@ import ResultDetails from "./scenes/ResultDetails";
 import ReviewScreen from "./scenes/ReviewScreen";
 import PlanChooser from "./scenes/PlanChooser";
 import AddressPay from "./scenes/AddressPay";
-import ChangeAddress from "./scenes/ChangeAddress";
 import CheckOut from "./scenes/Components/checkout/CheckOut";
 import OrderHistory from "./scenes/Components/OrderHistory";
 import Policies from "./scenes/Components/Policies";
@@ -105,11 +104,7 @@ export default function Routes() {
           key="manageAddress"
           component={ManageAddress}
           hideNavBar={true}
-        />
-        <Scene
-          key="changeaddress"
-          component={ChangeAddress}
-          title="Manage Address"
+          // initial={true}
         />
         <Scene
           key="listAddress"

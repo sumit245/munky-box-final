@@ -1,6 +1,8 @@
 import axios from "axios";
 import React,{ Component } from "react";
+import { SafeAreaView } from "react-native";
 import { StyleSheet, View, Text, FlatList } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { getUser } from "../../services/user/getuser";
 import ItemCard from "./ItemCard";
 
@@ -46,15 +48,15 @@ export default class Favouite extends Component {
     const { restaurant } = this.state;
     if (restaurant.length < 1) {
       return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
           <Text style={{ textAlign: "center", color: "#979797", fontSize: 14 }}>
             Please wait a while we are fetching your favourite restaurants...{" "}
           </Text>
-        </View>
+        </SafeAreaView>
       );
     } else {
       return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
           <FlatList
             contentContainerStyle={{ marginHorizontal: 2,paddingBottom:10 }}
             showsVerticalScrollIndicator={false}
@@ -69,7 +71,7 @@ export default class Favouite extends Component {
             refreshing={this.state.isFetching}
             keyExtractor={(item) => item.id}
           />
-        </View>
+        </SafeAreaView>
       );
     }
   }

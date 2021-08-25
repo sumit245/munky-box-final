@@ -147,6 +147,7 @@ export default class TipOption extends Component {
               fontSize: 16,
             }}
             placeholder="$5.00"
+            value={tip_amount}
             editable={tip}
             returnKeyType='done'
             keyboardType="numeric"

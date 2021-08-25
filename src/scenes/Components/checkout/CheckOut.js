@@ -158,8 +158,8 @@ export default class CheckOut extends Component {
         >
           <Image
             source={{ uri: uri }}
-            style={{ width: width, height: 150, resizeMode: "cover" }}
-            height={100}
+            style={{ width: width, height: 170, resizeMode: "cover" }}
+            height={150}
           />
           <View
             style={{

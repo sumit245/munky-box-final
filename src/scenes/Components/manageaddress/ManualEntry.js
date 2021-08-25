@@ -159,7 +159,7 @@ export default class ManualEntry extends Component {
             Home
           </Chip>
           <Chip
-            icon="information"
+            icon="office-building"
             selected={address_type === "work" ? true : false}
             mode="outlined"
             onPress={this.selectChip("work")}
@@ -168,7 +168,7 @@ export default class ManualEntry extends Component {
             Work
           </Chip>
           <Chip
-            icon="information"
+            icon="globe-model"
             selected={address_type === "other" ? true : false}
             mode="outlined"
             onPress={this.selectChip("other")}

@@ -75,7 +75,8 @@ export default class DetailStack extends Component {
         backgroundColor: "transparent",
         padding: 0,
         height: 34,
-        marginTop: -18,
+        marginTop: 2,
+
       }}
       activeColor="#2266ff"
       labelStyle={{ fontWeight: "bold" }}
@@ -184,7 +185,7 @@ export default class DetailStack extends Component {
                       borderColor: !highLighted ? "#2266cf" : "fff",
                       borderWidth: 1,
                       borderRadius: 20,
-                      marginTop: 10,
+                      marginVertical: 12,
                       backgroundColor: "#FFF",
                       justifyContent: "center",
                       alignItems: "center",

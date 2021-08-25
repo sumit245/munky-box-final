@@ -11,7 +11,7 @@ import { Actions } from "react-native-router-flux";
 import CountDown from "react-native-countdown-component";
 import styles from "../../styles/AuthStyle";
 import axios from "axios";
-import { saveUser } from "../../../services/user/saveuser";
+import { saveUser } from "../../../services/user/getuser";
 
 const { width } = Dimensions.get("window");
 const recaptchaVerifier = React.createRef();
@@ -54,10 +54,12 @@ class OTPLogin extends React.PureComponent {
               });
             });
           } else {
-            Actions.push("userdetails", {
-              logintype: "mobile",
-              phone: phoneNumber,
-            });
+            saveUser("user", JSON.stringify(data)).then((response) => {
+              Actions.push("userdetails", {
+                logintype: "mobile",
+                data,
+              });
+            })
           }
         })
         .catch((err) => console.log(err));
@@ -82,6 +84,11 @@ class OTPLogin extends React.PureComponent {
             containerStyle={styles.textInputContainer}
             textInputStyle={styles.roundedTextInput}
             inputCount={6}
+            textInputProps={{
+              returnKeyType: "done",
+              returnKeyLabel: "Done",
+              keyboardType: "number-pad",
+            }}
             returnKeyType="done"
             inputCellLength={1}
             keyboardType="numeric"
@@ -101,7 +108,10 @@ class OTPLogin extends React.PureComponent {
               timeLabelStyle={{ color: "red", fontWeight: "bold" }}
               timeLabels={{ s: null }}
               onFinish={() => {
-                alert("Try again after some time!!!");
+                console.log(this.props);
+                // if(this.props.routeName==="auth"){
+                  alert("Try again after some time!!!");
+                // }
               }}
               timeLabelStyle={{ color: "#fff" }}
               timeToShow={["S"]}
@@ -161,6 +171,7 @@ export default class MobileLogin extends Component {
         verificationId: verificationId,
         message: "Verification code has been sent to your phone.",
       });
+      this.props.displayHeader(true)
     } catch (err) {
       console.error(`Error: ${err.message}`);
     }
@@ -176,12 +187,16 @@ export default class MobileLogin extends Component {
           attemptInvisibleVerification={attemptInvisibleVerification}
         />
 
-        {!verificationId ? (
+        {/* {!verificationId ? (
           <View style={styles.mobin}>
             <PhoneInput
               placeholder="Enter Mobile Number"
               defaultCode="CA"
-              textInputProps={(returnKeyType = "done")}
+              textInputProps={{
+                returnKeyType: "done",
+                returnKeyLabel: "Done",
+                keyboardType: "number-pad",
+              }}
               containerStyle={styles.btnOTP}
               textContainerStyle={
                 // styles.btnOTP,
@@ -189,7 +204,6 @@ export default class MobileLogin extends Component {
                   borderColor: "#fff",
                   height: 48,
                   textAlignVertical: "top",
-                  marginVertical: -5,
                   borderRadius: 5,
                 }
               }
@@ -205,13 +219,13 @@ export default class MobileLogin extends Component {
               <Text style={{ fontSize: 20, fontWeight: "bold" }}>Send OTP</Text>
             </TouchableOpacity>
           </View>
-        ) : (
+        ) : ( */}
           <OTPLogin
             verificationId={verificationId}
             phoneNumber={phoneNumber}
             message={message}
           />
-        )}
+        {/* )} */}
       </>
     );
   }

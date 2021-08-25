@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  SafeAreaView
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import Icons from "react-native-vector-icons/Ionicons";
@@ -43,7 +44,7 @@ export default class AccountStack extends Component {
         ? data.first_name + " " + data.last_name
         : "User";
     return (
-      <View style={styles.navdrawer}>
+      <SafeAreaView style={styles.navdrawer}>
         <View style={styles.header}>
           <View style={styles.imageNUmName}>
             <View style={styles.profileContainer}>
@@ -160,7 +161,7 @@ export default class AccountStack extends Component {
         >
           <Icons name="exit-outline" color={"#000"} size={30} brand />
         </TouchableOpacity>
-      </View>
+      </SafeAreaView>
     );
   }
 }

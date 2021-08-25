@@ -244,6 +244,7 @@ export default class EditAccount extends Component {
           </KeyboardAvoidingView>
         </ScrollView>
       </SafeAreaView>
+    
     );
   }
 }

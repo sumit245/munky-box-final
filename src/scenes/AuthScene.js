@@ -7,6 +7,7 @@ import EmailLogin from "./Components/emaillogin/EmailLogin";
 import FBLogin from "./Components/facebooklogin/FBLogin";
 import GoogLogin from "./Components/googlelogin/GoogLogin";
 import Logo from "./Components/Logo";
+import Icon from "react-native-vector-icons/Ionicons"
 import { ImageBackground } from "react-native";
 import styles from "./styles/AuthStyle";
 
@@ -20,6 +21,9 @@ export default class AuthScene extends Component {
     verificationCode: "",
     message: "",
   };
+  displayHeader=(param)=>{
+    console.log(param);
+  }
   render() {
     return (
       <ImageBackground
@@ -28,6 +32,11 @@ export default class AuthScene extends Component {
       >
          <StatusBar />
        <SafeAreaView style={{ flex: 1, justifyContent: "flex-end" }}>
+         <TouchableOpacity
+         style={{position:'absolute',left:0,top:0,padding:10}}
+         onPress={()=>Actions.pop()}>
+           <Icon name="chevron-back-circle" size={34} color="#fcfcfc"/>
+         </TouchableOpacity>
           <TouchableOpacity
             style={styles.skip}
             onPress={() => Actions.push("home", { logintype: "" })}
@@ -36,7 +45,7 @@ export default class AuthScene extends Component {
           </TouchableOpacity>
 
           <Logo />
-          <MobileLogin />
+          <MobileLogin displayHeader={this.displayHeader} />
           <View
             style={{
               flexDirection: "row",
