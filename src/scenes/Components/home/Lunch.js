@@ -6,7 +6,7 @@ const renderItem = ({ item, index }, isFavorite) => (
   <ItemCard key={index} item={item} isFavorite={isFavorite} />
 );
 export default function Lunch({ restaurant }) {
-  const [isFavorite, setisFavorite] = React.useState("");
+  const [isFavorite, setisFavorite] = React.useState([]);
   const [loading,setLoading]=React.useState(false)
   React.useEffect(() => {
     let unmounted=false
@@ -14,16 +14,18 @@ export default function Lunch({ restaurant }) {
     getUser("user")
       .then((res) => {
         let favorites = res.data.favorite;
+        let myfavorite=[]
         for (let i = 0; i < favorites.length; i++) {
           for (let j = 0; j < restaurant.length; j++) {
             if(favorites[i]===restaurant[j].restaurant_name){
-              setisFavorite(restaurant[j].restaurant_name)
+              myfavorite.push(restaurant[j].restaurant_name)
               if(!unmounted){
                 setLoading(false)
               }
             }
           }
         }
+        setisFavorite(myfavorite)
       })
       .catch((err) =>{
         if(!unmounted){

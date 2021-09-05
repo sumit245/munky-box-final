@@ -1,5 +1,5 @@
 import axios from "axios";
-import React,{ Component } from "react";
+import React, { Component } from "react";
 import { SafeAreaView } from "react-native";
 import { StyleSheet, View, Text, FlatList } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -7,7 +7,7 @@ import { getUser } from "../../services/user/getuser";
 import ItemCard from "./ItemCard";
 
 const renderItem = ({ item, index }) => (
-  <ItemCard index={index} item={item} isFavorite={true} />
+  <ItemCard key={index} index={index} item={item} isFavorite={true} />
 );
 export default class Favouite extends Component {
   constructor(props) {
@@ -16,25 +16,28 @@ export default class Favouite extends Component {
       restaurant: [],
       isFavorite: true,
       isFetching: false,
-      badgeNumber:"0"
+      badgeNumber: 3,
     };
   }
-  badgeNumber=5
   _getFavoriteData = () => {
     getUser("user").then((res) => {
       let id = res.data._id;
       axios
         .get("http://munkybox-admin.herokuapp.com/api/users/getfavorite/" + id)
         .then((response) => {
-          let numRest=response.data.data
-          numRest=numRest.length
-          this.setState({ restaurant: response.data.data,badgeNumber:numRest});
+          let numRest = response.data.data;
+          numRest = numRest.length;
+          this.setState({
+            restaurant: response.data.data,
+            badgeNumber: numRest,
+          });
+          return numRest;
         })
         .catch((err) => {
           console.log(err);
         });
     });
-    this.setState({isFetching:false})
+    this.setState({ isFetching: false });
   };
   onRefresh() {
     this.setState({ isFetching: true }, () => {
@@ -58,11 +61,15 @@ export default class Favouite extends Component {
       return (
         <SafeAreaView style={styles.container}>
           <FlatList
-            contentContainerStyle={{ marginHorizontal: 2,paddingBottom:10 }}
+            contentContainerStyle={{ marginHorizontal: 2, paddingBottom: 10 }}
             showsVerticalScrollIndicator={false}
-            ListHeaderComponent={()=>(
-              <View style={{paddingHorizontal:10,padding:4}}>
-                <Text style={{fontSize:18,fontWeight:'bold',marginTop:4}} >My Favorites</Text>
+            ListHeaderComponent={() => (
+              <View style={{ paddingHorizontal: 10, padding: 4 }}>
+                <Text
+                  style={{ fontSize: 18, fontWeight: "bold", marginTop: 4 }}
+                >
+                  My Favorites
+                </Text>
               </View>
             )}
             data={restaurant}

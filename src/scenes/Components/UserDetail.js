@@ -10,12 +10,14 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import { Button, IconButton, TextInput } from "react-native-paper";
+import { Button, TextInput } from "react-native-paper";
 import { Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
 import { StatusBar } from "react-native";
-import { getUser } from "../../services/user/getuser";
+import { getUser, saveUser } from "../../services/user/getuser";
+import axios from "axios";
+import { USER_URL } from "../../services/EndPoints";
 
 const { width, height } = Dimensions.get("window");
 const Lang = {
@@ -57,8 +59,7 @@ export default class RegistrationForm extends Component {
     }
   };
   _nextAction = () => {
-    const { _id,phone } = this.state.data.data;
-    console.log(_id);
+    const { _id, phone } = this.state;
     const { first_name, last_name, profile_picture, email_id, uri } =
       this.state;
     const dataToSend = {
@@ -69,22 +70,29 @@ export default class RegistrationForm extends Component {
       phone,
       uri,
     };
-    console.log(dataToSend);
-    // let user1 = {
-    //     first_name, last_name, phone, profile_picture, email_id, uri
-    // }
-    // const user = JSON.stringify(user1)
-    // // saveUser('user', user)
-    // Actions.push("manageAddress", { ...this.state });
+    axios
+      .put(USER_URL + _id, { ...dataToSend })
+      .then((res) => {
+        const user = JSON.stringify(res.data);
+        saveUser("user", user)
+          .then((data) => {
+            Actions.push("manageAddress", { data,entryMethod:true });
+          })
+          .catch((err) => {
+            alert(err);
+          });
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
   componentDidMount() {
     if (this.props.logintype === "email") {
       this.setState({ first_name: this.props.first_name });
     }
-    getUser('user').then(data=>{
-        console.log(data);
-        this.setState(data)
-    })
+    getUser("user").then((response) => {
+      this.setState({ ...response.data });
+    });
   }
   render() {
     const { uri, result } = this.state;

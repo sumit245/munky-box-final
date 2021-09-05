@@ -55,6 +55,7 @@ export default class DeliveryOptions extends Component {
                       borderBottomStartRadius: 30,
                       width: 200,
                     }}
+                    key={key}
                     onPress={() => {
                       this.setAddress(data.address_type);
                     }}

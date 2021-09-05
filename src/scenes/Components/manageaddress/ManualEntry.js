@@ -1,8 +1,11 @@
-import  React,{ Component } from "react";
+import axios from "axios";
+import React, { Component } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { TextInput, Chip } from "react-native-paper";
 import { Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
+import { ADDRESS_URL } from "../../../services/EndPoints";
+import { getUser } from "../../../services/user/getuser";
 import { width } from "../../styles/HomeStyles";
 
 export default class ManualEntry extends Component {
@@ -15,61 +18,67 @@ export default class ManualEntry extends Component {
     this.setState({
       [id]: e,
     });
-    this.props.getData(data);
   };
   selectChip = (id) => (e) => {
     let data = {
       address_type: id,
     };
     this.setState({ address_type: id });
-    this.props.getData(data);
   };
-
+  _confirmLocation = () => {
+    const address = {
+      address_type: this.state.address_type,
+      city: this.state.city,
+      flat_num: this.state.flat_num,
+      locality: this.state.locality,
+      postal_code: this.state.postal_code,
+    };
+    const { entryMethod } = this.state;
+    getUser("user").then((res) => {
+      let id = res.data._id;
+      axios
+        .put(ADDRESS_URL + id, { address })
+        .then((res) => {
+          if (entryMethod) {
+            Actions.push("home", res.data);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  };
   render() {
     const { style, address_type } = this.state;
     return (
       <View style={styles.container}>
-        <Text style={[styles.headerText,{color:"#4972ff",padding:10,fontWeight:'bold'}]}>Add an Address</Text>
+        <Text
+          style={[
+            styles.headerText,
+            { color: "#4972ff", padding: 10, fontWeight: "bold" },
+          ]}
+        >
+          Add an Address
+        </Text>
         <Text style={styles.headerText}>Unit / House Number</Text>
-        
-        {/* <View style={{ flexDirection: "row", justifyContent: "space-between" }}> */}
-          <TextInput
-            onChangeText={this.onChangeText("flat_num")}
-            style={styles.inputContainer}
-            mode="outlined"
-            placeholder="House Number"
-            left={
-              <TextInput.Icon
-                name={() => (
-                  <Icon
-                    name="home-outline"
-                    style={{ marginTop: 4 }}
-                    size={18}
-                    color="rgba(155,155,155,1)"
-                  />
-                )}
-              />
-            }
-          />
-          {/* <TextInput
-            onChangeText={this.onChangeText("state")}
-            style={[styles.inputContainer, { width: "48%" }]}
-            mode="outlined"
-            placeholder="Province"
-            left={
-              <TextInput.Icon
-                name={() => (
-                  <Icon
-                    name="ios-map-outline"
-                    style={{ marginTop: 4 }}
-                    size={18}
-                    color="rgba(155,155,155,1)"
-                  />
-                )}
-              />
-            }
-          />
-        </View> */}
+        <TextInput
+          onChangeText={this.onChangeText("flat_num")}
+          style={styles.inputContainer}
+          mode="outlined"
+          placeholder="House Number"
+          left={
+            <TextInput.Icon
+              name={() => (
+                <Icon
+                  name="home-outline"
+                  style={{ marginTop: 4 }}
+                  size={18}
+                  color="rgba(155,155,155,1)"
+                />
+              )}
+            />
+          }
+        />
 
         <Text style={styles.headerText}>Street Address</Text>
         <TextInput
@@ -182,7 +191,7 @@ export default class ManualEntry extends Component {
           onPress={() => {
             Actions.push("home");
           }}
-          // onPress={this._confirmLocation}
+          onPress={this._confirmLocation}
         >
           <Text style={styles.confirmLocation}>Save & proceed</Text>
         </TouchableOpacity>

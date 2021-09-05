@@ -1,4 +1,4 @@
-import  React,{ Component } from "react";
+import React, { Component } from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Card, Text } from "react-native-elements";
 import { Avatar } from "react-native-paper";
@@ -36,7 +36,7 @@ export default class ItemCard extends Component {
           restaurant={this.state}
           isFavorite={
             typeof isFavorite !== "boolean"
-              ? isFavorite === this.state.restaurant_name
+              ? isFavorite.includes(this.state.restaurant_name)
               : isFavorite
           }
         />

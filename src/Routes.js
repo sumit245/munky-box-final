@@ -45,7 +45,7 @@ export default function Routes() {
           hideNavBar={true}
           initial={login}
         />
-        <Scene key="userdetails" component={UserDetail} hideNavBar={true} />
+        <Scene key="user_details" component={UserDetail} hideNavBar={true} />
         <Scene key="documents" component={ModalOpener} title={"Documents"} />
         <Scene key="reviews" component={ReviewScreen} title={"Reviews"} />
         <Scene
@@ -63,6 +63,20 @@ export default function Routes() {
         <Scene
           key="manageCards"
           component={ListCard}
+          renderLeftButton={() => (
+            <TouchableOpacity
+              style={{
+                height: 50,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => {
+                Actions.pop();
+              }}
+            >
+              <Icon name="chevron-back" size={28} color="#223fdc" />
+            </TouchableOpacity>
+          )}
           renderRightButton={() => (
             <TouchableOpacity
               style={{
@@ -108,6 +122,20 @@ export default function Routes() {
         />
         <Scene
           key="listAddress"
+          renderLeftButton={() => (
+            <TouchableOpacity
+              style={{
+                height: 50,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => {
+                Actions.pop();
+              }}
+            >
+              <Icon name="chevron-back" size={28} color="#223fdc" />
+            </TouchableOpacity>
+          )}
           component={ListAddress}
           title="Manage Address"
         />
@@ -116,13 +144,42 @@ export default function Routes() {
           key="orderhistory"
           component={OrderHistory}
           title="Your Orders"
+          renderLeftButton={() => (
+            <TouchableOpacity
+              style={{
+                height: 50,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => {
+                Actions.pop();
+              }}
+            >
+              <Icon name="chevron-back" size={28} color="#223fdc" />
+            </TouchableOpacity>
+          )}
         />
         <Scene key="policies" component={Policies} title="About" />
         <Scene key="coupons" component={Rewards} hideNavBar={true} />
         <Scene
           key="details"
           component={ResultDetails}
-          showLabel={false}
+          // showLabel={false}
+          // backButtonImage={()=><Icon name="chevron-back-circle" size={28} color="#000" />}
+          renderLeftButton={() => (
+            <TouchableOpacity
+              style={{
+                height: 50,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => {
+                Actions.pop();
+              }}
+            >
+              <Icon name="chevron-back" size={28} color="#223fdc" />
+            </TouchableOpacity>
+          )}
           renderRightButton={() => (
             <View
               style={{

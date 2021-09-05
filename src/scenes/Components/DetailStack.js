@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   SafeAreaView,
   TouchableOpacity,
+  StatusBar,
 } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
 import axios from "axios";
@@ -14,7 +15,6 @@ import { CUISINE_URL, MEALS, RESTAURANT_URL } from "../../services/EndPoints";
 import Cuisine from "./home/Cuisine";
 import Lunch from "./home/Lunch";
 import HeaderComponent from "./home/HeaderComponent";
-import { StatusBar } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
 export default class DetailStack extends Component {
@@ -76,14 +76,12 @@ export default class DetailStack extends Component {
         padding: 0,
         height: 34,
         marginTop: 2,
-
       }}
       activeColor="#2266ff"
       labelStyle={{ fontWeight: "bold" }}
       inactiveColor="#272727"
     />
   );
-
   renderScene = ({ route }) => {
     switch (route.title) {
       case "Lunch":
@@ -95,6 +93,7 @@ export default class DetailStack extends Component {
     }
   };
   componentDidMount() {
+    console.log(this.props);
     axios
       .get(CUISINE_URL)
       .then((res) => {
@@ -158,7 +157,7 @@ export default class DetailStack extends Component {
         <Cuisine
           image={item.image}
           title={item.cuisineName}
-          highLighted={item.cuisineName===this.state.highLighted}
+          highLighted={item.cuisineName === this.state.highLighted}
         />
       </TouchableOpacity>
     );
@@ -171,7 +170,6 @@ export default class DetailStack extends Component {
         <SafeAreaView style={{ flex: 1 }}>
           <StatusBar />
           <HeaderComponent />
-
           <View style={{ height: 100 }}>
             <FlatList
               contentContainerStyle={{ marginLeft: 4 }}
@@ -214,7 +212,6 @@ export default class DetailStack extends Component {
               showsHorizontalScrollIndicator={false}
             />
           </View>
-
           <TabView
             navigationState={{ index, routes }}
             renderScene={this.renderScene}

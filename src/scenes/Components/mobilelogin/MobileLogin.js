@@ -55,11 +55,11 @@ class OTPLogin extends React.PureComponent {
             });
           } else {
             saveUser("user", JSON.stringify(data)).then((response) => {
-              Actions.push("userdetails", {
+              Actions.push("user_details", {
                 logintype: "mobile",
                 data,
               });
-            })
+            });
           }
         })
         .catch((err) => console.log(err));
@@ -108,10 +108,9 @@ class OTPLogin extends React.PureComponent {
               timeLabelStyle={{ color: "red", fontWeight: "bold" }}
               timeLabels={{ s: null }}
               onFinish={() => {
-                console.log(this.props);
-                // if(this.props.routeName==="auth"){
+                if (this.props.routeName === "auth") {
                   alert("Try again after some time!!!");
-                // }
+                }
               }}
               timeLabelStyle={{ color: "#fff" }}
               timeToShow={["S"]}
@@ -171,12 +170,11 @@ export default class MobileLogin extends Component {
         verificationId: verificationId,
         message: "Verification code has been sent to your phone.",
       });
-      this.props.displayHeader(true)
+      this.props.displayHeader(true);
     } catch (err) {
       console.error(`Error: ${err.message}`);
     }
   };
-
   render() {
     const { phoneNumber, verificationId, message } = this.state;
     return (
@@ -187,7 +185,7 @@ export default class MobileLogin extends Component {
           attemptInvisibleVerification={attemptInvisibleVerification}
         />
 
-        {/* {!verificationId ? (
+        {!verificationId ? (
           <View style={styles.mobin}>
             <PhoneInput
               placeholder="Enter Mobile Number"
@@ -198,15 +196,12 @@ export default class MobileLogin extends Component {
                 keyboardType: "number-pad",
               }}
               containerStyle={styles.btnOTP}
-              textContainerStyle={
-                // styles.btnOTP,
-                {
-                  borderColor: "#fff",
-                  height: 48,
-                  textAlignVertical: "top",
-                  borderRadius: 5,
-                }
-              }
+              textContainerStyle={{
+                borderColor: "#fff",
+                height: 48,
+                textAlignVertical: "top",
+                borderRadius: 5,
+              }}
               onChangeFormattedText={(phoneNumber) =>
                 this.setState({ phoneNumber: phoneNumber })
               }
@@ -219,13 +214,14 @@ export default class MobileLogin extends Component {
               <Text style={{ fontSize: 20, fontWeight: "bold" }}>Send OTP</Text>
             </TouchableOpacity>
           </View>
-        ) : ( */}
+        ) : (
           <OTPLogin
             verificationId={verificationId}
             phoneNumber={phoneNumber}
             message={message}
+            routeName={this.props.routeName}
           />
-        {/* )} */}
+        )}
       </>
     );
   }

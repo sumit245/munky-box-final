@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, Dimensions, TouchableOpacity, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+  SafeAreaView,
+} from "react-native";
 import { Actions } from "react-native-router-flux";
 import { StatusBar } from "react-native";
 import MobileLogin from "./Components/mobilelogin/MobileLogin";
@@ -7,36 +13,36 @@ import EmailLogin from "./Components/emaillogin/EmailLogin";
 import FBLogin from "./Components/facebooklogin/FBLogin";
 import GoogLogin from "./Components/googlelogin/GoogLogin";
 import Logo from "./Components/Logo";
-import Icon from "react-native-vector-icons/Ionicons"
+import Icon from "react-native-vector-icons/Ionicons";
 import { ImageBackground } from "react-native";
 import styles from "./styles/AuthStyle";
 
-const { width, height } = Dimensions.get("window");
 export default class AuthScene extends Component {
   state = {
     isLoggedIn: false,
     user: null,
-    phoneNumber: "",
-    verificationId: "",
-    verificationCode: "",
     message: "",
+    otpSent: false,
   };
-  displayHeader=(param)=>{
-    console.log(param);
-  }
+  displayHeader = (param) => {
+    this.setState({ otpSent: param });
+  };
   render() {
     return (
       <ImageBackground
         source={require("../../assets/imagebackground.jpg")}
         style={{ width: "100%", height: "100%", flex: 1 }}
       >
-         <StatusBar />
-       <SafeAreaView style={{ flex: 1, justifyContent: "flex-end" }}>
-         <TouchableOpacity
-         style={{position:'absolute',left:0,top:0,padding:10}}
-         onPress={()=>Actions.pop()}>
-           <Icon name="chevron-back-circle" size={34} color="#fcfcfc"/>
-         </TouchableOpacity>
+        <StatusBar />
+        <SafeAreaView style={{ flex: 1, justifyContent: "flex-end" }}>
+          {this.state.otpSent && (
+            <TouchableOpacity
+              style={{ position: "absolute", left: 0, top: 0, padding: 10 }}
+              onPress={() => Actions.pop()}
+            >
+              <Icon name="chevron-back-circle" size={34} color="#fcfcfc" />
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             style={styles.skip}
             onPress={() => Actions.push("home", { logintype: "" })}
@@ -45,7 +51,10 @@ export default class AuthScene extends Component {
           </TouchableOpacity>
 
           <Logo />
-          <MobileLogin displayHeader={this.displayHeader} />
+          <MobileLogin
+            displayHeader={this.displayHeader}
+            routeName={this.props.name}
+          />
           <View
             style={{
               flexDirection: "row",

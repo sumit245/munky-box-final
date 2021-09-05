@@ -1,5 +1,6 @@
-export const USER_URL = "http://munkybox-admin.herokuapp.com/api/users"
+export const USER_URL = "http://munkybox-admin.herokuapp.com/api/users/"
 export const CUISINE_URL = "http://munkybox-admin.herokuapp.com/api/cuisine"
+export const ADDRESS_URL = "http://munkybox-admin.herokuapp.com/api/users/addaddress/"
 export const RESTAURANT_URL = "http://munkybox-admin.herokuapp.com/api/newrest"
 export const CHECKOUT_URL = "http://munkybox-admin.herokuapp.com/api/checkout/6088240787ea8208fcb85863"
 export const COUPON_URL = "http://munkybox-admin.herokuapp.com/api/coupon"

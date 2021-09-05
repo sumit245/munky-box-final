@@ -59,7 +59,6 @@ export default styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: "#FFF",
-        // textAlign: 'center'
     },
     social: {
         flexDirection: 'row',

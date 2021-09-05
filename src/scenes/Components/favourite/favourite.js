@@ -4,8 +4,8 @@ import { TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { getUser, saveUser } from "../../../services/user/getuser";
 
-export const Favourite = ({ isHome, restaurant, isFavorite }) => {
-  const [count, setIsFavorite] = React.useState(true);
+export const Favourite = ({ restaurant, isFavorite }) => {
+  const [count, setIsFavorite] = React.useState(false);
   const updateFavorite = () => {
     let restra = restaurant.restaurant_name;
     const data = { favorite: restra };
@@ -13,10 +13,13 @@ export const Favourite = ({ isHome, restaurant, isFavorite }) => {
       .then((res) => {
         let id = res.data._id;
         axios
-          .put("http://munkybox-admin.herokuapp.com/api/users/addfavorite/" + id, data)
+          .put(
+            "http://munkybox-admin.herokuapp.com/api/users/addfavorite/" + id,
+            data
+          )
           .then((response) => {
             saveUser("user", JSON.stringify(response.data)).then((res) => {
-              setIsFavorite(false);
+              setIsFavorite(!count);
             });
           });
       })
@@ -25,8 +28,8 @@ export const Favourite = ({ isHome, restaurant, isFavorite }) => {
   return (
     <TouchableOpacity style={styles.bookmark} onPress={updateFavorite}>
       <Icon
-        name={isFavorite && count ? "heart" : "heart-outline"}
-        color={isFavorite && count ? "#f00" : "#ff7777"}
+        name={isFavorite ^ count ? "heart" : "heart-outline"}
+        color={isFavorite ^ count ? "#f00" : "#ff7777"}
         size={30}
       />
     </TouchableOpacity>
