@@ -22,12 +22,17 @@ export default class ItemCard extends Component {
       ...this.state,
     });
   };
+  componentDidMount() {
+    console.log(this.state.documents.length);
+  }
   render() {
     const { isFavorite } = this.props;
     return (
       <Card containerStyle={styles.item} key={this.state._id}>
         <Image
-          source={{ uri: this.state.documents[1].image }}
+          source={{
+            uri: this.state.documents[0].banner_image,
+          }}
           style={styles.image}
           resizeMode="cover"
         />
@@ -47,7 +52,9 @@ export default class ItemCard extends Component {
           >
             <Avatar.Image
               size={40}
-              source={{ uri: this.state.documents[0].image }}
+              source={{
+                uri: this.state.documents[0].restaurant_image,
+              }}
               style={{
                 marginLeft: 5,
                 marginTop: 8,

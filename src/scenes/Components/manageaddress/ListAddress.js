@@ -11,6 +11,8 @@ import { Actions } from "react-native-router-flux";
 import { width } from "../../styles/HomeStyles";
 import { IconButton, RadioButton } from "react-native-paper";
 import { getUser } from "../../../services/user/getuser";
+import axios from "axios";
+import { USER_URL } from "../../../services/EndPoints";
 
 const ListEmptyContent = () => {
   return (
@@ -90,7 +92,10 @@ export default class ListAddress extends Component {
   };
   componentDidMount() {
     getUser("user").then((res) => {
-      this.setState({ address: res.data.addresses });
+      let { _id } = res.data;
+      axios.get(USER_URL + _id).then((res) => {
+        this.setState({ address: res.data.favorites.addresses });
+      });
     });
   }
   renderAddress = ({ item }, checked) => (
@@ -101,9 +106,9 @@ export default class ListAddress extends Component {
     />
   );
   changeSelector = (selected) => {
-    if(this.props.checkout){
-      this.props.onAddressSelect(selected)
-      Actions.pop()
+    if (this.props.checkout) {
+      this.props.onAddressSelect(selected);
+      Actions.pop();
     }
     this.setState({ checked: selected });
   };

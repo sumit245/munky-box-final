@@ -1,8 +1,10 @@
 import  React,{ Component } from "react";
 import { View, TouchableOpacity, StyleSheet, Text, Modal } from "react-native";
+import axios from "axios";
 import { Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
 import { getUser } from "../../../services/user/getuser";
+import { USER_URL } from "../../../services/EndPoints";
 
 export default class DeliveryOptions extends Component {
   state = {
@@ -20,8 +22,11 @@ export default class DeliveryOptions extends Component {
   };
   componentDidMount() {
     getUser("user").then((res) => {
-      let address = res.data.addresses;
-      this.setState({ addresses: address });
+      let { _id } = res.data;
+      axios.get(USER_URL + _id).then((res) => {
+        console.log(res.data.favorites.addresses);
+        this.setState({ addresses: res.data.favorites.addresses });
+      });
     });
   }
   render() {
