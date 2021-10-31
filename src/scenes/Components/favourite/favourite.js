@@ -14,7 +14,7 @@ export const Favourite = ({ restaurant, isFavorite }) => {
         let id = res.data._id;
         axios
           .put(
-            "http://munkybox-admin.herokuapp.com/api/users/addfavorite/" + id,
+            "https://munkybox-admin.herokuapp.com/api/users/addfavorite/" + id,
             data
           )
           .then((response) => {

@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { Text, View, TextInput } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
+import { Button } from "react-native-paper";
+import Icon from "react-native-vector-icons/Fontisto";
 import { COUPON_URL } from "../../../services/EndPoints";
+import { styles } from "../../styles/CheckoutStyles";
 
 export default class PromoOptions extends Component {
   constructor(props) {
@@ -11,8 +13,8 @@ export default class PromoOptions extends Component {
       ...this.props,
       coupons: [],
       error: false,
-      promo: "",
       discount: "",
+      pulled: false,
     };
   }
   search = (promo, coupon) => {
@@ -31,60 +33,103 @@ export default class PromoOptions extends Component {
   };
   onChangeText = (event) => {
     let { coupons, promo } = this.state;
-    
     this.search(event, coupons);
   };
+  getCoupon = async () => {
+    const response = await axios.get(COUPON_URL);
+    const coupon = await response.data;
+    console.log(promo);
+    this.setState({ coupons: coupon });
+  };
   componentDidMount() {
-    axios
-      .get(COUPON_URL)
-      .then((res) => {
-        this.setState({ coupons: res.data });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // this.getCoupon();
   }
 
   render() {
-    const { options, optionrow } = this.props;
-    const { error, promo, discount } = this.state;
+    const { error, discount, pulled } = this.state;
+    const { coupons } = this.props;
     return (
-      <View style={[optionrow, { flexDirection: "column" }]}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Icon name="fast-food-outline" size={24} color="#df7070" />
-          <Text
-            style={[
-              options,
-              {
+      <View style={styles.optionCard}>
+        <View style={[styles.optionrow, { alignItems: "center" }]}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Icon name="shopping-sale" size={24} color="#f74" />
+            <Text
+              style={{
                 fontWeight: "bold",
                 color: "#333",
                 fontSize: 16,
                 paddingHorizontal: 2,
                 textTransform: "capitalize",
-              },
-            ]}
-          >
-            Apply coupon
-          </Text>
-          <Icon name="star-sharp" color="#f74" size={8} />
+              }}
+            >
+              Apply coupon
+            </Text>
+            <Icon name="star" color="#f74" size={8} />
+          </View>
+          <Icon
+            name={!pulled ? "angle-right" : "angle-down"}
+            size={14}
+            onPress={() =>
+              this.setState((prevState) => ({
+                pulled: !prevState.pulled,
+              }))
+            }
+          />
         </View>
-        <TextInput
-          style={{
-            marginLeft: 24,
-            borderBottomColor: "#226ccf",
-            borderBottomWidth: 1,
-            marginVertical: 4,
-            fontSize: 16,
-          }}
-          placeholder="2X-5A-CF-12"
-          onChangeText={this.onChangeText}
-          onEndEditing={() => this.props.couponHandler(promo, discount)}
-        />
-        <Text
-          style={[options, { color: error ? "red" : "#fff", fontSize: 10 }]}
-        >
-          Apply a valid promo code
-        </Text>
+        {pulled && (
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            {coupons !== null ? (
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  flex: 1,
+                }}
+              >
+                <Text
+                  style={{ textAlign: "justify", padding: 4, fontSize: 12 }}
+                >
+                  Get {coupons.discount + (coupons.discount_type || "%")} off on{" "}
+                  {coupons.plan_name} plan.
+                  {"\n"}Use Code
+                  <Text style={{ fontWeight: "bold" }}>
+                    {" "}
+                    {coupons.promo_code}
+                  </Text>
+                </Text>
+                <Button
+                  mode="text"
+                  color="#f74"
+                  onPress={()=>this.props.couponHandler(
+                    coupons.promo_code,
+                    coupons.discount
+                  )}
+                >
+                  APPLY
+                </Button>
+              </View>
+            ) : (
+              <Text>No valid coupon on this order</Text>
+            )}
+            {/* <TextInput
+              style={{
+                marginLeft: 24,
+                borderBottomColor: "#226ccf",
+                borderBottomWidth: 1,
+                marginVertical: 4,
+                fontSize: 16,
+              }}
+              placeholder="2X-5A-CF-12"
+              onChangeText={this.onChangeText}
+              onEndEditing={() => this.props.couponHandler(promo, discount)}
+            />
+            <Text style={{ color: error ? "red" : "#fff", fontSize: 10 }}>
+              Apply a valid promo code
+            </Text> */}
+          </View>
+        )}
       </View>
     );
   }

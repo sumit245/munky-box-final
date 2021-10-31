@@ -15,8 +15,9 @@ import { Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
 import { getUser, saveUser } from "../../services/user/getuser";
-import { Button, IconButton, TextInput } from "react-native-paper";
+import { ActivityIndicator, Button, TextInput } from "react-native-paper";
 import axios from "axios";
+import Loader from "./utility/Loader";
 
 const { width, height } = Dimensions.get("window");
 
@@ -25,11 +26,8 @@ export default class EditAccount extends Component {
     super(props);
     this.state = {
       user: {},
-      editFname: false,
-      editProfile:false,
-      editLname: false,
-      editMobile: false,
-      editEmail: false,
+      editable: false,
+      loading: false,
       uri: "https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small_2x/man-with-beard-avatar-character-isolated-icon-free-vector.jpg",
     };
   }
@@ -49,9 +47,9 @@ export default class EditAccount extends Component {
       this.setState({ uri: result.uri, editProfile: true });
     }
   };
-  _nextAction = () => {
-    const id = this.state.user._id;
-    const { first_name, last_name, phone, email_id, uri } = this.state;
+  _nextAction = async () => {
+    this.setState({ loading: true });
+    const { id, first_name, last_name, phone, email_id, uri } = this.state;
     const dataToSend = {
       first_name: first_name,
       last_name: last_name,
@@ -59,32 +57,61 @@ export default class EditAccount extends Component {
       phone: phone,
       email_id: email_id,
     };
-    axios
-      .put("http://munkybox-admin.herokuapp.com/api/users/" + id, dataToSend)
-      .then((res) => {
-        if (res.status === 200) {
-          saveUser("user", JSON.stringify(res.data)).then((res) => {
-            Actions.push("home");
-          });
-        }
-      })
-      .catch((err) => console.error(err));
+    const res = await axios.put(
+      "https://munkybox-admin.herokuapp.com/api/users/" + id,
+      dataToSend
+    );
+    const response = await res.data;
+    console.log(response);
+    if (res.status === 200) {
+      this.setState({ loading: false });
+      saveUser("user", JSON.stringify(response)).then((res) => {
+        Actions.push("Account");
+      });
+    }
   };
+
   componentDidMount() {
     getUser("user")
       .then((res) => {
-        if(res!==null){
-          this.setState({ user: res.data });
-        }else{
-          alert("Please login first")
-          Actions.jump('auth')
+        if (res !== null) {
+          const { _id, first_name, last_name, phone, email_id } = res.data;
+          this.setState({
+            id: _id,
+            first_name: first_name,
+            last_name: last_name,
+            phone: phone,
+            email_id: email_id,
+          });
+        } else {
+          alert("Please login first");
+          Actions.jump("auth");
         }
       })
       .catch((err) => console.log(err));
   }
+  editState = () => {
+    if (this.state.editable) {
+      this._nextAction();
+    }
+
+    this.setState((prevState) => ({
+      editable: !prevState.editable,
+    }));
+  };
+
   render() {
-    const { uri, user, editFname, editLname, editMobile, editEmail } =
-      this.state;
+    const {
+      uri,
+      id,
+      first_name,
+      last_name,
+      phone,
+      email_id,
+      editable,
+      loading,
+    } = this.state;
+    // if (!loading) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.container}>
@@ -103,9 +130,7 @@ export default class EditAccount extends Component {
                   <View style={styles.profilepic}>
                     <Image
                       source={{
-                        uri: user.hasOwnProperty("profile_picture")
-                          ? user.profile_picture
-                          : uri,
+                        uri: uri,
                       }}
                       style={styles.profileimg}
                     />
@@ -117,135 +142,114 @@ export default class EditAccount extends Component {
                     <Icon name="camera-outline" size={28} color="#444" />
                   </TouchableOpacity>
                 </View>
-                {editFname || editLname || editMobile || editEmail ? (
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignSelf: "flex-start",
-                      justifyContent: "center",
-                      paddingHorizontal: 10,
-                    }}
-                  >
-                    <Button
-                      color="red"
-                      onPress={() => {
-                        this.setState({
-                          editFname: false,
-                          editLname: false,
-                          editMobile: false,
-                          editEmail: false,
-                        });
-                      }}
-                    >
-                      Cancel
-                    </Button>
-                    <Button onPress={this._nextAction}>Save</Button>
-                  </View>
-                ) : null}
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignSelf: "flex-start",
+                    justifyContent: "center",
+                    paddingHorizontal: 10,
+                  }}
+                >
+                  <Button onPress={this.editState}>
+                    {editable ? "save" : "Edit"}
+                  </Button>
+                </View>
               </View>
+
               <View>
                 <Text style={styles.label}>First Name</Text>
-                {typeof user.first_name !== undefined && !editFname ? (
+                {!editable ? (
                   <View style={styles.textContainer}>
-                    <Text style={styles.fields}>{user.first_name}</Text>
-                    <IconButton
-                      icon="lead-pencil"
-                      color="#777"
-                      onPress={() =>
-                        this.setState((previousState) => ({
-                          editFname: !previousState.editFname,
-                        }))
-                      }
-                    />
+                    <Text style={styles.fields}>{first_name}</Text>
                   </View>
                 ) : (
                   <TextInput
-                    mode="outlined"
+                    mode="flat"
                     onChangeText={this.onChangeText("first_name")}
-                    value={this.state.first_name}
+                    value={first_name}
                     style={styles.inputContainer}
                   />
                 )}
               </View>
-              <View>
+
+              <View style={{ marginTop: 12 }}>
                 <Text style={styles.label}>Last Name</Text>
-                {typeof user.last_name !== undefined && !editLname ? (
+                {!editable ? (
                   <View style={styles.textContainer}>
-                    <Text style={styles.fields}>{user.last_name}</Text>
-                    <IconButton
-                      icon="lead-pencil"
-                      color="#777"
-                      onPress={() =>
-                        this.setState((previousState) => ({
-                          editLname: !previousState.editLname,
-                        }))
-                      }
-                    />
+                    <Text style={styles.fields}>{last_name}</Text>
                   </View>
                 ) : (
                   <TextInput
-                    mode="outlined"
+                    mode="flat"
                     onChangeText={this.onChangeText("last_name")}
-                    value={this.state.last_name}
+                    value={last_name}
                     style={styles.inputContainer}
                   />
                 )}
               </View>
-              <View>
+              <View style={{ marginTop: 12 }}>
                 <Text style={styles.label}>Mobile Number</Text>
-                {typeof user.phone !== undefined && !editMobile ? (
+                {!editable ? (
                   <View style={styles.textContainer}>
-                    <Text style={styles.fields}>{user.phone}</Text>
-                    <IconButton
-                      icon="lead-pencil"
-                      color="#777"
-                      onPress={() =>
-                        this.setState((previousState) => ({
-                          editMobile: !previousState.editMobile,
-                        }))
-                      }
-                    />
+                    <Text style={styles.fields}>{phone}</Text>
                   </View>
                 ) : (
                   <TextInput
-                    mode="outlined"
+                    mode="flat"
                     onChangeText={this.onChangeText("phone")}
-                    value={this.state.phone}
+                    value={phone}
                     keyboardType="numeric"
                     style={styles.inputContainer}
+                    right={
+                      <TextInput.Affix
+                        text="Verified"
+                        textStyle={{
+                          color: "#22c6cf",
+                          textDecorationLine: "underline",
+                        }}
+                      />
+                    }
                   />
                 )}
               </View>
-              <View>
+              <View style={{ marginTop: 12 }}>
                 <Text style={styles.label}>Email</Text>
-                {typeof user.email_id !== undefined && !editEmail ? (
+                {!editable ? (
                   <View style={styles.textContainer}>
-                    <Text style={styles.fields}>{user.email_id}</Text>
-                    <IconButton
-                      icon="lead-pencil"
-                      color="#777"
-                      onPress={() =>
-                        this.setState((previousState) => ({
-                          editEmail: !previousState.editEmail,
-                        }))
-                      }
-                    />
+                    <Text style={styles.fields}>{email_id}</Text>
                   </View>
                 ) : (
                   <TextInput
-                    mode="outlined"
+                    mode="flat"
                     onChangeText={this.onChangeText("email_id")}
-                    value={this.state.email_id}
+                    value={email_id}
                     style={styles.inputContainer}
+                    right={
+                      <TextInput.Affix
+                        text="Verify"
+                        textStyle={{
+                          color: "#22c6cf",
+                          textDecorationLine: "underline",
+                        }}
+                      />
+                    }
                   />
                 )}
               </View>
             </View>
+            {loading && (
+              <View style={styles.loading}>
+                <ActivityIndicator size="large" />
+              </View>
+            )}
           </KeyboardAvoidingView>
         </ScrollView>
       </SafeAreaView>
-    
     );
+    // } else {
+    //   return <Loader msg="Please wait till we are updating!!!" />;
+    // }
   }
 }
 const styles = StyleSheet.create({
@@ -297,23 +301,31 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     alignItems: "baseline",
     borderColor: "#ccc",
-    borderWidth: 0.5,
-    borderRadius: 4,
+    borderBottomWidth: 0.5,
   },
   label: {
     marginVertical: 6,
     marginBottom: 4,
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 14,
   },
   fields: {
     fontSize: 16,
-    textTransform: "capitalize",
+    color: "#666",
   },
   formContainer: {
     justifyContent: "flex-start",
     alignItems: "flex-start",
     padding: 10,
     width: width,
+  },
+  loading: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

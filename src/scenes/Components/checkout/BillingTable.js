@@ -1,143 +1,125 @@
 import axios from "axios";
-import  React, { Component } from "react";
-import { Text, View, StyleSheet, Dimensions } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, View } from "react-native";
 import { CHECKOUT_URL } from "../../../services/EndPoints";
-const { width, height } = Dimensions.get("window");
+import { styles } from "../../styles/CheckoutStyles";
 
-export default class BillingTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props,
-      checks: true,
+export default function BillingTable({ price, tip, discount, totalHandler }) {
+  const [planFetched, setplanFetched] = useState(false);
+  const [checks, setChecks] = useState(false);
+  const [delivery_fee, setDeliveryFee] = useState("");
+  const [service_fee, setServiceFee] = useState("");
+  const [taxes, setTaxes] = useState("");
+  const [charges, setCharges] = useState({
+    service: 0,
+    tax: 0,
+    total: 0,
+  });
+
+  const fetchFee = async () => {
+    const response = await axios.get(CHECKOUT_URL);
+    const exclusiveCharges = await response.data;
+    const { delivery_fee, service_fee, taxes } = exclusiveCharges;
+    setDeliveryFee(delivery_fee);
+    setServiceFee(service_fee);
+    setTaxes(taxes);
+    setplanFetched(true);
+  };
+  const calculator = (subtotal, delivery, service, taxes, discount, tip) => {
+    let serviceCharge = subtotal * 0.01 * service;
+    let total = subtotal + serviceCharge + delivery - discount + tip;
+    let tax = total * 0.01 * taxes;
+    total = total + tax;
+    return { serviceCharge, tax, total };
+  };
+  useEffect(() => {
+    let componentMounted = true;
+    if (componentMounted) {
+      fetchFee();
+      setChecks(true);
+    }
+    if (planFetched) {
+      const { serviceCharge, tax, total } = calculator(
+        parseFloat(price),
+        parseFloat(delivery_fee),
+        parseFloat(service_fee),
+        parseFloat(taxes),
+        parseFloat(discount),
+        parseFloat(tip)
+      );
+      setCharges({
+        service: serviceCharge.toFixed(2),
+        tax: tax.toFixed(2),
+        total: total.toFixed(2),
+      });
+      totalHandler(total.toFixed(2), delivery_fee, service_fee, taxes);
+    }
+    return () => {
+      componentMounted = false;
     };
-  }
-  shouldComponentUpdate(prevProps, nextProps) {
-    return true;
-  }
-  componentDidUpdate(prevProps) {
-    if (prevProps.discount !== this.props.discount) {
-      const { total } = this.state;
-      let newTotal = parseFloat(total) - parseFloat(this.props.discount);
-      newTotal = newTotal.toFixed(2);
-      this.setState({
-        discount: this.props.discount,
-        total: newTotal,
-      });
-      this.props.totalHandler(newTotal);
-    }
-    if (prevProps.tip !== this.props.tip) {
-      const { total } = this.state;
-      let newTotal = parseFloat(total) + parseFloat(this.props.tip);
-      newTotal = newTotal.toFixed(2);
-      this.setState({
-        tip: this.props.tip,
-        total: newTotal,
-      });
-      this.props.totalHandler(newTotal);
-    }
-  }
+  }, [
+    planFetched,
+    checks,
+    service_fee,
+    delivery_fee,
+    taxes,
+    price,
+    discount,
+    tip,
+  ]);
 
-  componentDidMount() {
-    axios
-      .get(CHECKOUT_URL)
-      .then((res) => {
-        let checks = res.data;
-        let subtotal =
-          parseFloat(this.state.price) +
-          parseFloat(checks.delivery_fee) +
-          parseFloat(checks.service_fee);
-        let total = subtotal + (subtotal * parseFloat(checks.taxes)) / 100;
-        total = total.toFixed(2);
-        this.setState({ checks: checks, total: total });
-        this.props.totalHandler(total);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
-  render() {
-    const { price, checks, total, discount, tip } = this.state;
-    return (
-      <View style={styles.billingTable}>
-        {checks ? (
-          <>
-            <Text style={[styles.rowContent, { padding: 4, marginBottom: 10 }]}>
-              Bill Details
-            </Text>
-            <View style={styles.row}>
-              <Text style={styles.rowContent}>Subtotal</Text>
-              <Text style={styles.rowContent}>${price}</Text>
-            </View>
-            <View style={styles.row}>
-              <Text style={[styles.rowContent, { color: "#226ccf" }]}>
-                Delivery Fee{"\n"}
-                <Text style={{ fontSize: 12, marginRight: 4,color:"#777" }}>
-                  This fees goes towards paying {"\n"}your Delivery Partner
-                  Daily.{" "}
-                  <Text
-                    style={{
-                      textDecorationLine: "underline",
-                      color: "#226ccf",
-                      marginLeft: 4,
-                      fontSize:10,
-                      fontWeight:'bold'
-                    }}
-                  >
-                    Learn More
-                  </Text>
+  return (
+    <View style={styles.billingTable}>
+      {checks ? (
+        <>
+          <Text style={styles.billTitle}>Bill Details</Text>
+          <View style={styles.billRow}>
+            <Text style={styles.billText}>Subtotal</Text>
+            <Text style={styles.billText}>${price}</Text>
+          </View>
+          <View style={styles.billRow}>
+            <Text style={[styles.billText, { color: "#226ccf" }]}>
+              Delivery Fee{"\n"}
+              <Text style={{ fontSize: 12, marginRight: 4, color: "#777" }}>
+                This fees goes towards paying {"\n"}your delivery partner daily.{" "}
+                <Text
+                  style={{
+                    textDecorationLine: "underline",
+                    color: "#226ccf",
+                    marginLeft: 4,
+                    fontSize: 10,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Learn More
                 </Text>
               </Text>
-              <Text style={styles.rowContent}>${checks.delivery_fee}</Text>
-            </View>
-            <View style={styles.row}>
-              <Text style={styles.rowContent}>Service Fee(2%)</Text>
-              <Text style={styles.rowContent}>${checks.service_fee}</Text>
-            </View>
-            <View style={styles.row}>
-              <Text style={styles.rowContent}>Taxes(%)</Text>
-              <Text style={styles.rowContent}>{checks.taxes}</Text>
-            </View>
-            {/* {discount ? ( */}
-            <View style={styles.row}>
-              <Text style={styles.rowContent}>Promo discount($)</Text>
-              <Text style={styles.rowContent}>{discount}</Text>
-            </View>
-            {/* ) : null} */}
-            {/* {tip ? ( */}
-            <View style={styles.row}>
-              <Text style={styles.rowContent}>Tip Amount($)</Text>
-              <Text style={styles.rowContent}>{tip}</Text>
-            </View>
-            {/* ) 
-            : null} */}
-            <View style={styles.row}>
-              <Text style={styles.rowContent}>Total</Text>
-              <Text style={styles.rowContent}>${total}</Text>
-            </View>
-          </>
-        ) : null}
-      </View>
-    );
-  }
-}
+            </Text>
+            <Text style={styles.billText}>${delivery_fee}</Text>
+          </View>
+          <View style={styles.billRow}>
+            <Text style={styles.billText}>Service Fee({service_fee}%)</Text>
+            <Text style={styles.billText}>${charges.service}</Text>
+          </View>
 
-const styles = StyleSheet.create({
-  billingTable: {
-    paddingHorizontal: 10,
-    marginVertical: 20,
-    borderColor: "#ddd",
-    borderWidth: 0.5,
-    borderRadius: 4,
-    marginHorizontal: 2,
-  },
-  row: {
-    justifyContent: "space-between",
-    flexDirection: "row",
-    padding: 4,
-  },
-  rowContent: {
-    fontSize: 16,
-    color: "#8c8c8c",
-  },
-});
+          <View style={styles.billRow}>
+            <Text style={styles.billText}>Promo discount</Text>
+            <Text style={styles.billText}>{"$" + discount}</Text>
+          </View>
+          <View style={styles.billRow}>
+            <Text style={styles.billText}>Tip Amount</Text>
+            <Text style={styles.billText}>{"$" + tip}</Text>
+          </View>
+          <View style={styles.billRow}>
+            <Text style={styles.billText}>Taxes({taxes}%)</Text>
+            <Text style={styles.billText}>{"$" + charges.tax}</Text>
+          </View>
+          <View style={styles.billRow}>
+            <Text style={styles.billText}>Total</Text>
+            <Text style={styles.billText}>${charges.total}</Text>
+          </View>
+        </>
+      ) : null}
+    </View>
+  );
+}

@@ -1,15 +1,10 @@
 import moment from "moment";
-import  React,{ Component } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Modal,
-  Pressable,
-  StyleSheet,
-} from "react-native";
+import React, { Component } from "react";
+import { View, Text, TouchableOpacity, Modal } from "react-native";
 import CalendarPicker from "react-native-calendar-picker";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { Button } from "react-native-paper";
+import Icon from "react-native-vector-icons/Ionicons";
+import { width, styles } from "../../styles/CheckoutStyles";
 
 export default class PlanDuration extends Component {
   constructor(props) {
@@ -19,10 +14,11 @@ export default class PlanDuration extends Component {
       modalVisible: false,
       selectedStartDate: null,
       selectedEndDate: null,
+      minDate: new Date(),
     };
   }
   onDateChange = (date, type) => {
-    const { plan } = this.state;
+    const { plan } = this.props;
     let diff = "";
     if (plan === "twoPlan") {
       diff = 2;
@@ -46,36 +42,21 @@ export default class PlanDuration extends Component {
     this.setState({ modalVisible: visible });
   };
   render() {
-    const { optionrow, options } = this.props;
     const { modalVisible } = this.state;
-    const { selectedStartDate, selectedEndDate } = this.state;
-    const minDate = new Date();
+    const { selectedStartDate, selectedEndDate, minDate } = this.state;
     return (
-      <>
-        <Text
-          style={[
-            options,
-            {
-              marginBottom: -12,
-              marginTop: 26,
-              fontWeight: "bold",
-              padding: 6,
-              color: "#333",
-            },
-          ]}
-        >
-          Select plan duration
-        </Text>
+      <View style={styles.optionCard}>
+        <Text style={styles.optionsLabels}>Select plan duration</Text>
         <TouchableOpacity
-          style={optionrow}
+          style={styles.optionrow}
           onPress={() => this.setModalVisible(true)}
         >
-          <Text style={options}>
+          <Text>
             {selectedStartDate || "--"}
-            {" - "}
+            {" To "}
             {selectedEndDate || "--"}
           </Text>
-          <Icon name="calendar" color="#df7070" size={20} />
+          <Icon name="ios-calendar-outline" color="#226ccf" size={22} />
         </TouchableOpacity>
         <Modal
           animationType="fade"
@@ -85,71 +66,31 @@ export default class PlanDuration extends Component {
             this.setModalVisible(!modalVisible);
           }}
         >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
+          <View style={styles.calenderView}>
+            <View style={styles.calendarBody}>
               <CalendarPicker
                 startFromMonday={true}
                 minDate={minDate}
                 todayBackgroundColor="#f2e6ff"
                 selectedDayColor="#2300e6"
                 selectedDayTextColor="#FFFFFF"
-                height={300}
-                width={300}
+                height={width - 8}
+                width={width - 20}
                 scrollable
                 onDateChange={this.onDateChange}
               />
-              <Pressable
-                style={styles.button}
-                onPress={() => this.setModalVisible(!modalVisible)}
+              <Button
+                mode="text"
+                color="#F00"
+                style={{ alignSelf: "flex-end" }}
+                onPress={() => this.setModalVisible(false)}
               >
-                <Text style={styles.textStyle}>X</Text>
-              </Pressable>
+                cancel
+              </Button>
             </View>
           </View>
         </Modal>
-      </>
+      </View>
     );
   }
 }
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(30,30,30,0.5)",
-  },
-  modalView: {
-    margin: 2,
-    backgroundColor: "white",
-    borderRadius: 4,
-    padding: 2,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 1,
-  },
-  button: {
-    borderRadius: 15,
-    elevation: 2,
-    height: 30,
-    width: 30,
-    position: "absolute",
-    top: -15,
-    right: -15,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  textStyle: {
-    color: "#ccc",
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
-    textAlignVertical: "center",
-  },
-});

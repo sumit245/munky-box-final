@@ -6,7 +6,6 @@ const { width, height } = Dimensions.get("window");
 export default class CheckoutHeader extends Component {
   render() {
     const { uri } = this.props;
-    console.log(uri);
     return (
       <Image
         source={{ uri: uri }}

@@ -1,23 +1,104 @@
 import { StyleSheet, Dimensions } from "react-native";
-export const width = Dimensions.get("window").width;
-export const height = Dimensions.get("window").height;
+export const { width, height } = Dimensions.get("window");
 export const styles = StyleSheet.create({
-    cuisine: {
-        justifyContent: 'flex-start',
-        width: 80,
-        marginBottom: 10,
-        marginTop:10,
-      },
-      cuisine_name: {
-        fontSize: 14,
-        textAlign: 'center',
-        color: '#000',
-      },
-      header: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        height: 32,
-        marginHorizontal:6,
-        marginBottom:6
-      },
-})
+  cuisine: {
+    justifyContent: "flex-start",
+    width: 70,
+    marginVertical: 10,
+  },
+  cuisine_name: {
+    fontSize: 14,
+    textAlign: "center",
+    color: "#000",
+  },
+  firstCuisine: {
+    width: 40,
+    height: 40,
+    borderWidth: 1,
+    borderRadius: 20,
+    marginTop: 12,
+    backgroundColor: "#FFF",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cuisineContent: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignSelf: "center",
+    borderWidth: 1,
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: 32,
+    marginHorizontal: 6,
+    marginBottom: 6,
+  },
+  mainStyle: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#cfcfcf",
+  },
+  containerStyle: { backgroundColor: "white", padding: 20 },
+  sortView: {
+    flex: 1,
+    position: "absolute",
+    top: 20,
+    width: 220,
+    left: 4,
+  },
+  buttonClose: {
+    height: 30,
+    width: 30,
+    backgroundColor: "#fff",
+    borderRadius: 15,
+    position: "absolute",
+    right: -5,
+    top: -5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modalView: {
+    backgroundColor: "white",
+    borderBottomLeftRadius: 6,
+    borderBottomRightRadius: 6,
+    padding: 4,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  modalText: {
+    padding: 4,
+    fontWeight: "bold",
+    textTransform: "capitalize",
+  },
+  item: {
+    borderRadius: 5,
+    padding: 4,
+    margin: 2,
+  },
+  image: {
+    width: "99%",
+    height: 150,
+    margin: "0.5%",
+  },
+  title: {
+    fontSize: 14,
+    fontWeight: "bold",
+  },
+  price: {
+    borderRightWidth: 0.6,
+    width: "33%",
+    borderRightColor: "#ddd",
+    paddingHorizontal: 6,
+    marginVertical: 4,
+  },
+});

@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import {
   View,
   Text,
-  Dimensions,
   TouchableOpacity,
   SafeAreaView,
+  StatusBar,
 } from "react-native";
 import { Actions } from "react-native-router-flux";
-import { StatusBar } from "react-native";
 import MobileLogin from "./Components/mobilelogin/MobileLogin";
 import EmailLogin from "./Components/emaillogin/EmailLogin";
 import FBLogin from "./Components/facebooklogin/FBLogin";
@@ -31,48 +30,63 @@ export default class AuthScene extends Component {
     return (
       <ImageBackground
         source={require("../../assets/imagebackground.jpg")}
-        style={{ width: "100%", height: "100%", flex: 1 }}
+        style={{ width: "100%", height: "100%" }}
       >
-        <StatusBar />
-        <SafeAreaView style={{ flex: 1, justifyContent: "flex-end" }}>
-          {this.state.otpSent && (
-            <TouchableOpacity
-              style={{ position: "absolute", left: 0, top: 0, padding: 10 }}
-              onPress={() => Actions.pop()}
-            >
-              <Icon name="chevron-back-circle" size={34} color="#fcfcfc" />
-            </TouchableOpacity>
-          )}
-          <TouchableOpacity
-            style={styles.skip}
-            onPress={() => Actions.push("home", { logintype: "" })}
+        <SafeAreaView
+          style={{
+            flex: 1,
+            padding: StatusBar.currentHeight,
+            justifyContent: "space-between",
+          }}
+        >
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>Skip </Text>
-          </TouchableOpacity>
+            {this.state.otpSent ? (
+              <TouchableOpacity onPress={() => Actions.pop()}>
+                <Icon name="chevron-back-circle" size={34} color="#fcfcfc" />
+              </TouchableOpacity>
+            ) : (
+              <View />
+            )}
+            <TouchableOpacity
+              style={styles.skip}
+              onPress={() => Actions.push("home", { logintype: "" })}
+            >
+              <Text style={{ fontSize: 16, fontWeight: "bold" }}>Skip</Text>
+            </TouchableOpacity>
+          </View>
 
           <Logo />
+
           <MobileLogin
             displayHeader={this.displayHeader}
             routeName={this.props.name}
           />
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-around",
-              top: -60,
-            }}
-          >
-            <View style={[styles.orLine, { marginLeft: 18 }]} />
-            <Text style={styles.orText}>OR</Text>
-            <View style={[styles.orLine, { marginRight: 16 }]} />
-          </View>
-          <EmailLogin />
-          <View style={styles.social}>
-            <FBLogin />
-            <GoogLogin />
+          <View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-around",
+              }}
+            >
+              <View style={styles.orLine} />
+              <Text style={styles.orText}>OR</Text>
+              <View style={styles.orLine} />
+            </View>
+            {/* Or */}
+
+            <EmailLogin />
+            <View style={styles.social}>
+              <FBLogin />
+              <GoogLogin />
+            </View>
           </View>
           <Text style={styles.termsCondition}>
-            By Continuing,you agree to our terms and conditions
+            By continuing, you agree to our{" "}
+            <Text style={{ textDecorationLine: "underline", color: "#226ccf" }}>
+              terms and conditions
+            </Text>
           </Text>
         </SafeAreaView>
       </ImageBackground>

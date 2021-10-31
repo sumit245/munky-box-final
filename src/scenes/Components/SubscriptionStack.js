@@ -1,235 +1,258 @@
-import  React,{ Component } from 'react';
-import {View, Image, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {Icon} from 'react-native-elements';
-import {IconButton} from 'react-native-paper';
-import veg from '../../../assets/veg.png';
-import CalenderStrip from 'react-native-calendar-strip';
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import axios from "axios";
+import CalenderStrip from "react-native-calendar-strip";
+import { styles } from "../styles/subscriptionTabStyle";
+import { getUser } from "../../services/user/getuser";
+import { MY_ORDER_URL } from "../../services/EndPoints";
+import Loader from "./utility/Loader";
+import moment from "moment";
+import MealList from "./subscriptions/MealList";
+import { width } from "../styles/AuthStyle";
+import AddOns from "./subscriptions/AddOns";
 
-export default class SubscriptionStack extends Component {
-  dateSelected(date) {
-    console.log(date);
-  }
-  render() {
+const convertTime = (giventime) => {
+  return giventime.split("-")[0];
+};
+
+export default function SubscriptionStack({ navigation }) {
+  const [state, setState] = useState({
+    plan: "",
+    restaurant: "",
+    start_date: "",
+    end_date: "",
+    time: "",
+    address_type: "",
+    flat_num: "",
+    locality: "",
+    city: "",
+    postal_code: "",
+    meals: [],
+    skipableTime: "",
+  });
+  const [loaded, setLoaded] = useState(false);
+  const [day, setDay] = useState(1);
+  const [extras, setExtras] = useState([]);
+  const onDateSelected = (date) => {
+    var day = moment(date).weekday();
+    setDay(day);
+  };
+  const getSubscriptions = async () => {
+    try {
+      const user = await getUser("user");
+      const { user_id } = await user.data;
+      const response = await axios.get(MY_ORDER_URL + user_id);
+      const myorder = await response.data;
+      const {
+        start_date,
+        end_date,
+        time,
+        address,
+        plan,
+        restaurant,
+        restaurant_id,
+      } = myorder[0];
+      const restaurantorders = await axios.get(
+        "https://munkybox-admin.herokuapp.com/api/newrest/getorders/" + restaurant_id
+      );
+      const { meals } = await restaurantorders.data;
+      let addOns = [];
+      Array.isArray(meals) &&
+        meals.map((data, key) => {
+          let add_on = {
+            day: data.day,
+            add_on: data.add_on,
+          };
+          addOns.push(add_on);
+        });
+      let remaining = moment(end_date).diff(moment(start_date), "days");
+      const { address_type, flat_num, locality, city, postal_code } = address;
+      let early = convertTime(time);
+      let skipableTime = early - 3;
+      setState({
+        ...state,
+        plan,
+        restaurant,
+        start_date,
+        end_date,
+        time,
+        remaining,
+        address_type,
+        flat_num,
+        locality,
+        city,
+        postal_code,
+        meals,
+        skipableTime: skipableTime,
+      });
+      setExtras(addOns);
+      setLoaded(true);
+    } catch (err) {
+      alert("Please login First");
+    }
+  };
+  useEffect(() => {
+    let componentMounted = true;
+    if (componentMounted) {
+      getSubscriptions();
+    }
+    return () => {
+      componentMounted = false;
+    };
+  }, []);
+  if (loaded) {
     return (
-      <View style={styles.mainStyle}>
+      <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <IconButton
-            style={styles.goback}
-            icon="arrow-left"
-            size={45}
-            onPress={() => this.props.navigation.goBack()}
+          <Icon
+            name="chevron-back"
+            size={28}
+            onPress={() => navigation.goBack()}
           />
-          <Text style={styles.headerTitle}>North Indian Veg Plan by Akanu</Text>
-          <Text style={styles.headersubtitle}>by NP Kitchen Service</Text>
-        </View>
-        <View style={styles.restaurant}>
-          <Image
-            source={{
-              uri:
-                'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&w=1000&q=80',
-            }}
-            style={{width: 350, height: 150}}
-          />
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <Image
-            source={veg}
-            height={25}
-            width={25}
-            style={[styles.typelogo, styles.title]}
-          />
-
-          <TouchableOpacity onPress={this.detaipage}>
-            <Text h5 style={styles.title}>
-              Dum Aloo,Baigan Bharta with Chapatis and Rice
+          <View>
+            <Text style={styles.headerTitle}>
+              {state.plan === "twoPlan"
+                ? "2 Meals"
+                : state.plan === "fifteenPlan"
+                ? "15 Meals"
+                : "30 Meals"}{" "}
+              Subscription
             </Text>
-          </TouchableOpacity>
-        </View>
-        <Text h5 style={styles.timing}>
-          12:45-1:30 PM
-        </Text>
-        <Text h5 style={styles.address}>
-          Work | M-47, Sector-14,Old DLF Gurugram
-        </Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            paddingHorizontal: 20,
-            justifyContent: 'space-between',
-            top: 40,
-            left: -20,
-          }}>
-          <TouchableOpacity style={styles.swapbtn}>
-            <Text style={{fontSize: 18, color: '#888', fontWeight: 'bold'}}>
-              Swap Meal
-            </Text>
-            <Icon name="change" color="#888" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.skipbtn}>
-            <Text style={{fontSize: 18, color: '#888', fontWeight: 'bold'}}>
-              Skip Meal
-            </Text>
-            <Icon name="change" color="#888" />
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            paddingHorizontal: 20,
-            justifyContent: 'space-between',
-            top: 50,
-            left: -20,
-            backgroundColor:'#eee'
-          }}>
-          <Text style={{fontWeight: 'bold',left:-20}}>Add Extra</Text>
-          <View style={{flexDirection:'row'}}>
-          <Text style={{left:-20,marginRight:80,backgroundColor:'#eee'}}> Curd, Dessert, Sweets etc</Text>
-          <Icon name="add" color="#888" />
+            <Text style={styles.headersubtitle}>by {state.restaurant}</Text>
           </View>
         </View>
-        <Text style={{marginRight:80, top:80,backgroundColor:'#eee'}}> You can swap or skip this meal till 11:40 AM </Text>
-        <Text
-          style={{
-            top: 180,
-            left: -130,
-            position: 'relative',
-            fontSize: 16,
-            fontWeight: 'bold',
-          }}>
-          {' '}
-          Future Meals
-        </Text>
-        <CalenderStrip
-          calendarAnimation={{type: 'sequence', duration: 30}}
-          daySelectionAnimation={{
-            type: 'background',
-            duration: 50,
-            highlightColor: 'red',
-          }}
-          style={{
-            height: 50,
-            borderTopColor: '#bdbdbd',
-            borderTopWidth: 1,
-            width: 350,
-            top: 180,
-            paddingBottom: 5,
-          }}
-          calendarColor={'#fdfdfd'}
-          responsiveSizingOffset={1}
-          shouldAllowFontScaling={false}
-          onDateSelected={(date) => this.dateSelected(date)}
-          dateNumberStyle={{color: '#8c8c8c'}}
-          dateNameStyle={{color: '#7c7c7c'}}
-          selectedDate={Date.now()}
-          highlightDateNumberStyle={{color: 'white'}}
-          highlightDateNameStyle={{color: 'white'}}
-          disabledDateNameStyle={{color: 'grey'}}
-          showMonth={false}
-          scrollable
-          leftSelector={[]}
-          rightSelector={[]}
-        />
-      </View>
+        <ScrollView>
+          <View style={styles.tabContainer}>
+            <View style={styles.tab}>
+              <Text style={{ fontWeight: "bold", color: "#555" }}>STARTED</Text>
+              <Text>{state.start_date}</Text>
+            </View>
+            <View style={styles.tab}>
+              <Text style={{ fontWeight: "bold", color: "#555" }}>ENDS</Text>
+              <Text>{state.end_date}</Text>
+            </View>
+            <View style={styles.tab}>
+              <Text style={{ fontWeight: "bold", color: "#555" }}>
+                REMAINING
+              </Text>
+              <Text>{state.remaining} Meals</Text>
+            </View>
+          </View>
+          <View
+            style={{ marginHorizontal: 2, backgroundColor: "#FFF", padding: 6 }}
+          >
+            <Text style={{ fontWeight: "bold", fontSize: 16 }}>
+              Upcoming Meal
+            </Text>
+            <Text>Today, {moment().format("DD MMM")}</Text>
+            <MealList meals={state.meals} day={day} />
+            <Text style={styles.timing}>{state.time}</Text>
+            <Text style={styles.address}>
+              <Text style={{ textTransform: "capitalize" }}>
+                {state.address_type}
+              </Text>
+              {" | " +
+                state.flat_num +
+                ", " +
+                state.locality +
+                ", " +
+                state.city +
+                "-" +
+                state.postal_code}
+            </Text>
+            {state.plan !== "twoPlan" && (
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginTop: 8,
+                  justifyContent: "space-between",
+                }}
+              >
+                <TouchableOpacity style={styles.btn}>
+                  <Text
+                    style={{ fontSize: 16, color: "#888", fontWeight: "bold" }}
+                  >
+                    Swap Meal
+                  </Text>
+                  <Icon name="swap-vertical" size={20} color="#888" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.btn}>
+                  <Text
+                    style={{ fontSize: 18, color: "#888", fontWeight: "bold" }}
+                  >
+                    Skip Meal
+                  </Text>
+                  <Icon name="ios-arrow-redo" color="#888" size={20} />
+                </TouchableOpacity>
+              </View>
+            )}
+            <AddOns extras={extras} day={day} />
+
+            <Text style={{ marginTop: 8 }}>
+              You can swap or skip this meal till {state.skipableTime} AM
+            </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                marginTop: 8,
+              }}
+            >
+              Future Meals
+            </Text>
+            <CalenderStrip
+              daySelectionAnimation={{
+                type: "background",
+                duration: 50,
+                highlightColor: "red",
+              }}
+              dayContainerStyle={{
+                height: 40,
+                width: 40,
+                borderRadius: 4,
+              }}
+              style={{
+                height: 40,
+                width: width - 20,
+              }}
+              responsiveSizingOffset={1}
+              shouldAllowFontScaling={false}
+              showDayName={true}
+              showDayNumber={false}
+              startingDate={0}
+              selectedDate={Date.now()}
+              highlightDateNumberStyle={{ color: "white" }}
+              highlightDateNameStyle={{
+                color: "white",
+                fontSize: 14,
+                fontWeight: "bold",
+              }}
+              dateNameStyle={{
+                fontSize: 12,
+                color: "#000",
+                fontWeight: "bold",
+              }}
+              disabledDateNameStyle={{ color: "grey" }}
+              showMonth={false}
+              scrollable={false}
+              leftSelector={[]}
+              rightSelector={[]}
+              onDateSelected={(date) => onDateSelected(date)}
+            />
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    );
+  } else {
+    return (
+      <Loader msg="Please wait while we are fetching your subscriptions" />
     );
   }
 }
-const styles = StyleSheet.create({
-  mainStyle: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  header: {
-    top: 2,
-    left: 2,
-    fontSize: 18,
-    fontWeight: 'bold',
-    position: 'absolute',
-    borderBottomWidth: 1,
-    elevation: 5,
-    borderBottomColor: '#bbb',
-    backgroundColor: '#ededed',
-  },
-  headerTitle: {
-    top: 5,
-    left: 50,
-    fontSize: 18,
-    fontWeight: 'bold',
-    position: 'absolute',
-  },
-  headersubtitle: {
-    top: 25,
-    left: 50,
-    fontSize: 16,
-    color: '#777',
-    position: 'absolute',
-  },
-  goback: {
-    position: 'absolute',
-    left: -20,
-    top: -15,
-  },
-  restaurant: {
-    position: 'absolute',
-    top: 60,
-  },
-  title: {
-    paddingHorizontal: 5,
-    top: 40,
-    borderRadius: 2,
-    fontSize: 18,
-    fontWeight: 'bold',
-    fontFamily: 'georgia',
-    alignSelf: 'flex-start',
-    marginBottom: 0,
-  },
-  typelogo: {
-    paddingHorizontal: 5,
-    marginLeft: 30,
-    marginTop: 8,
-  },
-  timing: {
-    paddingHorizontal: 5,
-    top: 40,
-    left: 2,
-    borderRadius: 2,
-    fontSize: 18,
-    fontWeight: 'bold',
-    fontFamily: 'georgia',
-    alignSelf: 'flex-start',
-    marginBottom: 0,
-  },
-  address: {
-    paddingHorizontal: 5,
-    top: 40,
-    left: 2,
-    color: '#777',
-    borderRadius: 2,
-    fontSize: 14,
-    fontWeight: 'bold',
-    fontFamily: 'georgia',
-    alignSelf: 'flex-start',
-    marginBottom: 0,
-  },
-  skipbtn: {
-    width: 150,
-    borderColor: '#bbb',
-    borderWidth: 1,
-    borderRadius: 5,
-    height: 40,
-    justifyContent: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: 10,
-    // marginRight: 10,
-  },
-  swapbtn: {
-    width: 150,
-    borderColor: '#bbb',
-    borderWidth: 1,
-    borderRadius: 5,
-    height: 40,
-    justifyContent: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: 10,
-    marginRight: 10,
-  },
-});

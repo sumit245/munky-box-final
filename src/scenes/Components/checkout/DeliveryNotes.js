@@ -1,50 +1,34 @@
-import  React,{ Component } from "react";
-import { Text, View, TextInput } from "react-native";
+import React, { useState } from "react";
+import { Text, View } from "react-native";
+import { TextInput } from "react-native-paper";
+import { styles } from "../../styles/CheckoutStyles";
+import Icon from "react-native-vector-icons/Ionicons";
 
-export default class DeliveryNotes extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      delivery_notes: "",
-    };
-  }
-
-  onChangeText = (event) => {
-    this.setState({ delivery_notes: event });
-  };
-  render() {
-    const { deliveryNotes, options } = this.props;
-    const { delivery_notes } = this.state;
-    return (
-      <View style={[deliveryNotes, { marginHorizontal: 4 }]}>
-        <Text
-          style={[
-            options,
-            {
-              fontWeight: "bold",
-              color: "#333",
-              textAlignVertical: "center",
-              marginTop: 4,
-            },
-          ]}
-        >
-          Add a note
-        </Text>
-        <TextInput
-          style={{
-            borderColor: "#ccc",
-            padding: 10,
-            marginTop: 10,
-            borderWidth: 0.5,
-            marginBottom: 4,
-            fontSize: 16,
-            textAlignVertical: "top",
-          }}
-          placeholder="Place the delivery at door"
-          onChangeText={this.onChangeText}
-          onEndEditing={() => this.props.noteHandler(delivery_notes)}
+export default function DeliveryNotes({ noteHandler }) {
+  const [notes, setNotes] = useState("");
+  const [pulled, setPulled] = useState(false);
+  return (
+    <View style={styles.optionCard}>
+      <View style={styles.optionrow}>
+        <Text style={styles.optionsLabels}>Add a note</Text>
+        <Icon
+          name={pulled ? "chevron-down" : "chevron-forward"}
+          size={24}
+          onPress={() => setPulled(!pulled)}
         />
       </View>
-    );
-  }
+      {pulled && (
+        <TextInput
+          mode="outlined"
+          label="Notes"
+          autoFocus
+          dense={true}
+          style={{ backgroundColor: "#fff" }}
+          placeholder="Place the delivery at door"
+          onChangeText={setNotes}
+          onEndEditing={() => noteHandler(notes)}
+        />
+      )}
+    </View>
+  );
 }

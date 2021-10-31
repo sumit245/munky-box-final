@@ -94,7 +94,7 @@ export default class ListAddress extends Component {
     getUser("user").then((res) => {
       let { _id } = res.data;
       axios.get(USER_URL + _id).then((res) => {
-        this.setState({ address: res.data.favorites.addresses });
+        this.setState({ address: res.data.addresses });
       });
     });
   }

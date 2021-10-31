@@ -6,11 +6,13 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
-  SafeAreaView
+  SafeAreaView,
+  StatusBar,
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import Icons from "react-native-vector-icons/Ionicons";
 import { clearAll, getUser, removeUser } from "../../services/user/getuser";
+import CustomDialog from "./utility/CustomDialog";
 const { width } = Dimensions.get("screen").width;
 export default class AccountStack extends Component {
   constructor(props) {
@@ -18,6 +20,7 @@ export default class AccountStack extends Component {
     this.state = {
       ...this.props,
       user: {},
+      signoff: false,
     };
   }
 
@@ -28,10 +31,7 @@ export default class AccountStack extends Component {
   }
   logout = () => {
     removeUser("user")
-      .then((res) => {
-        clearAll().then(alert("Logged out"));
-        Actions.jump("auth");
-      })
+      .then(() => this.setState({ signoff: true }))
       .catch((err) => {
         alert(err);
       });
@@ -161,6 +161,13 @@ export default class AccountStack extends Component {
         >
           <Icons name="exit-outline" color={"#000"} size={30} brand />
         </TouchableOpacity>
+        {this.state.signoff && (
+          <CustomDialog
+            title="Sign Out"
+            showDialog={true}
+            text="Are you sure you want to logout? This will clear all your data on this device"
+          />
+        )}
       </SafeAreaView>
     );
   }
@@ -169,33 +176,22 @@ export default class AccountStack extends Component {
 const styles = StyleSheet.create({
   navdrawer: {
     flex: 1,
-    alignSelf: "flex-start",
-    alignContent: "flex-start",
-    overflow: "scroll",
+    marginTop: StatusBar.currentHeight,
     width: width,
+    backgroundColor: "#fff",
   },
   header: {
-    borderBottomWidth: 1,
-    borderBottomColor: "#bbb",
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#ccc",
     height: 100,
-    top: 0,
-    elevation: 1,
     padding: 10,
   },
   drawerRow: {
     borderBottomColor: "#888",
     borderBottomWidth: 1,
-    borderBottomStartRadius: 100,
-    width: 380,
+    borderBottomStartRadius: 120,
+    width: width,
     marginLeft: 2,
-    shadowColor: "#000",
-    shadowOffset: {
-      height: 2,
-      width: 1,
-    },
-    shadowOpacity: 0.2,
-    justifyContent: "flex-start",
-    alignItems: "baseline",
     flexDirection: "row",
     padding: 14,
     marginVertical: 1,
@@ -213,14 +209,9 @@ const styles = StyleSheet.create({
     width: 80,
     borderRadius: 40,
     borderColor: "#777",
-    borderWidth: 1,
-    shadowColor: "#000",
-    shadowOffset: {
-      height: -4,
-      width: -4,
-    },
-    shadowRadius: 4,
-    shadowOpacity: 0.5,
+    borderWidth: 0.5,
+    alignItems: "center",
+    justifyContent: "center",
   },
   profilepic: {
     height: 80,

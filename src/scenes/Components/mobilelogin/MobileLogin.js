@@ -26,6 +26,7 @@ class OTPLogin extends React.PureComponent {
     this.state = {
       ...this.props,
       verificationCode: "",
+      otpScreen: true,
     };
   }
   clear = () => {
@@ -44,6 +45,7 @@ class OTPLogin extends React.PureComponent {
           phone: phoneNumber,
         })
         .then((res) => {
+          this.setState({ otpScreen: false });
           let { status } = res.data;
           let data = res.data;
           if (status === 201) {
@@ -61,6 +63,7 @@ class OTPLogin extends React.PureComponent {
               });
             });
           }
+          this.props.setLogin(false);
         })
         .catch((err) => console.log(err));
       //
@@ -108,7 +111,7 @@ class OTPLogin extends React.PureComponent {
               timeLabelStyle={{ color: "red", fontWeight: "bold" }}
               timeLabels={{ s: null }}
               onFinish={() => {
-                if (this.props.routeName === "auth") {
+                if (this.state.otpScreen) {
                   alert("Try again after some time!!!");
                 }
               }}
@@ -175,6 +178,10 @@ export default class MobileLogin extends Component {
       console.error(`Error: ${err.message}`);
     }
   };
+  setLogin = (param) => {
+    this.setState({ verificationId: param });
+    this.props.displayHeader(false);
+  };
   render() {
     const { phoneNumber, verificationId, message } = this.state;
     return (
@@ -219,7 +226,7 @@ export default class MobileLogin extends Component {
             verificationId={verificationId}
             phoneNumber={phoneNumber}
             message={message}
-            routeName={this.props.routeName}
+            setLogin={this.setLogin}
           />
         )}
       </>

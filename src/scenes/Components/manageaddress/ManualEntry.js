@@ -33,15 +33,13 @@ export default class ManualEntry extends Component {
       locality: this.state.locality,
       postal_code: this.state.postal_code,
     };
-    const { entryMethod } = this.state;
+
     getUser("user").then((res) => {
       let id = res.data._id;
       axios
         .put(ADDRESS_URL + id, { address })
         .then((res) => {
-          if (entryMethod) {
-            Actions.push("home", res.data);
-          }
+          Actions.push("home", res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -52,71 +50,68 @@ export default class ManualEntry extends Component {
     const { style, address_type } = this.state;
     return (
       <View style={styles.container}>
-        <Text
-          style={[
-            styles.headerText,
-            { color: "#4972ff", padding: 10, fontWeight: "bold" },
-          ]}
-        >
+        <Text style={[styles.headerText, { color: "#4972ff", padding: 10 }]}>
           Add an Address
         </Text>
-        <Text style={styles.headerText}>Unit / House Number</Text>
-        <TextInput
-          onChangeText={this.onChangeText("flat_num")}
-          style={styles.inputContainer}
-          mode="outlined"
-          placeholder="House Number"
-          left={
-            <TextInput.Icon
-              name={() => (
-                <Icon
-                  name="home-outline"
-                  style={{ marginTop: 4 }}
-                  size={18}
-                  color="rgba(155,155,155,1)"
-                />
-              )}
-            />
-          }
-        />
+        <View style={{ marginTop: 8 }}>
+          <Text style={styles.headerText}>Unit / House Number</Text>
+          <TextInput
+            onChangeText={this.onChangeText("flat_num")}
+            style={styles.inputContainer}
+            mode="flat"
+            placeholder="House Number"
+            left={
+              <TextInput.Icon
+                name={() => (
+                  <Icon
+                    name="home-outline"
+                    size={18}
+                    color="rgba(155,155,155,1)"
+                  />
+                )}
+              />
+            }
+          />
+        </View>
+        <View style={{ marginTop: 8 }}>
+          <Text style={styles.headerText}>Street Address</Text>
+          <TextInput
+            onChangeText={this.onChangeText("locality")}
+            style={[styles.inputContainer, { marginBottom: 8 }]}
+            mode="flat"
+            placeholder="Street Address"
+            left={
+              <TextInput.Icon
+                name={() => (
+                  <Icon
+                    name="ios-map-outline"
+                    size={18}
+                    color="rgba(155,155,155,1)"
+                  />
+                )}
+              />
+            }
+          />
+        </View>
 
-        <Text style={styles.headerText}>Street Address</Text>
-        <TextInput
-          onChangeText={this.onChangeText("locality")}
-          style={[styles.inputContainer, { marginBottom: 8 }]}
-          mode="outlined"
-          placeholder="Street Address"
-          left={
-            <TextInput.Icon
-              name={() => (
-                <Icon
-                  name="ios-map-outline"
-                  style={{ marginTop: 4 }}
-                  size={18}
-                  color="rgba(155,155,155,1)"
-                />
-              )}
-            />
-          }
-        />
         <View
           style={{
             flexDirection: "row",
             justifyContent: "flex-start",
-            marginVertical: 4,
+            marginTop: 8,
           }}
         >
           <Text style={styles.headerText}>City</Text>
-          <Text style={[styles.headerText, { marginLeft: "42%" }]}>
+          <Text style={[styles.headerText, { marginLeft: "36%" }]}>
             Postal Code
           </Text>
         </View>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <TextInput
             onChangeText={this.onChangeText("city")}
-            style={[styles.inputContainer, { width: "48%" }]}
-            mode="outlined"
-            placeholder="City"
+            style={[styles.inputContainer, { width: "46%" }]}
+            mode="flat"
+            placeholder="Ontario"
             left={
               <TextInput.Icon
                 name={() => (
@@ -132,8 +127,8 @@ export default class ManualEntry extends Component {
           />
           <TextInput
             onChangeText={this.onChangeText("postal_code")}
-            style={[styles.inputContainer, { width: "48%" }]}
-            mode="outlined"
+            style={[styles.inputContainer, { width: "46%" }]}
+            mode="flat"
             placeholder="Postal Code"
             left={
               <TextInput.Icon
@@ -155,7 +150,8 @@ export default class ManualEntry extends Component {
             flexDirection: "row",
             justifyContent: "space-between",
             marginHorizontal: 2,
-            marginVertical: 10,
+            marginVertical: 14,
+            marginTop: 28,
           }}
         >
           <Chip
@@ -186,6 +182,7 @@ export default class ManualEntry extends Component {
             Others
           </Chip>
         </View>
+
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
@@ -202,19 +199,11 @@ export default class ManualEntry extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    justifyContent: "space-between",
     borderWidth: 1,
     backgroundColor: "#FFF",
-    shadowColor: "#000",
     borderColor: "#FFF",
-    shadowOffset: {
-      width: -1,
-      height: 1,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 1.5,
-    elevation: 3,
-    overflow: "scroll",
-    flex: 1,
     width: width,
     marginTop: -20,
     marginHorizontal: 0.2,
@@ -222,7 +211,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
   },
   chips: {
-    elevation: 2,
     borderColor: "#777",
   },
   selectAddress: {
@@ -233,23 +221,23 @@ const styles = StyleSheet.create({
   inputContainer: {
     backgroundColor: "#fff",
     paddingVertical: 0,
-    marginHorizontal: 2,
+    marginHorizontal: 8,
     height: 40,
     textAlignVertical: "center",
   },
   headerText: {
     fontSize: 16,
     textAlign: "left",
-    padding: 2,
+    paddingHorizontal: 10,
+    fontWeight: "bold",
   },
   button: {
     width: width - 5,
     borderRadius: 6,
     borderWidth: 0.2,
     marginHorizontal: 2,
-    paddingHorizontal: 5,
-    height: 45,
-    marginTop: 5,
+    padding: 6,
+    height: 44,
     backgroundColor: "#2962ff",
     alignItems: "center",
     justifyContent: "center",
@@ -259,6 +247,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#ffffff",
     fontWeight: "bold",
-    marginLeft: 26,
+    textTransform: "uppercase",
   },
 });

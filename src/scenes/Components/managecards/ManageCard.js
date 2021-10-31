@@ -5,17 +5,17 @@ import {
   Dimensions,
   TouchableOpacity,
   ScrollView,
+  TextInput,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
+  View,
 } from "react-native";
 import { LiteCreditCardInput } from "react-native-credit-card-input";
 import Icon from "react-native-vector-icons/Ionicons";
-
-import { TextInput } from "react-native-paper";
-import { SafeAreaView } from "react-native";
-import { getUser,saveUser } from "../../../services/user/getuser";
+import { getUser, saveUser } from "../../../services/user/getuser";
 import axios from "axios";
 import { Actions } from "react-native-router-flux";
-import { KeyboardAvoidingView } from "react-native";
-import { Platform } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 export default class ManageCard extends Component {
@@ -57,7 +57,9 @@ export default class ManageCard extends Component {
         let id = res.data._id;
         console.log(id);
         axios
-          .put("http://munkybox-admin.herokuapp.com/api/users/addcard/" + id, { card })
+          .put("https://munkybox-admin.herokuapp.com/api/users/addcard/" + id, {
+            card,
+          })
           .then((res) => {
             alert(res.data.msg);
             saveUser("user", JSON.stringify(res.data)).then((res) => {
@@ -78,138 +80,76 @@ export default class ManageCard extends Component {
   render() {
     const { cards, message, selected } = this.state;
     return (
-      <SafeAreaView style={styles.container}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          enabled
-          style={{ flex: 1 }}
+      // <KeyboardAvoidingView
+      //   behavior={Platform.OS === "ios" ? "padding" : "height"}
+      // >
+      <>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginHorizontal: 8,
+          }}
         >
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            keyboardShouldPersistTaps="handled"
-            contentContainerStyle={{ height: height - 80 }}
+          <Text
+            style={{
+              fontSize: 14,
+              fontWeight: "bold",
+            }}
           >
-            <Text
-              style={{
-                paddingHorizontal: 14,
-                fontSize: 16,
-                fontWeight: "bold",
-                marginTop: 16,
-                marginBottom: 6,
-              }}
-            >
-              Add Card
-            </Text>
-            <LiteCreditCardInput
-              requiresCVC
-              inputStyle={styles.input}
-              validColor={"#228822"}
-              invalidColor={"#aa2222"}
-              placeholderColor={"darkgray"}
-              onChange={this._onChange}
-              additionInputsProps={{
-                expiry: {
-                  marginLeft: -20,
-                },
-              }}
-            />
-            <Text
-              style={{
-                paddingHorizontal: 10,
-                fontSize: 16,
-                marginTop: 2,
-                fontWeight: "bold",
-              }}
-            >
-              Cardholder's Name
-            </Text>
-            <TextInput
-              mode="outlined"
-              placeholder="Name"
-              style={styles.inputContainer}
-              onChangeText={this._onChangeText("card_holder")}
-            />
-            <Text
-              style={{
-                paddingHorizontal: 10,
-                fontSize: 16,
-                marginTop: 2,
-                fontWeight: "bold",
-              }}
-            >
-              Country
-            </Text>
-            <TextInput
-              mode="outlined"
-              placeholder="Country"
-              style={styles.inputContainer}
-              onChangeText={this._onChangeText("country")}
-            />
-            <Text
-              style={{
-                paddingHorizontal: 10,
-                fontSize: 16,
-                fontWeight: "bold",
-                marginTop: 2,
-              }}
-            >
-              Postal Code
-            </Text>
-            <TextInput
-              mode="outlined"
-              placeholder="Postal Code"
-              style={styles.inputContainer}
-              onChangeText={this._onChangeText("postal_code")}
-            />
-
-            <TouchableOpacity style={styles.button} onPress={this.cardAdd}>
-              <Icon name="card-outline" size={28} color="#FFF" />
-              <Text style={styles.btnText}>Save card</Text>
-            </TouchableOpacity>
-          </ScrollView>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
+            Add new card
+          </Text>
+          <Text style={styles.btnText} onPress={this.cardAdd}>
+            Save
+          </Text>
+        </View>
+        <LiteCreditCardInput
+          requiresCVC
+          inputStyle={styles.input}
+          validColor={"#228822"}
+          invalidColor={"#aa2222"}
+          onChange={this._onChange}
+          additionInputsProps={{
+            expiry: {
+              marginLeft: -20,
+            },
+          }}
+        />
+        <View style={{ marginHorizontal: 8 }}>
+          <Text
+            style={{
+              fontSize: 14,
+              marginTop: 2,
+              fontWeight: "bold",
+            }}
+          >
+            Cardholder's Name
+          </Text>
+          <TextInput
+            placeholder="Name"
+            style={styles.inputContainer}
+            onChangeText={this._onChangeText("card_holder")}
+          />
+        </View>
+      </>
+      // </KeyboardAvoidingView>
     );
   }
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
   input: {
-    borderRadius: 4,
+    borderRadius: 2,
     borderColor: "#ccc",
     borderWidth: 0.2,
-    padding: 6,
-    marginHorizontal: 2,
-  },
-  button: {
-    width: width - 5,
-    borderRadius: 6,
-    borderWidth: 0.2,
-    marginHorizontal: 2,
-    paddingHorizontal: 5,
-    height: 45,
-    backgroundColor: "#2962ff",
-    position: "absolute",
-    bottom: 6,
-    justifyContent: "center",
-    flexDirection: "row",
-    alignItems: "center",
   },
   btnText: {
-    fontSize: 18,
-    color: "#ffffff",
+    fontSize: 12,
+    color: "#2962ff",
     fontWeight: "bold",
-    marginLeft: 26,
     textTransform: "uppercase",
   },
   inputContainer: {
-    backgroundColor: "#fff",
-    paddingVertical: 0,
-    marginHorizontal: 10,
-    height: 40,
-    textAlignVertical: "center",
+    borderBottomColor: "#777",
+    borderBottomWidth: 0.5,
   },
 });

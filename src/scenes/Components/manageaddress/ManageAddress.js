@@ -6,6 +6,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  StatusBar,
 } from "react-native";
 import MaterialMapView from "./MaterialMapView";
 import ManualEntry from "./ManualEntry";
@@ -23,17 +24,14 @@ export default class ManageAddress extends Component {
   }
   render() {
     return (
-      <SafeAreaView style={{ flexGrow: 1 }}>
+      <SafeAreaView style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={{ flex: 1 }}
         >
           <ScrollView>
             <MaterialMapView style={styles.materialMapView}></MaterialMapView>
-            <ManualEntry
-              entryMethod={this.props.entryMethod}
-              
-            />
+            <ManualEntry entryMethod={this.props.entryMethod} />
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>

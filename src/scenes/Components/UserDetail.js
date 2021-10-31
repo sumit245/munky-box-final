@@ -9,12 +9,13 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   SafeAreaView,
+  TextInput,
+  StatusBar,
 } from "react-native";
-import { Button, TextInput } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
-import { StatusBar } from "react-native";
 import { getUser, saveUser } from "../../services/user/getuser";
 import axios from "axios";
 import { USER_URL } from "../../services/EndPoints";
@@ -76,7 +77,7 @@ export default class RegistrationForm extends Component {
         const user = JSON.stringify(res.data);
         saveUser("user", user)
           .then((data) => {
-            Actions.push("manageAddress", { data,entryMethod:true });
+            Actions.push("manageAddress", { data, entryMethod: true });
           })
           .catch((err) => {
             alert(err);
@@ -97,98 +98,102 @@ export default class RegistrationForm extends Component {
   render() {
     const { uri, result } = this.state;
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-        <StatusBar />
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: "#fff",
+          marginTop: StatusBar.currentHeight,
+        }}
+      >
         <ScrollView
           contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="handled"
           contentInsetAdjustmentBehavior="automatic"
         >
           <KeyboardAvoidingView>
-            <Text style={styles.lightText}>{Lang.lightText}</Text>
-            <View style={styles.formContainer}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  width: width,
-                  justifyContent: "space-between",
-                }}
-              >
-                <View
-                  style={{ justifyContent: "center", alignItems: "center" }}
-                >
-                  <View style={styles.profilepic}>
-                    <Image source={{ uri: uri }} style={styles.profileimg} />
-                  </View>
-                  <TouchableOpacity
-                    style={styles.imagePicker}
-                    onPress={this.pickImage}
-                  >
-                    <Icon name="camera-outline" size={28} color="#444" />
-                  </TouchableOpacity>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignSelf: "flex-start",
-                    justifyContent: "center",
-                    paddingHorizontal: 10,
-                  }}
-                >
-                  <Button
-                    color="red"
-                    onPress={() => {
-                      Actions.push("manageAddress", { ...this.state });
-                    }}
-                  >
-                    Skip
-                  </Button>
-                  <Button onPress={this._nextAction}>Next</Button>
-                </View>
-              </View>
-              <View>
-                <Text style={styles.label}>First Name</Text>
-                <TextInput
-                  mode="outlined"
-                  onChangeText={this.onChangeText("first_name")}
-                  value={this.state.first_name}
-                  style={styles.inputContainer}
-                />
-              </View>
-              <View>
-                <Text style={styles.label}>Last Name</Text>
-                <TextInput
-                  mode="outlined"
-                  onChangeText={this.onChangeText("last_name")}
-                  value={this.state.last_name}
-                  style={styles.inputContainer}
-                />
-              </View>
-              {this.props.logintype !== "mobile" && (
-                <View>
-                  <Text style={styles.label}>Mobile Number</Text>
-                  <TextInput
-                    mode="outlined"
-                    onChangeText={this.onChangeText("phone")}
-                    value={this.state.phone}
-                    keyboardType="numeric"
-                    style={styles.inputContainer}
-                  />
-                </View>
-              )}
-
-              {this.props.logintype !== "email" && (
-                <View>
-                  <Text style={styles.label}>Email</Text>
-                  <TextInput
-                    mode="outlined"
-                    onChangeText={this.onChangeText("email_id")}
-                    value={this.state.email_id}
-                    style={styles.inputContainer}
-                  />
-                </View>
-              )}
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginBottom: 16,
+              }}
+            >
+              <Icon name="chevron-back" size={18} color="#000" />
+              <Text> Back</Text>
             </View>
+            <Text style={styles.lightText}>{Lang.lightText}</Text>
+
+            <View
+              style={{
+                flexDirection: "row",
+                width: width,
+                justifyContent: "space-between",
+              }}
+            >
+              <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <View style={styles.profilepic}>
+                  <Image
+                    source={{
+                      uri: uri,
+                    }}
+                    style={styles.profileimg}
+                  />
+                </View>
+                <TouchableOpacity
+                  style={styles.imagePicker}
+                  onPress={this.pickImage}
+                >
+                  <Icon name="camera-outline" size={28} color="#444" />
+                </TouchableOpacity>
+              </View>
+
+              <Button onPress={this._nextAction}>Next</Button>
+            </View>
+
+            <View>
+              <Text style={styles.label}>First Name</Text>
+              <TextInput
+                onChangeText={this.onChangeText("first_name")}
+                value={this.state.first_name}
+                style={styles.inputContainer}
+                placeholder="John"
+              />
+            </View>
+
+            <View>
+              <Text style={styles.label}>Last Name</Text>
+              <TextInput
+                onChangeText={this.onChangeText("last_name")}
+                value={this.state.last_name}
+                style={styles.inputContainer}
+                placeholder="Doe"
+              />
+            </View>
+
+            {this.props.logintype !== "mobile" && (
+              <View>
+                <Text style={styles.label}>Mobile Number</Text>
+                <TextInput
+                  onChangeText={this.onChangeText("phone")}
+                  value={this.state.phone}
+                  keyboardType="numeric"
+                  style={styles.inputContainer}
+                  placeholder="+1 999-999-999"
+                />
+              </View>
+            )}
+
+            {this.props.logintype !== "email" && (
+              <View>
+                <Text style={styles.label}>Email</Text>
+                <TextInput
+                  onChangeText={this.onChangeText("email_id")}
+                  value={this.state.email_id}
+                  style={styles.inputContainer}
+                  placeholder="abc@mail.net"
+                />
+              </View>
+            )}
           </KeyboardAvoidingView>
         </ScrollView>
       </SafeAreaView>
@@ -198,14 +203,13 @@ export default class RegistrationForm extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
-    paddingHorizontal: 10,
+    padding: 10,
+    justifyContent: "space-between",
   },
   lightText: {
-    textAlign: "center",
-    padding: 20,
-    fontSize: 18,
+    textAlign: "justify",
+    fontSize: 16,
     fontWeight: "bold",
-    color: "#777",
   },
   profilepic: {
     height: width / 3.8,
@@ -224,7 +228,7 @@ const styles = StyleSheet.create({
   },
   imagePicker: {
     position: "relative",
-    right: width / 8,
+    right: 0,
     top: -40,
     backgroundColor: "#fff",
     height: 40,
@@ -237,11 +241,10 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     backgroundColor: "#fff",
-    paddingVertical: 0,
-    marginHorizontal: 2,
     width: width - 40,
+    borderBottomColor: "#ccc",
+    borderBottomWidth: 0.5,
     height: 40,
-    textAlignVertical: "center",
   },
   textContainer: {
     flexDirection: "row",
@@ -254,19 +257,13 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   label: {
-    marginVertical: 6,
-    marginBottom: 4,
+    marginTop: 6,
+    marginBottom: 2,
     fontWeight: "bold",
     fontSize: 16,
   },
-  fields: {
-    fontSize: 16,
-    textTransform: "capitalize",
-  },
   formContainer: {
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+    // justifyContent: "flex-start",
     padding: 10,
-    width: width,
   },
 });

@@ -1,33 +1,41 @@
-import  React,{ Component } from "react";
-import { View, TouchableOpacity, StyleSheet, Text, Modal } from "react-native";
+import React, { Component } from "react";
+import { View, TouchableOpacity, Text, Modal } from "react-native";
 import axios from "axios";
 import { Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
-import { getUser } from "../../../services/user/getuser";
+import { getUser, saveUser } from "../../../services/user/getuser";
 import { USER_URL } from "../../../services/EndPoints";
+import { styles } from "../../styles/HomeStyles";
 
 export default class DeliveryOptions extends Component {
   state = {
     modalVisible: false,
-    address: "Choose Delivery Address",
+    address: "Select address",
     addresses: [],
   };
 
   setModalVisible = () => {
     this.setState((prevState) => ({ modalVisible: !prevState.modalVisible }));
   };
-  setAddress = (address) => {
-    this.setState({ address: address, modalVisible: false });
 
-  };
-  componentDidMount() {
-    getUser("user").then((res) => {
-      let { _id } = res.data;
-      axios.get(USER_URL + _id).then((res) => {
-        console.log(res.data.favorites.addresses);
-        this.setState({ addresses: res.data.favorites.addresses });
-      });
+  setAddress = async (address) => {
+    this.setState({ address: address, modalVisible: false });
+    let users = await getUser("user");
+    let { addresses } = users.data;
+    let first = address;
+    addresses.sort(function (x, y) {
+      return x.address_type == first ? -1 : y.address_type == first ? 1 : 0;
     });
+    users.addresses = addresses;
+    saveUser("user", JSON.stringify(users));
+    this.setState({ addresses: addresses });
+  };
+  async componentDidMount() {
+    const users = await getUser("user");
+    const { _id } = users.data;
+    const userResponse = await axios.get(USER_URL + _id);
+    const { addresses } = await userResponse.data;
+    this.setState({ addresses: addresses, address: addresses[0].address_type });
   }
   render() {
     const { modalVisible, addresses } = this.state;
@@ -35,19 +43,22 @@ export default class DeliveryOptions extends Component {
       <>
         <View style={styles.sortView}>
           <Modal
-            animationType="fade"
             transparent={true}
             visible={modalVisible}
             onRequestClose={this.setModalVisible}
             onDismiss={this.setModalVisible}
           >
-            <View style={styles.sortView}>
+            <TouchableOpacity
+              style={styles.sortView}
+              activeOpacity={1}
+              onPressOut={this.setModalVisible}
+            >
               <View style={styles.modalView}>
                 <TouchableOpacity
                   style={styles.buttonClose}
                   onPress={this.setModalVisible}
                 >
-                  <Icon name="close-outline" size={20} />
+                  <Icon name="close-sharp" color="red" size={18} />
                 </TouchableOpacity>
 
                 {addresses.map((data, key) => (
@@ -80,54 +91,35 @@ export default class DeliveryOptions extends Component {
                     <Text style={styles.modalText}>{data.address_type}</Text>
                   </TouchableOpacity>
                 ))}
-                {addresses.length < 3 ? (
-                  <TouchableOpacity
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      width: 200,
-                    }}
-                    onPress={()=>{
-                      this.setState({modalVisible:false})
-                      Actions.push('listAddress')
+                {addresses.length <= 3 ? (
+                  <Text
+                    style={[
+                      styles.modalText,
+                      { fontWeight: "bold", color: "#226ccf" },
+                    ]}
+                    onPress={() => {
+                      this.setState({ modalVisible: false });
+                      Actions.push("listAddress");
                     }}
                   >
-                    <Icon
-                      name="add-sharp"
-                      size={20}
-                      style={{ fontWeight: "bold", marginTop: 1, padding: 1 }}
-                      color="#226ccf"
-                    />
-                    <Text
-                      style={[
-                        styles.modalText,
-                        { fontWeight: "bold", color: "#226ccf" },
-                      ]}
-                    >
-                      Add Address
-                    </Text>
-                  </TouchableOpacity>
+                    <Icon name="add-sharp" size={20} color="#226ccf" />
+                    Add Address
+                  </Text>
                 ) : null}
               </View>
-            </View>
+            </TouchableOpacity>
           </Modal>
         </View>
 
         <View>
-          <TouchableOpacity
-            style={{ flexDirection: "row" }}
-            onPress={this.setModalVisible}
-          >
-            <Text style={{ fontSize: 16 }}>DELIVER TO</Text>
-            <Icon name="chevron-down-outline" size={20} />
-          </TouchableOpacity>
-
+          <Text onPress={this.setModalVisible}>
+            DELIVER TO <Icon name="chevron-down-outline" size={18} />
+          </Text>
           <Text
             style={{
-              fontWeight: "bold",
-              color: "#979797",
-              top: -4,
+              top: -2,
               textTransform: "capitalize",
+              fontWeight: "bold",
             }}
           >
             {this.state.address}
@@ -137,43 +129,3 @@ export default class DeliveryOptions extends Component {
     );
   }
 }
-const styles = StyleSheet.create({
-  sortView: {
-    flex: 1,
-    position: "absolute",
-    top: 20,
-    width: 220,
-    left: 4,
-  },
-  buttonClose: {
-    height: 30,
-    width: 30,
-    backgroundColor: "#fff",
-    borderRadius: 15,
-    position: "absolute",
-    right: -5,
-    top: -5,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  modalView: {
-    backgroundColor: "white",
-    borderBottomLeftRadius: 6,
-    borderBottomRightRadius: 6,
-    padding: 4,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 4,
-  },
-  modalText: {
-    padding: 4,
-    fontWeight: "bold",
-    textTransform: "capitalize",
-  },
-});

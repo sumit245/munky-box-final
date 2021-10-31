@@ -32,11 +32,8 @@
     "react-native-countdown-component": "^2.7.1",
     "react-native-credit-card-input": "^0.4.1",
     "react-native-elements": "^2.3.2",
-    "react-native-geocoding": "^0.4.0",
-    "react-native-geolocation-service": "^5.0.0",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-maps": "0.27.1",
-    "react-native-modal-dropdown": "^1.0.0",
     "react-native-otp-textinput": "0.0.8",
     "react-native-paper": "^4.2.0",
     "react-native-parallax-scroll-view": "^0.21.3",
@@ -45,14 +42,9 @@
     "react-native-router-flux": "^4.3.1",
     "react-native-screens": "^3.6.0",
     "react-native-simple-gauge": "^0.3.1",
-    "react-native-stripe-checkout": "0.0.15",
     "react-native-tab-view": "^2.15.2",
     "react-native-vector-icons": "^7.1.0",
-    "react-native-wallet-interface": "0.0.34",
-    "react-native-web": "^0.15.6",
-    "react-native-webview": "^11.4.2",
-    "react-phone-number-input": "^3.1.18",
-    "react-stripe-checkout": "^2.6.3"
+    "react-native-webview": "^11.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6"

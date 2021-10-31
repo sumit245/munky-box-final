@@ -1,92 +1,57 @@
 import axios from "axios";
-import React, { Component } from "react";
-import { SafeAreaView } from "react-native";
-import { StyleSheet, View, Text, FlatList } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, FlatList } from "react-native";
 import { getUser } from "../../services/user/getuser";
-import ItemCard from "./ItemCard";
-
+import ItemCard from "./home/ItemCard";
+import Loader from "./utility/Loader";
+import { commonStyles } from "../styles/commonstyles";
 const renderItem = ({ item, index }) => (
   <ItemCard key={index} index={index} item={item} isFavorite={true} />
 );
-export default class Favouite extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      restaurant: [],
-      isFavorite: true,
-      isFetching: false,
-      badgeNumber: 3,
-    };
-  }
-  _getFavoriteData = () => {
-    getUser("user").then((res) => {
-      let id = res.data._id;
-      axios
-        .get("http://munkybox-admin.herokuapp.com/api/users/getfavorite/" + id)
-        .then((response) => {
-          let numRest = response.data.data;
-          numRest = numRest.length;
-          this.setState({
-            restaurant: response.data.data,
-            badgeNumber: numRest,
-          });
-          return numRest;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    });
-    this.setState({ isFetching: false });
+export default function Favourite() {
+  const [isFetching, setFetching] = useState(true);
+  const [restaurant, setRestaurant] = useState([]);
+  const _getFavoriteData = async () => {
+    const users = await getUser("user");
+    const { _id } = users.data;
+    const favoriteResponse = await axios.get(
+      "https://munkybox-admin.herokuapp.com/api/users/getfavorite/" + _id
+    );
+    const favorites = favoriteResponse.data.data;
+    setRestaurant(favorites);
+    setFetching(false);
   };
-  onRefresh() {
-    this.setState({ isFetching: true }, () => {
-      this._getFavoriteData();
-    });
-  }
-  componentDidMount() {
-    this._getFavoriteData();
-  }
-  render() {
-    const { restaurant } = this.state;
-    if (restaurant.length < 1) {
-      return (
-        <SafeAreaView style={styles.container}>
-          <Text style={{ textAlign: "center", color: "#979797", fontSize: 14 }}>
-            Please wait a while we are fetching your favourite restaurants...{" "}
-          </Text>
-        </SafeAreaView>
-      );
-    } else {
-      return (
-        <SafeAreaView style={styles.container}>
-          <FlatList
-            contentContainerStyle={{ marginHorizontal: 2, paddingBottom: 10 }}
-            showsVerticalScrollIndicator={false}
-            ListHeaderComponent={() => (
-              <View style={{ paddingHorizontal: 10, padding: 4 }}>
-                <Text
-                  style={{ fontSize: 18, fontWeight: "bold", marginTop: 4 }}
-                >
-                  My Favorites
-                </Text>
-              </View>
-            )}
-            data={restaurant}
-            renderItem={renderItem}
-            onRefresh={() => this.onRefresh()}
-            refreshing={this.state.isFetching}
-            keyExtractor={(item) => item.id}
-          />
-        </SafeAreaView>
-      );
+  const onRefresh = () => {
+    setFetching(true);
+    _getFavoriteData();
+  };
+  useEffect(() => {
+    let componentMounted = true;
+    if (componentMounted) {
+      _getFavoriteData();
     }
+    return () => {
+      componentMounted = false;
+    };
+  });
+  if (isFetching) {
+    return (
+      <Loader msg="Please wait a while we are fetching your favourite restaurants" />
+    );
+  } else {
+    return (
+      <SafeAreaView style={commonStyles.container}>
+        <FlatList
+          contentContainerStyle={{ paddingBottom: 10 }}
+          showsVerticalScrollIndicator={false}
+          data={restaurant}
+          renderItem={renderItem}
+          onRefresh={() => onRefresh()}
+          refreshing={isFetching}
+          keyExtractor={(item) => item.id}
+        />
+      </SafeAreaView>
+    );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+// }

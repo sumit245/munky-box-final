@@ -1,16 +1,11 @@
-import  React,{ Component } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  FlatList,
-} from "react-native";
+import React, { Component, useState } from "react";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/Fontisto";
 import { Actions } from "react-native-router-flux";
 import { width } from "../../styles/HomeStyles";
 import { IconButton, RadioButton } from "react-native-paper";
 import { getUser } from "../../../services/user/getuser";
+import ManageCard from "./ManageCard";
 
 const ListEmptyContent = () => {
   return (
@@ -56,10 +51,13 @@ const cvctrimmer = (cvc) => {
 const PaymentCard = ({ item, checked, changeSelector }) => {
   let card_number = item.number;
   card_number = trimmer(card_number);
-  let trimmedState = true;
+  const [trimmedState, setTrimmedState] = useState(true);
+  // let trimmedState = true;
   let cryptcvc = "";
   if (trimmedState) {
     cryptcvc = cvctrimmer(item.cvc);
+  } else {
+    cryptcvc = item.cvc;
   }
 
   return (
@@ -133,10 +131,10 @@ const PaymentCard = ({ item, checked, changeSelector }) => {
               },
             ]}
             onPress={() => {
-              trimmedState = false;
+              setTrimmedState(!trimmedState);
             }}
           >
-            SHOW CVC
+            {trimmedState ? "SHOW CVC" : "HIDE CVC"}
           </Text>
         </View>
       </View>
@@ -173,8 +171,9 @@ export default class ListCard extends Component {
   changeSelector = (selected) => {
     if (this.props.checkout) {
       this.props.onSelectCard(selected);
-      Actions.pop()
+      Actions.pop();
     }
+    console.log(selected);
     this.setState({ checked: selected });
   };
   render() {
@@ -191,14 +190,7 @@ export default class ListCard extends Component {
           extraData={this.changeSelector}
           keyExtractor={(item) => item.number}
         />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            Actions.push("addCard", { title: "Add Card" });
-          }}
-        >
-          <Text style={styles.btnText}>ADD NEW CARD</Text>
-        </TouchableOpacity>
+        <ManageCard />
       </View>
     );
   }
