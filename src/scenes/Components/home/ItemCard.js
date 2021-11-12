@@ -161,8 +161,8 @@ export default function ItemCard({ item, isFavorite, isHome }) {
           }}
         >
           <Text style={{ textAlign: "justify", padding: 4, fontSize: 12 }}>
-            Get {discount + (discount_type || "%")} off on {plan_name} plan. Use
-            Code
+            Get {discount_type === "net" ? "$" + discount : discount + "%"} off
+            on {plan_name} plan. Use Code
             <Text style={{ fontWeight: "bold" }}> {promo_code}</Text>
           </Text>
         </View>

@@ -29,6 +29,7 @@ export default class DeliveryOptions extends Component {
     users.addresses = addresses;
     saveUser("user", JSON.stringify(users));
     this.setState({ addresses: addresses });
+    console.log(users);
   };
   async componentDidMount() {
     const users = await getUser("user");

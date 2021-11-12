@@ -2,10 +2,9 @@
   "expo": {
     "name": "foodshood",
     "slug": "foodshood",
-    "version": "1.0.97",
+    "version": "1.0.98",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
+     "splash": {   
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
