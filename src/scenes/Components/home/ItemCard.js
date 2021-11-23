@@ -56,7 +56,7 @@ export default function ItemCard({ item, isFavorite, isHome }) {
   return (
     <Card style={styles.item} key={_id}>
       <Card.Cover
-        source={{ uri: documents[1].banner_image }}
+        source={{ uri: Array.isArray(documents) && documents[1].banner_image }}
         style={styles.image}
         resizeMode="cover"
       />
@@ -81,7 +81,7 @@ export default function ItemCard({ item, isFavorite, isHome }) {
           <Avatar.Image
             size={40}
             source={{
-              uri: documents[0].restaurant_image,
+              uri: Array.isArray(documents) && documents[0].restaurant_image,
             }}
             style={{ marginRight: 4 }}
           />

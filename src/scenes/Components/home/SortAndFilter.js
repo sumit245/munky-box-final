@@ -8,7 +8,7 @@ import {
   Dimensions,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { RadioButton } from "react-native-paper";
+import { RadioButton, Badge } from "react-native-paper";
 const { width } = Dimensions.get("window");
 export default class SortAndFilter extends Component {
   state = {
@@ -17,8 +17,10 @@ export default class SortAndFilter extends Component {
     rating: "",
     meal_type: "",
     price: "",
+    filter:"type_filter",
+    selected:0
   };
-  filter_name = React.createRef();
+  filter_name = React.createRef("meal_type");
 
   setsortVisible = (visible) => {
     this.setState({ sortVisible: visible });
@@ -141,9 +143,7 @@ export default class SortAndFilter extends Component {
                         <RadioButton.Item label="High to Low" value="h2l" />
                         <RadioButton.Item label="Low to High" value="l2h" />
                       </RadioButton.Group>
-                    ) : (
-                      <Text>More Filters Coming Soon...</Text>
-                    )}
+                    ):null}
                   </View>
                 </View>
               </View>
@@ -167,6 +167,9 @@ export default class SortAndFilter extends Component {
           style={{ flexDirection: "row" }}
         >
           <Icon name="ios-options-outline" size={22} />
+          {/* <Badge size={16} style={{ fontWeight: "bold", left: -8, top: -8,backgroundColor:"red" }}>
+            1
+          </Badge> */}
         </TouchableOpacity>
       </>
     );

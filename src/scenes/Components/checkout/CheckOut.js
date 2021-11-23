@@ -40,6 +40,7 @@ export default function CheckOut({
     meal_type: meal_type,
     category: category,
     user: {},
+    address: {},
     plan: plan,
     price: price,
     tip: 0,
@@ -50,6 +51,7 @@ export default function CheckOut({
     total: 0,
     promo_code: "",
   });
+
   const [isKeyboardOn, setKeyboardOn] = useState(false);
 
   const dateHandler = (startDate, endDate) => {
@@ -77,7 +79,11 @@ export default function CheckOut({
     setState({ ...state, card: card });
   };
   const addressHandler = (address) => {
-    setState({ ...state, address: address });
+    let { addresses } = state.user;
+    let currentAddress = addresses.filter(
+      (item) => item.address_type === address
+    );
+    setState({ ...state, address: currentAddress[0] });
   };
   const totalHandler = (total, delivery_fee, service_fee, taxes) => {
     setState({
@@ -141,8 +147,9 @@ export default function CheckOut({
   const fetchUser = async () => {
     const response = await getUser("user");
     const user = await response.data;
+    const { addresses } = user;
     if (user !== null) {
-      setState({ ...state, user: user, loading: false });
+      setState({ ...state, user: user, loading: false, address: addresses[0] });
     } else {
       alert("Please login or register to proceed");
       Actions.jump("auth");
@@ -154,13 +161,13 @@ export default function CheckOut({
   const keyboardHidden = () => {
     Keyboard.addListener("keyboardDidHide", () => setKeyboardOn(false));
   };
+
   useEffect(() => {
     let componentMounted = true;
     if (componentMounted) {
       fetchUser();
       keyboardShown();
       keyboardHidden();
-      console.log(promo);
     }
     return () => {
       componentMounted = false;
@@ -216,7 +223,11 @@ export default function CheckOut({
 
         <PlanDuration plan={plan} dateHandler={dateHandler} />
         <DeliverySlots category={category} slotHandler={slotHandler} />
-        <CheckoutAddress addressHandler={addressHandler} user={state.user} />
+        <CheckoutAddress
+          addressHandler={addressHandler}
+          user={state.user}
+          selected={state.address}
+        />
         <CheckoutCards cardHandler={cardHandler} user={state.user} />
         <DeliveryNotes noteHandler={noteHandler} />
         <TipOption tipHandler={tipHandler} />

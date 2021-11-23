@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, StatusBarIOS, StatusBar } from "react-native";
 export const { width, height } = Dimensions.get("window");
 export const styles = StyleSheet.create({
   cuisine: {
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
   sortView: {
     flex: 1,
     position: "absolute",
-    top: 20,
+    top: StatusBar.currentHeight||20,
     width: 220,
     left: 4,
   },

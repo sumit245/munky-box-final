@@ -66,7 +66,7 @@ export default function ResultDetails({ item, promo }) {
         >
           {rating || "5" + "/5 | "}
           <Text style={{ color: "#000", textDecorationLine: "underline" }}>
-            Reviews (0)
+           {" "} Reviews (0)
           </Text>
         </Text>
       </TouchableOpacity>

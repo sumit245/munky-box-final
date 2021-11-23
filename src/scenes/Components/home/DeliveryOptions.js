@@ -26,10 +26,9 @@ export default class DeliveryOptions extends Component {
     addresses.sort(function (x, y) {
       return x.address_type == first ? -1 : y.address_type == first ? 1 : 0;
     });
-    users.addresses = addresses;
-    saveUser("user", JSON.stringify(users));
+    users.data.addresses = addresses;
+    await saveUser("user", JSON.stringify(users));
     this.setState({ addresses: addresses });
-    console.log(users);
   };
   async componentDidMount() {
     const users = await getUser("user");

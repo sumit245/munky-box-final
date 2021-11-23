@@ -14,11 +14,11 @@ const trimmer = (word) => {
 export default function CheckoutCards({ cardHandler, user }) {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     let componentMounted = true;
     if (componentMounted) {
       setCards(user.cards[0]);
-      console.log(user.cards[0]);
       cardHandler(user.cards[0]);
       setLoading(false);
     }
@@ -26,6 +26,7 @@ export default function CheckoutCards({ cardHandler, user }) {
       componentMounted = false;
     };
   }, []);
+
   const _nextAction = () => {
     Actions.push("manageCards", {
       title: "Select Card",
@@ -33,11 +34,13 @@ export default function CheckoutCards({ cardHandler, user }) {
       onSelectCard: onSelectCard,
     });
   };
+
   const onSelectCard = (card) => {
     cardHandler(card);
     card = trimmer(card);
     this.setState({ card: card });
   };
+
   if (loading) {
     return (
       <TouchableOpacity style={styles.optionCard} onPress={_nextAction}>

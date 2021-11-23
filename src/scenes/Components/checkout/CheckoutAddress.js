@@ -5,20 +5,21 @@ import { Actions } from "react-native-router-flux";
 import { styles } from "../../styles/CheckoutStyles";
 import { Button } from "react-native-paper";
 
-export default function CheckoutAddress({ addressHandler, user }) {
+export default function CheckoutAddress({ addressHandler, selected }) {
   const [loading, setLoading] = useState(true);
   const [address, setAddress] = useState({});
   useEffect(() => {
     let componentMounted = true;
     if (componentMounted) {
-      setAddress(user.addresses[0]);
-      addressHandler(user.addresses[0]);
+      setAddress(selected);
+      addressHandler(selected);
       setLoading(false);
     }
     return () => {
       componentMounted = false;
     };
-  }, [address]);
+  }, [selected]);
+
   const onAddressSelect = (address) => {
     addressHandler(address);
   };
