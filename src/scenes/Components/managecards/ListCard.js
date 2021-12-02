@@ -52,7 +52,6 @@ const PaymentCard = ({ item, checked, changeSelector }) => {
   let card_number = item.number;
   card_number = trimmer(card_number);
   const [trimmedState, setTrimmedState] = useState(true);
-  // let trimmedState = true;
   let cryptcvc = "";
   if (trimmedState) {
     cryptcvc = cvctrimmer(item.cvc);
@@ -89,6 +88,23 @@ const PaymentCard = ({ item, checked, changeSelector }) => {
           status={checked === item.number ? "checked" : "unchecked"}
           onPress={() => changeSelector(item.number)}
         />
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            marginHorizontal: 12,
+          }}
+        >
+          <Text
+            style={{
+              color: "#226ccf",
+              fontWeight: "bold",
+              fontSize: 12,
+            }}
+          >
+            Edit / Delete
+          </Text>
+        </View>
       </View>
       <View style={styles.cardBody}>
         <View
@@ -101,7 +117,7 @@ const PaymentCard = ({ item, checked, changeSelector }) => {
           <Text style={[styles.content, { fontWeight: "bold" }]}>
             {item.card_holder}
           </Text>
-          <Text style={styles.content}>{item.country}</Text>
+          <Text style={styles.content}>{cryptcvc || item.cvc}</Text>
         </View>
         <View
           style={{
@@ -111,15 +127,6 @@ const PaymentCard = ({ item, checked, changeSelector }) => {
           }}
         >
           <Text style={styles.content}>{item.expiry}</Text>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            width: 300,
-          }}
-        >
-          <Text style={styles.content}>{cryptcvc || item.cvc}</Text>
           <Text
             style={[
               styles.content,
@@ -127,7 +134,7 @@ const PaymentCard = ({ item, checked, changeSelector }) => {
                 color: "#226ccf",
                 textDecorationLine: "underline",
                 fontWeight: "bold",
-                fontSize: 12,
+                fontSize: 10,
               },
             ]}
             onPress={() => {
@@ -137,16 +144,6 @@ const PaymentCard = ({ item, checked, changeSelector }) => {
             {trimmedState ? "SHOW CVC" : "HIDE CVC"}
           </Text>
         </View>
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          marginHorizontal: 12,
-        }}
-      >
-        <IconButton icon="pencil" size={24} color="#226ccf" />
-        <IconButton icon="trash-can-outline" color="#cf226c" />
       </View>
     </View>
   );
@@ -173,24 +170,27 @@ export default class ListCard extends Component {
       this.props.onSelectCard(selected);
       Actions.pop();
     }
-    console.log(selected);
     this.setState({ checked: selected });
   };
   render() {
     const { cards, checked } = this.state;
     return (
       <View style={styles.container}>
-        <FlatList
-          data={cards}
-          contentContainerStyle={{ paddingBottom: 50 }}
-          renderItem={(item) => this.renderAddress(item, checked)}
-          ListEmptyComponent={() => {
-            return <ListEmptyContent />;
-          }}
-          extraData={this.changeSelector}
-          keyExtractor={(item) => item.number}
-        />
-        <ManageCard />
+        <View>
+          <FlatList
+            data={cards}
+            contentContainerStyle={{ paddingBottom: 2 }}
+            renderItem={(item) => this.renderAddress(item, checked)}
+            ListEmptyComponent={() => {
+              return <ListEmptyContent />;
+            }}
+            extraData={this.changeSelector}
+            keyExtractor={(item) => item.number}
+          />
+        </View>
+        <View>
+          <ManageCard />
+        </View>
       </View>
     );
   }
@@ -199,6 +199,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    justifyContent: "space-between",
   },
   card: {
     margin: 4,
@@ -209,6 +210,7 @@ const styles = StyleSheet.create({
   },
   cardHeader: {
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 6,
     height: 40,

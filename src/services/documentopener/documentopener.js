@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, FlatList, Image, Dimensions } from "react-native";
 
 const dataSource = [
@@ -22,14 +23,30 @@ const dataSource = [
 
 const { width, height } = Dimensions.get("window");
 export const ModalOpener = ({ modalVisible }) => {
+  const [papers, setPapers] = useState([]);
+  const fetchPapers = async (id) => {
+    const response = await axios.get(
+      "https://munkybox-admin.herokuapp.com/api/newrest/" + id
+    );
+    const restaurant = await response.data;
+    const paper = restaurant.papers;
+    setPapers(paper);
+  };
+  useEffect(() => {
+    let mount = true;
+    if (mount) {
+      fetchPapers("617f7588cac87319dce8c5df");
+    }
+    return () => {
+      mount = false;
+    };
+  }, []);
   return (
     <>
       <FlatList
         contentContainerStyle={{ marginHorizontal: 4 }}
-        ItemSeparatorComponent={() => (
-          <View style={{ width: 0.1 * width }} />
-        )}
-        data={dataSource}
+        ItemSeparatorComponent={() => <View style={{ width: 0.1 * width }} />}
+        data={papers}
         renderItem={({ item }) => (
           <View
             style={{
@@ -42,7 +59,7 @@ export const ModalOpener = ({ modalVisible }) => {
           </View>
         )}
         horizontal
-        keyExtractor={(item, index) => item.id.toString()}
+        keyExtractor={(item, index) => index}
         showsHorizontalScrollIndicator={false}
       />
     </>

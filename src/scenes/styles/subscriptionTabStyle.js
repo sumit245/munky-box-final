@@ -8,7 +8,8 @@ export const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     padding: 2,
-    alignItems: "center",
+    alignItems:"center",
+    justifyContent:"space-between",
     backgroundColor: "#FFF",
   },
   headerTitle: {
@@ -33,6 +34,8 @@ export const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     borderTopColor: "#ddd",
     borderTopWidth: 1,
+    borderBottomWidth:1,
+    borderBottomColor:"#ddd"
   },
   title: {
     marginLeft: 4,
@@ -43,7 +46,14 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     marginLeft: 4,
     fontWeight: "bold",
-    maxWidth: "90%",
+  },
+  optionCard: {
+    backgroundColor: "#fff",
+    padding: 10,
+    marginVertical: 8,
+    marginHorizontal: 1,
+    elevation: 2,
+    borderRadius: 4,
   },
   typelogo: {
     padding: 2,

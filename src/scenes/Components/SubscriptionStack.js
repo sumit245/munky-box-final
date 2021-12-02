@@ -47,7 +47,8 @@ export default function SubscriptionStack({ navigation }) {
   const getSubscriptions = async () => {
     try {
       const user = await getUser("user");
-      const { user_id } = await user.data;
+      const { data } = await user;
+      const { user_id } = data;
       const response = await axios.get(MY_ORDER_URL + user_id);
       const myorder = await response.data;
       const {
@@ -60,7 +61,8 @@ export default function SubscriptionStack({ navigation }) {
         restaurant_id,
       } = myorder[0];
       const restaurantorders = await axios.get(
-        "https://munkybox-admin.herokuapp.com/api/newrest/getorders/" + restaurant_id
+        "https://munkybox-admin.herokuapp.com/api/newrest/getorders/" +
+          restaurant_id
       );
       const { meals } = await restaurantorders.data;
       let addOns = [];
@@ -111,22 +113,25 @@ export default function SubscriptionStack({ navigation }) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <Icon
-            name="chevron-back"
-            size={28}
-            onPress={() => navigation.goBack()}
-          />
-          <View>
-            <Text style={styles.headerTitle}>
-              {state.plan === "twoPlan"
-                ? "2 Meals"
-                : state.plan === "fifteenPlan"
-                ? "15 Meals"
-                : "30 Meals"}{" "}
-              Subscription
-            </Text>
-            <Text style={styles.headersubtitle}>by {state.restaurant}</Text>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Icon
+              name="chevron-back"
+              size={28}
+              onPress={() => navigation.goBack()}
+            />
+            <View>
+              <Text style={styles.headerTitle}>
+                {state.plan === "twoPlan"
+                  ? "2 Meals"
+                  : state.plan === "fifteenPlan"
+                  ? "15 Meals"
+                  : "30 Meals"}{" "}
+                Subscription
+              </Text>
+              <Text style={styles.headersubtitle}>by {state.restaurant}</Text>
+            </View>
           </View>
+          <Text style={{ color: "#22cccf", fontWeight: "bold" }}>NEXT</Text>
         </View>
         <ScrollView>
           <View style={styles.tabContainer}>
@@ -146,27 +151,38 @@ export default function SubscriptionStack({ navigation }) {
             </View>
           </View>
           <View
-            style={{ marginHorizontal: 2, backgroundColor: "#FFF", padding: 6 }}
+            style={{
+              marginHorizontal: 2,
+              backgroundColor: "#FFF",
+              padding: 6,
+              flex: 1,
+              justifyContent: "space-between",
+            }}
           >
-            <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-              Upcoming Meal
-            </Text>
-            <Text>Today, {moment().format("DD MMM")}</Text>
-            <MealList meals={state.meals} day={day} />
-            <Text style={styles.timing}>{state.time}</Text>
-            <Text style={styles.address}>
-              <Text style={{ textTransform: "capitalize" }}>
-                {state.address_type}
+            <View style={styles.optionCard}>
+              <Text style={{ fontWeight: "bold", fontSize: 16 }}>
+                Upcoming Meal
               </Text>
-              {" | " +
-                state.flat_num +
-                ", " +
-                state.locality +
-                ", " +
-                state.city +
-                "-" +
-                state.postal_code}
-            </Text>
+              <Text>Today, {moment().format("DD MMM")}</Text>
+              <MealList meals={state.meals} day={day} />
+            </View>
+            <View style={styles.optionCard}>
+              <Text style={styles.timing}>{state.time}</Text>
+              <Text style={styles.address}>
+                <Text style={{ textTransform: "capitalize" }}>
+                  {state.address_type}
+                </Text>
+                {" | " +
+                  state.flat_num +
+                  ", " +
+                  state.locality +
+                  ", " +
+                  state.city +
+                  "-" +
+                  state.postal_code}
+              </Text>
+            </View>
+
             {state.plan !== "twoPlan" && (
               <View
                 style={{
@@ -193,59 +209,65 @@ export default function SubscriptionStack({ navigation }) {
                 </TouchableOpacity>
               </View>
             )}
-            <AddOns extras={extras} day={day} />
+
+            <View style={styles.optionCard}>
+              <AddOns extras={extras} day={day} />
+            </View>
 
             <Text style={{ marginTop: 8 }}>
               You can swap or skip this meal till {state.skipableTime} AM
             </Text>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: "bold",
-                marginTop: 8,
-              }}
-            >
-              Future Meals
-            </Text>
-            <CalenderStrip
-              daySelectionAnimation={{
-                type: "background",
-                duration: 50,
-                highlightColor: "red",
-              }}
-              dayContainerStyle={{
-                height: 40,
-                width: 40,
-                borderRadius: 4,
-              }}
-              style={{
-                height: 40,
-                width: width - 20,
-              }}
-              responsiveSizingOffset={1}
-              shouldAllowFontScaling={false}
-              showDayName={true}
-              showDayNumber={false}
-              startingDate={0}
-              selectedDate={Date.now()}
-              highlightDateNumberStyle={{ color: "white" }}
-              highlightDateNameStyle={{
-                color: "white",
-                fontSize: 14,
-                fontWeight: "bold",
-              }}
-              dateNameStyle={{
-                fontSize: 12,
-                color: "#000",
-                fontWeight: "bold",
-              }}
-              disabledDateNameStyle={{ color: "grey" }}
-              showMonth={false}
-              scrollable={false}
-              leftSelector={[]}
-              rightSelector={[]}
-              onDateSelected={(date) => onDateSelected(date)}
-            />
+
+            <View>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: "bold",
+                  marginTop: 8,
+                }}
+              >
+                Future Meals
+              </Text>
+              <CalenderStrip
+                daySelectionAnimation={{
+                  type: "background",
+                  duration: 50,
+                  highlightColor: "red",
+                }}
+                dayContainerStyle={{
+                  height: 40,
+                  width: 40,
+                  borderRadius: 4,
+                }}
+                style={{
+                  height: 40,
+                  width: width - 20,
+                }}
+                responsiveSizingOffset={1}
+                shouldAllowFontScaling={false}
+                showDayName={true}
+                showDayNumber={false}
+                startingDate={0}
+                selectedDate={Date.now()}
+                highlightDateNumberStyle={{ color: "white" }}
+                highlightDateNameStyle={{
+                  color: "white",
+                  fontSize: 14,
+                  fontWeight: "bold",
+                }}
+                dateNameStyle={{
+                  fontSize: 12,
+                  color: "#000",
+                  fontWeight: "bold",
+                }}
+                disabledDateNameStyle={{ color: "grey" }}
+                showMonth={false}
+                scrollable={false}
+                leftSelector={[]}
+                rightSelector={[]}
+                onDateSelected={(date) => onDateSelected(date)}
+              />
+            </View>
           </View>
         </ScrollView>
       </SafeAreaView>

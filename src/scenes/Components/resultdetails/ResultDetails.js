@@ -51,7 +51,7 @@ export default function ResultDetails({ item, promo }) {
         height={avatarSize}
         width={avatarSize}
       />
-      <Text style={styles.chefName}>{restaurant_name}</Text>
+      
       <TouchableOpacity
         onPress={() => Actions.push("reviews")}
         style={styles.ratingAndReviews}

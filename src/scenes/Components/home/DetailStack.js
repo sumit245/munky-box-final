@@ -90,14 +90,16 @@ export default class DetailStack extends Component {
     const { _id } = await users.data;
     const userResponse = await axios.get(USER_URL + _id);
     const { favorite } = await userResponse.data;
-    console.log(favorite);
     this.setState({ favCount: favorite.length });
   };
   async componentDidMount() {
+    console.log("Nothi");
     const cuisineResponse = await axios.get(CUISINE_URL);
+    console.log("error");
     const cuisine = await cuisineResponse.data;
     const restaurantResponse = await axios.get(RESTAURANT_URL);
     const restaurant = await restaurantResponse.data;
+    console.log(restaurant);
     this.getFavoriteCount();
     this.setState({ restaurant: restaurant, cuisine: cuisine, loading: false });
   }
@@ -124,6 +126,7 @@ export default class DetailStack extends Component {
     });
     const response = await axios.get(RESTAURANT_URL);
     const restaurant = await response.data;
+    console.log(restaurant);
     this.setState({ restaurant: restaurant, loading: false });
   };
 

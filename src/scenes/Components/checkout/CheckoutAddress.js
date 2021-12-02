@@ -11,8 +11,8 @@ export default function CheckoutAddress({ addressHandler, selected }) {
   useEffect(() => {
     let componentMounted = true;
     if (componentMounted) {
+      setLoading(true);
       setAddress(selected);
-      addressHandler(selected);
       setLoading(false);
     }
     return () => {
@@ -20,8 +20,10 @@ export default function CheckoutAddress({ addressHandler, selected }) {
     };
   }, [selected]);
 
-  const onAddressSelect = (address) => {
-    addressHandler(address);
+  const onAddressSelect = async (address) => {
+    setLoading(true);
+    await addressHandler(address);
+    setLoading(false);
   };
   const _nextAction = () => {
     Actions.push("listAddress", {

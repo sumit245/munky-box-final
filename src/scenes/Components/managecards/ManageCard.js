@@ -78,17 +78,15 @@ export default class ManageCard extends Component {
     // }
   };
   render() {
-    const { cards, message, selected } = this.state;
+    
     return (
-      // <KeyboardAvoidingView
-      //   behavior={Platform.OS === "ios" ? "padding" : "height"}
-      // >
-      <>
+      <View style={{marginBottom:6}}>
         <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
             marginHorizontal: 8,
+            marginVertical:4
           }}
         >
           <Text
@@ -131,8 +129,7 @@ export default class ManageCard extends Component {
             onChangeText={this._onChangeText("card_holder")}
           />
         </View>
-      </>
-      // </KeyboardAvoidingView>
+      </View>
     );
   }
 }

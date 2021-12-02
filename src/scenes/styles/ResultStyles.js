@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
   },
   ratingAndReviews: {
     alignItems: "center",
-    marginBottom: 4,
+    marginVertical: 8,
     justifyContent: "center",
     flexDirection: "row",
   },

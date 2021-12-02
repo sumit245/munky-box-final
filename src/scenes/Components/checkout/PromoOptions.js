@@ -15,6 +15,7 @@ export default class PromoOptions extends Component {
       error: false,
       discount: "",
       pulled: false,
+      applied: false,
     };
   }
   search = (promo, coupon) => {
@@ -38,15 +39,18 @@ export default class PromoOptions extends Component {
   getCoupon = async () => {
     const response = await axios.get(COUPON_URL);
     const coupon = await response.data;
-    console.log(promo);
     this.setState({ coupons: coupon });
   };
   componentDidMount() {
-    // this.getCoupon();
+    this.getCoupon();
   }
+  applyCoupon = () => {
+    this.setState({ applied: true });
+    this.props.couponHandler(coupons.promo_code, coupons.discount);
+  };
 
   render() {
-    const { error, discount, pulled } = this.state;
+    const { error, discount, pulled, applied } = this.state;
     const { coupons } = this.props;
     return (
       <View style={styles.optionCard}>
@@ -99,15 +103,8 @@ export default class PromoOptions extends Component {
                     {coupons.promo_code}
                   </Text>
                 </Text>
-                <Button
-                  mode="text"
-                  color="#f74"
-                  onPress={()=>this.props.couponHandler(
-                    coupons.promo_code,
-                    coupons.discount
-                  )}
-                >
-                  APPLY
+                <Button mode="text" color="#f74" onPress={this.applyCoupon}>
+                  {applied ? "APPLIED" : "APPLY"}
                 </Button>
               </View>
             ) : (

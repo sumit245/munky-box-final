@@ -11,21 +11,20 @@ const trimmer = (word) => {
   }
   return word;
 };
-export default function CheckoutCards({ cardHandler, user }) {
+export default function CheckoutCards({ cardHandler, user, selected }) {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     let componentMounted = true;
     if (componentMounted) {
-      setCards(user.cards[0]);
-      cardHandler(user.cards[0]);
+      setCards(selected);
       setLoading(false);
     }
     return () => {
       componentMounted = false;
     };
-  }, []);
+  }, [selected]);
 
   const _nextAction = () => {
     Actions.push("manageCards", {
@@ -37,8 +36,6 @@ export default function CheckoutCards({ cardHandler, user }) {
 
   const onSelectCard = (card) => {
     cardHandler(card);
-    card = trimmer(card);
-    this.setState({ card: card });
   };
 
   if (loading) {
@@ -68,7 +65,11 @@ export default function CheckoutCards({ cardHandler, user }) {
                 justifyContent: "center",
               }}
             >
-              <Icon name={brand} size={26} color="#777" />
+              <Icon
+                name={brand === "master-card" ? "mastercard" :  brand}
+                size={26}
+                color="#777"
+              />
             </View>
             <View>
               <Text style={styles.optionsLabels}>{trimmer(number)}</Text>

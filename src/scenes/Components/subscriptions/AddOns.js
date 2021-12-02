@@ -38,7 +38,6 @@ const AddOnComponent = ({ item, index, day }) => {
     setQty(qty + 1);
   };
   if (add_on !== "") {
-    console.log(add_on);
     return (
       <View
         style={{

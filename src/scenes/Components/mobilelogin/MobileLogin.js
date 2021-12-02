@@ -205,10 +205,13 @@ export default class MobileLogin extends Component {
               containerStyle={styles.btnOTP}
               textContainerStyle={{
                 borderColor: "#fff",
-                height: 48,
-                textAlignVertical: "top",
+                height:48,
+                
+                padding:0,
                 borderRadius: 5,
               }}
+              textInputStyle={{fontSize:18,marginTop:-6}}
+              codeTextStyle={{marginTop:-6}}
               onChangeFormattedText={(phoneNumber) =>
                 this.setState({ phoneNumber: phoneNumber })
               }

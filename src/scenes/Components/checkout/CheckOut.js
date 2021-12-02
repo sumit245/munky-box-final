@@ -76,7 +76,10 @@ export default function CheckOut({
     setState({ ...state, time: delivery_slot.slot_time });
   };
   const cardHandler = (card) => {
-    setState({ ...state, card: card });
+    let { cards } = state.user;
+    let currentCard = cards.filter((item) => item.number === card);
+    console.log(currentCard[0]);
+    setState({ ...state, card: currentCard[0] });
   };
   const addressHandler = (address) => {
     let { addresses } = state.user;
@@ -147,9 +150,16 @@ export default function CheckOut({
   const fetchUser = async () => {
     const response = await getUser("user");
     const user = await response.data;
-    const { addresses } = user;
+    const { addresses, cards } = user;
+
     if (user !== null) {
-      setState({ ...state, user: user, loading: false, address: addresses[0] });
+      setState({
+        ...state,
+        user: user,
+        loading: false,
+        address: addresses[0],
+        card: cards[0],
+      });
     } else {
       alert("Please login or register to proceed");
       Actions.jump("auth");
@@ -228,7 +238,11 @@ export default function CheckOut({
           user={state.user}
           selected={state.address}
         />
-        <CheckoutCards cardHandler={cardHandler} user={state.user} />
+        <CheckoutCards
+          cardHandler={cardHandler}
+          user={state.user}
+          selected={state.card}
+        />
         <DeliveryNotes noteHandler={noteHandler} />
         <TipOption tipHandler={tipHandler} />
         <PromoOptions couponHandler={couponHandler} coupons={promo} />
