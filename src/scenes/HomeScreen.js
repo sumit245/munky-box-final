@@ -1,0 +1,63 @@
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import Icon from "react-native-vector-icons/Ionicons";
+import DetailStack from "./Components/home/DetailStack";
+import AccountStack from "./Components/AccountStack";
+import SubscriptionStack from "./Components/SubscriptionStack";
+import Favouite from "./Components/Favouite";
+import { getUser } from "../services/user/getuser";
+
+const Tab = createMaterialBottomTabNavigator();
+
+export default function HomeScreen({ navigation }) {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName="Meals"
+        activeColor="#28b5b5"
+        inactiveColor="#4b778d"
+        labeled={false}
+        barStyle={{ backgroundColor: "white", justifyContent: "flex-start" }}
+      >
+        <Tab.Screen
+          name="Meals"
+          component={DetailStack}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Icon name="ios-home-outline" color={color} size={24} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Favorite"
+          component={Favouite}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Icon name="gift-outline" color={color} size={24} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Subscriptions"
+          initialParams={navigation}
+          component={SubscriptionStack}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Icon name="md-duplicate-outline" color={color} size={24} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Account"
+          component={AccountStack}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Icon name="person-circle-outline" color={color} size={24} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
