@@ -124,12 +124,12 @@ const AddOnComponent = ({ item, index, day, addons }) => {
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
             alignItems: "center",
             marginHorizontal:4
           }}
         >
-          <Text style={{ fontSize: 16, fontWeight: "bold", color: "#000" }}>
+          <Text style={{ fontSize: 16, fontWeight: "bold", color: "#000",marginRight:4 }}>
             $0
           </Text>
 
