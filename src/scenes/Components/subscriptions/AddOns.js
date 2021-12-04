@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 import { IconButton } from "react-native-paper";
 import { Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -13,15 +13,16 @@ const days = [
   "Friday",
   "Saturday",
 ];
-const AddOnComponent = ({ item, index, day }) => {
+const AddOnComponent = ({ item, index, day, addons }) => {
   const [selectedDay, setSelectedDay] = useState("");
   const [addOn, setAddOn] = useState({});
+  const [myaddons, setMyAddOns] = useState([]);
   const [qty, setQty] = useState(0);
   useEffect(() => {
     let componentMounted = true;
     if (item.day === days[day]) {
       setSelectedDay(days[day]);
-      console.log(item.add_on);
+      setMyAddOns(addons);
       setAddOn(item.add_on[0]);
     }
     return () => {
@@ -42,62 +43,107 @@ const AddOnComponent = ({ item, index, day }) => {
       <View
         style={{
           marginTop: 8,
-          justifyContent: "space-between",
-          flexDirection: "row",
-          alignItems: "center",
-          width: width - 20,
+          width: width - 40,
           marginHorizontal: 2,
+          backgroundColor: "#fcfcfc",
         }}
         key={index}
       >
-        <View>
-          <Text style={{ fontWeight: "bold" }}>Add Extra</Text>
-          <Text style={{ fontWeight: "bold", fontSize: 12 }}>{add_on}</Text>
-          <Text style={{ fontSize: 12 }}>{"$" + add_on_price + "/-"}</Text>
-        </View>
+        <Text style={{ fontWeight: "bold", marginBottom: 4, fontSize: 14 }}>
+          Add Extra
+        </Text>
+        {myaddons.map((data, key) => (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+              backgroundColor: "#fff",
+              height: 80,
+              borderBottomColor: "#777",
+              marginVertical: 2,
+              borderBottomWidth: 0.5,
+            }}
+            key={key}
+          >
+            <View>
+              <Image
+                source={{ uri: data.add_on_image }}
+                style={{ width: 40, height: 40, borderRadius: 4 }}
+              />
+              <Text style={{ fontWeight: "bold", fontSize: 12 }}>
+                {data.add_on}
+              </Text>
+              <Text style={{ fontSize: 12 }}>
+                {"$" + data.add_on_price + "/-"}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <IconButton
+                icon="minus"
+                size={18}
+                style={{
+                  borderColor: "#ddd",
+                  borderWidth: 0.2,
+                  borderRadius: 2,
+                }}
+                onPress={decrement}
+                disabled={qty === 0}
+              />
+
+              <Text style={{ fontWeight: "bold" }}>{qty}</Text>
+              <IconButton
+                icon="plus"
+                size={18}
+                style={{
+                  borderColor: "#ddd",
+                  borderWidth: 0.2,
+                  borderRadius: 2,
+                }}
+                onPress={increment}
+              />
+            </View>
+
+            <Text
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+                fontSize: 12,
+              }}
+            >
+              ${parseInt(qty) * parseFloat(data.add_on_price)}
+            </Text>
+          </View>
+        ))}
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
             alignItems: "center",
+            marginHorizontal:4
           }}
         >
-          <IconButton
-            icon="minus"
-            size={18}
-            style={{ borderColor: "#ddd", borderWidth: 0.2, borderRadius: 2 }}
-            onPress={decrement}
-            disabled={qty === 0}
-          />
+          <Text style={{ fontSize: 16, fontWeight: "bold", color: "#000",marginRight:4 }}>
+            $0
+          </Text>
 
-          <Text style={{ fontWeight: "bold" }}>{qty}</Text>
-          <IconButton
-            icon="plus"
-            size={18}
-            style={{ borderColor: "#ddd", borderWidth: 0.2, borderRadius: 2 }}
-            onPress={increment}
-          />
-        </View>
-        <View>
-          <Text
-            style={{ fontWeight: "bold", textAlign: "center", fontSize: 12 }}
+          <TouchableOpacity
+            onPress={() => Actions.push("wallet", { title: "My Wallet" })}
+            disabled={qty === 0}
           >
-            Total
-          </Text>
-          <Text
-            style={{ textAlign: "center", fontWeight: "bold", fontSize: 12 }}
-          >
-            {parseInt(qty) * parseFloat(add_on_price)}
-          </Text>
+            <Text
+              style={{ fontSize: 16, fontWeight: "bold", color: "#226ccf" }}
+            >
+              Pay
+            </Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          onPress={() => Actions.push("wallet", { title: "My Wallet" })}
-          disabled={qty === 0}
-        >
-          <Text style={{ fontSize: 12, fontWeight: "bold", color: "#226ccf" }}>
-            Pay
-          </Text>
-        </TouchableOpacity>
       </View>
     );
   } else {
@@ -136,7 +182,7 @@ export default function AddOns({ extras, day }) {
   }, [day]);
   const flatref = useRef(0);
   const renderItem = ({ item, index }) => (
-    <AddOnComponent item={item} index={index} day={day} add_on={item.add_on} />
+    <AddOnComponent item={item} index={index} day={day} addons={item.add_on} />
   );
   return (
     <FlatList

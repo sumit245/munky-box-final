@@ -46,6 +46,8 @@ export default class PromoOptions extends Component {
   }
   applyCoupon = () => {
     this.setState({ applied: true });
+    const {coupons}=this.props;
+    console.log(coupons);
     this.props.couponHandler(coupons.promo_code, coupons.discount);
   };
 
