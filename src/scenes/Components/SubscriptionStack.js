@@ -211,7 +211,7 @@ export default function SubscriptionStack({ navigation }) {
             )}
 
             <View style={styles.optionCard}>
-              <AddOns extras={extras} day={day} />
+              <AddOns extras={extras} day={1} />
             </View>
 
             <Text style={{ marginTop: 8 }}>

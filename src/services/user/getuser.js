@@ -5,14 +5,14 @@ export const getUser = async (key) => {
         const jsonValue = await AsyncStorage.getItem(key)
         return jsonValue !== null ? JSON.parse(jsonValue) : null;
     } catch (e) {
-        console.log(e)
+        alert(e)
     }
 }
 export const removeUser = async (key) => {
     try {
         await AsyncStorage.removeItem(key)
     } catch (e) {
-        console.log('you are not logged in')
+        alert('you are not logged in')
     }
 }
 export const clearAll = async () => {
@@ -26,6 +26,6 @@ export const saveUser = async (key, value) => {
     try {
         await AsyncStorage.setItem(key, value);
     } catch (e) {
-        console.log(e);
+        alert(e);
     }
 };

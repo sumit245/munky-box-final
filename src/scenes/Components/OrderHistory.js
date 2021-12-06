@@ -15,7 +15,6 @@ export default class OrderHistory extends Component {
     try {
       const user = await getUser("user");
       const { user_id } = await user.data;
-      console.log(user_id);
       const response = await axios.get(MY_ORDER_URL + user_id);
       const myorder = await response.data;
       this.setState({ myOrders: myorder });

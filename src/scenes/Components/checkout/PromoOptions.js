@@ -46,7 +46,15 @@ export default class PromoOptions extends Component {
   }
   applyCoupon = () => {
     this.setState({ applied: true });
+<<<<<<< HEAD
+    const { coupons } = this.props;
+=======
     const {coupons}=this.props;
+<<<<<<< HEAD
+=======
+    console.log(coupons);
+>>>>>>> bbde302b97afb77029cf3736e7ca69230a859f2d
+>>>>>>> d4e5641314f1e1928d254780645f8cb9f497967a
     this.props.couponHandler(coupons.promo_code, coupons.discount);
   };
 
@@ -111,21 +119,6 @@ export default class PromoOptions extends Component {
             ) : (
               <Text>No valid coupon on this order</Text>
             )}
-            {/* <TextInput
-              style={{
-                marginLeft: 24,
-                borderBottomColor: "#226ccf",
-                borderBottomWidth: 1,
-                marginVertical: 4,
-                fontSize: 16,
-              }}
-              placeholder="2X-5A-CF-12"
-              onChangeText={this.onChangeText}
-              onEndEditing={() => this.props.couponHandler(promo, discount)}
-            />
-            <Text style={{ color: error ? "red" : "#fff", fontSize: 10 }}>
-              Apply a valid promo code
-            </Text> */}
           </View>
         )}
       </View>
