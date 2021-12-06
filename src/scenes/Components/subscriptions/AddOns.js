@@ -1,44 +1,53 @@
-import React, { useEffect, useRef, useState } from "react";
-import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import { IconButton } from "react-native-paper";
 import { Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
 import { width } from "../../styles/AuthStyle";
-const days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-const AddOnComponent = ({ item, index, day, addons }) => {
-  const [selectedDay, setSelectedDay] = useState("");
-  const [addOn, setAddOn] = useState({});
+
+export default function AddOns({ extras, day }) {
   const [myaddons, setMyAddOns] = useState([]);
   const [qty, setQty] = useState(0);
+  const [subtotal, setSubtotal] = useState([]);
+  const [total, setTotal] = useState(0);
   useEffect(() => {
-    let componentMounted = true;
-    if (item.day === days[day]) {
-      setSelectedDay(days[day]);
-      setMyAddOns(addons);
-      setAddOn(item.add_on[0]);
+    let mounted = true;
+    if (mounted) {
+      setMyAddOns(extras[0].add_on);
     }
     return () => {
-      componentMounted = false;
+      mounted = false;
     };
-  }, [day]);
-  const { add_on, add_on_price } = addOn;
-  const decrement = () => {
+  }, []);
+
+  useEffect(() => {
+    let arr = []
+    myaddons.map((data,key)=>{
+      arr.push(key)
+    });
+    console.log(arr);
+  }, [myaddons]);
+
+  const calculateTotal = (key, qty, rate) => {
+    let subt = qty * rate;
+    let totls = [];
+    // totls.setSubtotal(...subtotal, totls);
+  };
+
+  const decrement = (key, rate) => {
+    console.log("Row: ", key, "Rate:", rate);
     if (qty > 0) {
       setQty(qty - 1);
+      calculateTotal(key, qty, rate);
     }
   };
-  const increment = () => {
+
+  const increment = (key, rate) => {
+    console.log("Row: ", key, "Rate:", rate);
     setQty(qty + 1);
+    calculateTotal(key, qty, rate);
   };
-  if (add_on !== "") {
+  if (myaddons.length >= 1) {
     return (
       <View
         style={{
@@ -47,7 +56,6 @@ const AddOnComponent = ({ item, index, day, addons }) => {
           marginHorizontal: 2,
           backgroundColor: "#fcfcfc",
         }}
-        key={index}
       >
         <Text style={{ fontWeight: "bold", marginBottom: 4, fontSize: 14 }}>
           Add Extra
@@ -74,9 +82,7 @@ const AddOnComponent = ({ item, index, day, addons }) => {
               <Text style={{ fontWeight: "bold", fontSize: 12 }}>
                 {data.add_on}
               </Text>
-              <Text style={{ fontSize: 12 }}>
-                {"$" + data.add_on_price + "/-"}
-              </Text>
+              <Text style={{ fontSize: 12 }}>{"$" + data.add_on_price}</Text>
             </View>
             <View
               style={{
@@ -93,7 +99,7 @@ const AddOnComponent = ({ item, index, day, addons }) => {
                   borderWidth: 0.2,
                   borderRadius: 2,
                 }}
-                onPress={decrement}
+                onPress={() => decrement(key, data.add_on_price)}
                 disabled={qty === 0}
               />
 
@@ -106,7 +112,7 @@ const AddOnComponent = ({ item, index, day, addons }) => {
                   borderWidth: 0.2,
                   borderRadius: 2,
                 }}
-                onPress={increment}
+                onPress={() => increment(key, data.add_on_price)}
               />
             </View>
 
@@ -117,7 +123,7 @@ const AddOnComponent = ({ item, index, day, addons }) => {
                 fontSize: 12,
               }}
             >
-              ${parseInt(qty) * parseFloat(data.add_on_price)}
+              {subtotal[key]}
             </Text>
           </View>
         ))}
@@ -126,11 +132,18 @@ const AddOnComponent = ({ item, index, day, addons }) => {
             flexDirection: "row",
             justifyContent: "flex-end",
             alignItems: "center",
-            marginHorizontal:4
+            marginHorizontal: 4,
           }}
         >
-          <Text style={{ fontSize: 16, fontWeight: "bold", color: "#000",marginRight:4 }}>
-            $0
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: "bold",
+              color: "#000",
+              marginRight: 4,
+            }}
+          >
+            ${total}
           </Text>
 
           <TouchableOpacity
@@ -157,7 +170,6 @@ const AddOnComponent = ({ item, index, day, addons }) => {
           width: width - 20,
           marginHorizontal: 2,
         }}
-        key={index}
       >
         <View>
           <Text style={{ fontWeight: "bold" }}>Add Extra</Text>
@@ -167,36 +179,4 @@ const AddOnComponent = ({ item, index, day, addons }) => {
       </View>
     );
   }
-};
-export default function AddOns({ extras, day }) {
-  useEffect(() => {
-    let componentMounted = true;
-    if (componentMounted) {
-      flatref.current.scrollToIndex({
-        index: extras.length > day ? day : null,
-      });
-    }
-    return () => {
-      componentMounted = false;
-    };
-  }, [day]);
-  const flatref = useRef(0);
-  const renderItem = ({ item, index }) => (
-    <AddOnComponent item={item} index={index} day={day} addons={item.add_on} />
-  );
-  return (
-    <FlatList
-      data={extras}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.index}
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      ref={flatref}
-      getItemLayout={(data, index) => ({
-        length: width,
-        offset: (width - 16) * index,
-        index,
-      })}
-    />
-  );
 }
