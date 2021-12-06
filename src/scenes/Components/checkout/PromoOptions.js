@@ -47,7 +47,6 @@ export default class PromoOptions extends Component {
   applyCoupon = () => {
     this.setState({ applied: true });
     const {coupons}=this.props;
-    console.log(coupons);
     this.props.couponHandler(coupons.promo_code, coupons.discount);
   };
 
@@ -97,7 +96,7 @@ export default class PromoOptions extends Component {
                 <Text
                   style={{ textAlign: "justify", padding: 4, fontSize: 12 }}
                 >
-                  Get {coupons.discount + (coupons.discount_type || "%")} off on{" "}
+                  Get {coupons.discount_type==="$"?"$"+coupons.discount:coupons.discount+"%"} off on{" "}
                   {coupons.plan_name} plan.
                   {"\n"}Use Code
                   <Text style={{ fontWeight: "bold" }}>
