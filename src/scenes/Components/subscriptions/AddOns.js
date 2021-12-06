@@ -42,16 +42,15 @@ const AddOnComponent = ({ item, index, day }) => {
       <View
         style={{
           marginTop: 8,
-          justifyContent: "space-between",
-          flexDirection: "row",
-          alignItems: "center",
           width: width - 20,
+          height:200,
           marginHorizontal: 2,
         }}
         key={index}
       >
-        <View>
+
           <Text style={{ fontWeight: "bold" }}>Add Extra</Text>
+        <View>
           <Text style={{ fontWeight: "bold", fontSize: 12 }}>{add_on}</Text>
           <Text style={{ fontSize: 12 }}>{"$" + add_on_price + "/-"}</Text>
         </View>
@@ -98,6 +97,7 @@ const AddOnComponent = ({ item, index, day }) => {
             Pay
           </Text>
         </TouchableOpacity>
+      
       </View>
     );
   } else {
