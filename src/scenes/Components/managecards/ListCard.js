@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList,ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/Fontisto";
 import { Actions } from "react-native-router-flux";
 import { width } from "../../styles/HomeStyles";
@@ -175,7 +175,7 @@ export default class ListCard extends Component {
   render() {
     const { cards, checked } = this.state;
     return (
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <View>
           <FlatList
             data={cards}
@@ -188,10 +188,10 @@ export default class ListCard extends Component {
             keyExtractor={(item) => item.number}
           />
         </View>
-        <View>
+        <View style={{marginBottom:40}}>
           <ManageCard />
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

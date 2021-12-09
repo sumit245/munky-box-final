@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Text, View } from "react-native";
 import { TextInput } from "react-native-paper";
 import { styles } from "../../styles/CheckoutStyles";
 import Icon from "react-native-vector-icons/Ionicons";
 
-export default function DeliveryNotes({ noteHandler }) {
+export default function DeliveryNotes({ noteHandler,notesprop }) {
   const [notes, setNotes] = useState("");
   const [pulled, setPulled] = useState(false);
+  useEffect(() => {
+    setNotes(notesprop)
+    
+  }, [])
   return (
     <View style={styles.optionCard}>
       <View style={styles.optionrow}>
@@ -23,6 +27,7 @@ export default function DeliveryNotes({ noteHandler }) {
           label="Notes"
           autoFocus
           dense={true}
+          value={notes}
           style={{ backgroundColor: "#fff" }}
           placeholder="Place the delivery at door"
           onChangeText={setNotes}

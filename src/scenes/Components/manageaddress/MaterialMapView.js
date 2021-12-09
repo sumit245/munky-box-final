@@ -1,4 +1,4 @@
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity, StatusBar } from "react-native";
 import MapView from "react-native-maps";
 import React, { Component } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -6,14 +6,14 @@ import {Actions} from "react-native-router-flux";
 
 function MaterialMapView(props) {
   return (
-    <View style={[styles.container, props.style]}>
+    <View style={[styles.container,props.style]}>
+      <MapView style={styles.MapView1}></MapView>
       <TouchableOpacity
-        style={{ position: "absolute", left: 4, top: 8, elevation: 2 }}
+        style={{ position: "absolute", left: 8, top:8, elevation: 2 }}
         onPress={()=>Actions.pop()}
       >
-        <Icon name="chevron-back-circle" color="#fcfcfc" size={34} />
+        <Icon name="chevron-back" color="#22ccff" size={34} />
       </TouchableOpacity>
-      <MapView style={styles.MapView1}></MapView>
     </View>
   );
 }
@@ -21,9 +21,10 @@ function MaterialMapView(props) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
+    
   },
   MapView1: {
-    flex: 1,
+  flex:1,
     backgroundColor: "rgb(230,230,230)",
   },
 });

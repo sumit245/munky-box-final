@@ -39,12 +39,14 @@ export default class ManualEntry extends Component {
       axios
         .put(ADDRESS_URL + id, { address })
         .then((res) => {
-          Actions.push("home", res.data);
+          Actions.pop({refresh:{}});
+        
         })
         .catch((err) => {
           console.log(err);
         });
     });
+    //problem inthis block:TODO
   };
   render() {
     const { style, address_type } = this.state;
@@ -150,8 +152,8 @@ export default class ManualEntry extends Component {
             flexDirection: "row",
             justifyContent: "space-between",
             marginHorizontal: 2,
-            marginVertical: 14,
-            marginTop: 28,
+            marginVertical: 24,
+            marginTop: 48,
           }}
         >
           <Chip
@@ -182,6 +184,7 @@ export default class ManualEntry extends Component {
             Others
           </Chip>
         </View>
+        <View>
 
         <TouchableOpacity
           style={styles.button}
@@ -189,9 +192,11 @@ export default class ManualEntry extends Component {
             Actions.push("home");
           }}
           onPress={this._confirmLocation}
-        >
+          >
           <Text style={styles.confirmLocation}>Save & proceed</Text>
         </TouchableOpacity>
+      
+         </View>
       </View>
     );
   }
@@ -199,7 +204,7 @@ export default class ManualEntry extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
     justifyContent: "space-between",
     borderWidth: 1,
     backgroundColor: "#FFF",
@@ -236,10 +241,13 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 0.2,
     marginHorizontal: 2,
+    bottom:-140,
+    position:"absolute",
     padding: 6,
     height: 44,
     backgroundColor: "#2962ff",
     alignItems: "center",
+    
     justifyContent: "center",
   },
   confirmLocation: {

@@ -10,9 +10,7 @@ import {
 } from "react-native";
 import MaterialMapView from "./MaterialMapView";
 import ManualEntry from "./ManualEntry";
-import { Actions } from "react-native-router-flux";
-import axios from "axios";
-import { USER_URL } from "../../../services/EndPoints";
+
 
 const { width, height } = Dimensions.get("window");
 export default class ManageAddress extends Component {
@@ -43,5 +41,6 @@ const styles = StyleSheet.create({
   materialMapView: {
     width: width,
     height: width / 1.4,
+    elevation:-2
   },
 });

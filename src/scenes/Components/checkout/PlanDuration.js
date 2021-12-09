@@ -21,11 +21,11 @@ export default class PlanDuration extends Component {
     const { plan } = this.props;
     let diff = "";
     if (plan === "twoPlan") {
-      diff = 2;
+      diff = 1;
     } else if (plan === "fifteenPlan") {
-      diff = 15;
+      diff = 14;
     } else if (plan === "thirtyPlan") {
-      diff = 30;
+      diff = 29;
     }
     var a = moment(date);
     let b = a.add(diff, "days");

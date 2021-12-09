@@ -43,6 +43,7 @@ export default function TipOption({ tipHandler }) {
           styles.tipBox,
           {
             backgroundColor: tip_amount === item.option ? "#ff7539cc" : "#FFF",
+            
           },
         ]}
         onPress={() => handler(item.option)}
@@ -99,20 +100,20 @@ export default function TipOption({ tipHandler }) {
           onEndEditing={() => tipHandler(tip_amount)}
         />
       )}
-      <View
+      {/* <View
         style={{
           flexDirection: "row",
           alignItems: "center",
           marginHorizontal: 20,
         }}
       >
-        <Checkbox
+        <Checkbox.Android
           status={isSelected ? "checked" : "unchecked"}
           onPress={() => setIsSelected(!isSelected)}
           color={isSelected ? "#df7070" : "#fff"}
         />
         <Text>Add this tip automatically to future orders</Text>
-      </View>
+      </View> */}
     </View>
   );
 }
