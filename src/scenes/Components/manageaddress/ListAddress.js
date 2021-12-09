@@ -101,7 +101,7 @@ export default class ListAddress extends Component {
 
   }
   
-  }
+  
   renderAddress = ({ item }, checked) => (
     <AddressCard
       item={item}
