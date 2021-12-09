@@ -113,7 +113,7 @@ export default class ListAddress extends Component {
     if (this.props.checkout) {
       this.props.onAddressSelect(selected);
       Actions.pop();
-    }
+    };
     this.setState({ checked: selected });
   };
   render() {
