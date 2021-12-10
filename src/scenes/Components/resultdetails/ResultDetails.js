@@ -15,6 +15,7 @@ import { avatarSize, styles } from "../../styles/ResultStyles";
 import CalenderStrip from "react-native-calendar-strip";
 import { width } from "../../styles/HomeStyles";
 import moment from "moment";
+import axios from "axios";
 
 const renderItem = ({ item, index }) => <MenuItem index={index} meals={item} />;
 
@@ -39,6 +40,15 @@ export default function ResultDetails({ item, promo }) {
       index: meals.length > day ? day : null,
     });
   };
+  const getchefbynameandupdatemenucount = async (restaurant_name) => {
+    let MENU_COUNT_URL =
+      "http://munkybox-admin.herokuapp.com/api/chefdashboard/getchefbynameandupdatemenucount/" +
+      restaurant_name;
+    const response = await axios.get(MENU_COUNT_URL);
+  };
+  useEffect(() => {
+    getchefbynameandupdatemenucount(restaurant_name);
+  }, [restaurant_name]);
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Image
@@ -51,7 +61,7 @@ export default function ResultDetails({ item, promo }) {
         height={avatarSize}
         width={avatarSize}
       />
-      
+
       <TouchableOpacity
         onPress={() => Actions.push("reviews")}
         style={styles.ratingAndReviews}
@@ -66,7 +76,8 @@ export default function ResultDetails({ item, promo }) {
         >
           {rating || "5" + "/5 | "}
           <Text style={{ color: "#000", textDecorationLine: "underline" }}>
-           {" "} Reviews (0)
+            {" "}
+            Reviews (0)
           </Text>
         </Text>
       </TouchableOpacity>

@@ -43,7 +43,7 @@ export default function CheckOut({
     user: {},
     address: {},
     plan: plan,
-    base_price:base_price,
+    base_price: base_price,
     price: price,
     tip: 0,
     discount: 0,
@@ -55,6 +55,16 @@ export default function CheckOut({
   });
 
   const [isKeyboardOn, setKeyboardOn] = useState(false);
+
+  const getchefbynameandupdatecartcount = async (restaurant) => {
+    let MENU_COUNT_URL =
+      "http://munkybox-admin.herokuapp.com/api/chefdashboard/getchefbynameandupdatecartcount/" +
+      restaurant;
+    const response = await axios.get(MENU_COUNT_URL);
+  };
+  useEffect(() => {
+    getchefbynameandupdatecartcount(restaurant);
+  }, [restaurant]);
 
   const dateHandler = (startDate, endDate) => {
     setState({ ...state, start_date: startDate, end_date: endDate });
