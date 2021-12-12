@@ -72,6 +72,22 @@ export default function BannerCarousel() {
         >
           {image.restaurant_name}
         </Text>
+        <View
+          style={{
+            borderStyle: "dashed",
+            borderWidth: 1,
+            borderColor:"#fff",
+            borderRadius: 2,
+            position:"absolute",
+            top:"60%",
+            left:"10%"
+          }}
+        >
+          <Text style={{ textAlign: "justify", padding: 4, fontSize: 12,color:"#fff" }}>
+            Get 5% off on 15 Meals. Use Code
+            <Text style={{ fontWeight: "bold",color:"#fff" }}>WELCOME20</Text>
+          </Text>
+        </View>
       </View>
     );
   };
