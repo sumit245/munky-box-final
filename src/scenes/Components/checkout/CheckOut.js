@@ -129,6 +129,7 @@ export default function CheckOut({
       time,
       category,
       meal_type,
+      promo_code
     } = state;
     const { user_id, email_id, first_name, last_name, phone } = user;
     const newOrder = {
@@ -136,6 +137,7 @@ export default function CheckOut({
       user_id: user_id,
       restaurant_id: restaurant_id,
       email_id: email_id,
+      promo_code:promo_code,
       user_name: first_name + " " + last_name,
       address,
       card: card,
