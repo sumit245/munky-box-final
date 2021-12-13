@@ -101,7 +101,7 @@ export default function BannerCarousel() {
             {image.banner.discount_type === "$"
               ? image.banner.discount_type  + image.banner.discount
               : image.banner.discount + image.banner.discount_type}{" "}
-            off on {image.banner.plan}. Use Code
+            off on {image.banner.meal_plan}. Use Code
             <Text style={{ fontWeight: "bold", color: "#fff" }}>
               {image.banner.promo_code}
             </Text>

@@ -18,18 +18,23 @@ export default function PlanChooser({
   promo,
   restaurant_id,
 }) {
-  const getPlan = (planName, price,baseprice) => {
+  const getPlan = (planName, price, baseprice) => {
     let restaurant_plans =
       planName === "twoPlan"
         ? "2 Meals"
         : planName === "fifteenPlan"
         ? "15 Meals"
         : "30 Meals";
-    let mypromo = restaurant_plans === promo.plan_name ? promo : null;
+    let mypromo =
+      restaurant_plans === promo.plan_name
+        ? promo
+        : restaurant_plans === promo.meal_plan
+        ? promo
+        : null;
     Actions.push("checkout", {
       restaurant: restaurant,
       restaurant_id: restaurant_id,
-      base_price:baseprice,
+      base_price: baseprice,
       price: price,
       plan: planName,
       documents: documents,
@@ -148,8 +153,8 @@ export default function PlanChooser({
             onPress={() =>
               getPlan(
                 "fifteenPlan",
-                parseFloat(base_15price) + parseFloat(plan.fifteenPlan)
-                ,base_15price
+                parseFloat(base_15price) + parseFloat(plan.fifteenPlan),
+                base_15price
               )
             }
             style={styles.selectoffer}
@@ -179,7 +184,8 @@ export default function PlanChooser({
             onPress={() =>
               getPlan(
                 "thirtyPlan",
-                parseFloat(base_30price) + parseFloat(plan.thirtyPlan),base_30price
+                parseFloat(base_30price) + parseFloat(plan.thirtyPlan),
+                base_30price
               )
             }
             style={styles.selectoffer}
