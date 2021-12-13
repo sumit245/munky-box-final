@@ -7,9 +7,11 @@ import {
   Dimensions,
   Text,
   LogBox,
+  TouchableOpacity,
 } from "react-native";
 import { styles } from "../styles/HomeStyles";
 import axios from "axios";
+import { Actions } from "react-native-router-flux";
 
 const { width, height } = Dimensions.get("window");
 
@@ -21,20 +23,7 @@ export default function BannerCarousel() {
       "https://munkybox-admin.herokuapp.com/api/promo/active"
     );
     const data = await response.data;
-    let promoted_restaurants = [];
-    Array.isArray(data) &&
-      data.map((restaurant, key) => {
-        let rest = {};
-        rest["restaurant_name"] = restaurant.restaurant_name;
-        rest["image"] = restaurant.documents[1].banner_image;
-        rest["promo_code"] = restaurant.promo[0].promo_code;
-        rest["plan"] = restaurant.promo[0].plan_name;
-        rest["discount_type"] = restaurant.promo[0].discount_type;
-        rest["discount"] = restaurant.promo[0]
-        promoted_restaurants.push(rest);
-        console.log(promoted_restaurants.discount);
-      });
-    setPage(promoted_restaurants);
+    setPage(data);
   };
   useEffect(() => {
     LogBox.ignoreAllLogs(true);
@@ -43,7 +32,17 @@ export default function BannerCarousel() {
 
   const renderPage = (image, index) => {
     return (
-      <View key={index} style={[styles.item, { marginBottom: 16 }]}>
+      <TouchableOpacity
+        key={index}
+        style={[styles.item, { marginBottom: 16 }]}
+        onPress={() =>
+          Actions.push("details", {
+            title: image.restaurant.restaurant_name,
+            item: image.restaurant,
+            promo: image.banner,
+          })
+        }
+      >
         <Text
           style={{
             position: "absolute",
@@ -61,7 +60,7 @@ export default function BannerCarousel() {
           style={{
             height: 120,
           }}
-          source={{ uri: image.image }}
+          source={{ uri: image.restaurant.documents[1].banner_image }}
           resizeMode="cover"
         />
         <Text
@@ -75,7 +74,7 @@ export default function BannerCarousel() {
           }}
           numberOfLines={1}
         >
-          {image.restaurant_name}
+          {image.restaurant.restaurant_name}
         </Text>
         <View
           style={{
@@ -85,8 +84,8 @@ export default function BannerCarousel() {
             borderRadius: 2,
             position: "absolute",
             top: "60%",
-            left: "10%",
-            backgroundColor:"#4444"
+            left: "26%",
+            backgroundColor: "#433",
           }}
         >
           <Text
@@ -95,20 +94,20 @@ export default function BannerCarousel() {
               padding: 4,
               fontSize: 12,
               color: "#fff",
-              fontWeight:"bold"
+              fontWeight: "bold",
             }}
           >
             Get{" "}
-            {image.discount_type === "$"
-              ? image.discount_type+" "+ image.discount
-              : image.discount + image.discount_type}{" "}
-            off on {image.plan}. Use Code
+            {image.banner.discount_type === "$"
+              ? image.banner.discount_type  + image.banner.discount
+              : image.banner.discount + image.banner.discount_type}{" "}
+            off on {image.banner.plan}. Use Code
             <Text style={{ fontWeight: "bold", color: "#fff" }}>
-              {image.promo_code}
+              {image.banner.promo_code}
             </Text>
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
