@@ -27,7 +27,12 @@ export default function BannerCarousel() {
         let rest = {};
         rest["restaurant_name"] = restaurant.restaurant_name;
         rest["image"] = restaurant.documents[1].banner_image;
+        rest["promo_code"] = restaurant.promo[0].promo_code;
+        rest["plan"] = restaurant.promo[0].plan_name;
+        rest["discount_type"] = restaurant.promo[0].discount_type;
+        rest["discount"] = restaurant.promo[0]
         promoted_restaurants.push(rest);
+        console.log(promoted_restaurants.discount);
       });
     setPage(promoted_restaurants);
   };
@@ -76,16 +81,31 @@ export default function BannerCarousel() {
           style={{
             borderStyle: "dashed",
             borderWidth: 1,
-            borderColor:"#fff",
+            borderColor: "#fff",
             borderRadius: 2,
-            position:"absolute",
-            top:"60%",
-            left:"10%"
+            position: "absolute",
+            top: "60%",
+            left: "10%",
+            backgroundColor:"#4444"
           }}
         >
-          <Text style={{ textAlign: "justify", padding: 4, fontSize: 12,color:"#fff" }}>
-            Get 5% off on 15 Meals. Use Code
-            <Text style={{ fontWeight: "bold",color:"#fff" }}>WELCOME20</Text>
+          <Text
+            style={{
+              textAlign: "justify",
+              padding: 4,
+              fontSize: 12,
+              color: "#fff",
+              fontWeight:"bold"
+            }}
+          >
+            Get{" "}
+            {image.discount_type === "$"
+              ? image.discount_type+" "+ image.discount
+              : image.discount + image.discount_type}{" "}
+            off on {image.plan}. Use Code
+            <Text style={{ fontWeight: "bold", color: "#fff" }}>
+              {image.promo_code}
+            </Text>
           </Text>
         </View>
       </View>
