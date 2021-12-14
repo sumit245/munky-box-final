@@ -46,6 +46,7 @@ export default function ResultDetails({ item, promo }) {
       restaurant_name;
     const response = await axios.get(MENU_COUNT_URL);
   };
+
   useEffect(() => {
     getchefbynameandupdatemenucount(restaurant_name);
   }, [restaurant_name]);

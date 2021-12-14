@@ -25,6 +25,17 @@ export default function BannerCarousel() {
     const data = await response.data;
     setPage(data);
   };
+  const registerClicks = async (restaurant) => {
+    const response = await axios.get(
+      "http://munkybox-admin.herokuapp.com/api/chefdashboard/getchefbyidandupdatebannercount/" +
+        restaurant.restaurant.restaurant_id
+    );
+    Actions.push("details", {
+      title: restaurant.restaurant.restaurant_name,
+      item: restaurant.restaurant,
+      promo: restaurant.banner,
+    });
+  };
   useEffect(() => {
     LogBox.ignoreAllLogs(true);
     fetchBanners();
@@ -35,13 +46,7 @@ export default function BannerCarousel() {
       <TouchableOpacity
         key={index}
         style={[styles.item, { marginBottom: 16 }]}
-        onPress={() =>
-          Actions.push("details", {
-            title: image.restaurant.restaurant_name,
-            item: image.restaurant,
-            promo: image.banner,
-          })
-        }
+        onPress={() => registerClicks(image)}
       >
         <Text
           style={{
@@ -99,7 +104,7 @@ export default function BannerCarousel() {
           >
             Get{" "}
             {image.banner.discount_type === "$"
-              ? image.banner.discount_type  + image.banner.discount
+              ? image.banner.discount_type + image.banner.discount
               : image.banner.discount + image.banner.discount_type}{" "}
             off on {image.banner.meal_plan}. Use Code
             <Text style={{ fontWeight: "bold", color: "#fff" }}>

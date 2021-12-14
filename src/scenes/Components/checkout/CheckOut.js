@@ -62,9 +62,10 @@ export default function CheckOut({
       restaurant;
     const response = await axios.get(MENU_COUNT_URL);
   };
+
   useEffect(() => {
     getchefbynameandupdatecartcount(restaurant);
-  }, [restaurant]);
+  }, []);
 
   const dateHandler = (startDate, endDate) => {
     setState({ ...state, start_date: startDate, end_date: endDate });
