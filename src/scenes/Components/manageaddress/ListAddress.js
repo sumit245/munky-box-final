@@ -4,7 +4,7 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  FlatList,
+  LayoutAnimation,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Actions } from "react-native-router-flux";
@@ -13,6 +13,11 @@ import { IconButton, RadioButton } from "react-native-paper";
 import { getUser } from "../../../services/user/getuser";
 import axios from "axios";
 import { USER_URL } from "../../../services/EndPoints";
+import {
+  SwipeableFlatList,
+  SwipeableQuickActionButton,
+  SwipeableQuickActions,
+} from "react-native-swipe-list";
 
 const ListEmptyContent = () => {
   return (
@@ -37,7 +42,7 @@ const ListEmptyContent = () => {
 };
 
 const AddressCard = ({ item, checked, changeSelector }) => (
-  <View style={styles.card}>
+  <>
     <View style={styles.cardHeader}>
       <View
         style={{
@@ -59,31 +64,15 @@ const AddressCard = ({ item, checked, changeSelector }) => (
         />
         <Text style={styles.headerText}>{item.address_type}</Text>
       </View>
-
-      <RadioButton.Android
-        value={item.address_type}
-        status={checked === item.address_type ? "checked" : "unchecked"}
-        onPress={() => changeSelector(item.address_type)}
-      />
     </View>
-    <View style={styles.cardBody}>
+    <View style={[styles.cardBody, { borderBottomWidth: 0 }]}>
       <Text style={styles.content}>{item.flat_num}</Text>
       <Text style={styles.content}>{item.locality}</Text>
       <Text style={styles.content}>{item.city}</Text>
       <Text style={styles.content}>{item.postal_code}</Text>
       <Text style={styles.content}>{item.state}</Text>
     </View>
-    <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "flex-end",
-        marginHorizontal: 12,
-      }}
-    >
-      <IconButton icon="home-edit" size={26} color="#226ccf" />
-      <IconButton icon="trash-can-outline" color="#cf226c" />
-    </View>
-  </View>
+  </>
 );
 export default class ListAddress extends Component {
   state = {
@@ -91,17 +80,15 @@ export default class ListAddress extends Component {
     checked: "home",
   };
   componentDidMount() {
-    Actions.refresh()
+    Actions.refresh();
     getUser("user").then((res) => {
       let { _id } = res.data;
       axios.get(USER_URL + _id).then((res) => {
         this.setState({ address: res.data.addresses });
       });
     });
-
   }
-  
-  
+
   renderAddress = ({ item }, checked) => (
     <AddressCard
       item={item}
@@ -113,21 +100,73 @@ export default class ListAddress extends Component {
     if (this.props.checkout) {
       this.props.onAddressSelect(selected);
       Actions.pop();
-    };
+    }
     this.setState({ checked: selected });
   };
   render() {
     const { address, checked } = this.state;
     return (
       <View style={styles.container}>
-        <FlatList
+        <SwipeableFlatList
           data={address}
           renderItem={(item) => this.renderAddress(item, checked)}
+          keyExtractor={(item) => item.address_type}
+          extraData={this.changeSelector}
           ListEmptyComponent={() => {
             return <ListEmptyContent />;
           }}
-          extraData={this.changeSelector}
-          keyExtractor={(item) => item.address_type}
+          contentContainerStyle={styles.card}
+          renderRightActions={({ item }) => (
+            <SwipeableQuickActions
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <SwipeableQuickActionButton
+                style={{ backgroundColor: "#48b4e0", padding: 8, height: 80 }}
+                textStyle={{
+                  fontSize: 18,
+                  fontWeight: "bold",
+                  color: "#fff",
+                  padding: 4,
+                }}
+                onPress={() => {}}
+                text="Edit"
+              />
+              <SwipeableQuickActionButton
+                style={{ backgroundColor: "#ff2244", padding: 8, height: 80 }}
+                textStyle={{
+                  fontSize: 18,
+                  fontWeight: "bold",
+                  color: "#fff",
+                  padding: 4,
+                }}
+                onPress={() => {
+                  LayoutAnimation.configureNext(
+                    LayoutAnimation.Presets.easeInEaseOut,
+                  );
+                  this.setState({
+                    address: address.filter(
+                      (value) => value !== item.address_type
+                    ),
+                  });
+                }}
+                text="Delete"
+              />
+              <SwipeableQuickActionButton
+                style={{ backgroundColor: "#227744", padding: 8, height: 80 }}
+                textStyle={{
+                  fontSize: 18,
+                  fontWeight: "bold",
+                  color: "#fff",
+                  padding: 4,
+                }}
+                onPress={() => this.changeSelector(item.address_type)}
+                text="Select"
+              />
+            </SwipeableQuickActions>
+          )}
         />
         <TouchableOpacity
           style={styles.button}
