@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
   sortView: {
     flex: 1,
     position: "absolute",
-    top: StatusBar.currentHeight||20,
+    top: 60,
     width: 220,
     left: 4,
   },

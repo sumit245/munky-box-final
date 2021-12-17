@@ -39,7 +39,8 @@ export default class ManualEntry extends Component {
       axios
         .put(ADDRESS_URL + id, { address })
         .then((res) => {
-          Actions.pop({refresh:{}});
+          {this.props.entryMethod?Actions.push('home'):Actions.pop({refresh:{}});}
+          
         
         })
         .catch((err) => {
