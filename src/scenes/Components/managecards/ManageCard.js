@@ -21,6 +21,7 @@ export default class ManageCard extends Component {
       cards: [],
       message: "",
       selected: false,
+      
     };
   }
   _onChange = (formData) => {
