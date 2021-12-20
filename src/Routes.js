@@ -3,7 +3,7 @@ import { Actions, Router, Scene } from "react-native-router-flux";
 import { View, TouchableOpacity, Text } from "react-native";
 import AuthScene from "./scenes/AuthScene";
 import HomeScreen from "./scenes/HomeScreen";
-import ResultDetails from "./scenes/Components/resultdetails/ResultDetails";
+import ResultDetails, { RenderRightButton } from "./scenes/Components/resultdetails/ResultDetails";
 import PlanChooser from "./scenes/Components/resultdetails/PlanChooser";
 import ReviewScreen from "./scenes/ReviewScreen";
 import AddressPay from "./scenes/AddressPay";
@@ -24,6 +24,7 @@ import NotificationStack from "./scenes/Components/NotificationStack";
 import Favouite from "./scenes/Components/Favouite";
 import Thankyou from "./scenes/Thankyou";
 import Wallet from "./scenes/Components/wallet/Wallet";
+import Contacts from "./scenes/Components/contacts/Contacts";
 
 export default function Routes() {
   const [user, setUser] = useState({});
@@ -49,6 +50,7 @@ export default function Routes() {
           initial={login}
         />
         <Scene key="user_details" component={UserDetail} hideNavBar={true} />
+        <Scene key="contacts" component={Contacts} hideNavBar={true} />
         <Scene
           key="documents"
           component={ModalOpener}
@@ -249,27 +251,7 @@ export default function Routes() {
               <Icon name="chevron-back" size={28} color="#223fdc" />
             </TouchableOpacity>
           )}
-          renderRightButton={() => (
-            <View
-              style={{
-                height: 50,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  Actions.documents();
-                }}
-              >
-                <Icon
-                  name="images-outline"
-                  size={24}
-                  style={{ margin: 2, marginRight: 5 }}
-                />
-              </TouchableOpacity>
-            </View>
-          )}
+          renderRightButton={RenderRightButton}
         />
         <Scene
           key="favorites"

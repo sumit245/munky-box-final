@@ -53,6 +53,7 @@ export default function CheckOut({
     total: 0,
     promo_code: "",
   });
+  const [addressLoading, setAddressLoading] = useState(true);
 
   const [isKeyboardOn, setKeyboardOn] = useState(false);
 
@@ -94,11 +95,13 @@ export default function CheckOut({
     setState({ ...state, card: currentCard[0] });
   };
   const addressHandler = (address) => {
+    setAddressLoading(true);
     let { addresses } = state.user;
     let currentAddress = addresses.filter(
       (item) => item.address_type === address
     );
     setState({ ...state, address: currentAddress[0] });
+    setAddressLoading(false);
   };
   const totalHandler = (total, delivery_fee, service_fee, taxes) => {
     setState({
@@ -176,6 +179,7 @@ export default function CheckOut({
         address: addresses[0],
         card: cards[0],
       });
+      setAddressLoading(false);
     } else {
       alert("Please login or register to proceed");
       Actions.jump("auth");
@@ -249,11 +253,14 @@ export default function CheckOut({
 
         <PlanDuration plan={plan} dateHandler={dateHandler} />
         <DeliverySlots category={category} slotHandler={slotHandler} />
-        <CheckoutAddress
-          addressHandler={addressHandler}
-          user={state.user}
-          selected={state.address}
-        />
+        {!addressLoading && (
+          <CheckoutAddress
+            addressHandler={addressHandler}
+            user={state.user}
+            selected={state.address}
+          />
+        )}
+
         <CheckoutCards
           cardHandler={cardHandler}
           user={state.user}

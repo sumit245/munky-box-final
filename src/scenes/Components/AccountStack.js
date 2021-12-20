@@ -146,7 +146,7 @@ export default class AccountStack extends Component {
           />
           <TouchableOpacity
             onPress={() => {
-              Actions.push("policies");
+              Actions.push("contacts");
             }}
           >
             <Text style={styles.drawerText}>Support</Text>

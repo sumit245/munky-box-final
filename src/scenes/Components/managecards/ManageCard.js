@@ -55,7 +55,6 @@ export default class ManageCard extends Component {
     getUser("user")
       .then((res) => {
         let id = res.data._id;
-        console.log(id);
         axios
           .put("https://munkybox-admin.herokuapp.com/api/users/addcard/" + id, {
             card,

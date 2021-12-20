@@ -25,6 +25,7 @@ export default class ManualEntry extends Component {
     };
     this.setState({ address_type: id });
   };
+
   _confirmLocation = () => {
     const address = {
       address_type: this.state.address_type,
@@ -39,9 +40,11 @@ export default class ManualEntry extends Component {
       axios
         .put(ADDRESS_URL + id, { address })
         .then((res) => {
-          {this.props.entryMethod?Actions.push('home'):Actions.pop({refresh:{}});}
-          
-        
+          {
+            this.props.entryMethod
+              ? Actions.push("home")
+              : Actions.pop({ refresh: {} });
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -186,18 +189,16 @@ export default class ManualEntry extends Component {
           </Chip>
         </View>
         <View>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            Actions.push("home");
-          }}
-          onPress={this._confirmLocation}
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              Actions.push("home");
+            }}
+            onPress={this._confirmLocation}
           >
-          <Text style={styles.confirmLocation}>Save & proceed</Text>
-        </TouchableOpacity>
-      
-         </View>
+            <Text style={styles.confirmLocation}>Save & proceed</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -205,7 +206,7 @@ export default class ManualEntry extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     justifyContent: "space-between",
     borderWidth: 1,
     backgroundColor: "#FFF",
@@ -248,7 +249,7 @@ const styles = StyleSheet.create({
     height: 44,
     backgroundColor: "#2962ff",
     alignItems: "center",
-    
+
     justifyContent: "center",
   },
   confirmLocation: {

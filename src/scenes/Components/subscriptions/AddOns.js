@@ -21,11 +21,10 @@ export default function AddOns({ extras, day }) {
   }, []);
 
   useEffect(() => {
-    let arr = []
-    myaddons.map((data,key)=>{
-      arr.push(key)
+    let arr = [];
+    myaddons.map((data, key) => {
+      arr.push(key);
     });
-    console.log(arr);
   }, [myaddons]);
 
   const calculateTotal = (key, qty, rate) => {
@@ -35,7 +34,6 @@ export default function AddOns({ extras, day }) {
   };
 
   const decrement = (key, rate) => {
-    console.log("Row: ", key, "Rate:", rate);
     if (qty > 0) {
       setQty(qty - 1);
       calculateTotal(key, qty, rate);
@@ -43,7 +41,6 @@ export default function AddOns({ extras, day }) {
   };
 
   const increment = (key, rate) => {
-    console.log("Row: ", key, "Rate:", rate);
     setQty(qty + 1);
     calculateTotal(key, qty, rate);
   };

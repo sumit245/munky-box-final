@@ -83,7 +83,7 @@ const PaymentCard = ({ item, checked, changeSelector }) => {
           <Text style={styles.headerText}>{card_number}</Text>
         </View>
 
-        <RadioButton
+        <RadioButton.Android
           value={item.number}
           status={checked === item.number ? "checked" : "unchecked"}
           onPress={() => changeSelector(item.number)}

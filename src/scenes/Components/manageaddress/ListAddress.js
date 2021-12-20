@@ -9,8 +9,7 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import { Actions } from "react-native-router-flux";
 import { width } from "../../styles/HomeStyles";
-import { IconButton, RadioButton } from "react-native-paper";
-import { getUser } from "../../../services/user/getuser";
+import { getUser, saveUser } from "../../../services/user/getuser";
 import axios from "axios";
 import { USER_URL } from "../../../services/EndPoints";
 import {
@@ -18,6 +17,9 @@ import {
   SwipeableQuickActionButton,
   SwipeableQuickActions,
 } from "react-native-swipe-list";
+import { RadioButton } from "react-native-paper";
+import Trash from "../../../../assets/Trash.png";
+import Edit from "../../../../assets/Edit.png";
 
 const ListEmptyContent = () => {
   return (
@@ -42,7 +44,13 @@ const ListEmptyContent = () => {
 };
 
 const AddressCard = ({ item, checked, changeSelector }) => (
-  <>
+  <View
+    style={{
+      marginVertical: 2,
+      borderBottomColor: "#777",
+      borderBottomWidth: 0.5,
+    }}
+  >
     <View style={styles.cardHeader}>
       <View
         style={{
@@ -64,6 +72,11 @@ const AddressCard = ({ item, checked, changeSelector }) => (
         />
         <Text style={styles.headerText}>{item.address_type}</Text>
       </View>
+      <RadioButton.Android
+        value={item.address_type}
+        status={checked === item.address_type ? "checked" : "unchecked"}
+        onPress={() => changeSelector(item.address_type)}
+      />
     </View>
     <View style={[styles.cardBody, { borderBottomWidth: 0 }]}>
       <Text style={styles.content}>{item.flat_num}</Text>
@@ -72,22 +85,39 @@ const AddressCard = ({ item, checked, changeSelector }) => (
       <Text style={styles.content}>{item.postal_code}</Text>
       <Text style={styles.content}>{item.state}</Text>
     </View>
-  </>
+  </View>
 );
 export default class ListAddress extends Component {
   state = {
     address: [],
     checked: "home",
+    userid: "",
   };
   componentDidMount() {
     Actions.refresh();
     getUser("user").then((res) => {
       let { _id } = res.data;
       axios.get(USER_URL + _id).then((res) => {
-        this.setState({ address: res.data.addresses });
+        this.setState({ address: res.data.addresses, userid: _id });
       });
     });
   }
+  deleteAddress = async (id) => {
+    let renderedAddress = [...this.state.address];
+    let addresses = renderedAddress.filter(
+      (value) => value.address_type !== id
+    );
+    const response = await axios.put(USER_URL + this.state.userid, {
+      addresses: addresses,
+    });
+    const { data } = await response.data;
+    let local = JSON.stringify(data);
+    saveUser("user", local);
+
+    this.setState({
+      address: addresses,
+    });
+  };
 
   renderAddress = ({ item }, checked) => (
     <AddressCard
@@ -132,7 +162,9 @@ export default class ListAddress extends Component {
                   padding: 4,
                 }}
                 onPress={() => {}}
-                text="Edit"
+                // text="Edit"
+                imageSource={Edit}
+                imageStyle={{ height: 20, width: 20 }}
               />
               <SwipeableQuickActionButton
                 style={{ backgroundColor: "#ff2244", padding: 8, height: 80 }}
@@ -143,27 +175,11 @@ export default class ListAddress extends Component {
                   padding: 4,
                 }}
                 onPress={() => {
-                  LayoutAnimation.configureNext(
-                    LayoutAnimation.Presets.easeInEaseOut,
-                  );
-                  this.setState({
-                    address: address.filter(
-                      (value) => value !== item.address_type
-                    ),
-                  });
+                  this.deleteAddress(item.address_type);
                 }}
-                text="Delete"
-              />
-              <SwipeableQuickActionButton
-                style={{ backgroundColor: "#227744", padding: 8, height: 80 }}
-                textStyle={{
-                  fontSize: 18,
-                  fontWeight: "bold",
-                  color: "#fff",
-                  padding: 4,
-                }}
-                onPress={() => this.changeSelector(item.address_type)}
-                text="Select"
+                // text="Delete"
+                imageSource={Trash}
+                imageStyle={{ height: 20, width: 20, alignSelf: "center" }}
               />
             </SwipeableQuickActions>
           )}

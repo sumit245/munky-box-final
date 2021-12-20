@@ -93,13 +93,10 @@ export default class DetailStack extends Component {
     this.setState({ favCount: favorite.length });
   };
   async componentDidMount() {
-    console.log("Nothi");
     const cuisineResponse = await axios.get(CUISINE_URL);
-    console.log("error");
     const cuisine = await cuisineResponse.data;
     const restaurantResponse = await axios.get(RESTAURANT_URL);
     const restaurant = await restaurantResponse.data;
-    console.log(restaurant);
     this.getFavoriteCount();
     this.setState({ restaurant: restaurant, cuisine: cuisine, loading: false });
   }
@@ -123,10 +120,10 @@ export default class DetailStack extends Component {
     this.setState({
       loading: true,
       msg: "Hold on tight!!! Fetching best food for you",
+      highLighted: false,
     });
     const response = await axios.get(RESTAURANT_URL);
     const restaurant = await response.data;
-    console.log(restaurant);
     this.setState({ restaurant: restaurant, loading: false });
   };
 
@@ -170,7 +167,9 @@ export default class DetailStack extends Component {
                   <TouchableOpacity
                     style={[
                       styles.firstCuisine,
-                      { borderColor: !highLighted ? "#2266cf" : "fff" },
+                      {
+                        borderColor: !highLighted ? "#2266cf" : "fff",
+                      },
                     ]}
                     onPress={this.getApiData}
                   >

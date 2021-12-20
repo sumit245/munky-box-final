@@ -1,26 +1,63 @@
-import React, { useRef, useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  Image,
-  FlatList,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import MenuItem from "./MenuItem";
 import { Actions } from "react-native-router-flux";
 import PlanChooser from "./PlanChooser";
 import Icon from "react-native-vector-icons/Ionicons";
 import { avatarSize, styles } from "../../styles/ResultStyles";
-import CalenderStrip from "react-native-calendar-strip";
 import { width } from "../../styles/HomeStyles";
-import moment from "moment";
 import axios from "axios";
+import { TabView, TabBar } from "react-native-tab-view";
 
-const renderItem = ({ item, index }) => <MenuItem index={index} meals={item} />;
-
+export const RenderRightButton = ({ restaurant_id }) => {
+  return (
+    <View
+      style={{
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <TouchableOpacity
+        onPress={() => {
+          Actions.push("documents", { restaurant_id });
+        }}
+      >
+        <Icon
+          name="images-outline"
+          size={24}
+          style={{ margin: 2, marginRight: 5 }}
+        />
+      </TouchableOpacity>
+    </View>
+  );
+};
 export default function ResultDetails({ item, promo }) {
-  const mealref = useRef(0);
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    { key: "first", title: "Monday" },
+    { key: "second", title: "Tuesday" },
+    { key: "third", title: "Wednesday" },
+    { key: "fourth", title: "Thursday" },
+    { key: "fifth", title: "Friday" },
+    { key: "sixth", title: "Saturday" },
+    { key: "seventh", title: "Sunday" },
+  ]);
+  const renderTabBar = (props) => (
+    <TabBar
+      {...props}
+      tabStyle={{ width: width / 3 }}
+      scrollEnabled
+      style={{
+        backgroundColor: "transparent",
+      }}
+      activeColor="#2266ff"
+      labelStyle={{ fontWeight: "bold" }}
+      inactiveColor="#272727"
+      indicatorStyle={{ backgroundColor: "#2266cf", marginHorizontal: 2 }}
+    />
+  );
+
   const {
     meals,
     documents,
@@ -34,22 +71,39 @@ export default function ResultDetails({ item, promo }) {
     category,
     about,
   } = item;
-  const onDateSelected = (date) => {
-    const day = moment(date).day();
-    mealref.current.scrollToIndex({
-      index: meals.length > day ? day : null,
-    });
+
+  const renderScene = ({ route }) => {
+    switch (route.key) {
+      case "first":
+        return <MenuItem meals={meals[index]} />;
+      case "second":
+        return <MenuItem meals={meals[index]} />;
+      case "third":
+        return <MenuItem meals={meals[index]} />;
+      case "fourth":
+        return <MenuItem meals={meals[index]} />;
+      case "fifth":
+        return <MenuItem meals={meals[index]} />;
+
+      case "sixth":
+        return <MenuItem meals={meals[index]} />;
+      case "seventh":
+        return <MenuItem meals={meals[index]} />;
+      default:
+        break;
+    }
   };
+
   const getchefbynameandupdatemenucount = async (restaurant_name) => {
     let MENU_COUNT_URL =
       "http://munkybox-admin.herokuapp.com/api/chefdashboard/getchefbynameandupdatemenucount/" +
       restaurant_name;
     const response = await axios.get(MENU_COUNT_URL);
   };
-
   useEffect(() => {
     getchefbynameandupdatemenucount(restaurant_name);
   }, [restaurant_name]);
+  <RenderRightButton restaurant_id={restaurant_id} />;
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Image
@@ -82,49 +136,15 @@ export default function ResultDetails({ item, promo }) {
           </Text>
         </Text>
       </TouchableOpacity>
-      <CalenderStrip
-        daySelectionAnimation={{
-          type: "background",
-          duration: 50,
-          highlightColor: "red",
-        }}
-        dayContainerStyle={{
-          height: 40,
-          width: 40,
-          borderRadius: 4,
-        }}
-        style={{
-          height: 40,
-          width: width,
-        }}
-        responsiveSizingOffset={1}
-        shouldAllowFontScaling={false}
-        showDayName={true}
-        showDayNumber={false}
-        startingDate={0}
-        selectedDate={Date.now()}
-        highlightDateNumberStyle={{ color: "white" }}
-        highlightDateNameStyle={{
-          color: "white",
-          fontSize: 14,
-          fontWeight: "bold",
-        }}
-        dateNameStyle={{ fontSize: 12, color: "#000", fontWeight: "bold" }}
-        disabledDateNameStyle={{ color: "grey" }}
-        showMonth={false}
-        scrollable={false}
-        leftSelector={[]}
-        rightSelector={[]}
-        onDateSelected={(date) => onDateSelected(date)}
-      />
-      <FlatList
-        contentContainerStyle={{ marginLeft: 2 }}
-        data={meals}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        ref={mealref}
+
+      <TabView
+        lazy
+        swipeEnabled
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        renderTabBar={renderTabBar}
+        initialLayout={{ width: width }}
       />
 
       <PlanChooser

@@ -38,16 +38,7 @@ export default function CheckoutCards({ cardHandler, user, selected }) {
     cardHandler(card);
   };
 
-  if (loading) {
-    return (
-      <TouchableOpacity style={styles.optionCard} onPress={_nextAction}>
-        <View style={styles.optionrow}>
-          <Text style={styles.optionsLabels}>{"Add a card"}</Text>
-          <Icon name="angle-right" color="#ccc" size={16} />
-        </View>
-      </TouchableOpacity>
-    );
-  } else {
+  try {
     const { brand, card_holder, number } = cards;
     return (
       <View style={styles.optionCard}>
@@ -66,7 +57,7 @@ export default function CheckoutCards({ cardHandler, user, selected }) {
               }}
             >
               <Icon
-                name={brand === "master-card" ? "mastercard" :  brand}
+                name={brand === "master-card" ? "mastercard" : brand}
                 size={26}
                 color="#777"
               />
@@ -86,6 +77,15 @@ export default function CheckoutCards({ cardHandler, user, selected }) {
           </Button>
         </View>
       </View>
+    );
+  } catch (error) {
+    return (
+      <TouchableOpacity style={styles.optionCard} onPress={_nextAction}>
+        <View style={styles.optionrow}>
+          <Text style={styles.optionsLabels}>{"Add a card"}</Text>
+          <Icon name="angle-right" color="#ccc" size={16} />
+        </View>
+      </TouchableOpacity>
     );
   }
 }

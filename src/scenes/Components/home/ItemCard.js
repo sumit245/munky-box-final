@@ -89,6 +89,7 @@ export default function ItemCard({ item, isFavorite, isHome }) {
             onPress={() =>
               Actions.push("details", {
                 title: restaurant_name,
+                restaurant_id: _id,
                 item,
                 promo: state,
               })
@@ -161,8 +162,8 @@ export default function ItemCard({ item, isFavorite, isHome }) {
           }}
         >
           <Text style={{ textAlign: "justify", padding: 4, fontSize: 12 }}>
-            Get {discount_type === "$" ? "$" + discount : discount + "%"} off
-            on {plan_name} plan. Use Code
+            Get {discount_type === "$" ? "$" + discount : discount + "%"} off on{" "}
+            {plan_name} plan. Use Code
             <Text style={{ fontWeight: "bold" }}> {promo_code}</Text>
           </Text>
         </View>

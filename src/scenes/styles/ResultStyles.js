@@ -42,11 +42,10 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     elevation: 2,
     padding: 1,
-    width: 248,
     margin: 2,
   },
   menuImage: {
-    width: 244,
+    width: "100%",
     height: 150,
     marginHorizontal: 1,
     resizeMode: "cover",
