@@ -72,13 +72,6 @@ export default function ResultDetails({ item, promo }) {
     about,
   } = item;
 
-  useEffect(() => {
-    
-    return () => {
-      cleanup
-    }
-  }, [input])
-
   const renderScene = ({ route }) => {
     switch (route.key) {
       case "first":
