@@ -10,7 +10,7 @@ import Icon from "react-native-vector-icons/Fontisto";
 import { Actions } from "react-native-router-flux";
 import { width } from "../../styles/HomeStyles";
 import { IconButton, RadioButton } from "react-native-paper";
-import { getUser } from "../../../services/user/getuser";
+import { getUser, saveUser } from "../../../services/user/getuser";
 import ManageCard from "./ManageCard";
 import {
   SwipeableFlatList,
@@ -19,7 +19,8 @@ import {
 } from "react-native-swipe-list";
 import Trash from "../../../../assets/Trash.png";
 import Edit from "../../../../assets/Edit.png";
-
+import axios from "axios";
+import { USER_URL } from "../../../services/EndPoints";
 const ListEmptyContent = () => {
   return (
     <View style={styles.centerContent}>
@@ -153,7 +154,7 @@ export default class ListCard extends Component {
   };
   componentDidMount() {
     getUser("user").then((res) => {
-      this.setState({ cards: res.data.cards, user_id: res.data.user_id });
+      this.setState({ cards: res.data.cards, user_id: res.data._id });
     });
   }
   renderAddress = ({ item }, checked) => (
@@ -171,17 +172,17 @@ export default class ListCard extends Component {
     this.setState({ checked: selected });
   };
   deleteAddress = async (id) => {
-    let renderedAddress = [...this.state.cards];
-    let addresses = renderedAddress.filter((value) => value.number !== id);
+    let renderedCards = [...this.state.cards];
+    let cards = renderedCards.filter((value) => value.number !== id);
     const response = await axios.put(USER_URL + this.state.user_id, {
-      addresses: addresses,
+      cards: cards,
     });
     const { data } = await response.data;
+    console.log(data);
     let local = JSON.stringify(data);
     saveUser("user", local);
-
     this.setState({
-      address: addresses,
+      cards: cards,
     });
   };
   openEdit = ({ item }) => {
