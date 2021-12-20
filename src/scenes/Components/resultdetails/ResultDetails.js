@@ -75,20 +75,20 @@ export default function ResultDetails({ item, promo }) {
   const renderScene = ({ route }) => {
     switch (route.key) {
       case "first":
-        return <MenuItem meal={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
       case "second":
-        return <MenuItem meal={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
       case "third":
-        return <MenuItem meal={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
       case "fourth":
-        return <MenuItem meal={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
       case "fifth":
-        return <MenuItem meal={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
 
       case "sixth":
-        return <MenuItem meal={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
       case "seventh":
-        return <MenuItem meal={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
       default:
         break;
     }
