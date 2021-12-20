@@ -102,6 +102,7 @@ export default class ListAddress extends Component {
       });
     });
   }
+
   deleteAddress = async (id) => {
     let renderedAddress = [...this.state.address];
     let addresses = renderedAddress.filter(
@@ -126,6 +127,7 @@ export default class ListAddress extends Component {
       changeSelector={this.changeSelector}
     />
   );
+
   changeSelector = (selected) => {
     if (this.props.checkout) {
       this.props.onAddressSelect(selected);
@@ -133,6 +135,7 @@ export default class ListAddress extends Component {
     }
     this.setState({ checked: selected });
   };
+
   render() {
     const { address, checked } = this.state;
     return (
@@ -161,8 +164,12 @@ export default class ListAddress extends Component {
                   color: "#fff",
                   padding: 4,
                 }}
-                onPress={() => {}}
-                // text="Edit"
+                onPress={() => {
+                  Actions.push("manageAddress", {
+                    address: item,
+                    entryMethod: false,
+                  });
+                }}
                 imageSource={Edit}
                 imageStyle={{ height: 20, width: 20 }}
               />
@@ -177,13 +184,13 @@ export default class ListAddress extends Component {
                 onPress={() => {
                   this.deleteAddress(item.address_type);
                 }}
-                // text="Delete"
                 imageSource={Trash}
                 imageStyle={{ height: 20, width: 20, alignSelf: "center" }}
               />
             </SwipeableQuickActions>
           )}
         />
+
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
