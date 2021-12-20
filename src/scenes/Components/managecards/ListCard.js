@@ -13,6 +13,13 @@ import { width } from "../../styles/HomeStyles";
 import { IconButton, RadioButton } from "react-native-paper";
 import { getUser } from "../../../services/user/getuser";
 import ManageCard from "./ManageCard";
+import {
+  SwipeableFlatList,
+  SwipeableQuickActionButton,
+  SwipeableQuickActions,
+} from "react-native-swipe-list";
+import Trash from "../../../../assets/Trash.png";
+import Edit from "../../../../assets/Edit.png";
 
 const ListEmptyContent = () => {
   return (
@@ -95,23 +102,6 @@ const PaymentCard = ({ item, checked, changeSelector }) => {
           status={checked === item.number ? "checked" : "unchecked"}
           onPress={() => changeSelector(item.number)}
         />
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            marginHorizontal: 12,
-          }}
-        >
-          <Text
-            style={{
-              color: "#226ccf",
-              fontWeight: "bold",
-              fontSize: 12,
-            }}
-          >
-            Edit / Delete
-          </Text>
-        </View>
       </View>
       <View style={styles.cardBody}>
         <View
@@ -160,10 +150,11 @@ export default class ListCard extends Component {
     cards: [],
     checked: "home",
     modalVisible: false,
+    user_id: "",
   };
   componentDidMount() {
     getUser("user").then((res) => {
-      this.setState({ cards: res.data.cards });
+      this.setState({ cards: res.data.cards, user_id: res.data.user_id });
     });
   }
   renderAddress = ({ item }, checked) => (
@@ -180,12 +171,29 @@ export default class ListCard extends Component {
     }
     this.setState({ checked: selected });
   };
+  deleteAddress = async (id) => {
+    let renderedAddress = [...this.state.cards];
+    let addresses = renderedAddress.filter((value) => value.number !== id);
+    const response = await axios.put(USER_URL + this.state.user_id, {
+      addresses: addresses,
+    });
+    const { data } = await response.data;
+    let local = JSON.stringify(data);
+    saveUser("user", local);
+
+    this.setState({
+      address: addresses,
+    });
+  };
+  openEdit = ({ item }) => {
+    this.setState({ modalVisible: true });
+  };
   render() {
     const { cards, checked, modalVisible } = this.state;
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <View>
-          <FlatList
+          <SwipeableFlatList
             data={cards}
             contentContainerStyle={{ paddingBottom: 2 }}
             renderItem={(item) => this.renderAddress(item, checked)}
@@ -193,12 +201,44 @@ export default class ListCard extends Component {
               return <ListEmptyContent />;
             }}
             extraData={this.changeSelector}
+            renderRightActions={({ item }) => (
+              <SwipeableQuickActions
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <SwipeableQuickActionButton
+                  style={{ backgroundColor: "#48b4e0", padding: 8, height: 80 }}
+                  textStyle={{
+                    fontSize: 18,
+                    fontWeight: "bold",
+                    color: "#fff",
+                    padding: 4,
+                  }}
+                  onPress={() => this.openEdit({ item })}
+                  imageSource={Edit}
+                  imageStyle={{ height: 20, width: 20 }}
+                />
+                <SwipeableQuickActionButton
+                  style={{ backgroundColor: "#ff2244", padding: 8, height: 80 }}
+                  textStyle={{
+                    fontSize: 18,
+                    fontWeight: "bold",
+                    color: "#fff",
+                    padding: 4,
+                  }}
+                  onPress={() => {
+                    this.deleteAddress(item.number);
+                  }}
+                  imageSource={Trash}
+                  imageStyle={{ height: 20, width: 20, alignSelf: "center" }}
+                />
+              </SwipeableQuickActions>
+            )}
             keyExtractor={(item) => item.number}
           />
         </View>
-        {/* <View style={{marginBottom:40}}> */}
-        {/* <ManageCard /> */}
-        {/* </View> */}
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
@@ -207,7 +247,7 @@ export default class ListCard extends Component {
         >
           <Text style={styles.btnText}>ADD NEW Card</Text>
         </TouchableOpacity>
-        {modalVisible && <ManageCard />}
+        {modalVisible && <ManageCard modalVisible={modalVisible} />}
       </ScrollView>
     );
   }

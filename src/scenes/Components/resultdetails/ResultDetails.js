@@ -84,7 +84,6 @@ export default function ResultDetails({ item, promo }) {
         return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
       case "fifth":
         return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
-
       case "sixth":
         return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
       case "seventh":

@@ -1,17 +1,11 @@
 import React, { Component } from "react";
-import {
-  Text,
-  StyleSheet,
-  Dimensions,
-  TextInput,
-  View,
-} from "react-native";
+import { Text, StyleSheet, Dimensions, TextInput, View } from "react-native";
 import { LiteCreditCardInput } from "react-native-credit-card-input";
 import Icon from "react-native-vector-icons/Ionicons";
 import { getUser, saveUser } from "../../../services/user/getuser";
 import axios from "axios";
 import { Actions } from "react-native-router-flux";
-import { Modal, Portal, Provider } from 'react-native-paper';
+import { Modal, Portal, Provider } from "react-native-paper";
 
 const { width, height } = Dimensions.get("window");
 export default class ManageCard extends Component {
@@ -21,7 +15,7 @@ export default class ManageCard extends Component {
       cards: [],
       message: "",
       selected: false,
-      
+      visible: this.props.modalVisible,
     };
   }
   _onChange = (formData) => {
@@ -65,67 +59,77 @@ export default class ManageCard extends Component {
           .catch((err) => console.log(err));
       })
       .catch((err) => console.log("Error in async"));
-    // if (JSON.parse(card).valid === true) {
-    //   let currCard = "@card" + numCards;
-    //   const cardDetail = [currCard, card];
-    //   setMultipleCards(cardDetail);
-    // } else {
-    //   ToastAndroid.show("Check your details and try again :(", 1000);
-    // }
   };
+
+  showModal = () => this.setState({ visible: true });
+  hideModal = () => this.setState({ visible: false });
+
   render() {
-    
+    const { visible } = this.state;
     return (
-      <View style={{marginBottom:6}}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginHorizontal: 8,
-            marginVertical:4
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 14,
-              fontWeight: "bold",
+      <Provider>
+        <Portal>
+          <Modal
+            visible={visible}
+            onDismiss={this.hideModal}
+            contentContainerStyle={{
+              backgroundColor: "white",
+              padding: 20,
+              marginHorizontal: 20,
+              borderRadius: 4,
             }}
           >
-            Add new card
-          </Text>
-          <Text style={styles.btnText} onPress={this.cardAdd}>
-            Save
-          </Text>
-        </View>
-        <LiteCreditCardInput
-          requiresCVC
-          inputStyle={styles.input}
-          validColor={"#228822"}
-          invalidColor={"#aa2222"}
-          onChange={this._onChange}
-          additionInputsProps={{
-            expiry: {
-              marginLeft: -20,
-            },
-          }}
-        />
-        <View style={{ marginHorizontal: 8 }}>
-          <Text
-            style={{
-              fontSize: 14,
-              marginTop: 2,
-              fontWeight: "bold",
-            }}
-          >
-            Cardholder's Name
-          </Text>
-          <TextInput
-            placeholder="Name"
-            style={styles.inputContainer}
-            onChangeText={this._onChangeText("card_holder")}
-          />
-        </View>
-      </View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginHorizontal: 8,
+                marginBottom: 16,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: "bold",
+                }}
+              >
+                Add new card
+              </Text>
+              <Text style={styles.btnText} onPress={this.cardAdd}>
+                Save
+              </Text>
+            </View>
+            <LiteCreditCardInput
+              requiresCVC
+              inputStyle={styles.input}
+              validColor={"#228822"}
+              invalidColor={"#aa2222"}
+              onChange={this._onChange}
+              additionInputsProps={{
+                expiry: {
+                  marginLeft: -20,
+                },
+              }}
+            />
+            <View style={{ marginHorizontal: 8 }}>
+              <Text
+                style={{
+                  fontSize: 14,
+                  marginTop: 2,
+                  fontWeight: "bold",
+                }}
+              >
+                Cardholder's Name
+              </Text>
+              <TextInput
+                placeholder="Name"
+                style={styles.inputContainer}
+                onChangeText={this._onChangeText("card_holder")}
+              />
+            </View>
+          </Modal>
+        </Portal>
+      </Provider>
     );
   }
 }
