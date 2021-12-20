@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
-  FlatList,
   ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/Fontisto";
@@ -186,10 +185,14 @@ export default class ListCard extends Component {
     });
   };
   openEdit = ({ item }) => {
-    this.setState({ modalVisible: true });
+    this.setState({
+      modalVisible: true,
+      selectedcard: item,
+      title: "Edit Card",
+    });
   };
   render() {
-    const { cards, checked, modalVisible } = this.state;
+    const { cards, checked, modalVisible, selectedcard, title } = this.state;
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <View>
@@ -242,12 +245,18 @@ export default class ListCard extends Component {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            this.setState({ modalVisible: true });
+            this.setState({ modalVisible: true, title: "Add Card" });
           }}
         >
           <Text style={styles.btnText}>ADD NEW Card</Text>
         </TouchableOpacity>
-        {modalVisible && <ManageCard modalVisible={modalVisible} />}
+        {modalVisible && (
+          <ManageCard
+            modalVisible={modalVisible}
+            card={selectedcard}
+            title={title}
+          />
+        )}
       </ScrollView>
     );
   }

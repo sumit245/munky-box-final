@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, Dimensions, TextInput, View } from "react-native";
+import { Text, StyleSheet, TextInput, View } from "react-native";
 import { LiteCreditCardInput } from "react-native-credit-card-input";
-import Icon from "react-native-vector-icons/Ionicons";
 import { getUser, saveUser } from "../../../services/user/getuser";
 import axios from "axios";
 import { Actions } from "react-native-router-flux";
 import { Modal, Portal, Provider } from "react-native-paper";
 
-const { width, height } = Dimensions.get("window");
 export default class ManageCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      ...this.props,
+      ...this.props.card,
       cards: [],
       message: "",
       selected: false,
@@ -61,11 +61,15 @@ export default class ManageCard extends Component {
       .catch((err) => console.log("Error in async"));
   };
 
+  componentDidMount() {
+    console.log(this.state);
+  }
+
   showModal = () => this.setState({ visible: true });
   hideModal = () => this.setState({ visible: false });
 
   render() {
-    const { visible } = this.state;
+    const { visible, title } = this.state;
     return (
       <Provider>
         <Portal>
@@ -93,7 +97,7 @@ export default class ManageCard extends Component {
                   fontWeight: "bold",
                 }}
               >
-                Add new card
+                {title}
               </Text>
               <Text style={styles.btnText} onPress={this.cardAdd}>
                 Save
@@ -105,9 +109,16 @@ export default class ManageCard extends Component {
               validColor={"#228822"}
               invalidColor={"#aa2222"}
               onChange={this._onChange}
-              additionInputsProps={{
-                expiry: {
-                  marginLeft: -20,
+              addtionalInputsProps={{
+                number: {
+                  defaultValue: "123456778812",
+                },
+                name: {
+                  defaultValue: "my name",
+                  maxLength: 40,
+                },
+                postalCode: {
+                  returnKeyType: "go",
                 },
               }}
             />
@@ -123,6 +134,7 @@ export default class ManageCard extends Component {
               </Text>
               <TextInput
                 placeholder="Name"
+                defaultValue={this.state.card_holder}
                 style={styles.inputContainer}
                 onChangeText={this._onChangeText("card_holder")}
               />
