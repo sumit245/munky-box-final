@@ -76,7 +76,8 @@ export const styles = StyleSheet.create({
     elevation: 4,
   },
   modalText: {
-    padding: 4,
+    padding: 2,
+    fontSize:12,
     fontWeight: "bold",
     textTransform: "capitalize",
   },

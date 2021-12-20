@@ -84,11 +84,15 @@ export default class DeliveryOptions extends Component {
                           ? "business-outline"
                           : "earth-outline"
                       }
-                      size={20}
+                      size={16}
                       style={styles.modalText}
                       color="#979797"
                     />
+                    <View>
+
                     <Text style={styles.modalText}>{data.address_type}</Text>
+                    <Text style={[styles.modalText,{fontSize:10}]}>{data.flat_num}</Text>
+                    </View>
                   </TouchableOpacity>
                 ))}
                 {addresses.length <= 3 ? (
