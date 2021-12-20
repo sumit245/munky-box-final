@@ -46,9 +46,9 @@ export const styles = StyleSheet.create({
   },
   menuImage: {
     width: "100%",
-    height: 150,
+    height: 180,
     marginHorizontal: 1,
-    resizeMode: "cover",
+    //resizeMode: "cover",
   },
   menuTitle: {
     paddingHorizontal: 2,
