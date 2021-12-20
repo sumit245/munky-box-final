@@ -11,7 +11,7 @@ import { width } from "../../styles/HomeStyles";
 export default class ManualEntry extends Component {
   constructor(props) {
     super(props);
-    this.state = { ...this.props };
+    this.state = { ...this.props, ...this.props.address };
   }
   onChangeText = (id) => (e) => {
     const data = { [id]: e };
@@ -25,6 +25,9 @@ export default class ManualEntry extends Component {
     };
     this.setState({ address_type: id });
   };
+  componentDidMount() {
+    console.log(this.state);
+  }
 
   _confirmLocation = () => {
     const address = {
@@ -65,6 +68,7 @@ export default class ManualEntry extends Component {
             onChangeText={this.onChangeText("flat_num")}
             style={styles.inputContainer}
             mode="flat"
+            defaultValue={this.state.flat_num}
             placeholder="House Number"
             left={
               <TextInput.Icon
@@ -85,6 +89,7 @@ export default class ManualEntry extends Component {
             onChangeText={this.onChangeText("locality")}
             style={[styles.inputContainer, { marginBottom: 8 }]}
             mode="flat"
+            defaultValue={this.state.locality}
             placeholder="Street Address"
             left={
               <TextInput.Icon
@@ -112,11 +117,13 @@ export default class ManualEntry extends Component {
             Postal Code
           </Text>
         </View>
+        
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <TextInput
             onChangeText={this.onChangeText("city")}
             style={[styles.inputContainer, { width: "46%" }]}
             mode="flat"
+            defaultValue={this.state.city}
             placeholder="Ontario"
             left={
               <TextInput.Icon
@@ -135,6 +142,7 @@ export default class ManualEntry extends Component {
             onChangeText={this.onChangeText("postal_code")}
             style={[styles.inputContainer, { width: "46%" }]}
             mode="flat"
+            defaultValue={this.state.postal_code}
             placeholder="Postal Code"
             left={
               <TextInput.Icon

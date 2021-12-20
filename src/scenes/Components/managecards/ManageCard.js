@@ -3,12 +3,7 @@ import {
   Text,
   StyleSheet,
   Dimensions,
-  TouchableOpacity,
-  ScrollView,
   TextInput,
-  SafeAreaView,
-  KeyboardAvoidingView,
-  Platform,
   View,
 } from "react-native";
 import { LiteCreditCardInput } from "react-native-credit-card-input";
@@ -16,6 +11,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { getUser, saveUser } from "../../../services/user/getuser";
 import axios from "axios";
 import { Actions } from "react-native-router-flux";
+import { Modal, Portal, Provider } from 'react-native-paper';
 
 const { width, height } = Dimensions.get("window");
 export default class ManageCard extends Component {

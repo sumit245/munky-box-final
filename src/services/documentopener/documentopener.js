@@ -21,7 +21,6 @@ export const ModalOpener = ({ restaurant_id }) => {
     setPapers(paper);
   };
   useEffect(() => {
-    console.log(restaurant_id);
     fetchPapers(restaurant_id);
   }, [restaurant_id]);
   return (

@@ -1,5 +1,12 @@
 import React, { Component, useState } from "react";
-import { View, Text, StyleSheet, FlatList,ScrollView } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  FlatList,
+  ScrollView,
+} from "react-native";
 import Icon from "react-native-vector-icons/Fontisto";
 import { Actions } from "react-native-router-flux";
 import { width } from "../../styles/HomeStyles";
@@ -152,6 +159,7 @@ export default class ListCard extends Component {
   state = {
     cards: [],
     checked: "home",
+    modalVisible: false,
   };
   componentDidMount() {
     getUser("user").then((res) => {
@@ -173,7 +181,7 @@ export default class ListCard extends Component {
     this.setState({ checked: selected });
   };
   render() {
-    const { cards, checked } = this.state;
+    const { cards, checked, modalVisible } = this.state;
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <View>
@@ -188,9 +196,18 @@ export default class ListCard extends Component {
             keyExtractor={(item) => item.number}
           />
         </View>
-        <View style={{marginBottom:40}}>
-          <ManageCard />
-        </View>
+        {/* <View style={{marginBottom:40}}> */}
+        {/* <ManageCard /> */}
+        {/* </View> */}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            this.setState({ modalVisible: true });
+          }}
+        >
+          <Text style={styles.btnText}>ADD NEW Card</Text>
+        </TouchableOpacity>
+        {modalVisible && <ManageCard />}
       </ScrollView>
     );
   }

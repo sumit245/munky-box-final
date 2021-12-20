@@ -21,7 +21,7 @@ export default function MenuItem({ index, meals }) {
               <Icon
                 name="stop-circle"
                 size={16}
-                color={meals.type === "Veg" ? "#2aaf21" : "#cc2224"}
+                color={meals.type === "veg" ? "#2aaf21" : "#cc2224"}
               />
             )}
             leftStyle={[styles.menuTitle, { marginTop: -36 }]}

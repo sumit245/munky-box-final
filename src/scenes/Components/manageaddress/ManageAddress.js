@@ -11,7 +11,6 @@ import {
 import MaterialMapView from "./MaterialMapView";
 import ManualEntry from "./ManualEntry";
 
-
 const { width, height } = Dimensions.get("window");
 export default class ManageAddress extends Component {
   constructor(props) {
@@ -29,7 +28,10 @@ export default class ManageAddress extends Component {
         >
           <ScrollView>
             <MaterialMapView style={styles.materialMapView}></MaterialMapView>
-            <ManualEntry entryMethod={this.props.entryMethod} />
+            <ManualEntry
+              address={this.props.address}
+              entryMethod={this.props.entryMethod}
+            />
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -41,6 +43,6 @@ const styles = StyleSheet.create({
   materialMapView: {
     width: width,
     height: width / 1.4,
-    elevation:-2
+    elevation: -2,
   },
 });
