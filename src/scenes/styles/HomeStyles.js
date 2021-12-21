@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     position: "absolute",
     top: 60,
-    width: 220,
+    width: 240,
     left: 4,
   },
   buttonClose: {
@@ -74,6 +74,7 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 4,
+    
   },
   modalText: {
     padding: 2,
