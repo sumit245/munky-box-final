@@ -3,7 +3,9 @@ import { Actions, Router, Scene } from "react-native-router-flux";
 import { View, TouchableOpacity, Text } from "react-native";
 import AuthScene from "./scenes/AuthScene";
 import HomeScreen from "./scenes/HomeScreen";
-import ResultDetails, { RenderRightButton } from "./scenes/Components/resultdetails/ResultDetails";
+import ResultDetails, {
+  RenderRightButton,
+} from "./scenes/Components/resultdetails/ResultDetails";
 import PlanChooser from "./scenes/Components/resultdetails/PlanChooser";
 import ReviewScreen from "./scenes/ReviewScreen";
 import AddressPay from "./scenes/AddressPay";
@@ -87,6 +89,22 @@ export default function Routes() {
               }}
             >
               <Icon name="chevron-back" size={28} color="#223fdc" />
+            </TouchableOpacity>
+          )}
+          renderRightButton={() => (
+            <TouchableOpacity
+              style={{
+                height: 50,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => {
+                Actions.push("home");
+              }}
+            >
+              <Text style={{ textTransform: "uppercase", color: "#226cff" }}>
+                Done
+              </Text>
             </TouchableOpacity>
           )}
         />
