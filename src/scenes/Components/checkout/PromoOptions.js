@@ -46,8 +46,14 @@ export default class PromoOptions extends Component {
   }
   applyCoupon = () => {
     this.setState({ applied: true });
-    const {coupons}=this.props;
-    this.props.couponHandler(coupons.promo_code, coupons.discount);
+    const { coupons, price } = this.props;
+    let disc = 0;
+    if (coupons.discount_type !== "%") {
+      disc = coupons.discount;
+    } else {
+      disc = (coupons.discount / 100) * price;
+    }
+    this.props.couponHandler(coupons.promo_code, disc);
   };
 
   render() {
@@ -96,8 +102,11 @@ export default class PromoOptions extends Component {
                 <Text
                   style={{ textAlign: "justify", padding: 4, fontSize: 12 }}
                 >
-                  Get {coupons.discount_type==="$"?"$"+coupons.discount:coupons.discount+"%"} off on{" "}
-                  {coupons.plan_name} plan.
+                  Get{" "}
+                  {coupons.discount_type === "$"
+                    ? "$" + coupons.discount
+                    : coupons.discount + "%"}{" "}
+                  off on {coupons.plan_name} plan.
                   {"\n"}Use Code
                   <Text style={{ fontWeight: "bold" }}>
                     {" "}

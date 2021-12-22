@@ -268,7 +268,7 @@ export default function CheckOut({
         />
         <DeliveryNotes noteHandler={noteHandler} />
         <TipOption tipHandler={tipHandler} />
-        <PromoOptions couponHandler={couponHandler} coupons={promo} />
+        <PromoOptions couponHandler={couponHandler} coupons={promo} price={price} />
         <BillingTable
           price={price}
           discount={state.discount}
