@@ -5,6 +5,7 @@ import {
   Text,
   SafeAreaView,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
 import axios from "axios";
@@ -158,50 +159,52 @@ export default class DetailStack extends Component {
       return !loading ? (
         <SafeAreaView style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
           <HeaderComponent favCount={favCount} applyfilter={this.applyfilter} />
-          <View>
-            <FlatList
-              contentContainerStyle={{ marginLeft: 4, marginBottom: 8 }}
-              data={cuisine}
-              ListHeaderComponent={() => (
-                <>
-                  <TouchableOpacity
-                    style={[
-                      styles.firstCuisine,
-                      {
-                        borderColor: !highLighted ? "#2266cf" : "fff",
-                      },
-                    ]}
-                    onPress={this.getApiData}
-                  >
-                    <Icon name="restaurant-outline" size={20} />
-                  </TouchableOpacity>
-                  <Text
-                    style={[
-                      styles.cuisine_name,
-                      {
-                        fontWeight: !highLighted ? "bold" : "normal",
-                      },
-                    ]}
-                  >
-                    All
-                  </Text>
-                </>
-              )}
-              renderItem={this.renderCuisine}
-              keyExtractor={(item) => item._id}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
+          <ScrollView style={{ flex: 1 }}>
+            <View>
+              <FlatList
+                contentContainerStyle={{ marginLeft: 4, marginBottom: 8 }}
+                data={cuisine}
+                ListHeaderComponent={() => (
+                  <>
+                    <TouchableOpacity
+                      style={[
+                        styles.firstCuisine,
+                        {
+                          borderColor: !highLighted ? "#2266cf" : "fff",
+                        },
+                      ]}
+                      onPress={this.getApiData}
+                    >
+                      <Icon name="restaurant-outline" size={20} />
+                    </TouchableOpacity>
+                    <Text
+                      style={[
+                        styles.cuisine_name,
+                        {
+                          fontWeight: !highLighted ? "bold" : "normal",
+                        },
+                      ]}
+                    >
+                      All
+                    </Text>
+                  </>
+                )}
+                renderItem={this.renderCuisine}
+                keyExtractor={(item) => item._id}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
+            <BannerCarousel />
+            {/* <Lunch restaurant={this.state.restaurant} /> */}
+            <TabView
+              navigationState={{ index, routes }}
+              renderScene={this.renderScene}
+              renderTabBar={this.renderTabBar}
+              onIndexChange={this._handleIndexChange}
+              style={{ marginTop: -20, marginHorizontal: 2 }}
             />
-          </View>
-          <BannerCarousel />
-          {/* <Lunch restaurant={this.state.restaurant} /> */}
-          <TabView
-            navigationState={{ index, routes }}
-            renderScene={this.renderScene}
-            renderTabBar={this.renderTabBar}
-            onIndexChange={this._handleIndexChange}
-            style={{ marginTop: -20, marginHorizontal: 2 }}
-          />
+          </ScrollView>
         </SafeAreaView>
       ) : (
         <Loader msg={msg} />

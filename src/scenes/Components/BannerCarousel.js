@@ -18,7 +18,7 @@ const { width, height } = Dimensions.get("window");
 export default function BannerCarousel() {
   const [page, setPage] = useState([]);
   const [images, setImages] = useState([]);
-  const [loaded,setLoaded]=useState(false)
+  const [loaded, setLoaded] = useState(false);
   const fetchBanners = async () => {
     const response = await axios.get(
       "https://munkybox-admin.herokuapp.com/api/promo/active"
@@ -106,6 +106,7 @@ export default function BannerCarousel() {
               borderRadius: 2,
               backgroundColor: "#ff7600",
               padding: 2,
+              marginTop: 4,
             }}
           >
             <Text style={{ fontWeight: "bold", color: "#fff" }}>
@@ -130,9 +131,9 @@ export default function BannerCarousel() {
       </TouchableOpacity>
     );
   };
-  if(loaded){
+  if (loaded) {
     return (
-      <View style={{ marginHorizontal: 4 }}>
+      <View style={{ marginHorizontal: 4, marginBottom: 8 }}>
         <Text style={{ marginHorizontal: 4, fontWeight: "bold", fontSize: 16 }}>
           Today's Featured
         </Text>
@@ -148,7 +149,7 @@ export default function BannerCarousel() {
         </Carousel>
       </View>
     );
-  }else{
-    return null
+  } else {
+    return null;
   }
 }
