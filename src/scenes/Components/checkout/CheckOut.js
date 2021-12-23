@@ -71,10 +71,11 @@ export default function CheckOut({
   const dateHandler = (startDate, endDate) => {
     setState({ ...state, start_date: startDate, end_date: endDate });
   };
-  const couponHandler = (promo, discount) => {
+  const couponHandler = (promo, discount,id) => {
     discount = parseFloat(discount);
     setState({
       ...state,
+      promo_id: id,
       promo_code: promo,
       discount: discount,
     });
@@ -133,6 +134,7 @@ export default function CheckOut({
       time,
       category,
       meal_type,
+      promo_id,
       promo_code,
     } = state;
     const { user_id, email_id, first_name, last_name, phone } = user;
@@ -141,6 +143,7 @@ export default function CheckOut({
       user_id: user_id,
       restaurant_id: restaurant_id,
       email_id: email_id,
+      promo_id: promo_id,
       promo_code: promo_code,
       user_name: first_name + " " + last_name,
       address,
@@ -268,7 +271,11 @@ export default function CheckOut({
         />
         <DeliveryNotes noteHandler={noteHandler} />
         <TipOption tipHandler={tipHandler} />
-        <PromoOptions couponHandler={couponHandler} coupons={promo} price={price} />
+        <PromoOptions
+          couponHandler={couponHandler}
+          coupons={promo}
+          price={price}
+        />
         <BillingTable
           price={price}
           discount={state.discount}
