@@ -18,12 +18,16 @@ const { width, height } = Dimensions.get("window");
 export default function BannerCarousel() {
   const [page, setPage] = useState([]);
   const [images, setImages] = useState([]);
+  const [loaded,setLoaded]=useState(false)
   const fetchBanners = async () => {
     const response = await axios.get(
       "https://munkybox-admin.herokuapp.com/api/promo/active"
     );
     const data = await response.data;
     setPage(data);
+    if (data.length !== 0) {
+      setLoaded(true);
+    }
   };
   const registerClicks = async (restaurant) => {
     const response = await axios.get(
@@ -126,22 +130,25 @@ export default function BannerCarousel() {
       </TouchableOpacity>
     );
   };
-
-  return (
-    <View style={{ marginHorizontal: 4 }}>
-      <Text style={{ marginHorizontal: 4, fontWeight: "bold", fontSize: 16 }}>
-        Today's Featured
-      </Text>
-      <Carousel
-        autoplay
-        showsPageIndicator={true}
-        autoplayTimeout={5000}
-        loop
-        index={0}
-        pageSize={width}
-      >
-        {page.map((image, index) => renderPage(image, index))}
-      </Carousel>
-    </View>
-  );
+  if(loaded){
+    return (
+      <View style={{ marginHorizontal: 4 }}>
+        <Text style={{ marginHorizontal: 4, fontWeight: "bold", fontSize: 16 }}>
+          Today's Featured
+        </Text>
+        <Carousel
+          autoplay
+          showsPageIndicator={true}
+          autoplayTimeout={5000}
+          loop
+          index={0}
+          pageSize={width}
+        >
+          {page.map((image, index) => renderPage(image, index))}
+        </Carousel>
+      </View>
+    );
+  }else{
+    return null
+  }
 }
