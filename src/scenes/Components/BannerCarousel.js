@@ -45,7 +45,10 @@ export default function BannerCarousel() {
     return (
       <TouchableOpacity
         key={index}
-        style={[styles.item, { marginBottom: 16 }]}
+        style={[
+          styles.item,
+          { marginBottom: 16, marginHorizontal: 4, width: width - 20 },
+        ]}
         onPress={() => registerClicks(image)}
       >
         <Image
@@ -81,11 +84,12 @@ export default function BannerCarousel() {
             {image.banner.discount_type === "$"
               ? image.banner.discount_type + image.banner.discount
               : image.banner.discount + image.banner.discount_type}{" "}
-            off on {image.banner.meal_plan}
+            off ({image.banner.meal_plan})
           </Text>
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 14,
+              lineHeight: 16,
               textTransform: "uppercase",
               color: "white",
             }}
@@ -95,9 +99,6 @@ export default function BannerCarousel() {
           </Text>
           <View
             style={{
-              borderStyle: "dashed",
-              borderWidth: 1,
-              borderColor: "#fff",
               borderRadius: 2,
               backgroundColor: "#ff7600",
               padding: 2,
@@ -108,20 +109,39 @@ export default function BannerCarousel() {
             </Text>
           </View>
         </View>
+        <View
+          style={{
+            height: 0,
+            width: 48,
+            position: "absolute",
+            top: 4,
+            left: "50%",
+            borderStyle: "solid",
+            borderTopWidth: 120,
+            borderRightWidth: 25,
+            borderRightColor: "transparent",
+            borderTopColor: "#000",
+          }}
+        />
       </TouchableOpacity>
     );
   };
 
   return (
-    <Carousel
-      autoplay
-      showsPageIndicator={true}
-      autoplayTimeout={5000}
-      loop
-      index={0}
-      pageSize={width}
-    >
-      {page.map((image, index) => renderPage(image, index))}
-    </Carousel>
+    <View style={{ marginHorizontal: 4 }}>
+      <Text style={{ marginHorizontal: 4, fontWeight: "bold", fontSize: 16 }}>
+        Today's Featured
+      </Text>
+      <Carousel
+        autoplay
+        showsPageIndicator={true}
+        autoplayTimeout={5000}
+        loop
+        index={0}
+        pageSize={width}
+      >
+        {page.map((image, index) => renderPage(image, index))}
+      </Carousel>
+    </View>
   );
 }
