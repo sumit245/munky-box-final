@@ -72,9 +72,9 @@ const AddressCard = ({ item, checked, changeSelector }) => (
         <Text style={styles.headerText}>{item.address_type}</Text>
       </View>
       <RadioButton.Android
-        value={item.address_type}
-        status={checked === item.address_type ? "checked" : "unchecked"}
-        onPress={() => changeSelector(item.address_type)}
+        value={item._id}
+        status={checked === item._id ? "checked" : "unchecked"}
+        onPress={() => changeSelector(item._id)}
       />
     </View>
     <View style={[styles.cardBody, { borderBottomWidth: 0 }]}>
@@ -105,7 +105,7 @@ export default class ListAddress extends Component {
   deleteAddress = async (id) => {
     let renderedAddress = [...this.state.address];
     let addresses = renderedAddress.filter(
-      (value) => value.address_type !== id
+      (value) => value._id !== id
     );
     const response = await axios.put(USER_URL + this.state.userid, {
       addresses: addresses,
@@ -181,7 +181,7 @@ export default class ListAddress extends Component {
                   padding: 4,
                 }}
                 onPress={() => {
-                  this.deleteAddress(item.address_type);
+                  this.deleteAddress(item._id);
                 }}
                 imageSource={Trash}
                 imageStyle={{ height: 20, width: 20, alignSelf: "center" }}

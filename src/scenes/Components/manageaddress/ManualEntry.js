@@ -40,6 +40,7 @@ export default class ManualEntry extends Component {
 
     getUser("user").then((res) => {
       let id = res.data._id;
+      console.log(this.props.entryMethod);
       axios
         .put(ADDRESS_URL + id, { address })
         .then((res) => {

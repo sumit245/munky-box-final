@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text, Modal } from "react-native";
+import { View, TouchableOpacity, Text, Modal, ScrollView } from "react-native";
 import axios from "axios";
 import { Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -60,7 +60,8 @@ export default class DeliveryOptions extends Component {
                 >
                   <Icon name="close-sharp" color="red" size={18} />
                 </TouchableOpacity>
-
+                <View style={{flex:1}}>
+                <ScrollView style={{height:120}} showsVerticalScrollIndicator={true} >
                 {addresses.map((data, key) => (
                   <TouchableOpacity
                     style={{
@@ -84,14 +85,20 @@ export default class DeliveryOptions extends Component {
                           ? "business-outline"
                           : "earth-outline"
                       }
-                      size={20}
+                      size={16}
                       style={styles.modalText}
                       color="#979797"
                     />
+                    <View>
+
                     <Text style={styles.modalText}>{data.address_type}</Text>
+                    <Text style={[styles.modalText,{fontSize:12,fontWeight:"normal"}]}>{(data.flat_num||"")+","+(data.locality||"")+","+(data.city||"")}</Text>
+                    </View>
                   </TouchableOpacity>
                 ))}
-                {addresses.length <= 3 ? (
+                
+                </ScrollView>
+                </View>
                   <Text
                     style={[
                       styles.modalText,
@@ -105,7 +112,7 @@ export default class DeliveryOptions extends Component {
                     <Icon name="add-sharp" size={20} color="#226ccf" />
                     Add Address
                   </Text>
-                ) : null}
+                
               </View>
             </TouchableOpacity>
           </Modal>

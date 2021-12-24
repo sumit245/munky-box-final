@@ -133,7 +133,7 @@ export default function BannerCarousel() {
   };
   if (loaded) {
     return (
-      <View style={{ marginHorizontal: 4, marginBottom: 8 }}>
+      <View style={{ marginHorizontal: 4, marginBottom: 16 }}>
         <Text style={{ marginHorizontal: 4, fontWeight: "bold", fontSize: 16 }}>
           Today's Featured
         </Text>
