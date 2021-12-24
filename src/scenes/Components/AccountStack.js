@@ -115,7 +115,8 @@ export default class AccountStack extends Component {
             <Text style={styles.drawerText}>My Orders</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.drawerRow}>
+
+        {/* <View style={styles.drawerRow}>
           <Icons
             name="ios-cash-outline"
             color={"#000"}
@@ -130,7 +131,7 @@ export default class AccountStack extends Component {
           >
             <Text style={styles.drawerText}>Add Coupons</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <View style={styles.drawerRow}>
           <Icons name="cog-outline" color={"#000"} size={24} brand />
@@ -152,6 +153,7 @@ export default class AccountStack extends Component {
             <Text style={styles.drawerText}>Support</Text>
           </TouchableOpacity>
         </View>
+
         <TouchableOpacity
           onPress={this.logout}
           style={[
@@ -190,6 +192,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#888",
     borderBottomWidth: 1,
     borderBottomStartRadius: 120,
+    borderBottomEndRadius: 40,
     width: width,
     marginLeft: 2,
     flexDirection: "row",

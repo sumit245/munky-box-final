@@ -93,15 +93,15 @@ export default function ResultDetails({ item, promo }) {
     }
   };
 
-  const getchefbynameandupdatemenucount = async (restaurant_name) => {
+  const getchefbynameandupdatemenucount = async (restaurant_id) => {
     let MENU_COUNT_URL =
       "http://munkybox-admin.herokuapp.com/api/chefdashboard/getchefbynameandupdatemenucount/" +
-      restaurant_name;
+      restaurant_id;
     const response = await axios.get(MENU_COUNT_URL);
   };
   useEffect(() => {
-    getchefbynameandupdatemenucount(restaurant_name);
-  }, [restaurant_name]);
+    getchefbynameandupdatemenucount(restaurant_id);
+  }, [restaurant_id]);
   <RenderRightButton restaurant_id={restaurant_id} />;
   return (
     <ScrollView showsVerticalScrollIndicator={false}>

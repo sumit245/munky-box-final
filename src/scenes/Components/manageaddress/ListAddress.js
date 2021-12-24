@@ -45,11 +45,10 @@ const ListEmptyContent = () => {
 
 const AddressCard = ({ item, checked, changeSelector }) => (
   <View
-    style={{
-      marginVertical: 2,
-      borderBottomColor: "#777",
-      borderBottomWidth: 0.5,
-    }}
+    style={styles.card}
+    // style={{
+    //   marginVertical: 2,
+    // }}
   >
     <View style={styles.cardHeader}>
       <View
@@ -148,7 +147,7 @@ export default class ListAddress extends Component {
           ListEmptyComponent={() => {
             return <ListEmptyContent />;
           }}
-          contentContainerStyle={styles.card}
+          // contentContainerStyle={styles.card}
           renderRightActions={({ item }) => (
             <SwipeableQuickActions
               style={{

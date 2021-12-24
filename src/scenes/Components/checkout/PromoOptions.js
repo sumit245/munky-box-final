@@ -25,6 +25,7 @@ export default class PromoOptions extends Component {
           error: false,
           promo: promo,
           discount: coupon[i].discount,
+          promo_id: coupon[i].promo_id,
         });
         return coupon[i];
       } else {
@@ -39,6 +40,7 @@ export default class PromoOptions extends Component {
   getCoupon = async () => {
     const response = await axios.get(COUPON_URL);
     const coupon = await response.data;
+    console.log(coupon);
     this.setState({ coupons: coupon });
   };
   componentDidMount() {
@@ -47,14 +49,13 @@ export default class PromoOptions extends Component {
   applyCoupon = () => {
     this.setState({ applied: true });
     const { coupons, price } = this.props;
-    console.log(coupons);
     let disc = 0;
     if (coupons.discount_type !== "%") {
       disc = coupons.discount;
     } else {
       disc = (coupons.discount / 100) * price;
     }
-    this.props.couponHandler(coupons.prom_id, coupons.promo_code, disc);
+    this.props.couponHandler(coupons.promo_code, disc, coupons.promo_id);
   };
 
   render() {
