@@ -98,9 +98,7 @@ export default function CheckOut({
   const addressHandler = (address) => {
     setAddressLoading(true);
     let { addresses } = state.user;
-    let currentAddress = addresses.filter(
-      (item) => item.address_type === address
-    );
+    let currentAddress = addresses.filter((item) => item._id === address);
     setState({ ...state, address: currentAddress[0] });
     setAddressLoading(false);
   };

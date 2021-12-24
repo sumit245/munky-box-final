@@ -22,6 +22,7 @@ export default function CheckoutAddress({ addressHandler, selected }) {
 
   const onAddressSelect = async (address) => {
     setLoading(true);
+    console.log(address);
     await addressHandler(address);
     setLoading(false);
   };
