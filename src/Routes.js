@@ -77,32 +77,32 @@ export default function Routes() {
           key="thankyou"
           component={Thankyou}
           title={"Order Placed"}
-          renderLeftButton={() => (
-            <TouchableOpacity
-              style={{
-                height: 50,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => {
-                Actions.pop();
-              }}
-            >
-              <Icon name="chevron-back" size={28} color="#223fdc" />
-            </TouchableOpacity>
-          )}
+          // renderLeftButton={() => (
+          //   <TouchableOpacity
+          //     style={{
+          //       height: 50,
+          //       alignItems: "center",
+          //       justifyContent: "center",
+          //     }}
+          //     onPress={() => {
+          //       Actions.pop();
+          //     }}
+          //   >
+          //     <Icon name="chevron-back" size={28} color="#223fdc" />
+          //   </TouchableOpacity>
+          // )}
           renderRightButton={() => (
             <TouchableOpacity
               style={{
                 height: 50,
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "flex-start",
               }}
               onPress={() => {
                 Actions.push("home");
               }}
             >
-              <Text style={{ textTransform: "uppercase", color: "#226cff" }}>
+              <Text style={{ textTransform: "uppercase", color: "#226cff",fontWeight:"bold" }}>
                 Done
               </Text>
             </TouchableOpacity>
