@@ -92,6 +92,7 @@ export default function CheckOut({
   };
   const cardHandler = (card) => {
     let { cards } = state.user;
+    console.log(cards);
     let currentCard = cards.filter((item) => item.number === card);
     setState({ ...state, card: currentCard[0] });
   };

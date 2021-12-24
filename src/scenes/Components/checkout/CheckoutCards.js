@@ -35,6 +35,7 @@ export default function CheckoutCards({ cardHandler, user, selected }) {
   };
 
   const onSelectCard = (card) => {
+    console.log(card);
     cardHandler(card);
   };
 
