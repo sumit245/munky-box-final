@@ -18,6 +18,7 @@ export default function CheckoutCards({ cardHandler, user, selected }) {
   useEffect(() => {
     let componentMounted = true;
     if (componentMounted) {
+      console.log(selected);
       setCards(selected);
       setLoading(false);
     }

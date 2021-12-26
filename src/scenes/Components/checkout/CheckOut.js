@@ -92,7 +92,6 @@ export default function CheckOut({
   };
   const cardHandler = (card) => {
     let { cards } = state.user;
-    console.log(cards);
     let currentCard = cards.filter((item) => item.number === card);
     setState({ ...state, card: currentCard[0] });
   };
@@ -163,6 +162,7 @@ export default function CheckOut({
       start_date,
       end_date,
       notes,
+      order_time: new Date().toISOString(),
     };
     const response = await axios.post(ORDER_URL, newOrder);
     const data = await response.data;
