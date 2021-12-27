@@ -89,7 +89,7 @@ export default class ManageCard extends Component {
   showModal = () => this.setState({ visible: true });
   hideModal = () => this.setState({ visible: false });
   render() {
-    <GoBackButton />;
+    
     const { visible, title } = this.state;
     return (
       <Provider>
