@@ -82,7 +82,7 @@ export default function Routes() {
         <Scene
           key="manageCards"
           component={ListCard}
-          renderLeftButton={() => <BackButton />}
+          renderLeftButton={() => <GoBackButton />}
           renderRightButton={() => (
             <TouchableOpacity
               style={{
@@ -138,7 +138,12 @@ export default function Routes() {
         />
         <Scene key="checkout" component={CheckOut} hideNavBar={true} />
 
-        <Scene key="policies" component={Policies} title="About" />
+        <Scene
+          key="policies"
+          component={Policies}
+          title="About"
+          renderLeftButton={() => <BackButton />}
+        />
         <Scene key="coupons" component={Rewards} hideNavBar={true} />
         <Scene
           key="details"

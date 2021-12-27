@@ -1,11 +1,32 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, TextInput, View } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  TextInput,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import { LiteCreditCardInput } from "react-native-credit-card-input";
 import { getUser, saveUser } from "../../../services/user/getuser";
+import Ionicon from "react-native-vector-icons";
 import axios from "axios";
 import { Actions } from "react-native-router-flux";
 import { Modal, Portal, Provider } from "react-native-paper";
 
+export const GoBackButton = () => (
+  <TouchableOpacity
+    style={{
+      height: 50,
+      alignItems: "center",
+      justifyContent: "center",
+    }}
+    onPress={() => {
+      Actions.pop();
+    }}
+  >
+    <Ionicon name="chevron-back" size={28} color="#223fdc" />
+  </TouchableOpacity>
+);
 export default class ManageCard extends Component {
   constructor(props) {
     super(props);
@@ -67,8 +88,8 @@ export default class ManageCard extends Component {
 
   showModal = () => this.setState({ visible: true });
   hideModal = () => this.setState({ visible: false });
-
   render() {
+    <GoBackButton />;
     const { visible, title } = this.state;
     return (
       <Provider>
