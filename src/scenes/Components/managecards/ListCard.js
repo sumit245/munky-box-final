@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/Fontisto";
+import Ionicon from "react-native-vector-icons/Ionicons";
 import { Actions } from "react-native-router-flux";
 import { width } from "../../styles/HomeStyles";
 import { IconButton, RadioButton } from "react-native-paper";

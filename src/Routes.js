@@ -81,7 +81,7 @@ export default function Routes() {
         <Scene
           key="manageCards"
           component={ListCard}
-          renderLeftButton={() => <BackButton />}
+          renderLeftButton={() => <GoBackButton />}
           renderRightButton={() => (
             <TouchableOpacity
               style={{
