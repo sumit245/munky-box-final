@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { Card } from "react-native-paper";
+import { Avatar, Card } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
 import Redo from "react-native-vector-icons/FontAwesome5";
 import NewsPaper from "react-native-vector-icons/MaterialCommunityIcons";
@@ -35,13 +35,11 @@ export default function OrderCard({ item }) {
               paddingBottom: 10,
             }}
           >
-            <Image
+            <Avatar.Image
               source={{
-                uri: rest.documents[1].banner_image,
+                uri: rest.documents[0].restaurant_image,
               }}
-              height={40}
-              width={40}
-              style={{ width: 40, height: 40, borderRadius: 2, padding: 2 }}
+              style={{ padding: 2 }}
             />
             <View
               style={{
@@ -100,6 +98,7 @@ export default function OrderCard({ item }) {
                   title: rest.restaurant_name,
                   restaurant_id: rest._id,
                   item: rest,
+                  promo: rest.promo,
                 })
               }
             >
