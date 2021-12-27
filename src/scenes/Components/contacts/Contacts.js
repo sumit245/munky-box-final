@@ -165,8 +165,8 @@ export default function Contacts({ navigation }) {
   } else {
     return (
       <SuccessDialog
-        title="Are you Sure?"
-        text="This message will be discarded"
+        title="Delivered!!!"
+        text="Your message has been sent to the admin. They will contact you soon!!"
         showDialog={true}
       />
     );

@@ -10,7 +10,7 @@ import Icon from "react-native-vector-icons/Fontisto";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import { Actions } from "react-native-router-flux";
 import { width } from "../../styles/HomeStyles";
-import { IconButton, RadioButton } from "react-native-paper";
+import { IconButton, RadioButton,Provider } from "react-native-paper";
 import { getUser, saveUser } from "../../../services/user/getuser";
 import ManageCard from "./ManageCard";
 import {
@@ -153,10 +153,15 @@ export default class ListCard extends Component {
     modalVisible: false,
     user_id: "",
   };
-  componentDidMount() {
-    getUser("user").then((res) => {
+  fetchUser=()=>{
+ getUser("user").then((res) => {
       this.setState({ cards: res.data.cards, user_id: res.data._id });
     });
+  }
+  componentDidMount() {
+   this.fetchUser()
+  }componentDidUpdate(){
+    this.fetchUser()
   }
   renderAddress = ({ item }, checked) => (
     <PaymentCard
@@ -184,6 +189,7 @@ export default class ListCard extends Component {
     saveUser("user", local);
     this.setState({
       cards: cards,
+      
     });
   };
   openEdit = ({ item }) => {
@@ -197,6 +203,7 @@ export default class ListCard extends Component {
     const { cards, checked, modalVisible, selectedcard, title } = this.state;
     return (
       <ScrollView contentContainerStyle={styles.container}>
+      <Provider>
         <View>
           <SwipeableFlatList
             data={cards}
@@ -259,6 +266,7 @@ export default class ListCard extends Component {
             title={title}
           />
         )}
+        </Provider>
       </ScrollView>
     );
   }

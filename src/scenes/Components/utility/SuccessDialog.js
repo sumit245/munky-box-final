@@ -23,8 +23,8 @@ const SuccessDialog = ({ title, text, showDialog, okHandler }) => {
             <Paragraph>{text}</Paragraph>
           </Dialog.Content>
           <Dialog.Actions>
-            <Button onPress={() => setShow(false)}>No</Button>
-            <Button onPress={done}>Yes</Button>
+            
+            <Button onPress={done}>Done</Button>
           </Dialog.Actions>
         </Dialog>
       </Portal>

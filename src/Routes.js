@@ -15,9 +15,7 @@ import Rewards from "./scenes/ReviewScreen";
 import Icon from "react-native-vector-icons/Ionicons";
 import UserDetail from "./scenes/Components/UserDetail";
 import ManageAddress from "./scenes/Components/manageaddress/ManageAddress";
-import ManageCard, {
-  GoBackButton,
-} from "./scenes/Components/managecards/ManageCard";
+import ManageCard from "./scenes/Components/managecards/ManageCard";
 import { ModalOpener } from "./services/documentopener/documentopener";
 import ListAddress from "./scenes/Components/manageaddress/ListAddress";
 import { getUser } from "./services/user/getuser";
@@ -29,6 +27,7 @@ import Thankyou, { DoneRightButton } from "./scenes/Thankyou";
 import Wallet from "./scenes/Components/wallet/Wallet";
 import Contacts from "./scenes/Components/contacts/Contacts";
 import BackButton from "./scenes/Components/utility/BackButton";
+import About from "./scenes/About";
 
 export default function Routes() {
   const [user, setUser] = useState({});
@@ -84,7 +83,7 @@ export default function Routes() {
         <Scene
           key="manageCards"
           component={ListCard}
-          renderLeftButton={() => <GoBackButton />}
+          renderLeftButton={() => <BackButton />}
           renderRightButton={() => (
             <TouchableOpacity
               style={{
@@ -142,7 +141,7 @@ export default function Routes() {
 
         <Scene
           key="policies"
-          component={Policies}
+          component={About}
           title="About"
           renderLeftButton={() => <BackButton />}
         />

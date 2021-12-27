@@ -13,20 +13,6 @@ import axios from "axios";
 import { Actions } from "react-native-router-flux";
 import { Modal, Portal, Provider } from "react-native-paper";
 
-export const GoBackButton = () => (
-  <TouchableOpacity
-    style={{
-      height: 50,
-      alignItems: "center",
-      justifyContent: "center",
-    }}
-    onPress={() => {
-      Actions.pop();
-    }}
-  >
-    <Ionicon name="chevron-back" size={28} color="#223fdc" />
-  </TouchableOpacity>
-);
 export default class ManageCard extends Component {
   constructor(props) {
     super(props);
@@ -74,7 +60,8 @@ export default class ManageCard extends Component {
           .then((res) => {
             alert(res.data.msg);
             saveUser("user", JSON.stringify(res.data)).then((res) => {
-              Actions.push("manageCards", { title: "Manage Payments" });
+              this.setState({visible:false})
+              
             });
           })
           .catch((err) => console.log(err));
@@ -92,7 +79,7 @@ export default class ManageCard extends Component {
     
     const { visible, title } = this.state;
     return (
-      <Provider>
+      
         <Portal>
           <Modal
             visible={visible}
@@ -162,7 +149,7 @@ export default class ManageCard extends Component {
             </View>
           </Modal>
         </Portal>
-      </Provider>
+      
     );
   }
 }
