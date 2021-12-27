@@ -15,8 +15,7 @@ export const DoneRightButton = () => (
   <TouchableOpacity
     style={{
       height: 50,
-      alignItems: "center",
-      justifyContent: "flex-start",
+flexDirection:"row"
     }}
     onPress={() => {
       Actions.push("home");
@@ -27,10 +26,12 @@ export const DoneRightButton = () => (
         textTransform: "uppercase",
         color: "#226cff",
         fontWeight: "bold",
+        
       }}
     >
       Done
     </Text>
+    <View/>
   </TouchableOpacity>
 );
 
