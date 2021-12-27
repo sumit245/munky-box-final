@@ -7,6 +7,7 @@ import {
   Image,
   SafeAreaView,
   Keyboard,
+  StatusBar,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import CheckoutAddress from "./CheckoutAddress";
@@ -216,7 +217,7 @@ export default function CheckOut({
         style={{
           position: "absolute",
           left: 5,
-          top: 4,
+          top: 48,
           borderRadius: 20,
           backgroundColor: "#cccccc",
           zIndex: 1000,
