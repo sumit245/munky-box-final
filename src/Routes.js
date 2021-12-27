@@ -15,7 +15,9 @@ import Rewards from "./scenes/ReviewScreen";
 import Icon from "react-native-vector-icons/Ionicons";
 import UserDetail from "./scenes/Components/UserDetail";
 import ManageAddress from "./scenes/Components/manageaddress/ManageAddress";
-import ManageCard from "./scenes/Components/managecards/ManageCard";
+import ManageCard, {
+  GoBackButton,
+} from "./scenes/Components/managecards/ManageCard";
 import { ModalOpener } from "./services/documentopener/documentopener";
 import ListAddress from "./scenes/Components/manageaddress/ListAddress";
 import { getUser } from "./services/user/getuser";
