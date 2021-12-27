@@ -130,7 +130,6 @@ export default class DetailStack extends Component {
     this.setState({
       restaurant: restaurant,
       loading: false,
-      refreshing: false,
     });
   };
 
@@ -160,6 +159,7 @@ export default class DetailStack extends Component {
   onRefresh = () => {
     this.setState({ refreshing: true });
     this.getApiData();
+    this.setState({ refreshing: false });
   };
 
   componentDidUpdate() {
