@@ -136,12 +136,7 @@ export default function Routes() {
           title="Manage Address"
         />
         <Scene key="checkout" component={CheckOut} hideNavBar={true} />
-        <Scene
-          key="orderhistory"
-          component={OrderHistory}
-          title="My Orders"
-          renderLeftButton={() => <BackButton />}
-        />
+
         <Scene key="policies" component={Policies} title="About" />
         <Scene key="coupons" component={Rewards} hideNavBar={true} />
         <Scene

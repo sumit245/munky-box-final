@@ -16,6 +16,7 @@ export default function FavoritePicker({ favCount }) {
       componentMounted = false;
     };
   }, [favCount]);
+  
   return (
     <View
       style={{ flexDirection: "row", alignItems: "center", marginRight: 8 }}

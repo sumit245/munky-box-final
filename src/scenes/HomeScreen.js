@@ -7,6 +7,7 @@ import AccountStack from "./Components/AccountStack";
 import SubscriptionStack from "./Components/SubscriptionStack";
 import Favouite from "./Components/Favouite";
 import { getUser } from "../services/user/getuser";
+import OrderHistory from "./Components/OrderHistory";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -31,7 +32,7 @@ export default function HomeScreen({ navigation }) {
         />
         <Tab.Screen
           name="My Orders"
-          component={Favouite}
+          component={OrderHistory}
           options={{
             tabBarIcon: ({ color }) => (
               <Icon name="cart-outline" color={color} size={24} />
