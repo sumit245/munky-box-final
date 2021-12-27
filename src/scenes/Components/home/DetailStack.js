@@ -157,9 +157,7 @@ export default class DetailStack extends Component {
     });
   };
   onRefresh = () => {
-    this.setState({ refreshing: true });
     this.getApiData();
-    this.setState({ refreshing: false });
   };
 
   componentDidUpdate() {
@@ -177,7 +175,7 @@ export default class DetailStack extends Component {
             style={{ flex: 1 }}
             refreshControl={
               <RefreshControl
-                refreshing={this.state.refreshing}
+                refreshing={this.state.loading}
                 onRefresh={this.onRefresh}
                 colors={["#f00", "#0f0", "#00f"]}
               />
