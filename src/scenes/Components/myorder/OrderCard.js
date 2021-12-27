@@ -63,14 +63,17 @@ export default function OrderCard({ item }) {
                     : "30 Meals"}
                 </Text>
               </View>
+              <View>
               <Text style={{ fontSize: 14, textTransform: "uppercase" }}>
                 {item.status}
               </Text>
+              <Text style={{ textAlign: "right", fontWeight: "bold",marginTop:8,fontSize:16 }}>
+            {"$" + item.total}
+          </Text>
+          </View>
             </View>
           </View>
-          <Text style={{ textAlign: "right", fontWeight: "bold" }}>
-            {"CAD " + item.total}
-          </Text>
+          
         </Card.Content>
         <Card.Actions style={{ justifyContent: "space-between" }}>
           <View style={{ alignItems: "center" }}>
