@@ -1,8 +1,38 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, Image, Text, ImageBackground, View } from "react-native";
+import {
+  SafeAreaView,
+  Text,
+  ImageBackground,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import { ORDER_URL } from "../services/EndPoints";
 import { styles } from "./styles/CheckoutStyles";
+import { Actions } from "react-native-router-flux";
+
+export const DoneRightButton = () => (
+  <TouchableOpacity
+    style={{
+      height: 50,
+      alignItems: "center",
+      justifyContent: "flex-start",
+    }}
+    onPress={() => {
+      Actions.push("home");
+    }}
+  >
+    <Text
+      style={{
+        textTransform: "uppercase",
+        color: "#226cff",
+        fontWeight: "bold",
+      }}
+    >
+      Done
+    </Text>
+  </TouchableOpacity>
+);
 
 export default function Thankyou({ id, msg }) {
   const [state, setstate] = useState({
@@ -24,7 +54,7 @@ export default function Thankyou({ id, msg }) {
       componentMounted = false;
     };
   }, []);
-
+  <DoneRightButton />;
   return (
     <SafeAreaView
       style={{

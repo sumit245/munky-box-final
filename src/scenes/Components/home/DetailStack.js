@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ScrollView,
+  RefreshControl,
 } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
 import axios from "axios";
@@ -39,6 +40,7 @@ export default class DetailStack extends Component {
     msg: "Fetching some best restaurant for you",
     highLighted: false,
     favCount: 0,
+    refreshing: false,
   };
   _handleIndexChange = async (index) => {
     this.setState({
@@ -125,7 +127,11 @@ export default class DetailStack extends Component {
     });
     const response = await axios.get(RESTAURANT_URL);
     const restaurant = await response.data;
-    this.setState({ restaurant: restaurant, loading: false });
+    this.setState({
+      restaurant: restaurant,
+      loading: false,
+      refreshing: false,
+    });
   };
 
   renderCuisine = ({ item }) => {
@@ -151,6 +157,14 @@ export default class DetailStack extends Component {
       loading: false,
     });
   };
+  onRefresh = () => {
+    this.setState({ refreshing: true });
+    this.getApiData();
+  };
+
+  componentDidUpdate() {
+    this.getFavoriteCount();
+  }
 
   render() {
     const { cuisine, routes, index, loading, msg, highLighted, favCount } =
@@ -159,7 +173,16 @@ export default class DetailStack extends Component {
       return !loading ? (
         <SafeAreaView style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
           <HeaderComponent favCount={favCount} applyfilter={this.applyfilter} />
-          <ScrollView style={{ flex: 1 }}>
+          <ScrollView
+            style={{ flex: 1 }}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.onRefresh}
+                colors={["#f00", "#0f0", "#00f"]}
+              />
+            }
+          >
             <View>
               <FlatList
                 contentContainerStyle={{ marginLeft: 4, marginBottom: 8 }}

@@ -8,7 +8,6 @@ import ResultDetails, {
 } from "./scenes/Components/resultdetails/ResultDetails";
 import PlanChooser from "./scenes/Components/resultdetails/PlanChooser";
 import ReviewScreen from "./scenes/ReviewScreen";
-import AddressPay from "./scenes/AddressPay";
 import CheckOut from "./scenes/Components/checkout/CheckOut";
 import OrderHistory from "./scenes/Components/OrderHistory";
 import Policies from "./scenes/Components/Policies";
@@ -24,9 +23,10 @@ import EditAccount from "./scenes/Components/EditAccount";
 import ListCard from "./scenes/Components/managecards/ListCard";
 import NotificationStack from "./scenes/Components/NotificationStack";
 import Favouite from "./scenes/Components/Favouite";
-import Thankyou from "./scenes/Thankyou";
+import Thankyou, { DoneRightButton } from "./scenes/Thankyou";
 import Wallet from "./scenes/Components/wallet/Wallet";
 import Contacts from "./scenes/Components/contacts/Contacts";
+import BackButton from "./scenes/Components/utility/BackButton";
 
 export default function Routes() {
   const [user, setUser] = useState({});
@@ -57,56 +57,14 @@ export default function Routes() {
           key="documents"
           component={ModalOpener}
           title={"Documents"}
-          renderLeftButton={() => (
-            <TouchableOpacity
-              style={{
-                height: 50,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => {
-                Actions.pop();
-              }}
-            >
-              <Icon name="chevron-back" size={28} color="#223fdc" />
-            </TouchableOpacity>
-          )}
+          renderLeftButton={() => <BackButton />}
         />
         <Scene key="reviews" component={ReviewScreen} title={"Reviews"} />
         <Scene
           key="thankyou"
           component={Thankyou}
           title={"Order Placed"}
-          // renderLeftButton={() => (
-          //   <TouchableOpacity
-          //     style={{
-          //       height: 50,
-          //       alignItems: "center",
-          //       justifyContent: "center",
-          //     }}
-          //     onPress={() => {
-          //       Actions.pop();
-          //     }}
-          //   >
-          //     <Icon name="chevron-back" size={28} color="#223fdc" />
-          //   </TouchableOpacity>
-          // )}
-          renderRightButton={() => (
-            <TouchableOpacity
-              style={{
-                height: 50,
-                alignItems: "center",
-                justifyContent: "flex-start",
-              }}
-              onPress={() => {
-                Actions.push("home");
-              }}
-            >
-              <Text style={{ textTransform: "uppercase", color: "#226cff",fontWeight:"bold" }}>
-                Done
-              </Text>
-            </TouchableOpacity>
-          )}
+          renderRightButton={DoneRightButton}
         />
         <Scene
           key="manageNotifications"
@@ -117,40 +75,13 @@ export default function Routes() {
           key="editaccount"
           component={EditAccount}
           title={"Edit Account"}
-          renderLeftButton={() => (
-            <TouchableOpacity
-              style={{
-                height: 50,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => {
-                Actions.pop();
-              }}
-            >
-              <Icon name="chevron-back" size={28} color="#223fdc" />
-            </TouchableOpacity>
-          )}
+          renderLeftButton={() => <BackButton />}
         />
         <Scene key="planchooser" component={PlanChooser} />
-        <Scene key="address" component={AddressPay} hideNavBar={true} />
         <Scene
           key="manageCards"
           component={ListCard}
-          renderLeftButton={() => (
-            <TouchableOpacity
-              style={{
-                height: 50,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => {
-                Actions.pop();
-              }}
-            >
-              <Icon name="chevron-back" size={28} color="#223fdc" />
-            </TouchableOpacity>
-          )}
+          renderLeftButton={() => <BackButton />}
           renderRightButton={() => (
             <TouchableOpacity
               style={{
@@ -190,20 +121,7 @@ export default function Routes() {
         <Scene
           key="wallet"
           component={Wallet}
-          renderLeftButton={() => (
-            <TouchableOpacity
-              // style={{
-              //   height: 50,
-              //   alignItems: "center",
-              //   justifyContent: "center",
-              // }}
-              onPress={() => {
-                Actions.pop();
-              }}
-            >
-              <Icon name="chevron-back" size={28} color="#223fdc" />
-            </TouchableOpacity>
-          )}
+          renderLeftButton={() => <BackButton />}
         />
         <Scene key="addCard" component={ManageCard} />
         <Scene
@@ -213,20 +131,7 @@ export default function Routes() {
         />
         <Scene
           key="listAddress"
-          renderLeftButton={() => (
-            <TouchableOpacity
-              style={{
-                height: 50,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => {
-                Actions.pop();
-              }}
-            >
-              <Icon name="chevron-back" size={28} color="#223fdc" />
-            </TouchableOpacity>
-          )}
+          renderLeftButton={() => <BackButton />}
           component={ListAddress}
           title="Manage Address"
         />
@@ -235,20 +140,7 @@ export default function Routes() {
           key="orderhistory"
           component={OrderHistory}
           title="My Orders"
-          renderLeftButton={() => (
-            <TouchableOpacity
-              style={{
-                height: 50,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => {
-                Actions.pop();
-              }}
-            >
-              <Icon name="chevron-back" size={28} color="#223fdc" />
-            </TouchableOpacity>
-          )}
+          renderLeftButton={() => <BackButton />}
         />
         <Scene key="policies" component={Policies} title="About" />
         <Scene key="coupons" component={Rewards} hideNavBar={true} />
@@ -275,20 +167,7 @@ export default function Routes() {
           key="favorites"
           component={Favouite}
           title="My Favorites"
-          renderLeftButton={() => (
-            <TouchableOpacity
-              style={{
-                height: 50,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => {
-                Actions.pop();
-              }}
-            >
-              <Icon name="chevron-back" size={28} color="#223fdc" />
-            </TouchableOpacity>
-          )}
+          renderLeftButton={() => <BackButton />}
         />
       </Scene>
     </Router>

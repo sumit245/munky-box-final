@@ -18,7 +18,6 @@ export default function CheckoutCards({ cardHandler, user, selected }) {
   useEffect(() => {
     let componentMounted = true;
     if (componentMounted) {
-      console.log(selected);
       setCards(selected);
       setLoading(false);
     }
@@ -36,7 +35,6 @@ export default function CheckoutCards({ cardHandler, user, selected }) {
   };
 
   const onSelectCard = (card) => {
-    console.log(card);
     cardHandler(card);
   };
 

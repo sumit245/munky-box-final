@@ -23,6 +23,7 @@ import { ORDER_URL } from "../../../services/EndPoints";
 import { Actions } from "react-native-router-flux";
 import { styles, width, height } from "../../styles/CheckoutStyles";
 import Loader from "../utility/Loader";
+import BackButton from "../utility/BackButton";
 
 export default function CheckOut({
   plan,
@@ -211,6 +212,21 @@ export default function CheckOut({
   }
   return (
     <SafeAreaView style={styles.container}>
+      <View
+        style={{
+          position: "absolute",
+          left: 5,
+          top: 4,
+          borderRadius: 20,
+          backgroundColor: "#cccccc",
+          zIndex: 1000,
+          height: 30,
+          width: 30,
+          justifyContent: "center",
+        }}
+      >
+        <BackButton />
+      </View>
       <ScrollView
         stickyHeaderIndices={[1]}
         showsVerticalScrollIndicator={false}
@@ -289,10 +305,11 @@ export default function CheckOut({
           }}
         >
           <View style={styles.totalCount}>
-            <Text style={{ fontSize: 14, fontWeight: "bold" }}>
+            <Text
+              style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}
+            >
               ${state.total}
             </Text>
-            <Text style={styles.billLink}>View Detailed bill</Text>
           </View>
 
           <TouchableOpacity style={styles.button} onPress={orderNow}>

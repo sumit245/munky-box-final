@@ -30,11 +30,11 @@ export default function HomeScreen({ navigation }) {
           }}
         />
         <Tab.Screen
-          name="Favorite"
+          name="My Orders"
           component={Favouite}
           options={{
             tabBarIcon: ({ color }) => (
-              <Icon name="gift-outline" color={color} size={24} />
+              <Icon name="cart-outline" color={color} size={24} />
             ),
           }}
         />

@@ -1,30 +1,21 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { Badge } from "react-native-paper";
 import { Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
-import { USER_URL } from "../../../services/EndPoints";
-import { getUser } from "../../../services/user/getuser";
 
-export default function FavoritePicker() {
+export default function FavoritePicker({ favCount }) {
   const [count, setCount] = useState("0");
+
   useEffect(() => {
     let componentMounted = true;
-    const getFavoriteCount = async () => {
-      const users = await getUser("user");
-      const { _id } = await users.data;
-      const userResponse = await axios.get(USER_URL + _id);
-      const { favorite } = await userResponse.data;
-      if (componentMounted) {
-        setCount(favorite.length);
-      }
-    };
-    getFavoriteCount();
+    if (componentMounted) {
+      setCount(favCount);
+    }
     return () => {
       componentMounted = false;
     };
-  });
+  }, [favCount]);
   return (
     <View
       style={{ flexDirection: "row", alignItems: "center", marginRight: 8 }}

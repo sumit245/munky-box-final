@@ -11,7 +11,6 @@ export default function CheckoutAddress({ addressHandler, selected }) {
   useEffect(() => {
     let componentMounted = true;
     if (componentMounted) {
-      console.log(selected);
       setLoading(true);
       setAddress(selected);
       setLoading(false);

@@ -44,12 +44,7 @@ const ListEmptyContent = () => {
 };
 
 const AddressCard = ({ item, checked, changeSelector }) => (
-  <View
-    style={styles.card}
-    // style={{
-    //   marginVertical: 2,
-    // }}
-  >
+  <View style={styles.card}>
     <View style={styles.cardHeader}>
       <View
         style={{
@@ -92,28 +87,33 @@ export default class ListAddress extends Component {
     checked: "home",
     userid: "",
   };
-  componentDidMount() {
-    Actions.refresh();
+  fetchUser = () => {
     getUser("user").then((res) => {
       let { _id } = res.data;
       axios.get(USER_URL + _id).then((res) => {
         this.setState({ address: res.data.addresses, userid: _id });
       });
     });
+  };
+
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      this.fetchUser();
+    }
+  }
+  componentDidMount() {
+    this.fetchUser();
   }
 
   deleteAddress = async (id) => {
     let renderedAddress = [...this.state.address];
-    let addresses = renderedAddress.filter(
-      (value) => value._id !== id
-    );
+    let addresses = renderedAddress.filter((value) => value._id !== id);
     const response = await axios.put(USER_URL + this.state.userid, {
       addresses: addresses,
     });
     const { data } = await response.data;
     let local = JSON.stringify(data);
     saveUser("user", local);
-
     this.setState({
       address: addresses,
     });
@@ -142,7 +142,7 @@ export default class ListAddress extends Component {
         <SwipeableFlatList
           data={address}
           renderItem={(item) => this.renderAddress(item, checked)}
-          keyExtractor={(item) => item.address_type}
+          keyExtractor={(item) => item._id}
           extraData={this.changeSelector}
           ListEmptyComponent={() => {
             return <ListEmptyContent />;

@@ -23,11 +23,16 @@ export default class AccountStack extends Component {
       signoff: false,
     };
   }
-
-  componentDidMount() {
+  fetchUser = () => {
     getUser("user")
       .then((res) => this.setState({ user: res.data }))
       .catch((err) => console.log(err));
+  };
+  componentDidUpdate(prevProps) {
+    this.fetchUser();
+  }
+  componentDidMount() {
+    this.fetchUser();
   }
   logout = () => {
     removeUser("user")
@@ -105,46 +110,14 @@ export default class AccountStack extends Component {
             <Text style={styles.drawerText}>Notifications</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.drawerRow}>
-          <Icons name="timer-outline" color={"#000"} size={24} brand />
-          <TouchableOpacity
-            onPress={() => {
-              Actions.push("orderhistory");
-            }}
-          >
-            <Text style={styles.drawerText}>My Orders</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* <View style={styles.drawerRow}>
-          <Icons
-            name="ios-cash-outline"
-            color={"#000"}
-            style={{ fontWeight: "bold" }}
-            size={24}
-            brand
-          />
-          <TouchableOpacity
-            onPress={() => {
-              Actions.push("coupons");
-            }}
-          >
-            <Text style={styles.drawerText}>Add Coupons</Text>
-          </TouchableOpacity>
-        </View> */}
 
         <View style={styles.drawerRow}>
           <Icons name="cog-outline" color={"#000"} size={24} brand />
-          <Text style={styles.drawerText}>Settings</Text>
+          <Text style={styles.drawerText}>Pin Settings</Text>
         </View>
 
         <View style={styles.drawerRow}>
-          <Icons
-            name="md-document-text-outline"
-            color={"#000"}
-            size={24}
-            brand
-          />
+          <Icons name="mail-outline" color={"#000"} size={24} brand />
           <TouchableOpacity
             onPress={() => {
               Actions.push("contacts");
@@ -154,11 +127,33 @@ export default class AccountStack extends Component {
           </TouchableOpacity>
         </View>
 
+        <View style={styles.drawerRow}>
+          <Icons
+            name="md-document-text-outline"
+            color={"#000"}
+            style={{ fontWeight: "bold" }}
+            size={24}
+            brand
+          />
+          <TouchableOpacity
+            onPress={() => {
+              Actions.push("policies");
+            }}
+          >
+            <Text style={styles.drawerText}>About Us</Text>
+          </TouchableOpacity>
+        </View>
+
         <TouchableOpacity
           onPress={this.logout}
           style={[
             styles.drawerRow,
-            { position: "absolute", bottom: 0, left: 150 },
+            {
+              position: "absolute",
+              bottom: 0,
+              left: "40%",
+              borderBottomColor: "#fff",
+            },
           ]}
         >
           <Icons name="exit-outline" color={"#000"} size={30} brand />

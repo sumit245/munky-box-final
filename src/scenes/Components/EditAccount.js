@@ -47,6 +47,33 @@ export default class EditAccount extends Component {
       this.setState({ uri: result.uri, editProfile: true });
     }
   };
+  fetchUser = () => {
+    getUser("user")
+      .then((res) => {
+        if (res !== null) {
+          const {
+            _id,
+            first_name,
+            last_name,
+            phone,
+            email_id,
+            profile_picture,
+          } = res.data;
+          this.setState({
+            id: _id,
+            first_name: first_name,
+            last_name: last_name,
+            phone: phone,
+            email_id: email_id,
+            uri: profile_picture,
+          });
+        } else {
+          alert("Please login first");
+          Actions.jump("auth");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   _nextAction = async () => {
     this.setState({ loading: true });
     const { id, first_name, last_name, phone, email_id, uri } = this.state;
@@ -71,29 +98,17 @@ export default class EditAccount extends Component {
   };
 
   componentDidMount() {
-    getUser("user")
-      .then((res) => {
-        if (res !== null) {
-          const { _id, first_name, last_name, phone, email_id } = res.data;
-          this.setState({
-            id: _id,
-            first_name: first_name,
-            last_name: last_name,
-            phone: phone,
-            email_id: email_id,
-          });
-        } else {
-          alert("Please login first");
-          Actions.jump("auth");
-        }
-      })
-      .catch((err) => console.log(err));
+    this.fetchUser();
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      this.fetchUser();
+    }
   }
   editState = () => {
     if (this.state.editable) {
       this._nextAction();
     }
-
     this.setState((prevState) => ({
       editable: !prevState.editable,
     }));
@@ -137,6 +152,7 @@ export default class EditAccount extends Component {
                   <TouchableOpacity
                     style={styles.imagePicker}
                     onPress={this.pickImage}
+                    disabled={!editable}
                   >
                     <Icon name="camera-outline" size={28} color="#444" />
                   </TouchableOpacity>
