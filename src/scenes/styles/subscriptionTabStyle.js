@@ -5,11 +5,12 @@ export const styles = StyleSheet.create({
     flex: 1,
     marginTop: StatusBar.currentHeight,
     backgroundColor: "#ddd",
+    marginHorizontal: 1,
   },
   header: {
     flexDirection: "row",
-    padding: 2,
     alignItems: "center",
+    paddingRight:20,
     justifyContent: "space-between",
     backgroundColor: "#FFF",
   },
@@ -31,7 +32,6 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 4,
-    marginHorizontal: 2,
     backgroundColor: "#FFF",
     borderTopColor: "#ddd",
     borderTopWidth: 1,
@@ -51,8 +51,8 @@ export const styles = StyleSheet.create({
   optionCard: {
     backgroundColor: "#fff",
     padding: 10,
+    width: "98%",
     marginVertical: 8,
-    marginHorizontal: 1,
     elevation: 2,
     borderRadius: 4,
     borderWidth: 0.5,
@@ -66,8 +66,7 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     marginTop: 16,
-    marginBottom:8
-    
+    marginBottom: 8,
   },
   address: {
     color: "#777",
@@ -85,6 +84,5 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     padding: 4,
-    // marginRight: 10,
   },
 });
