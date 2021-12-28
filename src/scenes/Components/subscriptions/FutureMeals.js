@@ -10,6 +10,21 @@ export default function FutureMeals({ meals, futuredays }) {
     { key: "third", title: futuredays[2] },
   ]);
   const [index, setIndex] = useState(0);
+  const renderTabBar = (props) => (
+    <TabBar
+      {...props}
+      tabStyle={{ width: width / 3 }}
+      scrollEnabled
+      style={{
+        backgroundColor: "transparent",
+      }}
+      activeColor="#2266ff"
+      labelStyle={{ fontWeight: "bold" }}
+      inactiveColor="#272727"
+      indicatorStyle={{ backgroundColor: "#2266cf", marginHorizontal: 2 }}
+    />
+  );
+
   const renderScene = ({ route }) => {
     switch (route.key) {
       case "first":
