@@ -56,6 +56,7 @@ export default function SubscriptionItem({
   const [loaded, setLoaded] = useState(false);
   const today = moment().weekday();
   const [futuremeals, setFutureMeals] = useState([]);
+  const [remaining, setRemaining] = useState(0);
   const fetchSubscriptionDetails = async () => {
     const restaurantorders = await axios.get(
       "https://munkybox-admin.herokuapp.com/api/newrest/getorders/" +
@@ -72,17 +73,18 @@ export default function SubscriptionItem({
   };
   useEffect(() => {
     setstate({ ...state, ...item });
+    let remaining = moment(state.end_date).diff(
+      moment(state.start_date),
+      "days"
+    );
+    setRemaining(remaining);
     setLoaded(true);
     fetchSubscriptionDetails();
   }, [item]);
   if (loaded) {
     const { address_type, flat_num, city, locality, postal_code } =
       state.address;
-    let remaining = moment(state.end_date).diff(
-      moment(state.start_date),
-      "days"
-      );
-      console.log(remaining);
+
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
