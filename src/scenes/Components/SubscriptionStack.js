@@ -99,6 +99,15 @@ export default function SubscriptionStack({ navigation }) {
       componentMounted = false;
     };
   }, []);
+  const renderItem = ({ item, index }) => (
+    <SubscriptionItem
+      item={item}
+      index={index}
+      nextHandler={nextHandler}
+      width={width}
+      navigation={navigation}
+    />
+  );
 
   if (loaded) {
     return (
@@ -106,14 +115,7 @@ export default function SubscriptionStack({ navigation }) {
         horizontal
         showsHorizontalScrollIndicator={false}
         data={myorders}
-        renderItem={({ item, index }) => (
-          <SubscriptionItem
-            item={item}
-            index={index}
-            nextHandler={nextHandler}
-            width={width}
-          />
-        )}
+        renderItem={renderItem}
         keyExtractor={(item, index) => index}
       />
     );
