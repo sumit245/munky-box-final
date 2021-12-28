@@ -66,6 +66,8 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     marginTop: 16,
+    marginBottom:8
+    
   },
   address: {
     color: "#777",
