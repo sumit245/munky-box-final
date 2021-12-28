@@ -81,7 +81,8 @@ export default function SubscriptionItem({
     let remaining = moment(state.end_date).diff(
       moment(state.start_date),
       "days"
-    );
+      );
+      console.log(remaining);
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
