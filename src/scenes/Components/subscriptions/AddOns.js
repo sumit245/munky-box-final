@@ -13,7 +13,7 @@ export default function AddOns({ extras, day }) {
   useEffect(() => {
     let mounted = true;
     if (mounted) {
-      setMyAddOns(extras[0].add_on);
+      setMyAddOns(extras);
     }
     return () => {
       mounted = false;

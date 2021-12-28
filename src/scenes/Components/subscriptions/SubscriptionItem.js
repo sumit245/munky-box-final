@@ -12,6 +12,7 @@ import { styles } from "../../styles/subscriptionTabStyle";
 import moment from "moment";
 import MealList, { Item } from "./MealList";
 import AddOns from "./AddOns";
+import FutureMeals from "./FutureMeals";
 
 export default function SubscriptionItem({
   item,
@@ -43,10 +44,18 @@ export default function SubscriptionItem({
     "Friday",
     "Saturday",
   ];
-  const [extras, setExtras] = useState([]);
+  const [extras, setExtras] = useState([
+    {
+      add_on: "",
+      add_on_price: "",
+      add_on_image: "",
+    },
+  ]);
   const [todayMeal, setTodayMeal] = useState({});
+  const [futuredays, setFutureDays] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const today = moment().weekday();
+  const [futuremeals, setFutureMeals] = useState([]);
   const fetchSubscriptionDetails = async () => {
     const restaurantorders = await axios.get(
       "https://munkybox-admin.herokuapp.com/api/newrest/getorders/" +
@@ -55,6 +64,11 @@ export default function SubscriptionItem({
     const { meals } = await restaurantorders.data;
     let todayMeal = meals.find((item) => item.day === days[today]);
     setTodayMeal(todayMeal);
+    let tomorrowMeal = meals.find((item) => item.day === days[today + 1]);
+    let dayafterMeal = meals.find((item) => item.day === days[today + 2]);
+    let dayafterafter = meals.find((item) => item.day === days[today + 3]);
+    let futuremeals = [tomorrowMeal, dayafterMeal, dayafterafter];
+    setFutureMeals(futuremeals);
   };
   useEffect(() => {
     setstate({ ...state, ...item });
@@ -108,7 +122,6 @@ export default function SubscriptionItem({
           <View
             style={{
               backgroundColor: "#FFF",
-              padding: 6,
               flex: 1,
               justifyContent: "space-between",
             }}
@@ -153,53 +166,54 @@ export default function SubscriptionItem({
               </Text>
             </View>
 
-            {state.plan !== "twoPlan" && (
-              <View style={styles.optionCard}>
-                <Text style={{ marginTop: 8 }}>
-                  You can swap or skip this meal till {state.skipableTime} AM
-                </Text>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    marginTop: 8,
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <TouchableOpacity style={styles.btn}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        color: "#000",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Pause
-                    </Text>
-                    <Icon name="pause-circle-outline" size={20} color="#000" />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.btn}>
-                    <Text
-                      style={{
-                        fontSize: 18,
-                        color: "#000",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Skip
-                    </Text>
-                    <Icon
-                      name="ios-play-skip-forward-outline"
-                      color="#000"
-                      size={20}
-                    />
-                  </TouchableOpacity>
-                </View>
+            <View style={styles.optionCard}>
+              <Text style={{ marginTop: 8 }}>
+                You can swap or skip this meal till {state.skipableTime} AM
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginTop: 8,
+                  justifyContent: "space-between",
+                }}
+              >
+                <TouchableOpacity style={styles.btn}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      color: "#000",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Pause
+                  </Text>
+                  <Icon name="pause-circle-outline" size={20} color="#000" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.btn}>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      color: "#000",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Skip
+                  </Text>
+                  <Icon
+                    name="ios-play-skip-forward-outline"
+                    color="#000"
+                    size={20}
+                  />
+                </TouchableOpacity>
               </View>
-            )}
+            </View>
 
-            {/* <View style={styles.optionCard}>
-            <AddOns extras={extras} day={1} />
-          </View> */}
+            <View style={styles.optionCard}>
+              <AddOns extras={extras} day={1} />
+            </View>
+            <View style={styles.optionCard}>
+              <FutureMeals meals={futuremeals} futuredays={futuredays} />
+            </View>
           </View>
         </ScrollView>
       </SafeAreaView>

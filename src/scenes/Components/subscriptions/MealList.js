@@ -3,36 +3,40 @@ import { View, Text, Image, FlatList } from "react-native";
 import { styles } from "../../styles/subscriptionTabStyle";
 import { width } from "../../styles/AuthStyle";
 import Icon from "react-native-vector-icons/Ionicons";
+
 export const Item = ({ meal, index }) => {
-  
-  const { image, meal_name, description, type } = meal;
-  return (
-    <View style={{ paddingHorizontal: 2, marginHorizontal: 2 }}>
-      <Image
-        source={image ? { uri: image } : null}
-        style={{ width: "98%", height: 150 }}
-      />
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          marginTop: 8,
-        }}
-      >
-        <Icon
-          name="stop-circle"
-          size={18}
-          color={type === "veg" ? "#0f0" : "#f00"}
+  try {
+    const { image, meal_name, description, type } = meal;
+    return (
+      <View style={{ paddingHorizontal: 2, marginHorizontal: 2 }}>
+        <Image
+          source={image ? { uri: image } : null}
+          style={{ width: "98%", height: 150 }}
         />
-        <View>
-          <Text style={styles.title}>{meal_name}</Text>
-          <Text style={styles.subtitle} numberOfLines={2}>
-            {description}
-          </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginTop: 8,
+          }}
+        >
+          <Icon
+            name="stop-circle"
+            size={18}
+            color={type === "veg" ? "#0f0" : "#f00"}
+          />
+          <View>
+            <Text style={styles.title}>{meal_name}</Text>
+            <Text style={styles.subtitle} numberOfLines={2}>
+              {description}
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
-  );
+    );
+  } catch (error) {
+    return <Text>The chef doesn't provide meal on this day</Text>;
+  }
 };
 export default function MealList({ meals, day }) {
   const flatref = useRef(0);
