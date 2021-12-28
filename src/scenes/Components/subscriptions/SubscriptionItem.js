@@ -122,7 +122,7 @@ export default function SubscriptionItem({
               <Text style={{ fontWeight: "bold", color: "#555" }}>
                 REMAINING
               </Text>
-              <Text>{state.remaining} Meals</Text>
+              <Text>{remaining} Meals</Text>
             </View>
           </View>
           {/* calendar tabs */}
