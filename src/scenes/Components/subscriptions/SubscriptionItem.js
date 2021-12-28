@@ -78,6 +78,10 @@ export default function SubscriptionItem({
   if (loaded) {
     const { address_type, flat_num, city, locality, postal_code } =
       state.address;
+    const remaining = moment(item.end_date).diff(
+      moment(item.start_date),
+      "days"
+    );
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
@@ -115,7 +119,7 @@ export default function SubscriptionItem({
               <Text style={{ fontWeight: "bold", color: "#555" }}>
                 REMAINING
               </Text>
-              {/* <Text>{state.remaining} Meals</Text> */}
+              <Text>{state.remaining} Meals</Text>
             </View>
           </View>
           {/* calendar tabs */}
