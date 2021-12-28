@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { TabBar, TabView } from "react-native-tab-view";
 import { Item } from "./MealList";
+import { width } from "../../styles/AuthStyle";
 
 export default function FutureMeals({ meals, futuredays }) {
   const [routes] = useState([
