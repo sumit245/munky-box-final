@@ -4,12 +4,13 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight,
+    backgroundColor: "#ddd",
   },
   header: {
     flexDirection: "row",
     padding: 2,
-    alignItems:"center",
-    justifyContent:"space-between",
+    alignItems: "center",
+    justifyContent: "space-between",
     backgroundColor: "#FFF",
   },
   headerTitle: {
@@ -34,8 +35,8 @@ export const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     borderTopColor: "#ddd",
     borderTopWidth: 1,
-    borderBottomWidth:1,
-    borderBottomColor:"#ddd"
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
   },
   title: {
     marginLeft: 4,
@@ -54,6 +55,8 @@ export const styles = StyleSheet.create({
     marginHorizontal: 1,
     elevation: 2,
     borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: "#ddd",
   },
   typelogo: {
     padding: 2,

@@ -168,6 +168,7 @@ export default function SubscriptionStack({ navigation }) {
               <Text>Today, {moment().format("DD MMM")}</Text>
               <MealList meals={state.meals} day={day} />
             </View>
+            
             <View style={styles.optionCard}>
               <Text style={styles.timing}>{state.time}</Text>
               <Text style={styles.address}>
