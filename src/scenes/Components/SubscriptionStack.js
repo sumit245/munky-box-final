@@ -165,7 +165,8 @@ export default function SubscriptionStack({ navigation }) {
               >
                 Upcoming Meal
               </Text>
-              <Text>Today, {moment().format("DD MMM")}</Text>
+              <Text style={{marginVertical:4}}>Today, {moment().format("DD MMM")}</Text>
+              <View style={{marginVertical:4,width:15,borderTopColor:"#c43e00",borderTopWidth:4,height:12,marginHorizontal:2}}/>
               <MealList meals={state.meals} day={day} />
             </View>
             
