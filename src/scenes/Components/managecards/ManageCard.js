@@ -60,7 +60,8 @@ export default class ManageCard extends Component {
           .then((res) => {
             alert(res.data.msg);
             saveUser("user", JSON.stringify(res.data)).then((res) => {
-              Actions.push("manageCards", { title: "Manage Payments" });
+              this.setState({visible:false})
+              
             });
           })
           .catch((err) => console.log(err));
@@ -75,10 +76,10 @@ export default class ManageCard extends Component {
   showModal = () => this.setState({ visible: true });
   hideModal = () => this.setState({ visible: false });
   render() {
-    <GoBackButton />;
+    
     const { visible, title } = this.state;
     return (
-      <Provider>
+      
         <Portal>
           <Modal
             visible={visible}
@@ -148,7 +149,7 @@ export default class ManageCard extends Component {
             </View>
           </Modal>
         </Portal>
-      </Provider>
+      
     );
   }
 }

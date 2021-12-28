@@ -22,7 +22,7 @@ export default function About() {
       title: "Return",
       content:
         "Our Return & Refund Policy template lets you get started with a Return and Refund Policy agreement. This template is free to download and use.According to TrueShip study, over 60% of customers review a Return/Refund Policy before they make a purchasing decision.",
-    },
+    }
   ]);
   const renderTabBar = (props) => (
     <TabBar
@@ -68,7 +68,7 @@ export default function About() {
         renderScene={renderScene}
         onIndexChange={setIndex}
         renderTabBar={renderTabBar}
-        initialLayout={{ width: "100%" }}
+        
       />
     </SafeAreaView>
   );
