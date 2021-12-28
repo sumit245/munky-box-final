@@ -20,7 +20,7 @@ export default function FutureMeals({ meals, futuredays }) {
         backgroundColor: "transparent",
       }}
       activeColor="#2266ff"
-      labelStyle={{ fontWeight: "bold" }}
+      labelStyle={{ fontWeight: "bold",color:"#000" }}
       inactiveColor="#272727"
       indicatorStyle={{ backgroundColor: "#2266cf", marginHorizontal: 2 }}
     />
