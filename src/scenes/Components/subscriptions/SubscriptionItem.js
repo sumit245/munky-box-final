@@ -70,6 +70,8 @@ export default function SubscriptionItem({
     let dayafterafter = meals.find((item) => item.day === days[today + 3]);
     let futuremeals = [tomorrowMeal, dayafterMeal, dayafterafter];
     setFutureMeals(futuremeals);
+    let futuredays = [days[today + 1], days[today + 2], days[today + 2]];
+    setFutureDays(futuredays);
   };
   useEffect(() => {
     setstate({ ...state, ...item });
