@@ -221,7 +221,7 @@ export default function SubscriptionItem({
               <AddOns extras={extras} day={1} />
             </View>
             <View style={styles.optionCard}>
-              <FutureMeals meals={futuremeals} futuredays={futuredays} />
+              {/* <FutureMeals meals={futuremeals} futuredays={futuredays} /> */}
             </View>
           </View>
         </ScrollView>

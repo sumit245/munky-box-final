@@ -14,13 +14,12 @@ export default function FutureMeals({ meals, futuredays }) {
   const renderTabBar = (props) => (
     <TabBar
       {...props}
-      tabStyle={{ width: width / 3 }}
       scrollEnabled
       style={{
         backgroundColor: "transparent",
       }}
       activeColor="#2266ff"
-      labelStyle={{ fontWeight: "bold",color:"#000" }}
+      labelStyle={{ fontWeight: "bold", color: "#000" }}
       inactiveColor="#272727"
       indicatorStyle={{ backgroundColor: "#2266cf", marginHorizontal: 2 }}
     />
@@ -40,13 +39,15 @@ export default function FutureMeals({ meals, futuredays }) {
   };
 
   return (
-    <TabView
-      lazy
-      swipeEnabled
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      renderTabBar={renderTabBar}
-    />
+    <View>
+      <TabView
+        lazy
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        renderTabBar={renderTabBar}
+        initialLayout={{ width: 240 }}
+      />
+    </View>
   );
 }
