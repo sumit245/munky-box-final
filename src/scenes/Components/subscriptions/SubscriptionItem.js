@@ -78,8 +78,8 @@ export default function SubscriptionItem({
   if (loaded) {
     const { address_type, flat_num, city, locality, postal_code } =
       state.address;
-    const remaining = moment(item.end_date).diff(
-      moment(item.start_date),
+    let remaining = moment(state.end_date).diff(
+      moment(state.start_date),
       "days"
     );
     return (
