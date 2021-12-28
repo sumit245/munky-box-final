@@ -1,28 +1,28 @@
 import React, { useRef, useState, useEffect } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, FlatList } from "react-native";
 import { styles } from "../../styles/subscriptionTabStyle";
-import veg from "../../../../assets/veg.png";
-import nonveg from "../../../../assets/nonveg.png";
-import { FlatList } from "react-native";
 import { width } from "../../styles/AuthStyle";
+import Icon from "react-native-vector-icons/Ionicons";
 const Item = ({ meal, index }) => {
   const { image, meal_name, description, type } = meal.item;
   return (
     <View style={{ paddingHorizontal: 2, marginHorizontal: 2, width: width }}>
       <Image
-        source={{
-          uri: image,
-        }}
+        source={image ? { uri: image } : null}
         style={{ width: width, height: 150 }}
       />
       <View
         style={{
           flexDirection: "row",
           alignItems: "center",
-          marginTop: 2,
+          marginTop: 8,
         }}
       >
-        <Image source={type === "veg" ? veg : nonveg} style={styles.typelogo} />
+        <Icon
+          name="stop-circle"
+          size={18}
+          color={type === "veg" ? "#0f0" : "#f00"}
+        />
         <View>
           <Text style={styles.title}>{meal_name}</Text>
           <Text style={styles.subtitle} numberOfLines={2}>

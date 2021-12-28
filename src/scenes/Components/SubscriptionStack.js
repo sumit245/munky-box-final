@@ -150,9 +150,9 @@ export default function SubscriptionStack({ navigation }) {
               <Text>{state.remaining} Meals</Text>
             </View>
           </View>
+          {/* calendar tabs */}
           <View
             style={{
-              marginHorizontal: 2,
               backgroundColor: "#FFF",
               padding: 6,
               flex: 1,
@@ -160,7 +160,9 @@ export default function SubscriptionStack({ navigation }) {
             }}
           >
             <View style={styles.optionCard}>
-              <Text style={{ fontWeight: "bold", fontSize: 16 }}>
+              <Text
+                style={{ fontWeight: "bold", fontSize: 16, marginBottom: 4 }}
+              >
                 Upcoming Meal
               </Text>
               <Text>Today, {moment().format("DD MMM")}</Text>
@@ -184,39 +186,52 @@ export default function SubscriptionStack({ navigation }) {
             </View>
 
             {state.plan !== "twoPlan" && (
-              <View
-                style={{
-                  flexDirection: "row",
-                  marginTop: 8,
-                  justifyContent: "space-between",
-                }}
-              >
-                <TouchableOpacity style={styles.btn}>
-                  <Text
-                    style={{ fontSize: 16, color: "#888", fontWeight: "bold" }}
-                  >
-                    Swap Meal
-                  </Text>
-                  <Icon name="swap-vertical" size={20} color="#888" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.btn}>
-                  <Text
-                    style={{ fontSize: 18, color: "#888", fontWeight: "bold" }}
-                  >
-                    Skip Meal
-                  </Text>
-                  <Icon name="ios-arrow-redo" color="#888" size={20} />
-                </TouchableOpacity>
+              <View style={styles.optionCard}>
+                <Text style={{ marginTop: 8 }}>
+                  You can swap or skip this meal till {state.skipableTime} AM
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginTop: 8,
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <TouchableOpacity style={styles.btn}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        color: "#000",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Pause
+                    </Text>
+                    <Icon name="pause-circle-outline" size={20} color="#000" />
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.btn}>
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        color: "#000",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Skip
+                    </Text>
+                    <Icon
+                      name="ios-play-skip-forward-outline"
+                      color="#000"
+                      size={20}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
             )}
 
             <View style={styles.optionCard}>
               <AddOns extras={extras} day={1} />
             </View>
-
-            <Text style={{ marginTop: 8 }}>
-              You can swap or skip this meal till {state.skipableTime} AM
-            </Text>
 
             <View>
               <Text

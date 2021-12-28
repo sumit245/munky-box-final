@@ -4,7 +4,6 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight,
-    backgroundColor:"#ccc"
   },
   header: {
     flexDirection: "row",
@@ -72,7 +71,7 @@ export const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   btn: {
-    width: width / 2.2,
+    width: width / 2.4,
     borderColor: "#bbb",
     borderWidth: 1,
     borderRadius: 5,
