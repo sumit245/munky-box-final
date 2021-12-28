@@ -98,8 +98,10 @@ export default class DetailStack extends Component {
   async componentDidMount() {
     const cuisineResponse = await axios.get(CUISINE_URL);
     const cuisine = await cuisineResponse.data;
+    console.log(cuisine);
     const restaurantResponse = await axios.get(RESTAURANT_URL);
     const restaurant = await restaurantResponse.data;
+    console.log(restaurant);
     this.getFavoriteCount();
     this.setState({ restaurant: restaurant, cuisine: cuisine, loading: false });
   }
