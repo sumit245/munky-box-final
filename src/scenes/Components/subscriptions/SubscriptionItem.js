@@ -10,7 +10,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import axios from "axios";
 import { styles } from "../../styles/subscriptionTabStyle";
 import moment from "moment";
-import MealList from "./MealList";
+import MealList, { Item } from "./MealList";
 import AddOns from "./AddOns";
 
 export default function SubscriptionItem({
@@ -34,11 +34,32 @@ export default function SubscriptionItem({
     meals: [],
     skipableTime: "",
   });
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   const [extras, setExtras] = useState([]);
+  const [todayMeal, setTodayMeal] = useState({});
   const [loaded, setLoaded] = useState(false);
+  const today = moment().weekday();
+  const fetchSubscriptionDetails = async () => {
+    const restaurantorders = await axios.get(
+      "https://munkybox-admin.herokuapp.com/api/newrest/getorders/" +
+        item.restaurant_id
+    );
+    const { meals } = await restaurantorders.data;
+    let todayMeal = meals.find((item) => item.day === days[today]);
+    setTodayMeal(todayMeal);
+  };
   useEffect(() => {
     setstate({ ...state, ...item });
     setLoaded(true);
+    fetchSubscriptionDetails();
   }, [item]);
   if (loaded) {
     const { address_type, flat_num, city, locality, postal_code } =
@@ -111,6 +132,7 @@ export default function SubscriptionItem({
                   marginHorizontal: 2,
                 }}
               />
+              <Item meal={todayMeal} index={0} />
               {/* <MealList meals={state.meals} day={day} /> */}
             </View>
 

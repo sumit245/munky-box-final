@@ -3,13 +3,14 @@ import { View, Text, Image, FlatList } from "react-native";
 import { styles } from "../../styles/subscriptionTabStyle";
 import { width } from "../../styles/AuthStyle";
 import Icon from "react-native-vector-icons/Ionicons";
-const Item = ({ meal, index }) => {
-  const { image, meal_name, description, type } = meal.item;
+export const Item = ({ meal, index }) => {
+  
+  const { image, meal_name, description, type } = meal;
   return (
-    <View style={{ paddingHorizontal: 2, marginHorizontal: 2, width: width }}>
+    <View style={{ paddingHorizontal: 2, marginHorizontal: 2 }}>
       <Image
         source={image ? { uri: image } : null}
-        style={{ width: width, height: 150 }}
+        style={{ width: "98%", height: 150 }}
       />
       <View
         style={{
