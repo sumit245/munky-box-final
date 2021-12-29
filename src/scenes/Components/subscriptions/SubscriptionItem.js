@@ -6,7 +6,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-vector-icons/Entypo";
 import axios from "axios";
 import { styles } from "../../styles/subscriptionTabStyle";
 import moment from "moment";
@@ -199,7 +199,8 @@ export default function SubscriptionItem({
         <View
           style={{
             position: "absolute",
-            top: "50%",
+            top: "90%",
+            left: "40%",
             elevation: 10,
             zIndex: 1000,
             justifyContent: "space-between",
@@ -209,7 +210,8 @@ export default function SubscriptionItem({
             width: "96%",
           }}
         >
-          {index !== 0 ? (
+          <Icon name="dots-three-horizontal" size={20} color="#c0c0c0" />
+          {/* {index !== 0 ? (
             <TouchableOpacity
               style={{
                 height: 36,
@@ -238,7 +240,7 @@ export default function SubscriptionItem({
             onPress={() => onPressNext(index)}
           >
             <Icon name="chevron-forward" size={28} color="#fff" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </SafeAreaView>
     );
