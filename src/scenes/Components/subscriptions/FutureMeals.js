@@ -5,12 +5,11 @@ import { width } from "../../styles/AuthStyle";
 
 export default function FutureMeals({ meals, futuredays }) {
   const [routes] = useState([
-    { key: "first", title: futuredays[0]},
-    { key: "second", title: futuredays[1] },
-    { key: "third", title: futuredays[2] },
+    { key: "first", title: futuredays[0]||""},
+    { key: "second", title: futuredays[1]||"" },
+    { key: "third", title: futuredays[2] ||""},
   ]);
-  console.log(futuredays[0])
-  const layout = useWindowDimensions();
+  
   const [index, setIndex] = useState(0);
 
   const renderTabBar = (props) => (
@@ -47,7 +46,7 @@ export default function FutureMeals({ meals, futuredays }) {
   };
 
   return (
-    <View>
+    
       <TabView
         lazy
         navigationState={{ index, routes }}
@@ -56,6 +55,6 @@ export default function FutureMeals({ meals, futuredays }) {
 
         onIndexChange={setIndex}
       />
-    </View>
+    
   );
 }

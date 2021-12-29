@@ -76,7 +76,7 @@ export default function SubscriptionItem({ item, width, navigation }) {
     setRemaining(remaining);
     setLoaded(true);
     fetchSubscriptionDetails();
-  }, [item]);
+  }, []);
 
   if (loaded) {
     const { address_type, flat_num, city, locality, postal_code } =
