@@ -18,7 +18,6 @@ export default function FutureMeals({ meals, futuredays }) {
       scrollEnabled
       style={{
         backgroundColor: "#fff",
-        width: "100%",
       }}
       tabStyle={{ width: width / 3.2 }}
       activeColor="#2266ff"
@@ -46,14 +45,12 @@ export default function FutureMeals({ meals, futuredays }) {
   };
 
   return (
-    <View>
-      <TabView
-        lazy
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        renderTabBar={renderTabBar}
-      />
-    </View>
+    <TabView
+      lazy
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      onIndexChange={setIndex}
+      renderTabBar={renderTabBar}
+    />
   );
 }
