@@ -10,11 +10,12 @@ export default function AddOns({ extras, day }) {
   const [qty, setQty] = useState(0);
   const [subtotal, setSubtotal] = useState([]);
   const [total, setTotal] = useState(0);
+  const [pulled, setPulled] = useState(false);
+
   useEffect(() => {
     let mounted = true;
     if (mounted) {
       setMyAddOns(extras);
-      console.log(extras);
     }
     return () => {
       mounted = false;
@@ -45,6 +46,7 @@ export default function AddOns({ extras, day }) {
     setQty(qty + 1);
     calculateTotal(key, qty, rate);
   };
+
   if (myaddons.length > 1) {
     return (
       <View
@@ -171,9 +173,15 @@ export default function AddOns({ extras, day }) {
       >
         <View>
           <Text style={{ fontWeight: "bold" }}>Add Extra</Text>
-          <Text>{"Oops!!! No add ons today"}</Text>
+          {pulled && <Text>{"Oops!!! No add ons today"}</Text>}
         </View>
-        <Icon name="add-sharp" color="#ddd" size={24} />
+        <TouchableOpacity onPress={() => setPulled(!pulled)}>
+          <Icon
+            name={!pulled ? "chevron-forward" : "chevron-down"}
+            color="#000"
+            size={24}
+          />
+        </TouchableOpacity>
       </View>
     );
   }

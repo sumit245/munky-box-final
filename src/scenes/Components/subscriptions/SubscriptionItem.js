@@ -64,17 +64,17 @@ export default function SubscriptionItem({ item, width, navigation }) {
     let dayafterafter = meals.find((item) => item.day === days[today + 3]);
     let futuremeals = [tomorrowMeal, dayafterMeal, dayafterafter];
     setFutureMeals(futuremeals);
+    let remaining = moment(state.end_date).diff(
+      moment(state.start_date),
+      "days" || 0
+    );
+    setRemaining(remaining);
     let futuredays = [days[today + 1], days[today + 2], days[today + 3]];
     setFutureDays(futuredays);
     setLoaded(true);
   };
   useEffect(() => {
     setstate({ ...state, ...item });
-    let remaining = moment(state.end_date).diff(
-      moment(state.start_date),
-      "days" || 0
-    );
-    setRemaining(remaining);
     fetchSubscriptionDetails();
   }, [item]);
 
@@ -117,7 +117,7 @@ export default function SubscriptionItem({ item, width, navigation }) {
               <Text style={{ fontWeight: "bold", color: "#555" }}>
                 REMAINING
               </Text>
-              <Text>{remaining || 0} Meals</Text>
+              <Text>{remaining} Meals</Text>
             </View>
           </View>
           {/* calendar tabs */}
