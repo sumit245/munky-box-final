@@ -199,7 +199,7 @@ export default function SubscriptionItem({
         <View
           style={{
             position: "absolute",
-            top: "90%",
+            bottom: "2%",
             left: "40%",
             elevation: 10,
             zIndex: 1000,
@@ -210,7 +210,7 @@ export default function SubscriptionItem({
             width: "96%",
           }}
         >
-          <Icon name="dots-three-horizontal" size={20} color="#c0c0c0" />
+          <Icon name="dots-three-horizontal" size={28} color="#c0c0c0" />
           {/* {index !== 0 ? (
             <TouchableOpacity
               style={{
