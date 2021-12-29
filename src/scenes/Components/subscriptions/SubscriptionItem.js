@@ -14,7 +14,8 @@ import MealList, { Item } from "./MealList";
 import AddOns from "./AddOns";
 import FutureMeals from "./FutureMeals";
 
-export default function SubscriptionItem({ item, width, navigation }) {
+export default function SubscriptionItem({ item, width, index, navigation }) {
+  console.log(index);
   const [state, setstate] = useState({
     plan: "",
     restaurant: "",
@@ -51,6 +52,7 @@ export default function SubscriptionItem({ item, width, navigation }) {
   const today = moment().weekday();
   const [futuremeals, setFutureMeals] = useState([]);
   const [remaining, setRemaining] = useState(0);
+  
   const fetchSubscriptionDetails = async () => {
     const restaurantorders = await axios.get(
       "https://munkybox-admin.herokuapp.com/api/newrest/getorders/" +
