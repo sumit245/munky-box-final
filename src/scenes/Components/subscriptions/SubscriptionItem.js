@@ -66,17 +66,17 @@ export default function SubscriptionItem({ item, width, navigation }) {
     setFutureMeals(futuremeals);
     let futuredays = [days[today + 1], days[today + 2], days[today + 3]];
     setFutureDays(futuredays);
+    setLoaded(true);
   };
   useEffect(() => {
     setstate({ ...state, ...item });
     let remaining = moment(state.end_date).diff(
       moment(state.start_date),
-      "days"
+      "days" || 0
     );
     setRemaining(remaining);
-    setLoaded(true);
     fetchSubscriptionDetails();
-  }, []);
+  }, [item]);
 
   if (loaded) {
     const { address_type, flat_num, city, locality, postal_code } =
@@ -86,7 +86,6 @@ export default function SubscriptionItem({ item, width, navigation }) {
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            
             <View style={{ marginLeft: 2 }}>
               <Text style={styles.headerTitle}>
                 {state.plan === "twoPlan"
@@ -99,8 +98,11 @@ export default function SubscriptionItem({ item, width, navigation }) {
               <Text style={styles.headersubtitle}>by {state.restaurant}</Text>
             </View>
           </View>
-          <Text style={{ color: "#22cccf", fontWeight: "bold" }}>{item.category}</Text>
+          <Text style={{ color: "#22cccf", fontWeight: "bold" }}>
+            {item.category}
+          </Text>
         </View>
+
         <ScrollView>
           <View style={styles.tabContainer}>
             <View style={styles.tab}>
@@ -115,10 +117,11 @@ export default function SubscriptionItem({ item, width, navigation }) {
               <Text style={{ fontWeight: "bold", color: "#555" }}>
                 REMAINING
               </Text>
-              <Text>{remaining} Meals</Text>
+              <Text>{remaining || 0} Meals</Text>
             </View>
           </View>
           {/* calendar tabs */}
+
           <View
             style={{
               backgroundColor: "#FFF",
@@ -165,6 +168,7 @@ export default function SubscriptionItem({ item, width, navigation }) {
                   postal_code}
               </Text>
             </View>
+
             <View style={styles.optionCard}>
               <AddOns extras={extras} day={1} />
             </View>
@@ -175,9 +179,7 @@ export default function SubscriptionItem({ item, width, navigation }) {
               >
                 Future Meals
               </Text>
-
               <FutureMeals meals={futuremeals} futuredays={futuredays} />
-
             </View>
           </View>
         </ScrollView>

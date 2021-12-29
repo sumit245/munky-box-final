@@ -14,6 +14,7 @@ export default function AddOns({ extras, day }) {
     let mounted = true;
     if (mounted) {
       setMyAddOns(extras);
+      console.log(extras);
     }
     return () => {
       mounted = false;
@@ -44,7 +45,7 @@ export default function AddOns({ extras, day }) {
     setQty(qty + 1);
     calculateTotal(key, qty, rate);
   };
-  if (myaddons.length >= 1) {
+  if (myaddons.length > 1) {
     return (
       <View
         style={{

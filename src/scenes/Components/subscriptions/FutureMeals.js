@@ -5,11 +5,11 @@ import { width } from "../../styles/AuthStyle";
 
 export default function FutureMeals({ meals, futuredays }) {
   const [routes] = useState([
-    { key: "first", title: futuredays[0]},
-    { key: "second", title: futuredays[1]},
-    { key: "third", title: futuredays[2]},
+    { key: "first", title: futuredays[0] },
+    { key: "second", title: futuredays[1] },
+    { key: "third", title: futuredays[2] },
   ]);
-  
+
   const [index, setIndex] = useState(0);
 
   const renderTabBar = (props) => (
@@ -18,7 +18,6 @@ export default function FutureMeals({ meals, futuredays }) {
       scrollEnabled
       style={{
         backgroundColor: "transparent",
-    
       }}
       tabStyle={{ width: width / 3.2 }}
       activeColor="#2266ff"
@@ -46,15 +45,13 @@ export default function FutureMeals({ meals, futuredays }) {
   };
 
   return (
-    
-      <TabView
-        lazy
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        renderTabBar={renderTabBar}
-
-        onIndexChange={setIndex}
-      />
-    
+    <TabView
+      lazy
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      renderTabBar={renderTabBar}
+      onIndexChange={setIndex}
+      initialLayout={{ width: width - 40 }}
+    />
   );
 }
