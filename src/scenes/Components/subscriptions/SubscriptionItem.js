@@ -172,13 +172,16 @@ export default function SubscriptionItem({ item, width, navigation }) {
             <View style={styles.optionCard}>
               <AddOns extras={extras} day={1} />
             </View>
+
             <View style={[styles.optionCard, { width: width - 4 }]}>
               <Text
                 style={{ fontWeight: "bold", fontSize: 16, marginBottom: 4 }}
               >
                 Future Meals
               </Text>
+
               <FutureMeals meals={futuremeals} futuredays={futuredays} />
+
             </View>
           </View>
         </ScrollView>
