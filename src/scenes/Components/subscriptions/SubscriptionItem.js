@@ -59,11 +59,11 @@ export default function SubscriptionItem({
   const [futuremeals, setFutureMeals] = useState([]);
   const [remaining, setRemaining] = useState(0);
   const onPressPrevious = () => {
-    ref.flatRef.scrollToIndex({ animated: true, index: index - 1 });
+    ref.current.scrollToIndex({ animated: true, index: index - 1 });
   };
 
   const onPressNext = () => {
-    ref.current.flatRef.scrollToIndex({ animated: true, index: index + 1 });
+    ref.current.scrollToIndex({ animated: true, index: index + 1 });
   };
   const fetchSubscriptionDetails = async () => {
     const restaurantorders = await axios.get(
