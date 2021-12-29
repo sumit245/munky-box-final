@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, useWindowDimensions } from "react-native";
 import { TabBar, TabView } from "react-native-tab-view";
 import { Item } from "./MealList";
 import { width } from "../../styles/AuthStyle";
@@ -10,6 +10,7 @@ export default function FutureMeals({ meals, futuredays }) {
     { key: "second", title: futuredays[1] },
     { key: "third", title: futuredays[2] },
   ]);
+  const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
   const renderTabBar = (props) => (
     <TabBar
@@ -46,7 +47,7 @@ export default function FutureMeals({ meals, futuredays }) {
         renderScene={renderScene}
         onIndexChange={setIndex}
         renderTabBar={renderTabBar}
-        initialLayout={{ width: 240 }}
+        initialLayout={{ width: layout.width }}
       />
     </View>
   );
