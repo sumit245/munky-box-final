@@ -10,7 +10,7 @@ import Icon from "react-native-vector-icons/Fontisto";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import { Actions } from "react-native-router-flux";
 import { width } from "../../styles/HomeStyles";
-import { IconButton, RadioButton,Provider } from "react-native-paper";
+import { IconButton, RadioButton, Provider } from "react-native-paper";
 import { getUser, saveUser } from "../../../services/user/getuser";
 import ManageCard from "./ManageCard";
 import {
@@ -153,15 +153,16 @@ export default class ListCard extends Component {
     modalVisible: false,
     user_id: "",
   };
-  fetchUser=()=>{
- getUser("user").then((res) => {
+  fetchUser = () => {
+    getUser("user").then((res) => {
       this.setState({ cards: res.data.cards, user_id: res.data._id });
     });
-  }
+  };
   componentDidMount() {
-   this.fetchUser()
-  }componentDidUpdate(){
-    this.fetchUser()
+    this.fetchUser();
+  }
+  componentDidUpdate() {
+    this.fetchUser();
   }
   renderAddress = ({ item }, checked) => (
     <PaymentCard
@@ -184,12 +185,11 @@ export default class ListCard extends Component {
       cards: cards,
     });
     const { data } = await response.data;
-    console.log(data);
+
     let local = JSON.stringify(data);
     saveUser("user", local);
     this.setState({
       cards: cards,
-      
     });
   };
   openEdit = ({ item }) => {
@@ -203,69 +203,77 @@ export default class ListCard extends Component {
     const { cards, checked, modalVisible, selectedcard, title } = this.state;
     return (
       <ScrollView contentContainerStyle={styles.container}>
-      <Provider>
-        <View>
-          <SwipeableFlatList
-            data={cards}
-            contentContainerStyle={{ paddingBottom: 2 }}
-            renderItem={(item) => this.renderAddress(item, checked)}
-            ListEmptyComponent={() => {
-              return <ListEmptyContent />;
+        <Provider>
+          <View>
+            <SwipeableFlatList
+              data={cards}
+              contentContainerStyle={{ paddingBottom: 2 }}
+              renderItem={(item) => this.renderAddress(item, checked)}
+              ListEmptyComponent={() => {
+                return <ListEmptyContent />;
+              }}
+              extraData={this.changeSelector}
+              renderRightActions={({ item }) => (
+                <SwipeableQuickActions
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <SwipeableQuickActionButton
+                    style={{
+                      backgroundColor: "#48b4e0",
+                      padding: 8,
+                      height: 80,
+                    }}
+                    textStyle={{
+                      fontSize: 18,
+                      fontWeight: "bold",
+                      color: "#fff",
+                      padding: 4,
+                    }}
+                    onPress={() => this.openEdit({ item })}
+                    imageSource={Edit}
+                    imageStyle={{ height: 20, width: 20 }}
+                  />
+                  <SwipeableQuickActionButton
+                    style={{
+                      backgroundColor: "#ff2244",
+                      padding: 8,
+                      height: 80,
+                    }}
+                    textStyle={{
+                      fontSize: 18,
+                      fontWeight: "bold",
+                      color: "#fff",
+                      padding: 4,
+                    }}
+                    onPress={() => {
+                      this.deleteAddress(item.number);
+                    }}
+                    imageSource={Trash}
+                    imageStyle={{ height: 20, width: 20, alignSelf: "center" }}
+                  />
+                </SwipeableQuickActions>
+              )}
+              keyExtractor={(item) => item.number}
+            />
+          </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              this.setState({ modalVisible: true, title: "Add Card" });
             }}
-            extraData={this.changeSelector}
-            renderRightActions={({ item }) => (
-              <SwipeableQuickActions
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <SwipeableQuickActionButton
-                  style={{ backgroundColor: "#48b4e0", padding: 8, height: 80 }}
-                  textStyle={{
-                    fontSize: 18,
-                    fontWeight: "bold",
-                    color: "#fff",
-                    padding: 4,
-                  }}
-                  onPress={() => this.openEdit({ item })}
-                  imageSource={Edit}
-                  imageStyle={{ height: 20, width: 20 }}
-                />
-                <SwipeableQuickActionButton
-                  style={{ backgroundColor: "#ff2244", padding: 8, height: 80 }}
-                  textStyle={{
-                    fontSize: 18,
-                    fontWeight: "bold",
-                    color: "#fff",
-                    padding: 4,
-                  }}
-                  onPress={() => {
-                    this.deleteAddress(item.number);
-                  }}
-                  imageSource={Trash}
-                  imageStyle={{ height: 20, width: 20, alignSelf: "center" }}
-                />
-              </SwipeableQuickActions>
-            )}
-            keyExtractor={(item) => item.number}
-          />
-        </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            this.setState({ modalVisible: true, title: "Add Card" });
-          }}
-        >
-          <Text style={styles.btnText}>ADD NEW Card</Text>
-        </TouchableOpacity>
-        {modalVisible && (
-          <ManageCard
-            modalVisible={modalVisible}
-            card={selectedcard}
-            title={title}
-          />
-        )}
+          >
+            <Text style={styles.btnText}>ADD NEW Card</Text>
+          </TouchableOpacity>
+          {modalVisible && (
+            <ManageCard
+              modalVisible={modalVisible}
+              card={selectedcard}
+              title={title}
+            />
+          )}
         </Provider>
       </ScrollView>
     );

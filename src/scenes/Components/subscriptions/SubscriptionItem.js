@@ -14,14 +14,7 @@ import MealList, { Item } from "./MealList";
 import AddOns from "./AddOns";
 import FutureMeals from "./FutureMeals";
 
-export default function SubscriptionItem({
-  item,
-  index,
-  nextHandler,
-  prevHandler,
-  width,
-  navigation,
-}) {
+export default function SubscriptionItem({ item, width, navigation }) {
   const [state, setstate] = useState({
     plan: "",
     restaurant: "",
@@ -176,49 +169,6 @@ export default function SubscriptionItem({
                   postal_code}
               </Text>
             </View>
-
-            {/* <View style={styles.optionCard}>
-              <Text style={{ marginTop: 8 }}>
-                You can swap or skip this meal till {state.skipableTime} AM
-              </Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  marginTop: 8,
-                  justifyContent: "space-between",
-                }}
-              >
-                <TouchableOpacity style={styles.btn}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      color: "#000",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Pause
-                  </Text>
-                  <Icon name="pause-circle-outline" size={20} color="#000" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.btn}>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      color: "#000",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Skip
-                  </Text>
-                  <Icon
-                    name="ios-play-skip-forward-outline"
-                    color="#000"
-                    size={20}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View> */}
-
             <View style={styles.optionCard}>
               <AddOns extras={extras} day={1} />
             </View>

@@ -40,7 +40,7 @@ export default class PromoOptions extends Component {
   getCoupon = async () => {
     const response = await axios.get(COUPON_URL);
     const coupon = await response.data;
-    console.log(coupon);
+
     this.setState({ coupons: coupon });
   };
   componentDidMount() {

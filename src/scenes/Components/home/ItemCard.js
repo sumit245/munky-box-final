@@ -35,7 +35,7 @@ export default function ItemCard({ item, isFavorite, isHome }) {
     const fetchProfits = async () => {
       const response = await axios.get(PROFIT_URL);
       const { data } = await response;
-      console.log(data);
+
       if (componentMounted) {
         setPlan(data);
         if (Array.isArray(promo) && promo.length !== 0) {

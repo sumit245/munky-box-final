@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { View, Text, useWindowDimensions } from "react-native";
 import { TabBar, TabView } from "react-native-tab-view";
 import { Item } from "./MealList";
 import { width } from "../../styles/AuthStyle";
 
 export default function FutureMeals({ meals, futuredays }) {
   const [routes] = useState([
-    { key: "first", title: futuredays[0] },
-    { key: "second", title: futuredays[1] },
-    { key: "third", title: futuredays[2] },
+    { key: "first", title: futuredays[0] || "" },
+    { key: "second", title: futuredays[1] || "" },
+    { key: "third", title: futuredays[2] || "" },
   ]);
-  const layout = useWindowDimensions();
+
   const [index, setIndex] = useState(0);
+
   const renderTabBar = (props) => (
     <TabBar
       {...props}

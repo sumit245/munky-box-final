@@ -60,8 +60,7 @@ export default class ManageCard extends Component {
           .then((res) => {
             alert(res.data.msg);
             saveUser("user", JSON.stringify(res.data)).then((res) => {
-              this.setState({visible:false})
-              
+              this.setState({ visible: false });
             });
           })
           .catch((err) => console.log(err));
@@ -69,87 +68,80 @@ export default class ManageCard extends Component {
       .catch((err) => console.log("Error in async"));
   };
 
-  componentDidMount() {
-    console.log(this.state);
-  }
-
   showModal = () => this.setState({ visible: true });
   hideModal = () => this.setState({ visible: false });
   render() {
-    
     const { visible, title } = this.state;
     return (
-      
-        <Portal>
-          <Modal
-            visible={visible}
-            onDismiss={this.hideModal}
-            contentContainerStyle={{
-              backgroundColor: "white",
-              padding: 20,
-              marginHorizontal: 20,
-              borderRadius: 4,
+      <Portal>
+        <Modal
+          visible={visible}
+          onDismiss={this.hideModal}
+          contentContainerStyle={{
+            backgroundColor: "white",
+            padding: 20,
+            marginHorizontal: 20,
+            borderRadius: 4,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginHorizontal: 8,
+              marginBottom: 16,
             }}
           >
-            <View
+            <Text
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginHorizontal: 8,
-                marginBottom: 16,
+                fontSize: 14,
+                fontWeight: "bold",
               }}
             >
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontWeight: "bold",
-                }}
-              >
-                {title}
-              </Text>
-              <Text style={styles.btnText} onPress={this.cardAdd}>
-                Save
-              </Text>
-            </View>
-            <LiteCreditCardInput
-              requiresCVC
-              inputStyle={styles.input}
-              validColor={"#228822"}
-              invalidColor={"#aa2222"}
-              onChange={this._onChange}
-              addtionalInputsProps={{
-                number: {
-                  defaultValue: "123456778812",
-                },
-                name: {
-                  defaultValue: "my name",
-                  maxLength: 40,
-                },
-                postalCode: {
-                  returnKeyType: "go",
-                },
+              {title}
+            </Text>
+            <Text style={styles.btnText} onPress={this.cardAdd}>
+              Save
+            </Text>
+          </View>
+          <LiteCreditCardInput
+            requiresCVC
+            inputStyle={styles.input}
+            validColor={"#228822"}
+            invalidColor={"#aa2222"}
+            onChange={this._onChange}
+            addtionalInputsProps={{
+              number: {
+                defaultValue: "123456778812",
+              },
+              name: {
+                defaultValue: "my name",
+                maxLength: 40,
+              },
+              postalCode: {
+                returnKeyType: "go",
+              },
+            }}
+          />
+          <View style={{ marginHorizontal: 8 }}>
+            <Text
+              style={{
+                fontSize: 14,
+                marginTop: 2,
+                fontWeight: "bold",
               }}
+            >
+              Cardholder's Name
+            </Text>
+            <TextInput
+              placeholder="Name"
+              defaultValue={this.state.card_holder}
+              style={styles.inputContainer}
+              onChangeText={this._onChangeText("card_holder")}
             />
-            <View style={{ marginHorizontal: 8 }}>
-              <Text
-                style={{
-                  fontSize: 14,
-                  marginTop: 2,
-                  fontWeight: "bold",
-                }}
-              >
-                Cardholder's Name
-              </Text>
-              <TextInput
-                placeholder="Name"
-                defaultValue={this.state.card_holder}
-                style={styles.inputContainer}
-                onChangeText={this._onChangeText("card_holder")}
-              />
-            </View>
-          </Modal>
-        </Portal>
-      
+          </View>
+        </Modal>
+      </Portal>
     );
   }
 }
