@@ -183,6 +183,9 @@ export default function SubscriptionItem({ item, width, navigation }) {
             </View>
           </View>
         </ScrollView>
+        <View style={{position:"absolute",top:"50%",elevation:10,zIndex:1000,justifyContent:"center"}}>
+        <Text>I</Text>
+        </View>
       </SafeAreaView>
     );
   } else {
