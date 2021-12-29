@@ -14,13 +14,7 @@ import MealList, { Item } from "./MealList";
 import AddOns from "./AddOns";
 import FutureMeals from "./FutureMeals";
 
-export default function SubscriptionItem({
-  item,
-  width,
-  index,
-  navigation,
-  ref,
-}) {
+export default function SubscriptionItem({ item, width, index, navigation }) {
   const [state, setstate] = useState({
     plan: "",
     restaurant: "",
@@ -51,7 +45,7 @@ export default function SubscriptionItem({
       add_on_image: "",
     },
   ]);
-  // const ref = useRef();
+
   const [todayMeal, setTodayMeal] = useState({});
   const [futuredays, setFutureDays] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -197,50 +191,6 @@ export default function SubscriptionItem({
             </View>
           </View>
         </ScrollView>
-        <View
-          style={{
-            position: "absolute",
-            top: "50%",
-            elevation: 10,
-            zIndex: 1000,
-            justifyContent: "space-between",
-            flexDirection: "row",
-            alignItems: "center",
-            marginHorizontal: "2%",
-            width: "96%",
-          }}
-        >
-          {index !== 0 ? (
-            <TouchableOpacity
-              style={{
-                height: 36,
-                width: 36,
-                borderRadius: 18,
-                backgroundColor: "#c0c0c0",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onPress={onPressPrevious}
-            >
-              <Icon name="chevron-back" size={28} color="#fff" />
-            </TouchableOpacity>
-          ) : (
-            <View />
-          )}
-          <TouchableOpacity
-            style={{
-              height: 36,
-              width: 36,
-              borderRadius: 18,
-              backgroundColor: "#cccccc",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onPress={onPressNext}
-          >
-            <Icon name="chevron-forward" size={28} color="#fff" />
-          </TouchableOpacity>
-        </View>
       </SafeAreaView>
     );
   } else {
