@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
@@ -14,8 +14,13 @@ import MealList, { Item } from "./MealList";
 import AddOns from "./AddOns";
 import FutureMeals from "./FutureMeals";
 
-export default function SubscriptionItem({ item, width, index, navigation }) {
-  console.log(index);
+export default function SubscriptionItem({
+  item,
+  width,
+  index,
+  navigation,
+  ref,
+}) {
   const [state, setstate] = useState({
     plan: "",
     restaurant: "",
@@ -46,13 +51,20 @@ export default function SubscriptionItem({ item, width, index, navigation }) {
       add_on_image: "",
     },
   ]);
+  // const ref = useRef();
   const [todayMeal, setTodayMeal] = useState({});
   const [futuredays, setFutureDays] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const today = moment().weekday();
   const [futuremeals, setFutureMeals] = useState([]);
   const [remaining, setRemaining] = useState(0);
+  const onPressPrevious = () => {
+    ref.flatRef.scrollToIndex({ animated: true, index: index - 1 });
+  };
 
+  const onPressNext = () => {
+    ref.current.flatRef.scrollToIndex({ animated: true, index: index + 1 });
+  };
   const fetchSubscriptionDetails = async () => {
     const restaurantorders = await axios.get(
       "https://munkybox-admin.herokuapp.com/api/newrest/getorders/" +
@@ -194,20 +206,21 @@ export default function SubscriptionItem({ item, width, index, navigation }) {
             justifyContent: "space-between",
             flexDirection: "row",
             alignItems: "center",
-            marginHorizontal: 1,
-            width: "98%",
+            marginHorizontal: "2%",
+            width: "96%",
           }}
         >
           {index !== 0 ? (
             <TouchableOpacity
               style={{
-                height: 40,
-                width: 40,
-                borderRadius: 20,
-                backgroundColor: "#999",
+                height: 36,
+                width: 36,
+                borderRadius: 18,
+                backgroundColor: "#c0c0c0",
                 justifyContent: "center",
                 alignItems: "center",
               }}
+              onPress={onPressPrevious}
             >
               <Icon name="chevron-back" size={28} color="#fff" />
             </TouchableOpacity>
@@ -216,13 +229,14 @@ export default function SubscriptionItem({ item, width, index, navigation }) {
           )}
           <TouchableOpacity
             style={{
-              height: 40,
-              width: 40,
-              borderRadius: 20,
-              backgroundColor: "#aaa",
+              height: 36,
+              width: 36,
+              borderRadius: 18,
+              backgroundColor: "#cccccc",
               justifyContent: "center",
               alignItems: "center",
             }}
+            onPress={onPressNext}
           >
             <Icon name="chevron-forward" size={28} color="#fff" />
           </TouchableOpacity>

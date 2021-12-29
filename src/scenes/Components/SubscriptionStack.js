@@ -17,8 +17,8 @@ export default function SubscriptionStack({ navigation }) {
   const [myorders, setMyOrders] = useState([]);
   const flatref = useRef(0);
 
-  const nextHandler = () => { };
-  
+  const nextHandler = () => {};
+
   const getSubscriptions = async () => {
     const user = await getUser("user");
     const { data } = await user;
@@ -43,6 +43,7 @@ export default function SubscriptionStack({ navigation }) {
     <SubscriptionItem
       item={item}
       index={index}
+      ref={flatref}
       nextHandler={nextHandler}
       width={width}
       navigation={navigation}
