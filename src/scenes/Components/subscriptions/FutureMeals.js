@@ -12,19 +12,34 @@ export default function FutureMeals({ meals, futuredays }) {
   ]);
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
-  const renderTabBar = (props) => (
-    <TabBar
-      {...props}
-      scrollEnabled
-      style={{
-        backgroundColor: "transparent",
-      }}
-      activeColor="#2266ff"
-      labelStyle={{ fontWeight: "bold", color: "#000" }}
-      inactiveColor="#272727"
-      indicatorStyle={{ backgroundColor: "#2266cf", marginHorizontal: 2 }}
-    />
-  );
+    const renderTabBar = (props) => {
+      console.log(props);
+        return (
+            <TabBar
+                {...props}
+                scrollEnabled
+                style={{
+                    backgroundColor: "#fff",
+                    width: "100%",
+                }}
+                renderLabel={({ route, focused, color }) => (
+                    <Text style={{ color, margin: 8 }}>
+                      {route.title}
+                    </Text>
+                  )}
+                getLabelText={({ route }) => route.title}
+                tabStyle={{ width: width / 3.2 }}
+                activeColor="#2266ff"
+                labelStyle={{ fontWeight: "bold", color: "#000" }}
+                inactiveColor="#272727"
+                indicatorStyle={{
+                    backgroundColor: "#2266cf",
+                    marginHorizontal: 2,
+                    marginVertical: 4,
+                }}
+            />
+        )
+    }
 
   const renderScene = ({ route }) => {
     switch (route.key) {
