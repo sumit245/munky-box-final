@@ -20,6 +20,7 @@ export default function SubscriptionItem({
   nextHandler,
   prevHandler,
   width,
+  navigation,
 }) {
   const [state, setstate] = useState({
     plan: "",
@@ -70,7 +71,7 @@ export default function SubscriptionItem({
     let dayafterafter = meals.find((item) => item.day === days[today + 3]);
     let futuremeals = [tomorrowMeal, dayafterMeal, dayafterafter];
     setFutureMeals(futuremeals);
-    let futuredays = [days[today + 1], days[today + 2], days[today + 2]];
+    let futuredays = [days[today + 1], days[today + 2], days[today + 3]];
     setFutureDays(futuredays);
   };
   useEffect(() => {
@@ -83,6 +84,7 @@ export default function SubscriptionItem({
     setLoaded(true);
     fetchSubscriptionDetails();
   }, [item]);
+
   if (loaded) {
     const { address_type, flat_num, city, locality, postal_code } =
       state.address;
@@ -175,7 +177,7 @@ export default function SubscriptionItem({
               </Text>
             </View>
 
-            <View style={styles.optionCard}>
+            {/* <View style={styles.optionCard}>
               <Text style={{ marginTop: 8 }}>
                 You can swap or skip this meal till {state.skipableTime} AM
               </Text>
@@ -215,13 +217,19 @@ export default function SubscriptionItem({
                   />
                 </TouchableOpacity>
               </View>
-            </View>
+            </View> */}
 
             <View style={styles.optionCard}>
               <AddOns extras={extras} day={1} />
             </View>
 
-            <View style={[styles.optionCard, { width: width-4 }]}>
+            <View style={[styles.optionCard, { width: width - 4 }]}>
+              <Text
+                style={{ fontWeight: "bold", fontSize: 16, marginBottom: 4 }}
+              >
+                Future Meals
+              </Text>
+
               <FutureMeals meals={futuremeals} futuredays={futuredays} />
 
             </View>
