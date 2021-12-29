@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -14,7 +14,15 @@ import MealList, { Item } from "./MealList";
 import AddOns from "./AddOns";
 import FutureMeals from "./FutureMeals";
 
-export default function SubscriptionItem({ item, width, index, navigation }) {
+export default function SubscriptionItem({
+  item,
+  width,
+  index,
+  navigation,
+  onPressNext,
+  onPrevPress,
+  getCurrentIndex,
+}) {
   const [state, setstate] = useState({
     plan: "",
     restaurant: "",
@@ -45,20 +53,15 @@ export default function SubscriptionItem({ item, width, index, navigation }) {
       add_on_image: "",
     },
   ]);
-
   const [todayMeal, setTodayMeal] = useState({});
   const [futuredays, setFutureDays] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const today = moment().weekday();
   const [futuremeals, setFutureMeals] = useState([]);
   const [remaining, setRemaining] = useState(0);
-  const onPressPrevious = () => {
-    ref.current.scrollToIndex({ animated: true, index: index - 1 });
-  };
-
-  const onPressNext = () => {
-    ref.current.scrollToIndex({ animated: true, index: index + 1 });
-  };
+  useEffect(() => {
+    getCurrentIndex(index);
+  }, [index]);
   const fetchSubscriptionDetails = async () => {
     const restaurantorders = await axios.get(
       "https://munkybox-admin.herokuapp.com/api/newrest/getorders/" +
@@ -66,6 +69,7 @@ export default function SubscriptionItem({ item, width, index, navigation }) {
     );
     const { meals } = await restaurantorders.data;
     let todayMeal = meals.find((item) => item.day === days[today]);
+
     setTodayMeal(todayMeal);
     let tomorrowMeal = meals.find((item) => item.day === days[today + 1]);
     let dayafterMeal = meals.find((item) => item.day === days[today + 2]);
@@ -81,6 +85,7 @@ export default function SubscriptionItem({ item, width, index, navigation }) {
     setFutureDays(futuredays);
     setLoaded(true);
   };
+
   useEffect(() => {
     setstate({ ...state, ...item });
     fetchSubscriptionDetails();
@@ -191,6 +196,50 @@ export default function SubscriptionItem({ item, width, index, navigation }) {
             </View>
           </View>
         </ScrollView>
+        <View
+          style={{
+            position: "absolute",
+            top: "50%",
+            elevation: 10,
+            zIndex: 1000,
+            justifyContent: "space-between",
+            flexDirection: "row",
+            alignItems: "center",
+            marginHorizontal: "2%",
+            width: "96%",
+          }}
+        >
+          {index !== 0 ? (
+            <TouchableOpacity
+              style={{
+                height: 36,
+                width: 36,
+                borderRadius: 18,
+                backgroundColor: "#c0c0c0",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => onPrevPress(index)}
+            >
+              <Icon name="chevron-back" size={28} color="#fff" />
+            </TouchableOpacity>
+          ) : (
+            <View />
+          )}
+          <TouchableOpacity
+            style={{
+              height: 36,
+              width: 36,
+              borderRadius: 18,
+              backgroundColor: "#cccccc",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onPress={() => onPressNext(index)}
+          >
+            <Icon name="chevron-forward" size={28} color="#fff" />
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
     );
   } else {
