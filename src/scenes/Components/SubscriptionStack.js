@@ -50,7 +50,6 @@ export default function SubscriptionStack({ navigation }) {
       console.log(index);
     }
   };
-
   const renderItem = ({ item, index }) => (
     <SubscriptionItem
       item={item}
@@ -63,6 +62,11 @@ export default function SubscriptionStack({ navigation }) {
       navigation={navigation}
     />
   );
+  const getItemLayout = (data, index) => ({
+    length: 50,
+    offset: 50 * index,
+    index,
+  });
 
   if (loaded) {
     return (
@@ -77,6 +81,7 @@ export default function SubscriptionStack({ navigation }) {
           data={myorders}
           renderItem={renderItem}
           keyExtractor={(item, index) => index}
+          getItemLayout={getItemLayout}
         />
         {/* <Button title="Clic" onPress={onButtonPress} /> */}
       </>
