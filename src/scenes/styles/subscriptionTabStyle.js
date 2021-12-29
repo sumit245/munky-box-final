@@ -51,7 +51,8 @@ export const styles = StyleSheet.create({
   optionCard: {
     backgroundColor: "#fff",
     padding: 10,
-    width: "98%",
+    width: width - 4,
+    marginHorizontal:1,
     marginVertical: 8,
     elevation: 2,
     borderRadius: 4,

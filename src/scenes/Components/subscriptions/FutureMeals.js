@@ -6,10 +6,11 @@ import { width } from "../../styles/AuthStyle";
 
 export default function FutureMeals({ meals, futuredays }) {
   const [routes] = useState([
-    { key: "first", title: futuredays[0] },
+    { key: "first", title: futuredays[0]},
     { key: "second", title: futuredays[1] },
     { key: "third", title: futuredays[2] },
   ]);
+  console.log(futuredays[0])
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
   const renderTabBar = (props) => (
@@ -17,7 +18,7 @@ export default function FutureMeals({ meals, futuredays }) {
       {...props}
       scrollEnabled
       style={{
-        backgroundColor: "#fff",
+        backgroundColor: "transparent",
     
       }}
       tabStyle={{ width: width / 3.2 }}
@@ -51,6 +52,8 @@ export default function FutureMeals({ meals, futuredays }) {
         lazy
         navigationState={{ index, routes }}
         renderScene={renderScene}
+        renderTabBar={renderTabBar}
+
         onIndexChange={setIndex}
       />
     </View>
