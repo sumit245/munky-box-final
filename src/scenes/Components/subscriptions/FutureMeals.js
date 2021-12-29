@@ -5,9 +5,9 @@ import { width } from "../../styles/AuthStyle";
 
 export default function FutureMeals({ meals, futuredays }) {
   const [routes] = useState([
-    { key: "first", title: futuredays[0]||""},
-    { key: "second", title: futuredays[1]||"" },
-    { key: "third", title: futuredays[2] ||""},
+    { key: "first", title: futuredays[0]},
+    { key: "second", title: futuredays[1]},
+    { key: "third", title: futuredays[2]},
   ]);
   
   const [index, setIndex] = useState(0);

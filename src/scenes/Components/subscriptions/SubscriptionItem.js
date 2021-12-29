@@ -86,11 +86,7 @@ export default function SubscriptionItem({ item, width, navigation }) {
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Icon
-              name="chevron-back"
-              size={28}
-              onPress={() => navigation.goBack()}
-            />
+            
             <View style={{ marginLeft: 2 }}>
               <Text style={styles.headerTitle}>
                 {state.plan === "twoPlan"
@@ -103,7 +99,7 @@ export default function SubscriptionItem({ item, width, navigation }) {
               <Text style={styles.headersubtitle}>by {state.restaurant}</Text>
             </View>
           </View>
-          <Text style={{ color: "#22cccf", fontWeight: "bold" }}>NEXT</Text>
+          <Text style={{ color: "#22cccf", fontWeight: "bold" }}>{item.category}</Text>
         </View>
         <ScrollView>
           <View style={styles.tabContainer}>
