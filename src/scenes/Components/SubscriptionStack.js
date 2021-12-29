@@ -37,7 +37,7 @@ export default function SubscriptionStack({ navigation }) {
   const onPressNext = (index) => {
     if (flatref.current) {
       flatref.current.scrollToIndex({
-        index: index++
+        index: index++,
         //myorders.length > currentindex ? index++ : index,
       });
       console.log(index);
@@ -46,7 +46,7 @@ export default function SubscriptionStack({ navigation }) {
   const onPrevPress = (index) => {
     if (flatref.current) {
       flatref.current.scrollToIndex({
-        index: index--
+        index: index--,
         //myorders.length < currentindex ? index-- : index,
       });
       console.log(index);
@@ -65,8 +65,8 @@ export default function SubscriptionStack({ navigation }) {
     />
   );
   const getItemLayout = (data, index) => ({
-    length: 50,
-    offset: 50 * index,
+    length: width,
+    offset: (width + 4) * index,
     index,
   });
 
@@ -85,7 +85,6 @@ export default function SubscriptionStack({ navigation }) {
           keyExtractor={(item, index) => index}
           getItemLayout={getItemLayout}
         />
-        {/* <Button title="Clic" onPress={onButtonPress} /> */}
       </>
     );
   } else {
