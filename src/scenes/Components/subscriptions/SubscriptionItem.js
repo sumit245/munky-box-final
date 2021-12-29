@@ -52,7 +52,7 @@ export default function SubscriptionItem({ item, width, index, navigation }) {
   const today = moment().weekday();
   const [futuremeals, setFutureMeals] = useState([]);
   const [remaining, setRemaining] = useState(0);
-  
+
   const fetchSubscriptionDetails = async () => {
     const restaurantorders = await axios.get(
       "https://munkybox-admin.herokuapp.com/api/newrest/getorders/" +
@@ -185,8 +185,47 @@ export default function SubscriptionItem({ item, width, index, navigation }) {
             </View>
           </View>
         </ScrollView>
-        <View style={{position:"absolute",top:"50%",elevation:10,zIndex:1000,justifyContent:"center"}}>
-        <Text>I</Text>
+        <View
+          style={{
+            position: "absolute",
+            top: "50%",
+            elevation: 10,
+            zIndex: 1000,
+            justifyContent: "space-between",
+            flexDirection: "row",
+            alignItems: "center",
+            marginHorizontal: 1,
+            width: "98%",
+          }}
+        >
+          {index !== 0 ? (
+            <TouchableOpacity
+              style={{
+                height: 40,
+                width: 40,
+                borderRadius: 20,
+                backgroundColor: "#999",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Icon name="chevron-back" size={28} color="#fff" />
+            </TouchableOpacity>
+          ) : (
+            <View />
+          )}
+          <TouchableOpacity
+            style={{
+              height: 40,
+              width: 40,
+              borderRadius: 20,
+              backgroundColor: "#aaa",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Icon name="chevron-forward" size={28} color="#fff" />
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );
