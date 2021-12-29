@@ -81,7 +81,7 @@ export default function SubscriptionStack({ navigation }) {
           data={myorders}
           renderItem={renderItem}
           keyExtractor={(item, index) => index}
-          getItemLayout={getItemLayout}
+          //getItemLayout={getItemLayout}
         />
       </>
     );
