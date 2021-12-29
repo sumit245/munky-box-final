@@ -37,8 +37,7 @@ export default function SubscriptionStack({ navigation }) {
   const onPressNext = (index) => {
     if (flatref.current) {
       flatref.current.scrollToIndex({
-        index: index++
-        //myorders.length > currentindex ? index++ : index,
+        index: myorders.length > currentindex ? index++ : index,
       });
       console.log(index);
     }
@@ -46,8 +45,7 @@ export default function SubscriptionStack({ navigation }) {
   const onPrevPress = (index) => {
     if (flatref.current) {
       flatref.current.scrollToIndex({
-        index: index--
-        //myorders.length < currentindex ? index-- : index,
+        index: myorders.length < currentindex ? index-- : index,
       });
       console.log(index);
     }
@@ -65,8 +63,9 @@ export default function SubscriptionStack({ navigation }) {
     />
   );
   const getItemLayout = (data, index) => ({
-    length: 50,
-    offset: 50 * index,
+    length:3,
+    width:width,
+    offset: 3*index,
     index,
   });
 
