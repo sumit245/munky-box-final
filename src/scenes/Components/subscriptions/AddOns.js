@@ -5,29 +5,42 @@ import { Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
 import { width } from "../../styles/AuthStyle";
 
-export default function AddOns({ extras, day }) {
+export default function AddOns({ extras, day, meals }) {
   const [myaddons, setMyAddOns] = useState([]);
   const [qty, setQty] = useState(0);
   const [subtotal, setSubtotal] = useState([]);
   const [total, setTotal] = useState(0);
   const [pulled, setPulled] = useState(false);
 
+  const fetchAddOn = () => {
+    let add_ons = [];
+    if (meals !== "undefined" && meals !== null) {
+      try {
+        const { add_on } = meals;
+        setMyAddOns(add_on);
+      } catch (error) {
+        console.log("No add ons");
+      }
+    }
+  };
   useEffect(() => {
     let mounted = true;
     if (mounted) {
       setMyAddOns(extras);
+      fetchAddOn();
+      console.log(meals);
     }
     return () => {
       mounted = false;
     };
   }, []);
 
-  useEffect(() => {
-    let arr = [];
-    myaddons.map((data, key) => {
-      arr.push(key);
-    });
-  }, [myaddons]);
+  // useEffect(() => {
+  //   let arr = [];
+  //   myaddons.map((data, key) => {
+  //     arr.push(key);
+  //   });
+  // }, [myaddons]);
 
   const calculateTotal = (key, qty, rate) => {
     let subt = qty * rate;

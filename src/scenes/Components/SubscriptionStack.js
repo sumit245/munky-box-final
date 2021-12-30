@@ -62,11 +62,6 @@ export default function SubscriptionStack({ navigation }) {
       navigation={navigation}
     />
   );
-  const getItemLayout = (data, index) => ({
-    length: width,
-    offset: (width+4) * index,
-    index,
-  });
 
   if (loaded) {
     return (
@@ -74,14 +69,12 @@ export default function SubscriptionStack({ navigation }) {
         <FlatList
           horizontal
           ref={flatref}
-          //initialScrollIndex={0}
-          pagingEnabled={true}
-          legacyImplementation={false}
+          // pagingEnabled={true}
+          // legacyImplementation={false}
           showsHorizontalScrollIndicator={false}
           data={myorders}
           renderItem={renderItem}
           keyExtractor={(item, index) => index}
-          //getItemLayout={getItemLayout}
         />
       </>
     );

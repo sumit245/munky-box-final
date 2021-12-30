@@ -69,7 +69,6 @@ export default function SubscriptionItem({
     );
     const { meals } = await restaurantorders.data;
     let todayMeal = meals.find((item) => item.day === days[today]);
-
     setTodayMeal(todayMeal);
     let tomorrowMeal = meals.find((item) => item.day === days[today + 1]);
     let dayafterMeal = meals.find((item) => item.day === days[today + 2]);
@@ -162,7 +161,6 @@ export default function SubscriptionItem({
                 }}
               />
               <Item meal={todayMeal} index={0} />
-              {/* <MealList meals={state.meals} day={day} /> */}
             </View>
 
             <View style={styles.optionCard}>
@@ -183,7 +181,7 @@ export default function SubscriptionItem({
             </View>
 
             <View style={styles.optionCard}>
-              <AddOns extras={extras} day={1} />
+              <AddOns extras={extras} day={1} meals={todayMeal} />
             </View>
 
             <View style={[styles.optionCard, { width: width - 4 }]}>
