@@ -7,7 +7,7 @@ import { width } from "../../styles/AuthStyle";
 
 export default function AddOns({ extras, day, meals }) {
   const [myaddons, setMyAddOns] = useState([]);
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState([]);
   const [subtotal, setSubtotal] = useState([]);
   const [total, setTotal] = useState(0);
   const [pulled, setPulled] = useState(false);
@@ -23,41 +23,42 @@ export default function AddOns({ extras, day, meals }) {
       }
     }
   };
+
   useEffect(() => {
     let mounted = true;
     if (mounted) {
       setMyAddOns(extras);
       fetchAddOn();
-      console.log(meals);
     }
     return () => {
       mounted = false;
     };
   }, []);
 
-  // useEffect(() => {
-  //   let arr = [];
-  //   myaddons.map((data, key) => {
-  //     arr.push(key);
-  //   });
-  // }, [myaddons]);
+  useEffect(() => {
+    for (let i = 0; i < myaddons.length; i++) {
+      subtotal.push(0);
+      qty.push(0);
+    }
+  }, []);
 
   const calculateTotal = (key, qty, rate) => {
     let subt = qty * rate;
-    let totls = [];
-    // totls.setSubtotal(...subtotal, totls);
+    let totls = [...subtotal];
+    totls.splice(key, 1, subt);
+    setSubtotal(totls);
   };
 
   const decrement = (key, rate) => {
-    if (qty > 0) {
-      setQty(qty - 1);
-      calculateTotal(key, qty, rate);
+    if (qty[key] > 0) {
+      setQty(qty[key] - 1);
+      calculateTotal(key, qty[key], rate);
     }
   };
 
   const increment = (key, rate) => {
-    setQty(qty + 1);
-    calculateTotal(key, qty, rate);
+    setQty(qty[key] + 1);
+    calculateTotal(key, qty[key], rate);
   };
 
   if (myaddons.length > 1) {
@@ -78,7 +79,7 @@ export default function AddOns({ extras, day, meals }) {
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
-              alignItems: "flex-start",
+              alignItems: "center",
               backgroundColor: "#fff",
               height: 80,
               borderBottomColor: "#777",
@@ -87,7 +88,7 @@ export default function AddOns({ extras, day, meals }) {
             }}
             key={key}
           >
-            <View>
+            <View style={{ width: "30%" }}>
               <Image
                 source={{ uri: data.add_on_image }}
                 style={{ width: 40, height: 40, borderRadius: 4 }}
@@ -95,6 +96,8 @@ export default function AddOns({ extras, day, meals }) {
               <Text style={{ fontWeight: "bold", fontSize: 12 }}>
                 {data.add_on}
               </Text>
+            </View>
+            <View style={{ width: "20%" }}>
               <Text style={{ fontSize: 12 }}>{"$" + data.add_on_price}</Text>
             </View>
             <View
@@ -102,6 +105,7 @@ export default function AddOns({ extras, day, meals }) {
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
+                width: "20%",
               }}
             >
               <IconButton
@@ -113,10 +117,10 @@ export default function AddOns({ extras, day, meals }) {
                   borderRadius: 2,
                 }}
                 onPress={() => decrement(key, data.add_on_price)}
-                disabled={qty === 0}
+                disabled={qty[key] === 0}
               />
 
-              <Text style={{ fontWeight: "bold" }}>{qty}</Text>
+              <Text style={{ fontWeight: "bold" }}>{qty[key]}</Text>
               <IconButton
                 icon="plus"
                 size={18}
@@ -128,16 +132,17 @@ export default function AddOns({ extras, day, meals }) {
                 onPress={() => increment(key, data.add_on_price)}
               />
             </View>
-
-            <Text
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-                fontSize: 12,
-              }}
-            >
-              {subtotal[key]}
-            </Text>
+            <View style={{ width: "20%" }}>
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  fontSize: 12,
+                }}
+              >
+                {subtotal[key]}
+              </Text>
+            </View>
           </View>
         ))}
         <View

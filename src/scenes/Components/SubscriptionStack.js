@@ -39,7 +39,6 @@ export default function SubscriptionStack({ navigation }) {
       flatref.current.scrollToIndex({
         index: myorders.length > currentindex ? index++ : index,
       });
-      console.log(index);
     }
   };
   const onPrevPress = (index) => {
