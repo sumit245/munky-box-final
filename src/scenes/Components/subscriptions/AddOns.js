@@ -123,7 +123,7 @@ export default function AddOns({ extras, day, meals }) {
                 </Text>
               </View>
               <View style={{ width: "20%" }}>
-                <Text style={{ fontSize: 12 }}>{"$" + data.add_on_price}</Text>
+                <Text style={{ fontSize: 12 }}>{"$" + data.add_on_price +"/-"}</Text>
               </View>
               <View
                 style={{
@@ -165,7 +165,7 @@ export default function AddOns({ extras, day, meals }) {
                     fontSize: 12,
                   }}
                 >
-                  {subtotal[key]}
+                  {"$"+subtotal[key]}
                 </Text>
               </View>
             </View>
