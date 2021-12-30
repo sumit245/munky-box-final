@@ -36,13 +36,28 @@ export default function AddOns({ extras, day, meals }) {
   }, []);
 
   useEffect(() => {
+    let subt = [];
+    let qties = [];
     for (let i = 0; i < myaddons.length; i++) {
-      subtotal.push(0);
-      qty.push(0);
+      subt.push(0);
+      qties.push(0);
     }
-  }, []);
+    setSubtotal(subt);
+    setQty(qties);
+  }, [myaddons]);
+
+  useEffect(() => {
+    function add(accumulator, a) {
+      return parseFloat(accumulator) + parseFloat(a);
+    }
+    let amtTotal = [subtotal].reduce(add, 0);
+    console.log(amtTotal);
+    setTotal(amtTotal);
+    console.log(subtotal);
+  }, [subtotal, qty]);
 
   const calculateTotal = (key, qty, rate) => {
+    console.log(qty);
     let subt = qty * rate;
     let totls = [...subtotal];
     totls.splice(key, 1, subt);
@@ -51,14 +66,18 @@ export default function AddOns({ extras, day, meals }) {
 
   const decrement = (key, rate) => {
     if (qty[key] > 0) {
-      setQty(qty[key] - 1);
-      calculateTotal(key, qty[key], rate);
+      let qties = [...qty];
+      qties.splice(key, 1, qties[key] - 1);
+      setQty(qties);
+      calculateTotal(key, qties[key], rate);
     }
   };
 
   const increment = (key, rate) => {
-    setQty(qty[key] + 1);
-    calculateTotal(key, qty[key], rate);
+    let qties = [...qty];
+    qties.splice(key, 1, qties[key] + 1);
+    setQty(qties);
+    calculateTotal(key, qties[key], rate);
   };
 
   if (myaddons.length > 1) {
