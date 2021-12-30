@@ -45,22 +45,17 @@ export default function AddOns({ extras, day, meals }) {
     setSubtotal(subt);
     setQty(qties);
   }, [myaddons]);
-
-  useEffect(() => {
-    function add(accumulator, a) {
-      return parseFloat(accumulator) + parseFloat(a);
-    }
-    let amtTotal = [subtotal].reduce(add, 0);
-    console.log(amtTotal);
-    setTotal(amtTotal);
-    console.log(subtotal);
-  }, [subtotal, qty]);
+  function add(accumulator, a) {
+    return parseFloat(accumulator) + parseFloat(a);
+  }
 
   const calculateTotal = (key, qty, rate) => {
     console.log(qty);
     let subt = qty * rate;
     let totls = [...subtotal];
     totls.splice(key, 1, subt);
+    let amtTotal = totls.reduce(add, 0);
+    setTotal(amtTotal);
     setSubtotal(totls);
   };
 
@@ -90,80 +85,92 @@ export default function AddOns({ extras, day, meals }) {
           backgroundColor: "#fcfcfc",
         }}
       >
-        <Text style={{ fontWeight: "bold", marginBottom: 4, fontSize: 14 }}>
-          Add Extra
-        </Text>
-        {myaddons.map((data, key) => (
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              backgroundColor: "#fff",
-              height: 80,
-              borderBottomColor: "#777",
-              marginVertical: 2,
-              borderBottomWidth: 0.5,
-            }}
-            key={key}
-          >
-            <View style={{ width: "30%" }}>
-              <Image
-                source={{ uri: data.add_on_image }}
-                style={{ width: 40, height: 40, borderRadius: 4 }}
-              />
-              <Text style={{ fontWeight: "bold", fontSize: 12 }}>
-                {data.add_on}
-              </Text>
-            </View>
-            <View style={{ width: "20%" }}>
-              <Text style={{ fontSize: 12 }}>{"$" + data.add_on_price}</Text>
-            </View>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <Text style={{ fontWeight: "bold", marginBottom: 4, fontSize: 14 }}>
+            Add Extra
+          </Text>
+          <TouchableOpacity onPress={() => setPulled(!pulled)}>
+            <Icon
+              name={!pulled ? "chevron-forward" : "chevron-down"}
+              color="#000"
+              size={24}
+            />
+          </TouchableOpacity>
+        </View>
+
+        {pulled &&
+          myaddons.map((data, key) => (
             <View
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
-                width: "20%",
+                backgroundColor: "#fff",
+                height: 80,
+                borderBottomColor: "#777",
+                marginVertical: 2,
+                borderBottomWidth: 0.5,
               }}
+              key={key}
             >
-              <IconButton
-                icon="minus"
-                size={18}
+              <View style={{ width: "30%" }}>
+                <Image
+                  source={{ uri: data.add_on_image }}
+                  style={{ width: 40, height: 40, borderRadius: 4 }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 12 }}>
+                  {data.add_on}
+                </Text>
+              </View>
+              <View style={{ width: "20%" }}>
+                <Text style={{ fontSize: 12 }}>{"$" + data.add_on_price}</Text>
+              </View>
+              <View
                 style={{
-                  borderColor: "#ddd",
-                  borderWidth: 0.2,
-                  borderRadius: 2,
-                }}
-                onPress={() => decrement(key, data.add_on_price)}
-                disabled={qty[key] === 0}
-              />
-
-              <Text style={{ fontWeight: "bold" }}>{qty[key]}</Text>
-              <IconButton
-                icon="plus"
-                size={18}
-                style={{
-                  borderColor: "#ddd",
-                  borderWidth: 0.2,
-                  borderRadius: 2,
-                }}
-                onPress={() => increment(key, data.add_on_price)}
-              />
-            </View>
-            <View style={{ width: "20%" }}>
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontWeight: "bold",
-                  fontSize: 12,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "20%",
                 }}
               >
-                {subtotal[key]}
-              </Text>
+                <IconButton
+                  icon="minus"
+                  size={18}
+                  style={{
+                    borderColor: "#ddd",
+                    borderWidth: 0.2,
+                    borderRadius: 2,
+                  }}
+                  onPress={() => decrement(key, data.add_on_price)}
+                  disabled={qty[key] === 0}
+                />
+
+                <Text style={{ fontWeight: "bold" }}>{qty[key]}</Text>
+                <IconButton
+                  icon="plus"
+                  size={18}
+                  style={{
+                    borderColor: "#ddd",
+                    borderWidth: 0.2,
+                    borderRadius: 2,
+                  }}
+                  onPress={() => increment(key, data.add_on_price)}
+                />
+              </View>
+              <View style={{ width: "20%" }}>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    fontSize: 12,
+                  }}
+                >
+                  {subtotal[key]}
+                </Text>
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
+
         <View
           style={{
             flexDirection: "row",
@@ -172,6 +179,17 @@ export default function AddOns({ extras, day, meals }) {
             marginHorizontal: 4,
           }}
         >
+          <TouchableOpacity
+            onPress={() => Actions.push("wallet", { title: "My Wallet" })}
+            disabled={qty === 0}
+            style={{ marginRight: 8 }}
+          >
+            <Text
+              style={{ fontSize: 16, fontWeight: "bold", color: "#226ccf" }}
+            >
+              Pay
+            </Text>
+          </TouchableOpacity>
           <Text
             style={{
               fontSize: 16,
@@ -182,18 +200,8 @@ export default function AddOns({ extras, day, meals }) {
           >
             ${total}
           </Text>
-
-          <TouchableOpacity
-            onPress={() => Actions.push("wallet", { title: "My Wallet" })}
-            disabled={qty === 0}
-          >
-            <Text
-              style={{ fontSize: 16, fontWeight: "bold", color: "#226ccf" }}
-            >
-              Pay
-            </Text>
-          </TouchableOpacity>
         </View>
+     
       </View>
     );
   } else {
