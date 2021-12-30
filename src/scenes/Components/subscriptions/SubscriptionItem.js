@@ -56,6 +56,7 @@ export default function SubscriptionItem({
   const [todayMeal, setTodayMeal] = useState({});
   const [futuredays, setFutureDays] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [delivered, setDelivered] = useState(false);
   const today = moment().weekday();
   const [futuremeals, setFutureMeals] = useState([]);
   const [remaining, setRemaining] = useState(0);
@@ -84,7 +85,19 @@ export default function SubscriptionItem({
     setFutureDays(futuredays);
     setLoaded(true);
   };
-
+  const getCurrentOrderDetails = async () => {
+    const res = await axios.get(
+      "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getOrderDetails/" +
+        item.order_id
+    );
+    if (res.data !== null) {
+      let { delivered } = res.data;
+      setDelivered(delivered);
+    }
+  };
+  useEffect(() => {
+    getCurrentOrderDetails();
+  }, []);
   useEffect(() => {
     setstate({ ...state, ...item });
     fetchSubscriptionDetails();
@@ -142,11 +155,30 @@ export default function SubscriptionItem({
             }}
           >
             <View style={styles.optionCard}>
-              <Text
-                style={{ fontWeight: "bold", fontSize: 16, marginBottom: 4 }}
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
               >
-                Upcoming Meal
-              </Text>
+                <Text
+                  style={{ fontWeight: "bold", fontSize: 16, marginBottom: 4 }}
+                >
+                  Upcoming Meal
+                </Text>
+                {delivered && (
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: 16,
+                      color: "#0f0",
+                      marginBottom: 4,
+                    }}
+                  >
+                    Delivered
+                  </Text>
+                )}
+              </View>
               <Text style={{ marginVertical: 4 }}>
                 Today, {moment().format("DD MMM")}
               </Text>
