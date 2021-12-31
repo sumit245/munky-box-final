@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Avatar, Card } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
 import Redo from "react-native-vector-icons/FontAwesome5";
 import NewsPaper from "react-native-vector-icons/MaterialCommunityIcons";
 import { styles } from "../../styles/OrderHistoryStyle";
 import axios from "axios";
-import Loader from "../utility/Loader";
 import { Actions } from "react-native-router-flux";
 
 export default function OrderCard({ item }) {
@@ -64,16 +63,22 @@ export default function OrderCard({ item }) {
                 </Text>
               </View>
               <View>
-              <Text style={{ fontSize: 14, textTransform: "uppercase" }}>
-                {item.status}
-              </Text>
-              <Text style={{ textAlign: "right", fontWeight: "bold",marginTop:8,fontSize:16 }}>
-            {"$" + item.total}
-          </Text>
-          </View>
+                <Text style={{ fontSize: 14, textTransform: "uppercase" }}>
+                  {item.status}
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "right",
+                    fontWeight: "bold",
+                    marginTop: 8,
+                    fontSize: 16,
+                  }}
+                >
+                  {"$" + item.total}
+                </Text>
+              </View>
             </View>
           </View>
-          
         </Card.Content>
         <Card.Actions style={{ justifyContent: "space-between" }}>
           <View style={{ alignItems: "center" }}>
@@ -88,6 +93,13 @@ export default function OrderCard({ item }) {
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
               style={[styles.actionButton, { backgroundColor: "#fa0" }]}
+              onPress={() =>
+                Actions.push("ratings", {
+                  title: rest.restaurant_name,
+                  order: item,
+                  restaurant: rest,
+                })
+              }
             >
               <Icon name="ios-star" size={16} color="#FFF" />
             </TouchableOpacity>
@@ -113,6 +125,6 @@ export default function OrderCard({ item }) {
       </Card>
     );
   } else {
-    return <Loader msg="Your past orders" />;
+    return null;
   }
 }

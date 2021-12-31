@@ -28,6 +28,7 @@ import Wallet from "./scenes/Components/wallet/Wallet";
 import Contacts from "./scenes/Components/contacts/Contacts";
 import BackButton from "./scenes/Components/utility/BackButton";
 import About from "./scenes/About";
+import Rate from "./scenes/Components/ratings/Rate";
 
 export default function Routes() {
   const [user, setUser] = useState({});
@@ -66,7 +67,6 @@ export default function Routes() {
           component={Thankyou}
           title={"Order Placed"}
           renderRightButton={DoneRightButton}
-          
         />
         <Scene
           key="manageNotifications"
@@ -169,6 +169,11 @@ export default function Routes() {
           key="favorites"
           component={Favouite}
           title="My Favorites"
+          renderLeftButton={() => <BackButton />}
+        />
+        <Scene
+          key="ratings"
+          component={Rate}
           renderLeftButton={() => <BackButton />}
         />
       </Scene>
