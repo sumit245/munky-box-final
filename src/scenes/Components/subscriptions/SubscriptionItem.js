@@ -97,7 +97,7 @@ export default function SubscriptionItem({
   };
   useEffect(() => {
     getCurrentOrderDetails();
-  }, []);
+  }, [item]);
   useEffect(() => {
     setstate({ ...state, ...item });
     fetchSubscriptionDetails();

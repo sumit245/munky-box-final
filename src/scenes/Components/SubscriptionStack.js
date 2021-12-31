@@ -68,7 +68,7 @@ export default function SubscriptionStack({ navigation }) {
         <FlatList
           horizontal
           ref={flatref}
-          // pagingEnabled={true}
+          pagingEnabled={true}
           // legacyImplementation={false}
           showsHorizontalScrollIndicator={false}
           data={myorders}

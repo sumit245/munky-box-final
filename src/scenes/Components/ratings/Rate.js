@@ -52,6 +52,7 @@ export default function Rate({ navigation, restaurant, order }) {
           marginHorizontal: 2,
           marginVertical: 24,
           marginTop: 48,
+          height:40
         }}
       >
         <Text style={{ textAlign: "center", fontSize: 16, fontWeight: "bold" }}>
@@ -72,7 +73,7 @@ export default function Rate({ navigation, restaurant, order }) {
               mode="outlined"
               onPress={() => console.log("Pressed")}
               selectedColor="#A91B60"
-              style={{ minWidth: 100, marginVertical: 2 }}
+              style={{ minWidth: 100, height:40, marginVertical: 2 }}
             >
               {feature}
             </Chip>
@@ -89,7 +90,7 @@ export default function Rate({ navigation, restaurant, order }) {
             margin: 12,
             borderWidth: 1,
             padding: 10,
-            borderRadius: 2,
+            borderRadius: 4,
             textAlignVertical: "top",
           }}
           numberOfLines={4}
