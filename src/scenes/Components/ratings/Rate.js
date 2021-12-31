@@ -203,7 +203,7 @@ export default function Rate({ navigation, restaurant, order }) {
               Submit
             </Text>
           </TouchableOpacity>
-          {placed && <SuccessDialog />}
+          
         </SafeAreaView>
       </Provider>
     );
