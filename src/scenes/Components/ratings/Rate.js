@@ -86,6 +86,7 @@ export default function Rate({ navigation, restaurant, order }) {
           >
             {features.map((feature, key) => (
               <Chip
+                // mode={likes.includes(feature) ? "flat" : "outlined"}
                 mode="outlined"
                 onPress={() => pushToLiked(feature)}
                 selectedColor={likes.includes(feature) ? "#2962ff" : "#000"}
@@ -93,7 +94,7 @@ export default function Rate({ navigation, restaurant, order }) {
                   minWidth: 100,
                   height: 40,
                   marginVertical: 2,
-                  borderWidth: 1,
+                  borderWidth: 2,
                   justifyContent: "center",
                   alignItems: "center",
                 }}
