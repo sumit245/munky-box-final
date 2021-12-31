@@ -55,6 +55,7 @@ export default function Rate({ navigation, restaurant, order }) {
     const { status } = response.data;
     setLoaded(false);
     if (status === 200) {
+      console.log("success");
       setPlaced(true);
     }
   };
