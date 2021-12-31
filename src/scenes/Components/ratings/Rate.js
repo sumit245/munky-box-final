@@ -28,19 +28,21 @@ export default function Rate({ navigation, restaurant, order }) {
       style={{ backgroundColor: "#fff" }}
       contentContainerStyle={{ justifyContent: "space-between", flex: 1 }}
     >
-      <Text
-        style={{
-          textAlign: "center",
-          fontWeight: "bold",
-          fontSize: 20,
-          letterSpacing: 1,
-        }}
-      >
-        Thanks for rating!
-      </Text>
-      <Text style={{ textAlign: "center", fontWeight: "bold" }}>
-        Order {order.order_id}
-      </Text>
+      <View>
+        <Text
+          style={{
+            textAlign: "center",
+            fontWeight: "bold",
+            fontSize: 20,
+            letterSpacing: 1,
+          }}
+        >
+          Thanks for rating!
+        </Text>
+        <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+          Order {order.order_id}
+        </Text>
+      </View>
       <AirbnbRating
         reviews={["Worst", "Bad", "Good", "Satisfied", "Excellent!!!"]}
         onFinishRating={setRating}
@@ -77,19 +79,25 @@ export default function Rate({ navigation, restaurant, order }) {
           ))}
         </View>
       </View>
-      <TextInput
-        style={{
-          height: 120,
-          margin: 12,
-          borderWidth: 1,
-          padding: 10,
-          borderRadius: 2,
-          textAlignVertical: "top",
-        }}
-        numberOfLines={4}
-        placeholder="Write any comments"
-        keyboardType="numeric"
-      />
+      <View>
+        <Text style={{ textAlign: "center", fontSize: 16, fontWeight: "bold" }}>
+          Leave a comment
+        </Text>
+        <TextInput
+          style={{
+            height: 120,
+            margin: 12,
+            borderWidth: 1,
+            padding: 10,
+            borderRadius: 2,
+            textAlignVertical: "top",
+          }}
+          numberOfLines={4}
+          placeholder="Write any comments"
+          keyboardType="numeric"
+        />
+      </View>
+
       <TouchableOpacity
         style={{
           width: "98%",

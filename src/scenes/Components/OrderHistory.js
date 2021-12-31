@@ -13,16 +13,11 @@ const renderItem = ({ item }) => <OrderCard item={item} />;
 export default class OrderHistory extends Component {
   state = { myOrders: [] };
   async componentDidMount() {
-    try {
-      const user = await getUser("user");
-      const { user_id } = await user.data;
-      const response = await axios.get(MY_ORDER_URL + user_id);
-      const myorder = await response.data;
-      this.setState({ myOrders: myorder });
-    } catch (err) {
-      alert("Please login First");
-      Actions.jump("auth");
-    }
+    const user = await getUser("user");
+    const { user_id } = await user.data;
+    const response = await axios.get(MY_ORDER_URL + user_id);
+    const myorder = await response.data;
+    this.setState({ myOrders: myorder });
   }
   render() {
     const { myOrders } = this.state;
