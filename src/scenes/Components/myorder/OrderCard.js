@@ -38,7 +38,7 @@ export default function OrderCard({ item }) {
               source={{
                 uri: rest.documents[0].restaurant_image,
               }}
-              style={{ padding: 2 }}
+              // style={{ padding: 2 }}
             />
             <View
               style={{
