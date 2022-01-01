@@ -1,116 +1,121 @@
-import React,{ Component } from 'react';
-import {View, Image, StyleSheet, Text,FlatList} from 'react-native';
-import {Card} from 'react-native-paper';
-import {Avatar, Input} from 'react-native-elements';
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    username: 'Martin Luther',
-    userImage:
-      'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-    review: 'A Very good Restaurant for Fooding',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    username: 'Bob Marris',
-    userImage:
-      'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-    review: 'A  good Restaurant for Foods at your convenience',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    username: 'Soniya Sanyal',
-    userImage:
-      'https://images.unsplash.com/flagged/photo-1561350117-501b4661f8d4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-    review: 'Not Good',
-  },
-];
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, Text, FlatList } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import { avatarify } from "../../src/scenes/Components/utility/helpers";
 
-const ReviewItem = ({title, avatar, review}) => (
+const ReviewItem = ({ title, avatar, review }) => (
   <View style={styles.item}>
     <Text style={styles.title}>{title}</Text>
-    <View style={{flexDirection: 'row'}}>
-      <Avatar source={{uri: avatar}} rounded height={40} width={40} />
-      <Text style={{marginLeft: 5}}>{review}</Text>
+    <View style={{ flexDirection: "row", flex: 1 }}>
+      <View
+        style={{
+          height: 48,
+          width: 48,
+          borderRadius: 24,
+          backgroundColor: "purple",
+          justifyContent: "center",
+          alignItems: "center",
+          marginRight: 8,
+        }}
+      >
+        <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
+          {avatarify(review.user_name)}
+        </Text>
+      </View>
+
+      <View>
+        <Text style={{ marginLeft: 5, fontWeight: "bold" }}>
+          {review.user_name}
+        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            width: "70%",
+            justifyContent: "space-between",
+            marginLeft: 5,
+          }}
+        >
+          <View
+            style={{
+              borderRadius: 2,
+              backgroundColor: "orange",
+              flexDirection: "row",
+              alignItems: "center",
+              padding: 2,
+            }}
+          >
+            <Icon name="star" color="#fff" size={12} />
+            <Text style={{ fontWeight: "bold", color: "#fff", fontSize: 12 }}>
+              {review.rating}
+            </Text>
+          </View>
+          <Text style={{ fontWeight: "bold", color: "#000", fontSize: 12 }}>
+            2 hours ago
+          </Text>
+        </View>
+        <Text style={{ marginLeft: 5 }}>{review.details}</Text>
+        {/* <Text style={{ marginLeft: 25 }}>{review.comments}</Text> */}
+      </View>
     </View>
   </View>
 );
-export default class Rewards extends Component {
-  _renderItem = ({item}) => (
-    <ReviewItem
-      title={item.username}
-      avatar={item.userImage}
-      review={item.review}
-    />
-  );
-  render() {
-    return (
-      <View style={styles.container}>
-        <Image
-          source={{
-            uri:
-              'http://www.chatelaine.com/wp-content/uploads/2013/05/Curried-chicken-salad.jpg',
-          }}
-          style={styles.bgimage}
-        />
-        <Card style={styles.rewardCard}>
-          <FlatList
-            data={DATA}
-            renderItem={this._renderItem}
-            keyExtractor={(item) => item.id}
-          />
-          <Input
-            placeholder="Write your Review"
-            style={{alignSelf:'auto'}}
-          />
-        </Card>
-      </View>
+
+export default function Rewards() {
+  const [review, setReview] = useState([]);
+  const fetchReview = async () => {
+    const response = await axios.get(
+      "http://munkybox-admin.herokuapp.com/api/review/"
     );
-  }
+    const { data } = response;
+    setReview(data);
+    console.log(data);
+  };
+  useEffect(() => {
+    fetchReview();
+  }, []);
+  const ListHeader = () => (
+    <View
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#fff",
+        padding: 20,
+      }}
+    >
+      <Text style={{ fontSize: 25, fontWeight: "bold" }}>5.0</Text>
+      <Text style={{ fontSize: 14, fontWeight: "bold" }}>
+        based on {review.length} reviews
+      </Text>
+    </View>
+  );
+  const renderItem = ({ item }) => <ReviewItem review={item} />;
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={review}
+        ListHeaderComponent={ListHeader}
+        renderItem={renderItem}
+        keyExtractor={(item) => item._id}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: 'relative',
-  },
-  bgimage: {
-    height: 300,
-    width: 450,
-    resizeMode: 'cover',
-  },
-  rewardCard: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    marginTop: 50,
-    height: 500,
-    width: '95%',
-    elevation: 5,
-    borderColor: 'gray',
-    position: 'absolute',
-    left: 10,
-    top: 100,
-  },
-  rewardCardCenter: {
-    alignSelf: 'center',
-    width: 100,
-    height: 100,
-    marginLeft: 20,
-    top: -50,
-    borderRadius: 50,
-    color: '#fff',
-    zIndex: 100,
-    borderColor: 'red',
-    borderWidth: 2,
   },
   item: {
     padding: 5,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    marginVertical: 2,
+    marginHorizontal: 2,
+    borderWidth: 0.5,
+    borderColor: "#ddd",
+    borderRadius: 4,
+    backgroundColor: "#fff",
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
   },
 });

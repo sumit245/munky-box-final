@@ -61,7 +61,12 @@ export default function Routes() {
           title={"Documents"}
           renderLeftButton={() => <BackButton />}
         />
-        <Scene key="reviews" component={ReviewScreen} title={"Reviews"} />
+        <Scene
+          key="reviews"
+          component={ReviewScreen}
+          title={"Reviews"}
+          renderLeftButton={() => <BackButton />}
+        />
         <Scene
           key="thankyou"
           component={Thankyou}

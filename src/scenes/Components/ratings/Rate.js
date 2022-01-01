@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -12,7 +13,6 @@ import { AirbnbRating } from "react-native-elements";
 import { Chip, Provider } from "react-native-paper";
 import { Actions } from "react-native-router-flux";
 import Loader from "../utility/Loader";
-import SuccessDialog from "../utility/SuccessDialog";
 
 export default function Rate({ navigation, restaurant, order }) {
   const [selected, setSelected] = useState(false);
@@ -38,6 +38,7 @@ export default function Rate({ navigation, restaurant, order }) {
     setLoaded(true);
     let review = {
       user_id: order.user_id,
+      user_name: order.user_name,
       restaurant_id: order.restaurant_id,
       role: "user",
       order_id: order.order_id,
@@ -48,6 +49,7 @@ export default function Rate({ navigation, restaurant, order }) {
       rating: rating,
       details: details,
       likes: likes,
+      review_at: moment(),
     };
     const response = await axios.post(
       "http://munkybox-admin.herokuapp.com/api/review/",
@@ -203,7 +205,6 @@ export default function Rate({ navigation, restaurant, order }) {
               Submit
             </Text>
           </TouchableOpacity>
-          
         </SafeAreaView>
       </Provider>
     );
