@@ -250,8 +250,9 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 0.2,
     marginHorizontal: 2,
-    // bottom:-10,
-    // position:"absolute",
+    
+    bottom:-200,
+    position:"absolute",
     padding: 6,
     height: 44,
     backgroundColor: "#2962ff",

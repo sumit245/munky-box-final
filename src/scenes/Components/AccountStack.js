@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
+import { Provider } from "react-native-paper";
 import { Actions } from "react-native-router-flux";
 import Icons from "react-native-vector-icons/Ionicons";
 import { clearAll, getUser, removeUser } from "../../services/user/getuser";
@@ -21,6 +22,7 @@ export default class AccountStack extends Component {
       ...this.props,
       user: {},
       signoff: false,
+      show:true
     };
   }
   fetchUser = () => {
@@ -34,12 +36,16 @@ export default class AccountStack extends Component {
   componentDidMount() {
     this.fetchUser();
   }
-  logout = () => {
-    removeUser("user")
-      .then(() => this.setState({ signoff: true }))
-      .catch((err) => {
-        alert(err);
-      });
+  showDialog=()=>{
+    this.setState(prevState=>({signoff:!prevState.signoff}))
+  }
+
+  logout = async () => {
+    const res=await removeUser("user")
+      this.setState({signoff:false})
+      const response = clearAll();
+      response.then(() => Actions.jump("auth"));
+    
   };
 
   render() {
@@ -50,6 +56,7 @@ export default class AccountStack extends Component {
         : "User";
     return (
       <SafeAreaView style={styles.navdrawer}>
+        <Provider>
         <View style={styles.header}>
           <View style={styles.imageNUmName}>
             <View style={styles.profileContainer}>
@@ -145,7 +152,7 @@ export default class AccountStack extends Component {
         </View>
 
         <TouchableOpacity
-          onPress={this.logout}
+          onPress={this.showDialog}
           style={[
             styles.drawerRow,
             {
@@ -161,10 +168,13 @@ export default class AccountStack extends Component {
         {this.state.signoff && (
           <CustomDialog
             title="Sign Out"
-            showDialog={true}
+            showDialog={this.state.signoff}
+            doneHandler={this.logout}
+            cancelHandler={this.showDialog}
             text="Are you sure you want to logout?"
           />
         )}
+        </Provider>
       </SafeAreaView>
     );
   }

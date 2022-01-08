@@ -92,7 +92,7 @@ export default class DeliveryOptions extends Component {
                     <View>
 
                     <Text style={styles.modalText}>{data.address_type}</Text>
-                    <Text style={[styles.modalText,{fontSize:12,fontWeight:"normal"}]}>{(data.flat_num||"")+","+(data.locality||"")+","+(data.city||"")}</Text>
+                    <Text style={[styles.modalText,{fontSize:12,fontWeight:"normal"}]}>{(data.flat_num ||"")+","+(data.locality||"")+" "+(data.city||"")}</Text>
                     </View>
                   </TouchableOpacity>
                 ))}

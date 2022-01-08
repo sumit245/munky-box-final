@@ -43,6 +43,7 @@ export default styles = StyleSheet.create({
     color: "#FFF",
     fontWeight: "bold",
     fontSize: 12,
+    textAlign:"center"
   },
   orLine: {
     borderBottomColor: "#fff",

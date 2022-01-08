@@ -111,12 +111,13 @@ export default class ListAddress extends Component {
     const response = await axios.put(USER_URL + this.state.userid, {
       addresses: addresses,
     });
-    const { data } = await response.data;
+    const { data } =  response;
+    console.log(data);
     let local = JSON.stringify(data);
-    saveUser("user", local);
-    this.setState({
+     saveUser("user", local);
+     this.setState({
       address: addresses,
-    });
+     });
   };
 
   renderAddress = ({ item }, checked) => (

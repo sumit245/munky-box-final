@@ -77,10 +77,7 @@ export default class AuthScene extends Component {
             {/* Or */}
 
             <EmailLogin />
-            <View style={styles.social}>
-              <FBLogin />
-              <GoogLogin />
-            </View>
+           
           </View>
           <Text style={styles.termsCondition}>
             By continuing, you agree to our{" "}
