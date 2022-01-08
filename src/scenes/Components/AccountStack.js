@@ -162,7 +162,7 @@ export default class AccountStack extends Component {
           <CustomDialog
             title="Sign Out"
             showDialog={true}
-            text="Are you sure you want to logout? This will clear all your data on this device"
+            text="Are you sure you want to logout?"
           />
         )}
       </SafeAreaView>

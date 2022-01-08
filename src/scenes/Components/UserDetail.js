@@ -119,7 +119,7 @@ export default class RegistrationForm extends Component {
               }}
             >
               <Icon name="chevron-back" size={18} color="#000" />
-              <Text> Back</Text>
+              
             </View>
             <Text style={styles.lightText}>{Lang.lightText}</Text>
 
