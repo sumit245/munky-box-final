@@ -26,7 +26,9 @@ export default class ManualEntry extends Component {
     };
     this.setState({ address_type: id });
   };
-
+  componentDidMount() {
+    console.log(this.props.editState);
+  }
   _confirmLocation = async () => {
     this.setState({ loading: true });
     const address = {
@@ -250,9 +252,9 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 0.2,
     marginHorizontal: 2,
-    
-    bottom:-200,
-    position:"absolute",
+
+    bottom: -200,
+    position: "absolute",
     padding: 6,
     height: 44,
     backgroundColor: "#2962ff",
