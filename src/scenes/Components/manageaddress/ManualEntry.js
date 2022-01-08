@@ -31,23 +31,36 @@ export default class ManualEntry extends Component {
   }
   _confirmLocation = async () => {
     this.setState({ loading: true });
-    const address = {
-      address_type: this.state.address_type,
-      city: this.state.city,
-      flat_num: this.state.flat_num,
-      locality: this.state.locality,
-      postal_code: this.state.postal_code,
-    };
-    const res = await getUser("user");
-    let { _id } = await res.data;
-    const response = await axios.put(ADDRESS_URL + _id, { address });
-    const { data } = response;
-    const updateLocal = await saveUser("user", JSON.stringify(data));
+    if (!this.props.editState) {
+      const address = {
+        address_type: this.state.address_type,
+        city: this.state.city,
+        flat_num: this.state.flat_num,
+        locality: this.state.locality,
+        postal_code: this.state.postal_code,
+      };
+      const res = await getUser("user");
+      let { _id } = await res.data;
+      const response = await axios.put(ADDRESS_URL + _id, { address });
+      const { data } = response;
+      const updateLocal = await saveUser("user", JSON.stringify(data));
+    } else {
+      const res = await getUser("user");
+      let { addresses } = res.data;
+      const address = {
+        address_type: this.state.address_type,
+        city: this.state.city,
+        flat_num: this.state.flat_num,
+        locality: this.state.locality,
+        postal_code: this.state.postal_code,
+      };
+      console.log(addresses);
+    }
+
     this.setState({ loading: false });
     this.props.entryMethod
       ? Actions.push("home")
       : Actions.pop({ refresh: {} });
-
     //problem in this block:TODO
   };
   render() {
