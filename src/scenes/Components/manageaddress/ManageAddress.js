@@ -32,6 +32,7 @@ export default class ManageAddress extends Component {
               address={this.props.address}
               entryMethod={this.props.entryMethod}
               editState={this.props.editState}
+              editIndex={this.props.editIndex}
             />
           </ScrollView>
         </KeyboardAvoidingView>

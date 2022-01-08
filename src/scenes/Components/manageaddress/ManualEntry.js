@@ -55,6 +55,7 @@ export default class ManualEntry extends Component {
         postal_code: this.state.postal_code,
       };
       console.log(addresses);
+      console.log(this.props.editIndex)
     }
 
     this.setState({ loading: false });
