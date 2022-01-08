@@ -169,7 +169,7 @@ export default class ListAddress extends Component {
                     address: item,
                     entryMethod: false,
                     editState: true,
-                    editIndex=item._id
+                    editIndex:item._id
                   });
                 }}
                 imageSource={Edit}
