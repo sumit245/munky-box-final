@@ -112,7 +112,7 @@ export default class ListAddress extends Component {
       addresses: addresses,
     });
     const { data } = response;
-    console.log(data);
+    
     let local = JSON.stringify(data);
     saveUser("user", local);
     this.setState({

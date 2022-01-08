@@ -54,8 +54,13 @@ export default class ManualEntry extends Component {
         locality: this.state.locality,
         postal_code: this.state.postal_code,
       };
-      console.log(addresses);
-      console.log(this.props.editIndex)
+      addresses.splice(1, 1, address)
+      const res = await getUser("user");
+      let { _id } = await res.data;
+      const response = await axios.put(ADDRESS_URL + _id, { addresses });
+      const { data } = response;
+      const updateLocal = await saveUser("user", JSON.stringify(data));
+      
     }
 
     this.setState({ loading: false });
