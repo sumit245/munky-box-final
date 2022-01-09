@@ -53,9 +53,8 @@ export default class ManageCard extends Component {
     let { _id } = await res.data;
     const response = await axios.put("https://munkybox-admin.herokuapp.com/api/users/addcard/" + _id, { card });
     const { data } = response;
-    console.log(data);
-    // const updateLocal = await saveUser("user", JSON.stringify(data));
-    // alert(res.data.msg);
+    const updateLocal = await saveUser("user", JSON.stringify(data.data));
+    alert(res.data.msg);
     this.setState({visible:false})
   };
 
