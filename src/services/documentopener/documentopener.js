@@ -27,10 +27,11 @@ export const ModalOpener = ({ restaurant_id }) => {
     fetchPapers(restaurant_id);
   }, [restaurant_id]);
   if (loading) {
-    return;
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <ActivityIndicator size="large" color="#00f" animating />
-    </View>;
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#00f" animating />
+      </View>
+    );
   } else {
     return (
       <FlatList
