@@ -31,8 +31,11 @@ export default function TipOption({ tipHandler }) {
   const selectTip = (tip) => {
     if (tip === "Other") {
       setTip(true);
+      setTipAmt(tip);
+    } else {
+      setTip(false);
+      setTipAmt(tip);
     }
-    setTipAmt(tip);
   };
   const handler = (tip) => {
     tipHandler(tip);
