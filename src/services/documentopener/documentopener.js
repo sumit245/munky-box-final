@@ -52,6 +52,7 @@ export const ModalOpener = ({ restaurant_id }) => {
             }}
           >
             <Image style={styles.imageThumbnail} source={{ uri: item.image }} />
+            <Text style={{ textAlign: "center" }}>{item.image_name}</Text>
           </View>
         )}
         horizontal
