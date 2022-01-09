@@ -28,9 +28,9 @@ export default function TipOption({ tipHandler }) {
   const [tip, setTip] = useState(false);
   const [tip_amount, setTipAmt] = useState("");
 
-  const selectTip = (tip) => {
-    tip === "Other" ? setTip(true) : setTipAmt(tip);
-  };
+  // const selectTip = (tip) => {
+  //   tip === "Other" ? setTip(true) : setTipAmt(tip);
+  // };
   const handler = (tip) => {
     tipHandler(tip);
     selectTip(tip);
@@ -100,20 +100,6 @@ export default function TipOption({ tipHandler }) {
           onEndEditing={() => tipHandler(tip_amount)}
         />
       )}
-      {/* <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          marginHorizontal: 20,
-        }}
-      >
-        <Checkbox.Android
-          status={isSelected ? "checked" : "unchecked"}
-          onPress={() => setIsSelected(!isSelected)}
-          color={isSelected ? "#df7070" : "#fff"}
-        />
-        <Text>Add this tip automatically to future orders</Text>
-      </View> */}
     </View>
   );
 }
