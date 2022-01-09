@@ -29,7 +29,7 @@ export default function TipOption({ tipHandler }) {
   const [tip_amount, setTipAmt] = useState("");
 
   const selectTip = (tip) => {
-    if (tip !== 1 || tip !== 5 || tip !== 10) {
+    if (tip ==="Other") {
       setTip(true);
       setTipAmt(tip);
     } else {
