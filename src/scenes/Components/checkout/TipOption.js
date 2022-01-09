@@ -29,7 +29,10 @@ export default function TipOption({ tipHandler }) {
   const [tip_amount, setTipAmt] = useState("");
 
   const selectTip = (tip) => {
-    tip === "Other" ? setTip(true) : setTipAmt(tip);
+    if (tip === "Other") {
+      setTip(true);
+    }
+    setTipAmt(tip);
   };
   const handler = (tip) => {
     tipHandler(tip);
@@ -42,9 +45,7 @@ export default function TipOption({ tipHandler }) {
         style={[
           styles.tipBox,
           {
-            backgroundColor: tip_amount === item.option || tip ? "#ff7539cc" : "#FFF",
-
-            
+            backgroundColor: tip_amount === item.option ? "#ff7539cc" : "#FFF",
           },
         ]}
         onPress={() => handler(item.option)}
