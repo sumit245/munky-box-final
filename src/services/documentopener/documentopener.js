@@ -27,7 +27,10 @@ export const ModalOpener = ({ restaurant_id }) => {
     fetchPapers(restaurant_id);
   }, [restaurant_id]);
   if (loading) {
-    return <ActivityIndicator size="large" color="#00f" animating />;
+    return;
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <ActivityIndicator size="large" color="#00f" animating />
+    </View>;
   } else {
     return (
       <FlatList
@@ -52,7 +55,17 @@ export const ModalOpener = ({ restaurant_id }) => {
             }}
           >
             <Image style={styles.imageThumbnail} source={{ uri: item.image }} />
-            <Text style={{ textAlign: "center",position:"absolute",bottom:20,left:"40%",fontWeight:"bold" }}>{item.image_name}</Text>
+            <Text
+              style={{
+                textAlign: "center",
+                position: "absolute",
+                bottom: 20,
+                left: "40%",
+                fontWeight: "bold",
+              }}
+            >
+              {item.image_name}
+            </Text>
           </View>
         )}
         horizontal
