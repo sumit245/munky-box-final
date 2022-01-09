@@ -7,11 +7,13 @@ import {
   Image,
   Dimensions,
   Text,
+  ActivityIndicator,
 } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 export const ModalOpener = ({ restaurant_id }) => {
   const [papers, setPapers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const fetchPapers = async (id) => {
     const response = await axios.get(
       "https://munkybox-admin.herokuapp.com/api/newrest/" + id
@@ -19,40 +21,45 @@ export const ModalOpener = ({ restaurant_id }) => {
     const restaurant = await response.data;
     const paper = restaurant.papers;
     setPapers(paper);
+    setLoading(false);
   };
   useEffect(() => {
     fetchPapers(restaurant_id);
   }, [restaurant_id]);
-  return (
-    <FlatList
-      contentContainerStyle={{ marginHorizontal: 4 }}
-      ItemSeparatorComponent={() => <View style={{ width: 0.1 * width }} />}
-      data={papers}
-      ListEmptyComponent={() => (
-        <View
-          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
-          <Text style={{ textAlign: "center", marginHorizontal: 8 }}>
-            This Restaurant does not have any specific document
-          </Text>
-        </View>
-      )}
-      renderItem={({ item }) => (
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "column",
-            margin: 1,
-          }}
-        >
-          <Image style={styles.imageThumbnail} source={{ uri: item.image }} />
-        </View>
-      )}
-      horizontal
-      keyExtractor={(item, index) => index}
-      showsHorizontalScrollIndicator={false}
-    />
-  );
+  if (loading) {
+    return <ActivityIndicator size="large" color="#00f" animating />;
+  } else {
+    return (
+      <FlatList
+        contentContainerStyle={{ marginHorizontal: 4 }}
+        ItemSeparatorComponent={() => <View style={{ width: 0.1 * width }} />}
+        data={papers}
+        ListEmptyComponent={() => (
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <Text style={{ textAlign: "center", marginHorizontal: 8 }}>
+              This Restaurant does not have any specific document
+            </Text>
+          </View>
+        )}
+        renderItem={({ item }) => (
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "column",
+              margin: 1,
+            }}
+          >
+            <Image style={styles.imageThumbnail} source={{ uri: item.image }} />
+          </View>
+        )}
+        horizontal
+        keyExtractor={(item, index) => index}
+        showsHorizontalScrollIndicator={false}
+      />
+    );
+  }
 };
 
 const styles = StyleSheet.create({
