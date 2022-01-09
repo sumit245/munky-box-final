@@ -28,12 +28,13 @@ export default function TipOption({ tipHandler }) {
   const [tip, setTip] = useState(false);
   const [tip_amount, setTipAmt] = useState("");
 
-  // const selectTip = (tip) => {
-  //   tip === "Other" ? setTip(true) : setTipAmt(tip);
-  // };
+  const selectTip = (tip) => {
+    tip === "Other" ? setTip(true) : setTipAmt(tip);
+  };
   const handler = (tip) => {
     tipHandler(tip);
-    selectTip(tip);
+    setTipAmt(tip)
+    // selectTip(tip);
   };
 
   const renderItem = ({ item }, tip_amount) => {
