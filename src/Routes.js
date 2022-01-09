@@ -72,6 +72,7 @@ export default function Routes() {
           component={Thankyou}
           title={"Order Placed"}
           renderRightButton={DoneRightButton}
+          rightButtonTextStyle={{marginTop:20,fontWeight:"bold"}}
         />
         <Scene
           key="manageNotifications"

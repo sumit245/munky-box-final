@@ -13,10 +13,7 @@ import { Actions } from "react-native-router-flux";
 
 export const DoneRightButton = () => (
   <TouchableOpacity
-    style={{
-      height: 50,
-flexDirection:"row"
-    }}
+   
     onPress={() => {
       Actions.push("home");
     }}
@@ -25,13 +22,12 @@ flexDirection:"row"
       style={{
         textTransform: "uppercase",
         color: "#226cff",
-        fontWeight: "bold",
-        
+      fontWeight:"bold"
       }}
     >
       Done
     </Text>
-    <View/>
+    
   </TouchableOpacity>
 );
 

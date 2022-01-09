@@ -130,19 +130,19 @@ export default function Contacts({ navigation }) {
             </View>
             {/* To */}
 
-            <View style={{ marginVertical: 4 }}>
+            <View style={{ marginVertical: 16 }}>
               <View style={styles.labelContainer}>
                 <Text style={styles.label}>Subject</Text>
               </View>
               <TextInput
                 value={info.subject}
-                style={styles.inputContainer}
+                style={[styles.inputContainer,{marginTop:12}]}
                 onChangeText={(text) => setInfo({ ...info, subject: text })}
               />
             </View>
             {/* Subject */}
 
-            <View style={{ marginVertical: 4 }}>
+            <View style={{ marginVertical: 16 }}>
               <View style={styles.labelContainer}>
                 <Text style={styles.label}>Desciption</Text>
               </View>
@@ -151,8 +151,9 @@ export default function Contacts({ navigation }) {
                 placeholder="Write a description in maximum 250 characters"
                 placeholderTextColor="#777"
                 multiline
+                
                 textAlignVertical="top"
-                style={[styles.inputContainer, { textAlignVertical: "bottom" }]}
+                style={[styles.inputContainer, { textAlignVertical: "bottom",borderColor:"#777",borderWidth:0.5,borderRadius:2,height:250,padding:4 }]}
                 numberOfLines={10}
                 onChangeText={(text) => setInfo({ ...info, body: text })}
               />
