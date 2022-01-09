@@ -42,7 +42,8 @@ export default function TipOption({ tipHandler }) {
         style={[
           styles.tipBox,
           {
-            backgroundColor: tip_amount === item.option ? "#ff7539cc" : "#FFF",
+            backgroundColor: tip_amount === item.option || tip ? "#ff7539cc" : "#FFF",
+
             
           },
         ]}
