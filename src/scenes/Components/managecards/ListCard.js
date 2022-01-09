@@ -19,7 +19,7 @@ import {
   SwipeableQuickActions,
 } from "react-native-swipe-list";
 import Trash from "../../../../assets/Trash.png";
-import Edit from "../../../../assets/Edit.png";
+
 import axios from "axios";
 import { USER_URL } from "../../../services/EndPoints";
 const ListEmptyContent = () => {
