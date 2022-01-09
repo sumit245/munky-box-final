@@ -36,7 +36,7 @@ export default class ManageCard extends Component {
     });
   };
 
-  cardAdd = () => {
+  cardAdd = async () => {
     let { cardDetails } = this.state;
     let { card_holder, country, postal_code } = this.state;
     let attemptCard = JSON.parse(cardDetails).values;
@@ -49,23 +49,28 @@ export default class ManageCard extends Component {
       country: country,
       postal_code: postal_code,
     };
-
-    getUser("user")
-      .then((res) => {
-        let id = res.data._id;
-        axios
-          .put("https://munkybox-admin.herokuapp.com/api/users/addcard/" + id, {
-            card,
-          })
-          .then((res) => {
-            alert(res.data.msg);
-            saveUser("user", JSON.stringify(res.data)).then((res) => {
-              this.setState({ visible: false });
-            });
-          })
-          .catch((err) => console.log(err));
-      })
-      .catch((err) => console.log("Error in async"));
+    const res = await getUser("user")
+    let { _id } = await res.data;
+    const response = await axios.put("https://munkybox-admin.herokuapp.com/api/users/addcard/" + _id, { card });
+    const { data } = response;
+    const updateLocal = await saveUser("user", JSON.stringify(data));
+    // getUser("user")
+    //   .then((res) => {
+    //     let id = res.data._id;
+    //     axios
+    //       .put("https://munkybox-admin.herokuapp.com/api/users/addcard/" + id, {
+    //         card,
+    //       })
+    //       .then((res) => {
+    //         alert(res.data.msg);
+            
+    //         saveUser("user", JSON.stringify(res.data)).then((res) => {
+    //           this.setState({ visible: false });
+    //         });
+    //       })
+    //       .catch((err) => console.log(err));
+    //   })
+    //   .catch((err) => console.log("Error in async"));
   };
 
   showModal = () => this.setState({ visible: true });
