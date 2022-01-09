@@ -29,10 +29,7 @@ export default function TipOption({ tipHandler }) {
   const [tip_amount, setTipAmt] = useState("");
 
   const selectTip = (tip) => {
-    if (tip === "Other") {
-      setTip(true);
-    }
-    setTipAmt(tip);
+    tip === "Other" ? setTip(true) : setTipAmt(tip);
   };
   const handler = (tip) => {
     tipHandler(tip);
@@ -46,6 +43,7 @@ export default function TipOption({ tipHandler }) {
           styles.tipBox,
           {
             backgroundColor: tip_amount === item.option ? "#ff7539cc" : "#FFF",
+            
           },
         ]}
         onPress={() => handler(item.option)}
@@ -98,7 +96,6 @@ export default function TipOption({ tipHandler }) {
           returnKeyType="done"
           keyboardType="numeric"
           autoFocus={tip}
-          defaultValue="0"
           onChangeText={(text) => setTipAmt(text)}
           onEndEditing={() => tipHandler(tip_amount)}
         />
