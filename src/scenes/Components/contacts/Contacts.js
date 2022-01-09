@@ -30,6 +30,8 @@ export default function Contacts({ navigation }) {
     body: "",
   });
   const [discard, setDiscard] = useState(false);
+  const [msgTitle, setmsgTitle] = useState("");
+  const [msgContent, setmsgContent] = useState("");
   async function fetchUser() {
     const response = await getUser("user");
     const { data } = await response;
@@ -62,9 +64,16 @@ export default function Contacts({ navigation }) {
     const { status } = await response.data;
     if (status === 200) {
       setDiscard(true);
+      setmsgTitle("Delivered!!!");
+      setmsgContent(
+        "Your message has been sent to the admin. They will contact you soon!!"
+      );
     }
   };
-
+  const deleteMsg = () => {
+    setmsgTitle("Are you sure?");
+    setmsgContent("Your message will be discarded!!!");
+  };
   if (!discard) {
     return (
       <SafeAreaView style={styles.container}>
@@ -93,7 +102,7 @@ export default function Contacts({ navigation }) {
           >
             <IconButton icon="attachment" color="#e61272" />
             <IconButton icon="send" color="#126e72" onPress={sendEmail} />
-            <IconButton icon="delete" color="#ef2145" onPress={setDiscard} />
+            <IconButton icon="delete" color="#ef2145" onPress={deleteMsg} />
           </View>
           {/* buttons */}
         </View>
@@ -136,7 +145,7 @@ export default function Contacts({ navigation }) {
               </View>
               <TextInput
                 value={info.subject}
-                style={[styles.inputContainer,{marginTop:12}]}
+                style={[styles.inputContainer, { marginTop: 12 }]}
                 onChangeText={(text) => setInfo({ ...info, subject: text })}
               />
             </View>
@@ -151,9 +160,18 @@ export default function Contacts({ navigation }) {
                 placeholder="Write a description in maximum 250 characters"
                 placeholderTextColor="#777"
                 multiline
-                
                 textAlignVertical="top"
-                style={[styles.inputContainer, { textAlignVertical: "bottom",borderColor:"#777",borderWidth:0.5,borderRadius:2,height:250,padding:4 }]}
+                style={[
+                  styles.inputContainer,
+                  {
+                    textAlignVertical: "bottom",
+                    borderColor: "#777",
+                    borderWidth: 0.5,
+                    borderRadius: 2,
+                    height: 250,
+                    padding: 4,
+                  },
+                ]}
                 numberOfLines={10}
                 onChangeText={(text) => setInfo({ ...info, body: text })}
               />
@@ -165,11 +183,7 @@ export default function Contacts({ navigation }) {
     );
   } else {
     return (
-      <SuccessDialog
-        title="Delivered!!!"
-        text="Your message has been sent to the admin. They will contact you soon!!"
-        showDialog={true}
-      />
+      <SuccessDialog title={msgTitle} text={msgContent} showDialog={true} />
     );
   }
 }
