@@ -123,12 +123,13 @@ export default class ManageCard extends Component {
               },
             }}
           />
-          <View style={{ marginHorizontal: 8 }}>
+          <View style={{ marginHorizontal: 8,marginVertical:16 }}>
             <Text
               style={{
                 fontSize: 14,
                 marginTop: 2,
                 fontWeight: "bold",
+                marginVertical:12
               }}
             >
               Cardholder's Name

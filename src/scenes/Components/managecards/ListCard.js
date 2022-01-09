@@ -184,7 +184,7 @@ export default class ListCard extends Component {
     const response = await axios.put(USER_URL + this.state.user_id, {
       cards: cards,
     });
-    const { data } = await response.data;
+    const { data } =  response;
 
     let local = JSON.stringify(data);
     saveUser("user", local);
@@ -220,22 +220,7 @@ export default class ListCard extends Component {
                     justifyContent: "center",
                   }}
                 >
-                  <SwipeableQuickActionButton
-                    style={{
-                      backgroundColor: "#48b4e0",
-                      padding: 8,
-                      height: 80,
-                    }}
-                    textStyle={{
-                      fontSize: 18,
-                      fontWeight: "bold",
-                      color: "#fff",
-                      padding: 4,
-                    }}
-                    onPress={() => this.openEdit({ item })}
-                    imageSource={Edit}
-                    imageStyle={{ height: 20, width: 20 }}
-                  />
+                  
                   <SwipeableQuickActionButton
                     style={{
                       backgroundColor: "#ff2244",
