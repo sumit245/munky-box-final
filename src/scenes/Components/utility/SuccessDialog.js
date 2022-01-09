@@ -1,5 +1,11 @@
 import * as React from "react";
-import { Button, Paragraph, Dialog, Portal } from "react-native-paper";
+import {
+  Button,
+  Paragraph,
+  Dialog,
+  Portal,
+  Provider,
+} from "react-native-paper";
 import { Actions } from "react-native-router-flux";
 const SuccessDialog = ({ title, text, showDialog, okHandler }) => {
   const [show, setShow] = React.useState(showDialog);
@@ -9,17 +15,19 @@ const SuccessDialog = ({ title, text, showDialog, okHandler }) => {
     Actions.pop();
   };
   return (
-    <Portal>
-      <Dialog visible={show} onDismiss={hideDialog}>
-        <Dialog.Title>{title}</Dialog.Title>
-        <Dialog.Content>
-          <Paragraph>{text}</Paragraph>
-        </Dialog.Content>
-        <Dialog.Actions>
-          <Button onPress={done}>Done</Button>
-        </Dialog.Actions>
-      </Dialog>
-    </Portal>
+    <Provider>
+      <Portal>
+        <Dialog visible={show} onDismiss={hideDialog}>
+          <Dialog.Title>{title}</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>{text}</Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={done}>Done</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
+    </Provider>
   );
 };
 
