@@ -71,6 +71,7 @@ export default function Contacts({ navigation }) {
     }
   };
   const deleteMsg = () => {
+    setDiscard(true);
     setmsgTitle("Are you sure?");
     setmsgContent("Your message will be discarded!!!");
   };
