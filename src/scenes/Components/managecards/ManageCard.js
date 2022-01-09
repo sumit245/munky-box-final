@@ -53,24 +53,10 @@ export default class ManageCard extends Component {
     let { _id } = await res.data;
     const response = await axios.put("https://munkybox-admin.herokuapp.com/api/users/addcard/" + _id, { card });
     const { data } = response;
-    const updateLocal = await saveUser("user", JSON.stringify(data));
-    // getUser("user")
-    //   .then((res) => {
-    //     let id = res.data._id;
-    //     axios
-    //       .put("https://munkybox-admin.herokuapp.com/api/users/addcard/" + id, {
-    //         card,
-    //       })
-    //       .then((res) => {
-    //         alert(res.data.msg);
-            
-    //         saveUser("user", JSON.stringify(res.data)).then((res) => {
-    //           this.setState({ visible: false });
-    //         });
-    //       })
-    //       .catch((err) => console.log(err));
-    //   })
-    //   .catch((err) => console.log("Error in async"));
+    console.log(data);
+    // const updateLocal = await saveUser("user", JSON.stringify(data));
+    // alert(res.data.msg);
+    this.setState({visible:false})
   };
 
   showModal = () => this.setState({ visible: true });
