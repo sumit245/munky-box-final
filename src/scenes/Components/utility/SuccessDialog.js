@@ -6,13 +6,13 @@ import {
   Portal,
   Provider,
 } from "react-native-paper";
-
+import { Actions } from "react-native-router-flux";
 const SuccessDialog = ({ title, text, showDialog, okHandler }) => {
   const [show, setShow] = React.useState(showDialog);
   const hideDialog = () => setShow(false);
   const done = () => {
     setShow(false);
-    // okHandler();
+    Actions.pop();
   };
   return (
     <Provider>
@@ -23,7 +23,6 @@ const SuccessDialog = ({ title, text, showDialog, okHandler }) => {
             <Paragraph>{text}</Paragraph>
           </Dialog.Content>
           <Dialog.Actions>
-            
             <Button onPress={done}>Done</Button>
           </Dialog.Actions>
         </Dialog>
