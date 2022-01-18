@@ -7,6 +7,7 @@ import NewsPaper from "react-native-vector-icons/MaterialCommunityIcons";
 import { styles } from "../../styles/OrderHistoryStyle";
 import axios from "axios";
 import { Actions } from "react-native-router-flux";
+import moment from "moment";
 
 export default function OrderCard({ item }) {
   const [rest, setRest] = useState({});
@@ -28,6 +29,10 @@ export default function OrderCard({ item }) {
     return (
       <Card style={{ padding: 10, margin: 4 }} key={item.order_id}>
         <Card.Content>
+          <View style={{flexDirection:"row",flex:1,marginVertical:12,justifyContent:"space-between"}}>
+            <Text style={{fontWeight:"bold",fontSize:14,color:"#000"}}>#{item.order_id}</Text>
+            <Text>{moment(item.order_time).format("DD MMM YYYY")}</Text>
+          </View>
           <View
             style={{
               flexDirection: "row",
