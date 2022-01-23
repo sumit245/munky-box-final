@@ -9,7 +9,7 @@ export default function EmailLogin() {
     <TouchableOpacity style={[styles.btnOTP, { width: width - 48,alignSelf:'center' }]}>
       <Icon name="email" color="#4267B2" size={26} />
       <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-        Continue with Email
+        Continue with PIN
       </Text>
     </TouchableOpacity>
   );
