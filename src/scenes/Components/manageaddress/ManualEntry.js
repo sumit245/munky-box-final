@@ -73,6 +73,7 @@ export default class ManualEntry extends Component {
     if (!loading) {
       return (
         <View style={styles.container}>
+          <View>
           <Text style={[styles.headerText, { color: "#4972ff", padding: 10 }]}>
             Add an Address
           </Text>
@@ -212,7 +213,8 @@ export default class ManualEntry extends Component {
               Others
             </Chip>
           </View>
-          <View>
+         </View>
+          
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
@@ -222,7 +224,7 @@ export default class ManualEntry extends Component {
             >
               <Text style={styles.confirmLocation}>Save & proceed</Text>
             </TouchableOpacity>
-          </View>
+          
         </View>
       );
     } else {
@@ -270,14 +272,12 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 0.2,
     marginHorizontal: 2,
-
-    bottom: -200,
+   bottom: -148,
     position: "absolute",
     padding: 6,
     height: 44,
     backgroundColor: "#2962ff",
     alignItems: "center",
-
     justifyContent: "center",
   },
   confirmLocation: {
