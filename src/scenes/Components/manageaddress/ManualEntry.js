@@ -78,7 +78,9 @@ export default class ManualEntry extends Component {
             Add an Address
           </Text>
           <View style={{ marginTop: 8 }}>
-            <Text style={styles.headerText}>Unit / House Number</Text>
+              <Text style={styles.headerText}>Unit / House Number
+              <Text style={[styles.headerText, {color:"#f00"}]}>*</Text>
+              </Text>
             <TextInput
               onChangeText={this.onChangeText("flat_num")}
               style={styles.inputContainer}
@@ -127,8 +129,11 @@ export default class ManualEntry extends Component {
               marginTop: 8,
             }}
           >
-            <Text style={styles.headerText}>City</Text>
-            <Text style={[styles.headerText, { marginLeft: "36%" }]}>
+              <Text style={styles.headerText}>City
+              <Text style={[styles.headerText, {color:"#f00"}]}>*</Text>
+              </Text>
+              <Text style={[styles.headerText, { marginLeft: "36%" }]}>
+              <Text style={[styles.headerText, {color:"#f00"}]}>*</Text>
               Postal Code
             </Text>
           </View>
