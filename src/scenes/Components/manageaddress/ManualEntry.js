@@ -133,8 +133,8 @@ export default class ManualEntry extends Component {
               <Text style={[styles.headerText, {color:"#f00"}]}>*</Text>
               </Text>
               <Text style={[styles.headerText, { marginLeft: "36%" }]}>
-              <Text style={[styles.headerText, {color:"#f00"}]}>*</Text>
-              Postal Code
+                Postal Code
+                <Text style={[styles.headerText, {color:"#f00"}]}>*</Text>
             </Text>
           </View>
 
