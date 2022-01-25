@@ -173,7 +173,9 @@ export default class EditAccount extends Component {
               </View>
 
               <View>
-                <Text style={styles.label}>First Name</Text>
+                <Text style={styles.label}>First Name
+                {editable&&<Text style={[styles.label, { color: "#f00" }]}>*</Text>}
+                </Text>
                 {!editable ? (
                   <View style={styles.textContainer}>
                     <Text style={styles.fields}>{first_name}</Text>
@@ -189,7 +191,9 @@ export default class EditAccount extends Component {
               </View>
 
               <View style={{ marginTop: 12 }}>
-                <Text style={styles.label}>Last Name</Text>
+                <Text style={styles.label}>Last Name
+                {editable&&<Text style={[styles.label, { color: "#f00" }]}>*</Text>}
+                </Text>
                 {!editable ? (
                   <View style={styles.textContainer}>
                     <Text style={styles.fields}>{last_name}</Text>
@@ -204,7 +208,9 @@ export default class EditAccount extends Component {
                 )}
               </View>
               <View style={{ marginTop: 12 }}>
-                <Text style={styles.label}>Mobile Number</Text>
+                <Text style={styles.label}>Mobile Number
+                {editable&&<Text style={[styles.label, { color: "#f00" }]}>*</Text>}
+                </Text>
                 {!editable ? (
                   <View style={styles.textContainer}>
                     <Text style={styles.fields}>{phone}</Text>
@@ -229,7 +235,9 @@ export default class EditAccount extends Component {
                 )}
               </View>
               <View style={{ marginTop: 12 }}>
-                <Text style={styles.label}>Email</Text>
+                <Text style={styles.label}>Email
+                  {editable&&<Text style={[styles.label, { color: "#f00" }]}>*</Text>}
+                </Text>
                 {!editable ? (
                   <View style={styles.textContainer}>
                     <Text style={styles.fields}>{email_id}</Text>
