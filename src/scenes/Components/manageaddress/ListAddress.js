@@ -148,7 +148,7 @@ export default class ListAddress extends Component {
           ListEmptyComponent={() => {
             return <ListEmptyContent />;
           }}
-          // contentContainerStyle={styles.card}
+          
           renderRightActions={({ item }) => (
             <SwipeableQuickActions
               style={{
