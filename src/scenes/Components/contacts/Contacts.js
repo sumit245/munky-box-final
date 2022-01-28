@@ -11,7 +11,7 @@ import {
   AsyncStorage,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { IconButton } from "react-native-paper";
+import { IconButton, Provider } from "react-native-paper";
 import axios from "axios";
 import SuccessDialog from "../utility/SuccessDialog";
 import { getUser } from "../../../services/user/getuser";
@@ -188,12 +188,14 @@ export default function Contacts({ navigation }) {
     );
   } else {
     return (
+      <Provider>
       <CustomDialog
         title={msgTitle}
         text={msgContent}
         showDialog={true}
         doneHandler={doneHandler}
-      />
+        />
+        </Provider>
     );
   }
 }
