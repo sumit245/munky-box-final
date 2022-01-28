@@ -163,8 +163,10 @@ export default class RegistrationForm extends Component {
             </View>
 
             <View>
-              <Text style={styles.label}>Last Name</Text>
+              <Text style={styles.label}>Last Name
               <Text style={[styles.label, {color:"#f00"}]}>*</Text>
+              </Text>
+              
               <TextInput
                 onChangeText={this.onChangeText("last_name")}
                 value={this.state.last_name}
@@ -175,8 +177,10 @@ export default class RegistrationForm extends Component {
 
             {this.props.logintype !== "mobile" && (
               <View>
-                <Text style={styles.label}>Mobile Number</Text>
+                <Text style={styles.label}>Mobile Number
                 <Text style={[styles.label, {color:"#f00"}]}>*</Text>
+                </Text>
+                
                 <TextInput
                   onChangeText={this.onChangeText("phone")}
                   value={this.state.phone}
@@ -189,8 +193,10 @@ export default class RegistrationForm extends Component {
 
             {this.props.logintype !== "email" && (
               <View>
-                <Text style={styles.label}>Email</Text>
+                <Text style={styles.label}>Email
                 <Text style={[styles.label, {color:"#f00"}]}>*</Text>
+                </Text>
+                
                 <TextInput
                   onChangeText={this.onChangeText("email_id")}
                   value={this.state.email_id}

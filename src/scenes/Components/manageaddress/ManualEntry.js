@@ -28,6 +28,7 @@ export default class ManualEntry extends Component {
   };
   componentDidMount() {
     console.log(this.props.editState);
+    console.log(this.props.editIndex)
   }
   _confirmLocation = async () => {
     this.setState({ loading: true });
@@ -55,10 +56,11 @@ export default class ManualEntry extends Component {
         postal_code: this.state.postal_code,
       };
       addresses.splice(1, 1, address)
-      let { _id } = await res.data;
-      const response = await axios.put(ADDRESS_URL + _id, { address });
-      const { data } = response;
-      const updateLocal = await saveUser("user", JSON.stringify(data));
+      console.log(addresses)
+      //let { _id } = await res.data;
+      //const response = await axios.put(ADDRESS_URL + _id, { address });
+      //const { data } = response;
+      //const updateLocal = await saveUser("user", JSON.stringify(data));
       
     }
 
