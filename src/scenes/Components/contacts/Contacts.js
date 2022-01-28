@@ -72,8 +72,8 @@ export default function Contacts({ navigation }) {
     }
   };
   const doneHandler = () => {
-    navigation.goBack()
-  }
+    navigation.goBack();
+  };
   const deleteMsg = () => {
     setDiscard(true);
     setmsgTitle("Are you sure?");
@@ -81,121 +81,121 @@ export default function Contacts({ navigation }) {
   };
   if (!discard) {
     return (
-      <SafeAreaView style={styles.container}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginBottom: 8,
-            elevation: 1,
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={{ flexDirection: "row", alignItems: "center" }}
-          >
-            <Icon name="chevron-back" size={24} />
-            <Text style={{ fontWeight: "bold", fontSize: 18 }}>Compose</Text>
-          </TouchableOpacity>
-
+      <Provider>
+        <SafeAreaView style={styles.container}>
           <View
             style={{
               flexDirection: "row",
-              justifyContent: "flex-end",
-              padding: 4,
+              justifyContent: "space-between",
+              marginBottom: 8,
+              elevation: 1,
             }}
           >
-            <IconButton icon="attachment" color="#e61272" />
-            <IconButton icon="send" color="#126e72" onPress={sendEmail} />
-            <IconButton icon="delete" color="#ef2145" onPress={deleteMsg} />
-          </View>
-          {/* buttons */}
-        </View>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{ flexDirection: "row", alignItems: "center" }}
+            >
+              <Icon name="chevron-back" size={24} />
+              <Text style={{ fontWeight: "bold", fontSize: 18 }}>Compose</Text>
+            </TouchableOpacity>
 
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          keyboardShouldPersistTaps="handled"
-        >
-          <View style={styles.card}>
-            <View style={{ marginVertical: 4 }}>
-              <View style={styles.labelContainer}>
-                <Text style={styles.label}>From:</Text>
-                <Text
-                  style={[styles.inputContainer, { flex: 1, color: "#777" }]}
-                >
-                  {info.email_id}
-                </Text>
-              </View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                padding: 4,
+              }}
+            >
+              <IconButton icon="attachment" color="#e61272" />
+              <IconButton icon="send" color="#126e72" onPress={sendEmail} />
+              <IconButton icon="delete" color="#ef2145" onPress={deleteMsg} />
             </View>
-            {/* From */}
+            {/* buttons */}
+          </View>
 
-            <View style={{ marginVertical: 4 }}>
-              <View style={styles.labelContainer}>
-                <Text style={styles.label}>To:</Text>
-                <Text
+          <ScrollView
+            contentInsetAdjustmentBehavior="automatic"
+            keyboardShouldPersistTaps="handled"
+          >
+            <View style={styles.card}>
+              <View style={{ marginVertical: 4 }}>
+                <View style={styles.labelContainer}>
+                  <Text style={styles.label}>From:</Text>
+                  <Text
+                    style={[styles.inputContainer, { flex: 1, color: "#777" }]}
+                  >
+                    {info.email_id}
+                  </Text>
+                </View>
+              </View>
+              {/* From */}
+
+              <View style={{ marginVertical: 4 }}>
+                <View style={styles.labelContainer}>
+                  <Text style={styles.label}>To:</Text>
+                  <Text
+                    style={[
+                      styles.inputContainer,
+                      { flex: 1, marginLeft: "10%", color: "#777" },
+                    ]}
+                  >
+                    {info.receipient}
+                  </Text>
+                </View>
+              </View>
+              {/* To */}
+
+              <View style={{ marginVertical: 16 }}>
+                <View style={styles.labelContainer}>
+                  <Text style={styles.label}>Subject</Text>
+                </View>
+                <TextInput
+                  value={info.subject}
+                  style={[styles.inputContainer, { marginTop: 12 }]}
+                  onChangeText={(text) => setInfo({ ...info, subject: text })}
+                />
+              </View>
+              {/* Subject */}
+
+              <View style={{ marginVertical: 16 }}>
+                <View style={styles.labelContainer}>
+                  <Text style={styles.label}>Desciption</Text>
+                </View>
+                <TextInput
+                  value={info.body}
+                  placeholder="Write a description in maximum 250 characters"
+                  placeholderTextColor="#777"
+                  multiline
+                  textAlignVertical="top"
                   style={[
                     styles.inputContainer,
-                    { flex: 1, marginLeft: "10%", color: "#777" },
+                    {
+                      textAlignVertical: "bottom",
+                      borderColor: "#777",
+                      borderWidth: 0.5,
+                      borderRadius: 2,
+                      height: 250,
+                      padding: 4,
+                    },
                   ]}
-                >
-                  {info.receipient}
-                </Text>
+                  numberOfLines={10}
+                  onChangeText={(text) => setInfo({ ...info, body: text })}
+                />
               </View>
+              {/* Body */}
             </View>
-            {/* To */}
-
-            <View style={{ marginVertical: 16 }}>
-              <View style={styles.labelContainer}>
-                <Text style={styles.label}>Subject</Text>
-              </View>
-              <TextInput
-                value={info.subject}
-                style={[styles.inputContainer, { marginTop: 12 }]}
-                onChangeText={(text) => setInfo({ ...info, subject: text })}
-              />
-            </View>
-            {/* Subject */}
-
-            <View style={{ marginVertical: 16 }}>
-              <View style={styles.labelContainer}>
-                <Text style={styles.label}>Desciption</Text>
-              </View>
-              <TextInput
-                value={info.body}
-                placeholder="Write a description in maximum 250 characters"
-                placeholderTextColor="#777"
-                multiline
-                textAlignVertical="top"
-                style={[
-                  styles.inputContainer,
-                  {
-                    textAlignVertical: "bottom",
-                    borderColor: "#777",
-                    borderWidth: 0.5,
-                    borderRadius: 2,
-                    height: 250,
-                    padding: 4,
-                  },
-                ]}
-                numberOfLines={10}
-                onChangeText={(text) => setInfo({ ...info, body: text })}
-              />
-            </View>
-            {/* Body */}
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+          </ScrollView>
+        </SafeAreaView>
+      </Provider>
     );
   } else {
     return (
-      <Provider>
       <CustomDialog
         title={msgTitle}
         text={msgContent}
         showDialog={true}
         doneHandler={doneHandler}
-        />
-        </Provider>
+      />
     );
   }
 }
