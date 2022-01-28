@@ -71,6 +71,9 @@ export default function Contacts({ navigation }) {
       );
     }
   };
+  const doneHandler = () => {
+    navigation.goBack()
+  }
   const deleteMsg = () => {
     setDiscard(true);
     setmsgTitle("Are you sure?");
