@@ -38,7 +38,7 @@ export default function ItemCard({ item, isFavorite, isHome }) {
 
       if (componentMounted) {
         setPlan(data);
-        if (Array.isArray(promo) && promo.length !== 0) {
+        if (Array.isArray(promo) && promo.length !== 0 && promo[0].status==="Active") {
           setState({
             discount: promo[0].discount,
             discount_type: promo[0].discount_type,
