@@ -20,6 +20,7 @@ export default function SubscriptionStack({ navigation }) {
     const { user_id } = data;
     const response = await axios.get(MY_ORDER_URL + user_id);
     const myorder = await response.data;
+    console.log(myorder);
     setMyOrders(myorder);
     setLoaded(true);
   };
