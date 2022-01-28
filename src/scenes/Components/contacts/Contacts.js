@@ -15,6 +15,7 @@ import { IconButton } from "react-native-paper";
 import axios from "axios";
 import SuccessDialog from "../utility/SuccessDialog";
 import { getUser } from "../../../services/user/getuser";
+import CustomDialog from "../utility/CustomDialog";
 
 const DARKGRAY = "#777";
 const { width, height } = Dimensions.get("window");
@@ -71,10 +72,11 @@ export default function Contacts({ navigation }) {
     }
   };
   const deleteMsg = () => {
-    setDiscard(true)
+    setDiscard(true);
     setmsgTitle("Are you sure?");
     setmsgContent("Your message will be discarded!!!");
   };
+  x
   if (!discard) {
     return (
       <SafeAreaView style={styles.container}>
@@ -184,7 +186,12 @@ export default function Contacts({ navigation }) {
     );
   } else {
     return (
-      <SuccessDialog title={msgTitle} text={msgContent} showDialog={true} />
+      <CustomDialog
+        title={msgTitle}
+        text={msgContent}
+        showDialog={true}
+        doneHandler={doneHandler}
+      />
     );
   }
 }
