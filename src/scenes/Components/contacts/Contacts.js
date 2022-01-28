@@ -76,7 +76,6 @@ export default function Contacts({ navigation }) {
     setmsgTitle("Are you sure?");
     setmsgContent("Your message will be discarded!!!");
   };
-  x
   if (!discard) {
     return (
       <SafeAreaView style={styles.container}>
