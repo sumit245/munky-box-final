@@ -70,7 +70,6 @@ export default function SubscriptionStack({ navigation }) {
           horizontal
           ref={flatref}
           pagingEnabled={true}
-          // legacyImplementation={false}
           showsHorizontalScrollIndicator={false}
           data={myorders}
           renderItem={renderItem}
