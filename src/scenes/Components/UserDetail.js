@@ -75,7 +75,6 @@ export default class RegistrationForm extends Component {
       alert("Email id is required");
       return;
     }
-    console.log(first_name);
     const dataToSend = {
       first_name,
       last_name,
