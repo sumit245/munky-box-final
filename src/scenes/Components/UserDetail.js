@@ -76,29 +76,30 @@ export default class RegistrationForm extends Component {
       return;
     }
     console.log(first_name);
-    // const dataToSend = {
-    //   first_name,
-    //   last_name,
-    //   profile_picture,
-    //   email_id,
-    //   phone,
-    //   uri,
-    // };
-    // axios
-    //   .put(USER_URL + _id, { ...dataToSend })
-    //   .then((res) => {
-    //     const user = JSON.stringify(res.data);
-    //     saveUser("user", user)
-    //       .then((data) => {
-    //         Actions.push("manageAddress", { data, entryMethod: true });
-    //       })
-    //       .catch((err) => {
-    //         alert(err);
-    //       });
-    //   })
-    //   .catch((err) => {
-    //     alert(err);
-    //   });
+    const dataToSend = {
+      first_name,
+      last_name,
+      profile_picture,
+      email_id,
+      phone,
+      uri,
+    };
+    axios
+      .put(USER_URL + _id, { ...dataToSend })
+      .then((res) => {
+        const user = JSON.stringify(res.data);
+        saveUser("user", user)
+          .then((data) => {
+            Actions.push("manageAddress", { data, entryMethod: true });
+          })
+          .catch((err) => {
+            alert(err);
+          });
+      })
+      .catch((err) => {
+        alert(err);
+      });
+ 
   };
   componentDidMount() {
     if (this.props.logintype === "email") {
