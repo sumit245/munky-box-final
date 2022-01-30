@@ -47,6 +47,7 @@ export default class ManualEntry extends Component {
       alert("Postal code is required");
       return;
     }
+    
     this.setState({ loading: true });
     if (!this.props.editState) {
       const address = {

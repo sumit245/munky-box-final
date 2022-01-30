@@ -77,6 +77,14 @@ export default class EditAccount extends Component {
   _nextAction = async () => {
     this.setState({ loading: true });
     const { id, first_name, last_name, phone, email_id, uri } = this.state;
+    if (!first_name) {
+      alert("First name is require");
+      return;
+    }
+    if (!last_name) {
+      alert("Last name is required");
+      return;
+    }
     const dataToSend = {
       first_name: first_name,
       last_name: last_name,
@@ -125,7 +133,7 @@ export default class EditAccount extends Component {
       editable,
       loading,
     } = this.state;
-    // if (!loading) {
+
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.container}>
@@ -173,8 +181,11 @@ export default class EditAccount extends Component {
               </View>
 
               <View>
-                <Text style={styles.label}>First Name
-                {editable&&<Text style={[styles.label, { color: "#f00" }]}>*</Text>}
+                <Text style={styles.label}>
+                  First Name
+                  {editable && (
+                    <Text style={[styles.label, { color: "#f00" }]}>*</Text>
+                  )}
                 </Text>
                 {!editable ? (
                   <View style={styles.textContainer}>
@@ -191,8 +202,11 @@ export default class EditAccount extends Component {
               </View>
 
               <View style={{ marginTop: 12 }}>
-                <Text style={styles.label}>Last Name
-                {editable&&<Text style={[styles.label, { color: "#f00" }]}>*</Text>}
+                <Text style={styles.label}>
+                  Last Name
+                  {editable && (
+                    <Text style={[styles.label, { color: "#f00" }]}>*</Text>
+                  )}
                 </Text>
                 {!editable ? (
                   <View style={styles.textContainer}>
@@ -208,8 +222,11 @@ export default class EditAccount extends Component {
                 )}
               </View>
               <View style={{ marginTop: 12 }}>
-                <Text style={styles.label}>Mobile Number
-                {editable&&<Text style={[styles.label, { color: "#f00" }]}>*</Text>}
+                <Text style={styles.label}>
+                  Mobile Number
+                  {editable && (
+                    <Text style={[styles.label, { color: "#f00" }]}>*</Text>
+                  )}
                 </Text>
                 {!editable ? (
                   <View style={styles.textContainer}>
@@ -235,8 +252,11 @@ export default class EditAccount extends Component {
                 )}
               </View>
               <View style={{ marginTop: 12 }}>
-                <Text style={styles.label}>Email
-                  {editable&&<Text style={[styles.label, { color: "#f00" }]}>*</Text>}
+                <Text style={styles.label}>
+                  Email
+                  {editable && (
+                    <Text style={[styles.label, { color: "#f00" }]}>*</Text>
+                  )}
                 </Text>
                 {!editable ? (
                   <View style={styles.textContainer}>
