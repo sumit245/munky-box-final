@@ -63,29 +63,42 @@ export default class RegistrationForm extends Component {
     const { _id, phone } = this.state;
     const { first_name, last_name, profile_picture, email_id, uri } =
       this.state;
-    const dataToSend = {
-      first_name,
-      last_name,
-      profile_picture,
-      email_id,
-      phone,
-      uri,
-    };
-    axios
-      .put(USER_URL + _id, { ...dataToSend })
-      .then((res) => {
-        const user = JSON.stringify(res.data);
-        saveUser("user", user)
-          .then((data) => {
-            Actions.push("manageAddress", { data, entryMethod: true });
-          })
-          .catch((err) => {
-            alert(err);
-          });
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    if (!first_name) {
+      alert("First name is required");
+      return;
+    }
+    if (!last_name) {
+      alert("Last name is required");
+      return;
+    }
+    if (!email_id) {
+      alert("Email id is required");
+      return;
+    }
+    console.log(first_name);
+    // const dataToSend = {
+    //   first_name,
+    //   last_name,
+    //   profile_picture,
+    //   email_id,
+    //   phone,
+    //   uri,
+    // };
+    // axios
+    //   .put(USER_URL + _id, { ...dataToSend })
+    //   .then((res) => {
+    //     const user = JSON.stringify(res.data);
+    //     saveUser("user", user)
+    //       .then((data) => {
+    //         Actions.push("manageAddress", { data, entryMethod: true });
+    //       })
+    //       .catch((err) => {
+    //         alert(err);
+    //       });
+    //   })
+    //   .catch((err) => {
+    //     alert(err);
+    //   });
   };
   componentDidMount() {
     if (this.props.logintype === "email") {
@@ -119,7 +132,6 @@ export default class RegistrationForm extends Component {
               }}
             >
               <Icon name="chevron-back" size={18} color="#000" />
-              
             </View>
             <Text style={styles.lightText}>{Lang.lightText}</Text>
 
@@ -151,8 +163,9 @@ export default class RegistrationForm extends Component {
             </View>
 
             <View>
-              <Text style={styles.label}>First Name
-                <Text style={[styles.label, {color:"#f00"}]}>*</Text>
+              <Text style={styles.label}>
+                First Name
+                <Text style={[styles.label, { color: "#f00" }]}>*</Text>
               </Text>
               <TextInput
                 onChangeText={this.onChangeText("first_name")}
@@ -163,10 +176,11 @@ export default class RegistrationForm extends Component {
             </View>
 
             <View>
-              <Text style={styles.label}>Last Name
-              <Text style={[styles.label, {color:"#f00"}]}>*</Text>
+              <Text style={styles.label}>
+                Last Name
+                <Text style={[styles.label, { color: "#f00" }]}>*</Text>
               </Text>
-              
+
               <TextInput
                 onChangeText={this.onChangeText("last_name")}
                 value={this.state.last_name}
@@ -177,10 +191,11 @@ export default class RegistrationForm extends Component {
 
             {this.props.logintype !== "mobile" && (
               <View>
-                <Text style={styles.label}>Mobile Number
-                <Text style={[styles.label, {color:"#f00"}]}>*</Text>
+                <Text style={styles.label}>
+                  Mobile Number
+                  <Text style={[styles.label, { color: "#f00" }]}>*</Text>
                 </Text>
-                
+
                 <TextInput
                   onChangeText={this.onChangeText("phone")}
                   value={this.state.phone}
@@ -193,10 +208,10 @@ export default class RegistrationForm extends Component {
 
             {this.props.logintype !== "email" && (
               <View>
-                <Text style={styles.label}>Email
-                <Text style={[styles.label, {color:"#f00"}]}>*</Text>
+                <Text style={styles.label}>
+                  Email <Text style={[styles.label, { color: "#f00" }]}>*</Text>
                 </Text>
-                
+
                 <TextInput
                   onChangeText={this.onChangeText("email_id")}
                   value={this.state.email_id}
