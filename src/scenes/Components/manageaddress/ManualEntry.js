@@ -30,6 +30,22 @@ export default class ManualEntry extends Component {
     console.log(this.props.editState);
   }
   _confirmLocation = async () => {
+    if (!this.state.address_type) {
+      alert("Address type is required");
+      return;
+    }
+    if (!this.state.city) {
+      alert("City is required");
+      return;
+    }
+    if (!this.state.flat_num) {
+      alert("Flat num is required");
+      return;
+    }
+    if (!this.state.postal_code) {
+      alert("Postal code is required");
+      return;
+    }
     this.setState({ loading: true });
     if (!this.props.editState) {
       const address = {
@@ -54,12 +70,11 @@ export default class ManualEntry extends Component {
         locality: this.state.locality,
         postal_code: this.state.postal_code,
       };
-      addresses.splice(1, 1, address)
+      addresses.splice(1, 1, address);
       let { _id } = await res.data;
       const response = await axios.put(ADDRESS_URL + _id, { address });
       const { data } = response;
       const updateLocal = await saveUser("user", JSON.stringify(data));
-      
     }
 
     this.setState({ loading: false });
@@ -74,162 +89,165 @@ export default class ManualEntry extends Component {
       return (
         <View style={styles.container}>
           <View>
-          <Text style={[styles.headerText, { color: "#4972ff", padding: 10 }]}>
-            Add an Address
-          </Text>
-          <View style={{ marginTop: 8 }}>
-              <Text style={styles.headerText}>Unit / House Number
-              <Text style={[styles.headerText, {color:"#f00"}]}>*</Text>
+            <Text
+              style={[styles.headerText, { color: "#4972ff", padding: 10 }]}
+            >
+              Add an Address
+            </Text>
+            <View style={{ marginTop: 8 }}>
+              <Text style={styles.headerText}>
+                Unit / House Number
+                <Text style={[styles.headerText, { color: "#f00" }]}>*</Text>
               </Text>
-            <TextInput
-              onChangeText={this.onChangeText("flat_num")}
-              style={styles.inputContainer}
-              mode="flat"
-              defaultValue={this.state.flat_num}
-              placeholder="House Number"
-              left={
-                <TextInput.Icon
-                  name={() => (
-                    <Icon
-                      name="home-outline"
-                      size={18}
-                      color="rgba(155,155,155,1)"
-                    />
-                  )}
-                />
-              }
-            />
-          </View>
-          <View style={{ marginTop: 8 }}>
-            <Text style={styles.headerText}>Street Address</Text>
-            <TextInput
-              onChangeText={this.onChangeText("locality")}
-              style={[styles.inputContainer, { marginBottom: 8 }]}
-              mode="flat"
-              defaultValue={this.state.locality}
-              placeholder="Street Address"
-              left={
-                <TextInput.Icon
-                  name={() => (
-                    <Icon
-                      name="ios-map-outline"
-                      size={18}
-                      color="rgba(155,155,155,1)"
-                    />
-                  )}
-                />
-              }
-            />
-          </View>
+              <TextInput
+                onChangeText={this.onChangeText("flat_num")}
+                style={styles.inputContainer}
+                mode="flat"
+                defaultValue={this.state.flat_num}
+                placeholder="House Number"
+                left={
+                  <TextInput.Icon
+                    name={() => (
+                      <Icon
+                        name="home-outline"
+                        size={18}
+                        color="rgba(155,155,155,1)"
+                      />
+                    )}
+                  />
+                }
+              />
+            </View>
+            <View style={{ marginTop: 8 }}>
+              <Text style={styles.headerText}>Street Address</Text>
+              <TextInput
+                onChangeText={this.onChangeText("locality")}
+                style={[styles.inputContainer, { marginBottom: 8 }]}
+                mode="flat"
+                defaultValue={this.state.locality}
+                placeholder="Street Address"
+                left={
+                  <TextInput.Icon
+                    name={() => (
+                      <Icon
+                        name="ios-map-outline"
+                        size={18}
+                        color="rgba(155,155,155,1)"
+                      />
+                    )}
+                  />
+                }
+              />
+            </View>
 
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "flex-start",
-              marginTop: 8,
-            }}
-          >
-              <Text style={styles.headerText}>City
-              <Text style={[styles.headerText, {color:"#f00"}]}>*</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "flex-start",
+                marginTop: 8,
+              }}
+            >
+              <Text style={styles.headerText}>
+                City
+                <Text style={[styles.headerText, { color: "#f00" }]}>*</Text>
               </Text>
               <Text style={[styles.headerText, { marginLeft: "36%" }]}>
                 Postal Code
-                <Text style={[styles.headerText, {color:"#f00"}]}>*</Text>
-            </Text>
-          </View>
+                <Text style={[styles.headerText, { color: "#f00" }]}>*</Text>
+              </Text>
+            </View>
 
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <TextInput
-              onChangeText={this.onChangeText("city")}
-              style={[styles.inputContainer, { width: "46%" }]}
-              mode="flat"
-              defaultValue={this.state.city}
-              placeholder="Ontario"
-              left={
-                <TextInput.Icon
-                  name={() => (
-                    <Icon
-                      name="location-outline"
-                      style={{ marginTop: 4 }}
-                      size={18}
-                      color="rgba(155,155,155,1)"
-                    />
-                  )}
-                />
-              }
-            />
-            <TextInput
-              onChangeText={this.onChangeText("postal_code")}
-              style={[styles.inputContainer, { width: "46%" }]}
-              mode="flat"
-              defaultValue={this.state.postal_code}
-              placeholder="Postal Code"
-              left={
-                <TextInput.Icon
-                  name={() => (
-                    <Icon
-                      name="ios-map-outline"
-                      style={{ marginTop: 4 }}
-                      size={18}
-                      color="rgba(155,155,155,1)"
-                    />
-                  )}
-                />
-              }
-            />
-          </View>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <TextInput
+                onChangeText={this.onChangeText("city")}
+                style={[styles.inputContainer, { width: "46%" }]}
+                mode="flat"
+                defaultValue={this.state.city}
+                placeholder="Ontario"
+                left={
+                  <TextInput.Icon
+                    name={() => (
+                      <Icon
+                        name="location-outline"
+                        style={{ marginTop: 4 }}
+                        size={18}
+                        color="rgba(155,155,155,1)"
+                      />
+                    )}
+                  />
+                }
+              />
+              <TextInput
+                onChangeText={this.onChangeText("postal_code")}
+                style={[styles.inputContainer, { width: "46%" }]}
+                mode="flat"
+                defaultValue={this.state.postal_code}
+                placeholder="Postal Code"
+                left={
+                  <TextInput.Icon
+                    name={() => (
+                      <Icon
+                        name="ios-map-outline"
+                        style={{ marginTop: 4 }}
+                        size={18}
+                        color="rgba(155,155,155,1)"
+                      />
+                    )}
+                  />
+                }
+              />
+            </View>
 
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginHorizontal: 2,
-              marginVertical: 24,
-              marginTop: 48,
-            }}
-          >
-            <Chip
-              icon="home"
-              selected={address_type === "home" ? true : false}
-              mode="outlined"
-              onPress={this.selectChip("home")}
-              selectedColor={address_type == "home" ? "#2962ff" : "#000"}
-            >
-              Home
-            </Chip>
-            <Chip
-              icon="office-building"
-              selected={address_type === "work" ? true : false}
-              mode="outlined"
-              onPress={this.selectChip("work")}
-              selectedColor={address_type == "work" ? "#2962ff" : "#000"}
-            >
-              Work
-            </Chip>
-            <Chip
-              icon="globe-model"
-              selected={address_type === "other" ? true : false}
-              mode="outlined"
-              onPress={this.selectChip("other")}
-              selectedColor={address_type == "other" ? "#2962ff" : "#000"}
-            >
-              Others
-            </Chip>
-          </View>
-         </View>
-          
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                Actions.push("home");
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginHorizontal: 2,
+                marginVertical: 24,
+                marginTop: 48,
               }}
-              onPress={this._confirmLocation}
             >
-              <Text style={styles.confirmLocation}>Save & proceed</Text>
-            </TouchableOpacity>
-          
+              <Chip
+                icon="home"
+                selected={address_type === "home" ? true : false}
+                mode="outlined"
+                onPress={this.selectChip("home")}
+                selectedColor={address_type == "home" ? "#2962ff" : "#000"}
+              >
+                Home
+              </Chip>
+              <Chip
+                icon="office-building"
+                selected={address_type === "work" ? true : false}
+                mode="outlined"
+                onPress={this.selectChip("work")}
+                selectedColor={address_type == "work" ? "#2962ff" : "#000"}
+              >
+                Work
+              </Chip>
+              <Chip
+                icon="globe-model"
+                selected={address_type === "other" ? true : false}
+                mode="outlined"
+                onPress={this.selectChip("other")}
+                selectedColor={address_type == "other" ? "#2962ff" : "#000"}
+              >
+                Others
+              </Chip>
+            </View>
+          </View>
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              Actions.push("home");
+            }}
+            onPress={this._confirmLocation}
+          >
+            <Text style={styles.confirmLocation}>Save & proceed</Text>
+          </TouchableOpacity>
         </View>
       );
     } else {
