@@ -75,7 +75,7 @@ export default function Contacts({ navigation }) {
     navigation.goBack();
   };
   const cancelHandler = () => {
-    navigation.navigate("contacts");
+    setDiscard(false)
   };
   const deleteMsg = () => {
     setDiscard(true);
@@ -191,7 +191,7 @@ export default function Contacts({ navigation }) {
           <CustomDialog
             title={msgTitle}
             text={msgContent}
-            showDialog={true}
+            showDialog={discard}
             doneHandler={doneHandler}
             cancelHandler={cancelHandler}
           />
