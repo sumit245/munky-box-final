@@ -75,15 +75,15 @@ export default function Contacts({ navigation }) {
     navigation.goBack();
   };
   const cancelHandler = () => {
-    navigation.navigate("contacts")
-  }
+    navigation.navigate("contacts");
+  };
   const deleteMsg = () => {
     setDiscard(true);
     setmsgTitle("Are you sure?");
     setmsgContent("Your message will be discarded!!!");
   };
-  if (!discard) {
-    return (
+  return (
+    <Provider>
       <SafeAreaView style={styles.container}>
         <View
           style={{
@@ -187,21 +187,18 @@ export default function Contacts({ navigation }) {
             {/* Body */}
           </View>
         </ScrollView>
+        {discard && (
+          <CustomDialog
+            title={msgTitle}
+            text={msgContent}
+            showDialog={true}
+            doneHandler={doneHandler}
+            cancelHandler={cancelHandler}
+          />
+        )}
       </SafeAreaView>
-    );
-  } else {
-    return (
-      <Provider>
-        <CustomDialog
-          title={msgTitle}
-          text={msgContent}
-          showDialog={true}
-          doneHandler={doneHandler}
-          cancelHandler={cancelHandler}
-        />
-      </Provider>
-    );
-  }
+    </Provider>
+  );
 }
 const styles = StyleSheet.create({
   card: {

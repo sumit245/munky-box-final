@@ -18,7 +18,6 @@ const CustomDialog = ({ title, text, showDialog, doneHandler,cancelHandler }) =>
 
   };
   return (
-    
       <Portal>
         <Dialog visible={show} onDismiss={cancelHandler} style={{width:"80%"}}> 
           <Dialog.Title style={{textAlign:"center"}} >{title}</Dialog.Title>
