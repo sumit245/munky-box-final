@@ -52,7 +52,7 @@ const ReviewItem = ({ title, avatar, review }) => (
             </Text>
           </View>
           <Text style={{ fontWeight: "bold", color: "#000", fontSize: 12 }}>
-            {moment(review.review_at).format("MMM Do YY")}
+            {moment(review.review_at).format("DD MMM  YYYY")}
           </Text>
         </View>
         <Text style={{ marginLeft: 5 }}>{review.details}</Text>
@@ -62,17 +62,19 @@ const ReviewItem = ({ title, avatar, review }) => (
   </View>
 );
 
-export default function Rewards() {
+export default function Rewards({ restaurant_id }) {
   const [review, setReview] = useState([]);
   const fetchReview = async () => {
     const response = await axios.get(
       "http://munkybox-admin.herokuapp.com/api/review/"
     );
     const { data } = response;
-    setReview(data);
+    let review = data.filter((item) => item.restaurant_id === restaurant_id);
+    setReview(review);
   };
   useEffect(() => {
     fetchReview();
+    console.log(restaurant_id);
   }, []);
   const stars = ["1", "2", "3", "4", "5"];
   const ListHeader = () => (
