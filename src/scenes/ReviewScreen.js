@@ -52,7 +52,7 @@ const ReviewItem = ({ title, avatar, review }) => (
             </Text>
           </View>
           <Text style={{ fontWeight: "bold", color: "#000", fontSize: 12 }}>
-            {moment(review.review_at).format("DD MMM  YYYY")}
+            {moment(review.review_at).format("DD MMM, YYYY")}
           </Text>
         </View>
         <Text style={{ marginLeft: 5 }}>{review.details}</Text>
