@@ -74,6 +74,7 @@ export default function Rewards() {
   useEffect(() => {
     fetchReview();
   }, []);
+  const stars = ["1", "2", "3", "4", "5"];
   const ListHeader = () => (
     <View
       style={{
@@ -81,10 +82,19 @@ export default function Rewards() {
         justifyContent: "center",
         backgroundColor: "#fff",
         padding: 20,
+        marginVertical: 12,
       }}
     >
-      <Text style={{ fontSize: 25, fontWeight: "bold" }}>5.0</Text>
-      <Text style={{ fontSize: 14, fontWeight: "bold" }}>
+      <Text style={{ fontSize: 25, fontWeight: "bold", marginVertical: 12 }}>
+        5.0
+      </Text>
+      <View style={{ flexDirection: "row" }}>
+        {stars.map((item, key) => (
+          <Icon name="star" color="orange" size={18} style={{ padding: 2 }} />
+        ))}
+      </View>
+
+      <Text style={{ fontSize: 14, fontWeight: "bold", marginVertical: 12 }}>
         based on {review.length} reviews
       </Text>
     </View>
