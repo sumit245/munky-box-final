@@ -109,7 +109,8 @@ export default function ResultDetails({ item, promo }) {
       "http://munkybox-admin.herokuapp.com/api/review/"
     );
     const { data } = response;
-    setReview(data);
+    let review = data.filter((item) => item.restaurant_id === restaurant_id);
+    setReview(review);
   };
   useEffect(() => {
     fetchReview();
@@ -129,7 +130,9 @@ export default function ResultDetails({ item, promo }) {
       />
 
       <TouchableOpacity
-        onPress={() => Actions.push("reviews")}
+        onPress={() =>
+          Actions.push("reviews", { restaurant_id: restaurant_id })
+        }
         style={styles.ratingAndReviews}
       >
         <Icon name="star" color="#ffa726" />
