@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import moment from "moment";
 import { avatarify } from "../../src/scenes/Components/utility/helpers";
 
 const ReviewItem = ({ title, avatar, review }) => (
@@ -51,7 +52,7 @@ const ReviewItem = ({ title, avatar, review }) => (
             </Text>
           </View>
           <Text style={{ fontWeight: "bold", color: "#000", fontSize: 12 }}>
-            2 hours ago
+            {moment(review.review_at).format("MMM Do YY")}
           </Text>
         </View>
         <Text style={{ marginLeft: 5 }}>{review.details}</Text>
