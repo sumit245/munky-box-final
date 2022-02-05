@@ -34,6 +34,7 @@ export const RenderRightButton = ({ restaurant_id }) => {
 };
 export default function ResultDetails({ item, promo }) {
   const [index, setIndex] = useState(0);
+  const [review, setReview] = useState([]);
   const [routes] = useState([
     { key: "first", title: "Monday" },
     { key: "second", title: "Tuesday" },
@@ -102,7 +103,18 @@ export default function ResultDetails({ item, promo }) {
   useEffect(() => {
     getchefbynameandupdatemenucount(restaurant_id);
   }, [restaurant_id]);
-  <RenderRightButton restaurant_id={restaurant_id} />;
+
+  const fetchReview = async () => {
+    const response = await axios.get(
+      "http://munkybox-admin.herokuapp.com/api/review/"
+    );
+    const { data } = response;
+    setReview(data);
+  };
+  useEffect(() => {
+    fetchReview();
+  }, []);
+  // <RenderRightButton restaurant_id={restaurant_id} />;
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Image
@@ -131,7 +143,7 @@ export default function ResultDetails({ item, promo }) {
           {rating || "5" + "/5 | "}
           <Text style={{ color: "#000", textDecorationLine: "underline" }}>
             {" "}
-            Reviews (0)
+            Reviews ({review.length || 0})
           </Text>
         </Text>
       </TouchableOpacity>
