@@ -69,7 +69,6 @@ export default function Rewards() {
     );
     const { data } = response;
     setReview(data);
-    console.log(data);
   };
   useEffect(() => {
     fetchReview();
