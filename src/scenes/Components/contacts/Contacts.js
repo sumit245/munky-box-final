@@ -108,7 +108,7 @@ export default function Contacts({ navigation }) {
               padding: 4,
             }}
           >
-            <IconButton icon="attachment" color="#e61272" />
+            
             <IconButton icon="send" color="#126e72" onPress={sendEmail} />
             <IconButton icon="delete" color="#ef2145" onPress={deleteMsg} />
           </View>
