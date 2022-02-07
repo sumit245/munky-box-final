@@ -70,11 +70,11 @@ export default function Rewards({ restaurant_id }) {
     );
     const { data } = response;
     let review = data.filter((item) => item.restaurant_id === restaurant_id);
+    review.reverse()
     setReview(review);
   };
   useEffect(() => {
     fetchReview();
-    console.log(restaurant_id);
   }, []);
   const stars = ["1", "2", "3", "4", "5"];
   const ListHeader = () => (

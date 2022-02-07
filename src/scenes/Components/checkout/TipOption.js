@@ -74,7 +74,7 @@ export default function TipOption({ tipHandler }) {
           style={[styles.optionsLabels, { marginHorizontal: 4, fontSize: 16 }]}
         >
           Tip your hunger saviour{" "}
-          <Icon name="information-circle-outline" size={14} color="#226ccf" />
+          {/* <Icon name="information-circle-outline" size={14} color="#226ccf" /> */}
         </Text>
       </View>
       <Text style={styles.tipText}>
