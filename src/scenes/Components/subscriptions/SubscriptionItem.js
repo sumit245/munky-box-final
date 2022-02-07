@@ -91,9 +91,10 @@ export default function SubscriptionItem({
         item.order_id
     );
     if (res.data !== null) {
-      let { delivered } = res.data;
+      let  delivered  = true;
       setDelivered(delivered);
     }
+    //setDelivered(true)
   };
   useEffect(() => {
     getCurrentOrderDetails();
@@ -110,8 +111,8 @@ export default function SubscriptionItem({
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <View style={{ marginLeft: 2 }}>
+          <View style={{ flexDirection: "row", alignItems: "center",marginVertical:8 }}>
+            <View style={{ marginLeft: 2,marginVertical:4 }}>
               <Text style={styles.headerTitle}>
                 {state.plan === "twoPlan"
                   ? "2 Meals"
@@ -142,7 +143,7 @@ export default function SubscriptionItem({
               <Text style={{ fontWeight: "bold", color: "#555" }}>
                 REMAINING
               </Text>
-              <Text>{remaining} Meals</Text>
+              <Text>{remaining} {parseInt(remaining)>1?"Meals":"Meal"}</Text>
             </View>
           </View>
           {/* calendar tabs */}
@@ -202,13 +203,13 @@ export default function SubscriptionItem({
                   {address_type}
                 </Text>
                 {" | " +
-                  flat_num +
+                  (flat_num ||"")+
                   ", " +
-                  locality +
-                  ", " +
-                  city +
-                  "-" +
-                  postal_code}
+                  (locality||"")
+                   +
+                  (city ||"")+
+                  "," +
+                  (postal_code||"")}
               </Text>
             </View>
 
@@ -229,8 +230,8 @@ export default function SubscriptionItem({
         <View
           style={{
             position: "absolute",
-            bottom: "2%",
-            left: "40%",
+            bottom: "-1%",
+            left: "36%",
             elevation: 10,
             zIndex: 1000,
             justifyContent: "space-between",
@@ -240,7 +241,7 @@ export default function SubscriptionItem({
             width: "96%",
           }}
         >
-          <Icon name="dots-three-horizontal" size={28} color="#c0c0c0" />
+          <Icon name="dots-three-horizontal" size={48} color="#000" />
           {/* {index !== 0 ? (
             <TouchableOpacity
               style={{

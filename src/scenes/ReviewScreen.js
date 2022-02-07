@@ -4,9 +4,15 @@ import { View, StyleSheet, Text, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
 import { avatarify } from "../../src/scenes/Components/utility/helpers";
-
-const ReviewItem = ({ title, avatar, review }) => (
-  <View style={styles.item}>
+import { width } from "./styles/HomeStyles";
+const ReviewItem = ({ title, avatar, review }) => {
+  let stars=[]
+  for (let index = 0; index < parseInt(review.rating); index++) {
+    stars.push(index)
+    
+  }
+  return(
+    <View style={styles.item}>
     <Text style={styles.title}>{title}</Text>
     <View style={{ flexDirection: "row", flex: 1 }}>
       <View
@@ -32,35 +38,43 @@ const ReviewItem = ({ title, avatar, review }) => (
         <View
           style={{
             flexDirection: "row",
-            width: "70%",
+            alignItems:"center",
+            width:width-100,
             justifyContent: "space-between",
             marginLeft: 5,
           }}
         >
           <View
             style={{
-              borderRadius: 2,
-              backgroundColor: "orange",
+              
               flexDirection: "row",
               alignItems: "center",
-              padding: 2,
+              marginVertical:4,
+              maxWidth:"60%"
+              
             }}
           >
-            <Icon name="star" color="#fff" size={12} />
-            <Text style={{ fontWeight: "bold", color: "#fff", fontSize: 12 }}>
-              {review.rating}
-            </Text>
+           {
+             stars.map((x,i)=>(
+              <Icon name="star" color="orange" size={18} style={{ padding: 2 }} key={i} />
+             ))
+           }
+            
+            
           </View>
-          <Text style={{ fontWeight: "bold", color: "#000", fontSize: 12 }}>
+          
+          <Text style={{ fontWeight: "bold", color: "#000", fontSize: 12,textAlign:"right" }}>
             {moment(review.review_at).format("DD MMM, YYYY")}
           </Text>
+          
+        
         </View>
-        <Text style={{ marginLeft: 5 }}>{review.details}</Text>
-        {/* <Text style={{ marginLeft: 25 }}>{review.comments}</Text> */}
+        
+        <Text style={{ marginLeft: -48,marginVertical:6,width:380}} numberOfLines={3} >{review.details}</Text>
       </View>
     </View>
   </View>
-);
+)}
 
 export default function Rewards({ restaurant_id }) {
   const [review, setReview] = useState([]);
@@ -92,7 +106,7 @@ export default function Rewards({ restaurant_id }) {
       </Text>
       <View style={{ flexDirection: "row" }}>
         {stars.map((item, key) => (
-          <Icon name="star" color="orange" size={18} style={{ padding: 2 }} />
+          <Icon name="star" color="orange" size={18} style={{ padding: 2 }} key={key} />
         ))}
       </View>
 

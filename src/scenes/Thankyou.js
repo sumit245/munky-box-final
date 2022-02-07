@@ -51,7 +51,7 @@ export default function Thankyou({ id, msg }) {
       componentMounted = false;
     };
   }, []);
-  <DoneRightButton />;
+  //<DoneRightButton />;
   return (
     <SafeAreaView
       style={{
@@ -88,8 +88,7 @@ export default function Thankyou({ id, msg }) {
               : state.plan === "fifteenPlan"
               ? "15"
               : "30"}{" "}
-            meals subscription will start from {state.start_date} with reference
-            order number {state.order_id}.
+            meals subscription will start from {state.start_date}.
           </Text>
           <Text
             style={{ color: "#666", fontWeight: "bold", textAlign: "center" }}
