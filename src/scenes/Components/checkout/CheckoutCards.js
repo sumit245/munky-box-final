@@ -79,6 +79,7 @@ export default function CheckoutCards({ cardHandler, user, selected }) {
       </View>
     );
   } catch (error) {
+    console.log(error);
     return (
       <TouchableOpacity style={styles.optionCard} onPress={_nextAction}>
         <View style={styles.optionrow}>

@@ -95,14 +95,15 @@ export default function CheckOut({
   const cardHandler = (card) => {
     let { cards } = state.user;
     let currentCard = cards.filter((item) => item.number === card);
-    console.log(card,cards);
+    console.log(card, cards);
     setState({ ...state, card: currentCard[0] });
   };
   const addressHandler = (address) => {
     setAddressLoading(true);
     let { addresses } = state.user;
     let currentAddress = addresses.filter((item) => item._id === address);
-    setState({ ...state, address: currentAddress[0]});
+    setState({ ...state });
+    // address: currentAddress[0]
     setAddressLoading(false);
   };
   const totalHandler = (total, delivery_fee, service_fee, taxes) => {
@@ -180,7 +181,7 @@ export default function CheckOut({
         ...state,
         user: user,
         loading: false,
-        address: addresses[0],     
+        address: addresses[0],
         card: cards[0],
       });
       setAddressLoading(false);
@@ -188,7 +189,7 @@ export default function CheckOut({
       alert("Please login or register to proceed");
       Actions.jump("auth");
     }
-  };  
+  };
 
   const keyboardShown = () => {
     Keyboard.addListener("keyboardDidShow", () => setKeyboardOn(true));

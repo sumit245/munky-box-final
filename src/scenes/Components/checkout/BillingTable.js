@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 import { CHECKOUT_URL } from "../../../services/EndPoints";
 import { styles } from "../../styles/CheckoutStyles";
 
@@ -82,7 +83,7 @@ export default function BillingTable({ price, tip, discount, totalHandler }) {
               Delivery Fee{"\n"}
               <Text style={{ fontSize: 12, marginRight: 4, color: "#777" }}>
                 This fees goes towards paying {"\n"}your delivery partner daily.{" "}
-                <Text
+                {/* <Text
                   style={{
                     textDecorationLine: "underline",
                     color: "#226ccf",
@@ -92,13 +93,20 @@ export default function BillingTable({ price, tip, discount, totalHandler }) {
                   }}
                 >
                   Learn More
-                </Text>
+                </Text> */}
               </Text>
             </Text>
             <Text style={styles.billText}>${delivery_fee}</Text>
           </View>
           <View style={styles.billRow}>
-            <Text style={styles.billText}>Service Fee({service_fee}%)</Text>
+            <Text style={styles.billText}>
+              Service Fee({service_fee}%)
+              <Icon
+                name="information-circle-outline"
+                size={14}
+                color="#226ccf"
+              />
+            </Text>
             <Text style={styles.billText}>${charges.service}</Text>
           </View>
 
