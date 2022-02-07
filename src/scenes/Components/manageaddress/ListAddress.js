@@ -157,25 +157,6 @@ export default class ListAddress extends Component {
               }}
             >
               <SwipeableQuickActionButton
-                style={{ backgroundColor: "#48b4e0", padding: 8, height: 80 }}
-                textStyle={{
-                  fontSize: 18,
-                  fontWeight: "bold",
-                  color: "#fff",
-                  padding: 4,
-                }}
-                onPress={() => {
-                  Actions.push("manageAddress", {
-                    address: item,
-                    entryMethod: false,
-                    editState: true,
-                    editIndex:item._id
-                  });
-                }}
-                imageSource={Edit}
-                imageStyle={{ height: 20, width: 20 }}
-              />
-              <SwipeableQuickActionButton
                 style={{ backgroundColor: "#ff2244", padding: 8, height: 80 }}
                 textStyle={{
                   fontSize: 18,

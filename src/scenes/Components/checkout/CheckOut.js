@@ -49,6 +49,7 @@ export default function CheckOut({
     price: price,
     tip: 0,
     discount: 0,
+    card: {},
     taxes: 0,
     delivery_fee: 0,
     service_fee: 0,
@@ -56,7 +57,6 @@ export default function CheckOut({
     promo_code: "",
   });
   const [addressLoading, setAddressLoading] = useState(true);
-
   const [isKeyboardOn, setKeyboardOn] = useState(false);
 
   const getchefbynameandupdatecartcount = async (restaurant_id) => {
@@ -95,13 +95,14 @@ export default function CheckOut({
   const cardHandler = (card) => {
     let { cards } = state.user;
     let currentCard = cards.filter((item) => item.number === card);
+    console.log(card,cards);
     setState({ ...state, card: currentCard[0] });
   };
   const addressHandler = (address) => {
     setAddressLoading(true);
     let { addresses } = state.user;
     let currentAddress = addresses.filter((item) => item._id === address);
-    setState({ ...state, address: currentAddress[0] });
+    setState({ ...state, address: currentAddress[0]});
     setAddressLoading(false);
   };
   const totalHandler = (total, delivery_fee, service_fee, taxes) => {
@@ -174,13 +175,12 @@ export default function CheckOut({
     const response = await getUser("user");
     const user = await response.data;
     const { addresses, cards } = user;
-
     if (user !== null) {
       setState({
         ...state,
         user: user,
         loading: false,
-        address: addresses[0],
+        address: addresses[0],     
         card: cards[0],
       });
       setAddressLoading(false);
@@ -188,7 +188,8 @@ export default function CheckOut({
       alert("Please login or register to proceed");
       Actions.jump("auth");
     }
-  };
+  };  
+
   const keyboardShown = () => {
     Keyboard.addListener("keyboardDidShow", () => setKeyboardOn(true));
   };
@@ -285,6 +286,7 @@ export default function CheckOut({
           user={state.user}
           selected={state.card}
         />
+
         <DeliveryNotes noteHandler={noteHandler} />
         <TipOption tipHandler={tipHandler} />
         <PromoOptions
