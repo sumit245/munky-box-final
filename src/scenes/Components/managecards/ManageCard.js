@@ -36,8 +36,7 @@ export default class ManageCard extends Component {
     });
   };
   cardAdd = async () => {
-    let { cardDetails } = this.state;
-    let { card_holder, country, postal_code } = this.state;
+    let { card_holder, country, postal_code,cardDetails } = this.state;
     let attemptCard = JSON.parse(cardDetails).values;
     const card = {
       brand: attemptCard.type,

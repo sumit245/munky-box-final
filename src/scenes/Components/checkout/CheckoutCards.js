@@ -14,7 +14,7 @@ const trimmer = (word) => {
 export default function CheckoutCards({ cardHandler, user, selected }) {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     let componentMounted = true;
     if (componentMounted) {
