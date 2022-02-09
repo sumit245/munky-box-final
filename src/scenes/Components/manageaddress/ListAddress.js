@@ -19,7 +19,6 @@ import {
 } from "react-native-swipe-list";
 import { RadioButton } from "react-native-paper";
 import Trash from "../../../../assets/Trash.png";
-import Edit from "../../../../assets/Edit.png";
 
 const ListEmptyContent = () => {
   return (
@@ -87,6 +86,7 @@ export default class ListAddress extends Component {
     checked: "home",
     userid: "",
   };
+  
   fetchUser = () => {
     getUser("user").then((res) => {
       let { _id } = res.data;
@@ -101,6 +101,7 @@ export default class ListAddress extends Component {
       this.fetchUser();
     }
   }
+
   componentDidMount() {
     this.fetchUser();
   }

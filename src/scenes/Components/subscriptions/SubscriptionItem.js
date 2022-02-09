@@ -81,7 +81,7 @@ export default function SubscriptionItem({
     let dayafterafter = meals.find((item) => item.day === days[today + 3]);
     let futuremeals = [tomorrowMeal, dayafterMeal, dayafterafter];
     setFutureMeals(futuremeals);
-    let remaining = moment(state.end_date).diff(
+    let remaining = await moment(state.end_date).diff(
       moment(state.start_date),
       "days" || 0
     );
