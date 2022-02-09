@@ -64,6 +64,7 @@ const ReviewItem = ({ title, avatar, review }) => (
 
 export default function Rewards({ restaurant_id }) {
   const [review, setReview] = useState([]);
+  
   const fetchReview = async () => {
     const response = await axios.get(
       "http://munkybox-admin.herokuapp.com/api/review/"
