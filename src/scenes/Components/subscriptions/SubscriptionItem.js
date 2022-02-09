@@ -37,6 +37,7 @@ export default function SubscriptionItem({
     meals: [],
     skipableTime: "",
   });
+
   const days = [
     "Sunday",
     "Monday",
@@ -46,6 +47,7 @@ export default function SubscriptionItem({
     "Friday",
     "Saturday",
   ];
+
   const [extras, setExtras] = useState([
     {
       add_on: "",
@@ -53,6 +55,7 @@ export default function SubscriptionItem({
       add_on_image: "",
     },
   ]);
+
   const [todayMeal, setTodayMeal] = useState({});
   const [futuredays, setFutureDays] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -60,9 +63,11 @@ export default function SubscriptionItem({
   const today = moment().weekday();
   const [futuremeals, setFutureMeals] = useState([]);
   const [remaining, setRemaining] = useState(0);
+
   useEffect(() => {
     getCurrentIndex(index);
   }, [index]);
+
   const fetchSubscriptionDetails = async () => {
     const restaurantorders = await axios.get(
       "https://munkybox-admin.herokuapp.com/api/newrest/getorders/" +
@@ -76,7 +81,7 @@ export default function SubscriptionItem({
     let dayafterafter = meals.find((item) => item.day === days[today + 3]);    
     let futuremeals = [tomorrowMeal, dayafterMeal, dayafterafter];
     setFutureMeals(futuremeals);
-    let remaining = moment(state.end_date).diff(
+    let remaining =  moment(state.end_date).diff(
       moment(state.start_date),
       "days" || 0
     );
@@ -85,6 +90,7 @@ export default function SubscriptionItem({
     setFutureDays(futuredays);
     setLoaded(true);
   };
+
   const getCurrentOrderDetails = async () => {
     const res = await axios.get(
       "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getOrderDetails/" +
@@ -94,20 +100,18 @@ export default function SubscriptionItem({
       let  delivered  = true;
       setDelivered(delivered);
     }
-    //setDelivered(true)
   };
+
   useEffect(() => {
     getCurrentOrderDetails();
-  }, [item]);
-  useEffect(() => {
     setstate({ ...state, ...item });
     fetchSubscriptionDetails();
   }, [item]);
 
+
   if (loaded) {
     const { address_type, flat_num, city, locality, postal_code } =
       state.address;
-
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
