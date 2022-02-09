@@ -78,14 +78,15 @@ export default function SubscriptionItem({
     setTodayMeal(todayMeal);
     let tomorrowMeal = meals.find((item) => item.day === days[today + 1]);
     let dayafterMeal = meals.find((item) => item.day === days[today + 2]);
-    let dayafterafter = meals.find((item) => item.day === days[today + 3]);    
+    let dayafterafter = meals.find((item) => item.day === days[today + 3]);
     let futuremeals = [tomorrowMeal, dayafterMeal, dayafterafter];
     setFutureMeals(futuremeals);
-    let remaining =  moment(state.end_date).diff(
+    let remaining = moment(state.end_date).diff(
       moment(state.start_date),
       "days" || 0
     );
     setRemaining(remaining);
+    console.log(remaining);
     let futuredays = [days[today + 1], days[today + 2], days[today + 3]];
     setFutureDays(futuredays);
     setLoaded(true);
@@ -97,7 +98,7 @@ export default function SubscriptionItem({
         item.order_id
     );
     if (res.data !== null) {
-      let  delivered  = true;
+      let delivered = true;
       setDelivered(delivered);
     }
   };
@@ -108,15 +109,20 @@ export default function SubscriptionItem({
     fetchSubscriptionDetails();
   }, [item]);
 
-
   if (loaded) {
     const { address_type, flat_num, city, locality, postal_code } =
       state.address;
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <View style={{ flexDirection: "row", alignItems: "center",marginVertical:8 }}>
-            <View style={{ marginLeft: 2,marginVertical:4 }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginVertical: 8,
+            }}
+          >
+            <View style={{ marginLeft: 2, marginVertical: 4 }}>
               <Text style={styles.headerTitle}>
                 {state.plan === "twoPlan"
                   ? "2 Meals"
@@ -147,7 +153,9 @@ export default function SubscriptionItem({
               <Text style={{ fontWeight: "bold", color: "#555" }}>
                 REMAINING
               </Text>
-              <Text>{remaining} {parseInt(remaining)>1?"Meals":"Meal"}</Text>
+              <Text>
+                {remaining} {parseInt(remaining) > 1 ? "Meals" : "Meal"}
+              </Text>
             </View>
           </View>
           {/* calendar tabs */}
@@ -207,13 +215,12 @@ export default function SubscriptionItem({
                   {address_type}
                 </Text>
                 {" | " +
-                  (flat_num ||"")+
+                  (flat_num || "") +
                   ", " +
-                  (locality||"")
-                   +
-                  (city ||"")+
+                  (locality || "") +
+                  (city || "") +
                   "," +
-                  (postal_code||"")}
+                  (postal_code || "")}
               </Text>
             </View>
 

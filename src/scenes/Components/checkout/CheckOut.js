@@ -102,8 +102,7 @@ export default function CheckOut({
     setAddressLoading(true);
     let { addresses } = state.user;
     let currentAddress = addresses.filter((item) => item._id === address);
-    setState({ ...state });
-    // address: currentAddress[0]
+    setState({ ...state, address: currentAddress[0] });
     setAddressLoading(false);
   };
   const totalHandler = (total, delivery_fee, service_fee, taxes) => {
