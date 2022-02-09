@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, Dimensions, TouchableOpacity } from "react-native";
 import PhoneInput from "react-native-phone-number-input";
-import firebase from "../../../firebase";
+import firebas from "../../../firebas";
 import {
   FirebaseRecaptchaVerifierModal,
   FirebaseRecaptchaBanner,
@@ -16,8 +16,8 @@ import { saveUser } from "../../../services/user/getuser";
 const { width } = Dimensions.get("window");
 const recaptchaVerifier = React.createRef();
 const attemptInvisibleVerification = true;
-const firebaseConfig = firebase.apps.length
-  ? firebase.app().options
+const firebaseConfig = firebas.apps.length
+  ? firebas.app().options
   : undefined;
 
 class OTPLogin extends React.PureComponent {
@@ -35,11 +35,11 @@ class OTPLogin extends React.PureComponent {
   _signIn = async () => {
     const { verificationCode, verificationId, phoneNumber } = this.state;
     try {
-      const credential = firebase.auth.PhoneAuthProvider.credential(
+      const credential = firebas.auth.PhoneAuthProvider.credential(
         verificationId,
         verificationCode
       );
-      await firebase.auth().signInWithCredential(credential);
+      await firebas.auth().signInWithCredential(credential);
       axios
         .post("http:munkybox-admin.herokuapp.com/api/users/", {
           phone: phoneNumber,
@@ -164,7 +164,7 @@ export default class MobileLogin extends Component {
   _sendVerificationCode = async () => {
     const { phoneNumber } = this.state;
     try {
-      const phoneProvider = new firebase.auth.PhoneAuthProvider();
+      const phoneProvider = new firebas.auth.PhoneAuthProvider();
       const verificationId = await phoneProvider.verifyPhoneNumber(
         phoneNumber,
         recaptchaVerifier.current

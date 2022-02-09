@@ -27,7 +27,7 @@ export const Item = ({ meal, index }) => {
           />
           <View>
             <Text style={styles.title}>{meal_name}</Text>
-            <Text style={styles.subtitle} numberOfLines={2}>
+            <Text style={[styles.subtitle,{fontWeight:"normal"}]} numberOfLines={2}>
               {description}
             </Text>
           </View>

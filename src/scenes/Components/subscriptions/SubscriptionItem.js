@@ -37,6 +37,7 @@ export default function SubscriptionItem({
     meals: [],
     skipableTime: "",
   });
+
   const days = [
     "Sunday",
     "Monday",
@@ -46,6 +47,7 @@ export default function SubscriptionItem({
     "Friday",
     "Saturday",
   ];
+
   const [extras, setExtras] = useState([
     {
       add_on: "",
@@ -53,6 +55,7 @@ export default function SubscriptionItem({
       add_on_image: "",
     },
   ]);
+
   const [todayMeal, setTodayMeal] = useState({});
   const [futuredays, setFutureDays] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -60,9 +63,11 @@ export default function SubscriptionItem({
   const today = moment().weekday();
   const [futuremeals, setFutureMeals] = useState([]);
   const [remaining, setRemaining] = useState(0);
+
   useEffect(() => {
     getCurrentIndex(index);
   }, [index]);
+
   const fetchSubscriptionDetails = async () => {
     const restaurantorders = await axios.get(
       "https://munkybox-admin.herokuapp.com/api/newrest/getorders/" +
@@ -76,7 +81,7 @@ export default function SubscriptionItem({
     let dayafterafter = meals.find((item) => item.day === days[today + 3]);    
     let futuremeals = [tomorrowMeal, dayafterMeal, dayafterafter];
     setFutureMeals(futuremeals);
-    let remaining = moment(state.end_date).diff(
+    let remaining =  moment(state.end_date).diff(
       moment(state.start_date),
       "days" || 0
     );
@@ -85,33 +90,33 @@ export default function SubscriptionItem({
     setFutureDays(futuredays);
     setLoaded(true);
   };
+
   const getCurrentOrderDetails = async () => {
     const res = await axios.get(
       "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getOrderDetails/" +
         item.order_id
     );
     if (res.data !== null) {
-      let { delivered } = res.data;
+      let  delivered  = true;
       setDelivered(delivered);
     }
   };
+
   useEffect(() => {
     getCurrentOrderDetails();
-  }, [item]);
-  useEffect(() => {
     setstate({ ...state, ...item });
     fetchSubscriptionDetails();
   }, [item]);
 
+
   if (loaded) {
     const { address_type, flat_num, city, locality, postal_code } =
       state.address;
-
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <View style={{ marginLeft: 2 }}>
+          <View style={{ flexDirection: "row", alignItems: "center",marginVertical:8 }}>
+            <View style={{ marginLeft: 2,marginVertical:4 }}>
               <Text style={styles.headerTitle}>
                 {state.plan === "twoPlan"
                   ? "2 Meals"
@@ -142,7 +147,7 @@ export default function SubscriptionItem({
               <Text style={{ fontWeight: "bold", color: "#555" }}>
                 REMAINING
               </Text>
-              <Text>{remaining} Meals</Text>
+              <Text>{remaining} {parseInt(remaining)>1?"Meals":"Meal"}</Text>
             </View>
           </View>
           {/* calendar tabs */}
@@ -202,13 +207,13 @@ export default function SubscriptionItem({
                   {address_type}
                 </Text>
                 {" | " +
-                  flat_num +
+                  (flat_num ||"")+
                   ", " +
-                  locality +
-                  ", " +
-                  city +
-                  "-" +
-                  postal_code}
+                  (locality||"")
+                   +
+                  (city ||"")+
+                  "," +
+                  (postal_code||"")}
               </Text>
             </View>
 
@@ -229,8 +234,8 @@ export default function SubscriptionItem({
         <View
           style={{
             position: "absolute",
-            bottom: "2%",
-            left: "40%",
+            bottom: "-1%",
+            left: "36%",
             elevation: 10,
             zIndex: 1000,
             justifyContent: "space-between",
@@ -240,7 +245,7 @@ export default function SubscriptionItem({
             width: "96%",
           }}
         >
-          <Icon name="dots-three-horizontal" size={28} color="#c0c0c0" />
+          <Icon name="dots-three-horizontal" size={48} color="#000" />
           {/* {index !== 0 ? (
             <TouchableOpacity
               style={{

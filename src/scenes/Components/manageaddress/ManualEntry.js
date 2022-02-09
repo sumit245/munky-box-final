@@ -28,6 +28,7 @@ export default class ManualEntry extends Component {
   };
   componentDidMount() {
     console.log(this.props.editState);
+    console.log(this.props.editIndex)
   }
   _confirmLocation = async () => {
     if (!this.state.address_type) {

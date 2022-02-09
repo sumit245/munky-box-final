@@ -79,13 +79,13 @@ export default class EditAccount extends Component {
     const { id, first_name, last_name, phone, email_id, uri } = this.state;
     if (!first_name) {
       alert("First name is required");
-      this.setState({ loading: true })
+      this.setState({ loading: false })
       
       return;
     }
     if (!last_name) {
       alert("Last name is required");
-      this.setState({ loading: true })
+      this.setState({ loading: false })
       
       return;
     }
