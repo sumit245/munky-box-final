@@ -110,15 +110,16 @@ export default function SubscriptionItem({
       return {
         item: item,
         rate: addOnsPlaced.find((s) => s.item === item).rate,
+        qty: addOnsPlaced.find((s) => s.item === item).qty,
+        subtotal: addOnsPlaced.find((s) => s.item === item).subtotal,
+        order_date: addOnsPlaced.find((s) => s.item === item).order_date,
       };
     });
-    console.log(datatoplace);
-
-    // const res = await axios.put(
-    //   "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getandupdateorderstatus/" +
-    //   item.order_id,
-    //   addOnsPlaced
-    // );
+    const res = await axios.put(
+      "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getandupdateorderstatus/" +
+        item.order_id,
+      datatoplace
+    );
   };
 
   useEffect(() => {
