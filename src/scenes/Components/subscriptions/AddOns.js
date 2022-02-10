@@ -17,6 +17,7 @@ export default function AddOns({
   const [subtotal, setSubtotal] = useState([]);
   const [total, setTotal] = useState(0);
   const [pulled, setPulled] = useState(false);
+  const [extras, setExtras] = useState([]);
 
   const fetchAddOn = () => {
     let add_ons = [];
@@ -78,7 +79,7 @@ export default function AddOns({
         subtotal: parseFloat(rate) * parseInt(qties[key]),
         order_date: moment().format("DD-MMM-YYYY"),
       };
-      console.log(extra);
+      setExtras({ ...extras, extra });
     }
   };
 
@@ -94,10 +95,11 @@ export default function AddOns({
       subtotal: parseFloat(rate) * parseInt(qties[key]),
       order_date: moment().format("DD-MMM-YYYY"),
     };
-    console.log(extra);
+    setExtras([...extras, extra]);
   };
 
   const orderExtras = () => {
+    console.log(extras);
     // Actions.push("wallet", { title: "My Wallet" })
   };
 
@@ -229,7 +231,6 @@ export default function AddOns({
             ${total}
           </Text>
         </View>
-        
       </View>
     );
   } else {
