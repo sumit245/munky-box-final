@@ -1,11 +1,17 @@
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { IconButton } from "react-native-paper";
-import { Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
 import { width } from "../../styles/AuthStyle";
 
-export default function AddOns({ extras, day, meals }) {
+export default function AddOns({
+  extras,
+  day,
+  meals,
+  order_id,
+  placeExtraOrder,
+}) {
   const [myaddons, setMyAddOns] = useState([]);
   const [qty, setQty] = useState([]);
   const [subtotal, setSubtotal] = useState([]);
@@ -45,12 +51,12 @@ export default function AddOns({ extras, day, meals }) {
     setSubtotal(subt);
     setQty(qties);
   }, [myaddons]);
+
   function add(accumulator, a) {
     return parseFloat(accumulator) + parseFloat(a);
   }
 
   const calculateTotal = (key, qty, rate) => {
-    console.log(qty);
     let subt = qty * rate;
     let totls = [...subtotal];
     totls.splice(key, 1, subt);
@@ -59,20 +65,40 @@ export default function AddOns({ extras, day, meals }) {
     setSubtotal(totls);
   };
 
-  const decrement = (key, rate) => {
+  const decrement = (key, rate, item) => {
     if (qty[key] > 0) {
       let qties = [...qty];
       qties.splice(key, 1, qties[key] - 1);
       setQty(qties);
       calculateTotal(key, qties[key], rate);
+      const extra = {
+        item: item,
+        rate: rate,
+        qty: qties[key],
+        subtotal: parseFloat(rate) * parseInt(qties[key]),
+        order_date: moment().format("DD-MMM-YYYY"),
+      };
+      console.log(extra);
     }
   };
 
-  const increment = (key, rate) => {
+  const increment = (key, rate, item) => {
     let qties = [...qty];
     qties.splice(key, 1, qties[key] + 1);
     setQty(qties);
     calculateTotal(key, qties[key], rate);
+    const extra = {
+      item: item,
+      rate: rate,
+      qty: qties[key],
+      subtotal: parseFloat(rate) * parseInt(qties[key]),
+      order_date: moment().format("DD-MMM-YYYY"),
+    };
+    console.log(extra);
+  };
+
+  const orderExtras = () => {
+    // Actions.push("wallet", { title: "My Wallet" })
   };
 
   if (myaddons.length > 1) {
@@ -123,7 +149,9 @@ export default function AddOns({ extras, day, meals }) {
                 </Text>
               </View>
               <View style={{ width: "20%" }}>
-                <Text style={{ fontSize: 12 }}>{"$" + data.add_on_price +"/-"}</Text>
+                <Text style={{ fontSize: 12 }}>
+                  {"$" + data.add_on_price + "/-"}
+                </Text>
               </View>
               <View
                 style={{
@@ -141,7 +169,7 @@ export default function AddOns({ extras, day, meals }) {
                     borderWidth: 0.2,
                     borderRadius: 2,
                   }}
-                  onPress={() => decrement(key, data.add_on_price)}
+                  onPress={() => decrement(key, data.add_on_price, data.add_on)}
                   disabled={qty[key] === 0}
                 />
 
@@ -154,7 +182,7 @@ export default function AddOns({ extras, day, meals }) {
                     borderWidth: 0.2,
                     borderRadius: 2,
                   }}
-                  onPress={() => increment(key, data.add_on_price)}
+                  onPress={() => increment(key, data.add_on_price, data.add_on)}
                 />
               </View>
               <View style={{ width: "20%" }}>
@@ -165,7 +193,7 @@ export default function AddOns({ extras, day, meals }) {
                     fontSize: 12,
                   }}
                 >
-                  {"$"+subtotal[key]}
+                  {"$" + subtotal[key]}
                 </Text>
               </View>
             </View>
@@ -180,7 +208,7 @@ export default function AddOns({ extras, day, meals }) {
           }}
         >
           <TouchableOpacity
-            onPress={() => Actions.push("wallet", { title: "My Wallet" })}
+            onPress={orderExtras}
             disabled={qty === 0}
             style={{ marginRight: 8 }}
           >
@@ -201,7 +229,7 @@ export default function AddOns({ extras, day, meals }) {
             ${total}
           </Text>
         </View>
-     
+        
       </View>
     );
   } else {
