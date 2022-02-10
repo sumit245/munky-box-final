@@ -99,7 +99,7 @@ export default function AddOns({
   };
 
   const orderExtras = () => {
-    console.log(extrass);
+    placeExtraOrder(extrass);
     // Actions.push("wallet", { title: "My Wallet" })
   };
 
