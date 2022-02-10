@@ -104,12 +104,13 @@ export default function SubscriptionItem({
   };
 
   const placeExtraOrder = async (addOnsPlaced) => {
-    const res = await axios.put(
-      "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getandupdateorderstatus/" +
-      item.order_id,
-      addOnsPlaced
-    );
-    console.log(res);
+    
+    // const res = await axios.put(
+    //   "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getandupdateorderstatus/" +
+    //   item.order_id,
+    //   addOnsPlaced
+    // );
+    console.log(addOnsPlaced);
   };
 
   useEffect(() => {
