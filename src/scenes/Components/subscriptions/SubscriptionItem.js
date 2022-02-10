@@ -103,6 +103,15 @@ export default function SubscriptionItem({
     }
   };
 
+  const placeExtraOrder = async (addOnsPlaced) => {
+    const res = await axios.put(
+      "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getandupdateorderstatus/" +
+      item.order_id,
+      addOnsPlaced
+    );
+    console.log(res);
+  };
+
   useEffect(() => {
     getCurrentOrderDetails();
     setstate({ ...state, ...item });
@@ -225,7 +234,13 @@ export default function SubscriptionItem({
             </View>
 
             <View style={styles.optionCard}>
-              <AddOns extras={extras} day={1} meals={todayMeal} />
+              <AddOns
+                extras={extras}
+                day={1}
+                meals={todayMeal}
+                order_id={item.order_id}
+                placeExtraOrder={placeExtraOrder}
+              />
             </View>
 
             <View style={[styles.optionCard, { width: width - 4 }]}>
@@ -253,36 +268,6 @@ export default function SubscriptionItem({
           }}
         >
           <Icon name="dots-three-horizontal" size={48} color="#000" />
-          {/* {index !== 0 ? (
-            <TouchableOpacity
-              style={{
-                height: 36,
-                width: 36,
-                borderRadius: 18,
-                backgroundColor: "#c0c0c0",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              onPress={() => onPrevPress(index)}
-            >
-              <Icon name="chevron-back" size={28} color="#fff" />
-            </TouchableOpacity>
-          ) : (
-            <View />
-          )}
-          <TouchableOpacity
-            style={{
-              height: 36,
-              width: 36,
-              borderRadius: 18,
-              backgroundColor: "#cccccc",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onPress={() => onPressNext(index)}
-          >
-            <Icon name="chevron-forward" size={28} color="#fff" />
-          </TouchableOpacity> */}
         </View>
       </SafeAreaView>
     );
