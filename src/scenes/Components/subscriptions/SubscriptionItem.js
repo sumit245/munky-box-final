@@ -81,12 +81,11 @@ export default function SubscriptionItem({
     let dayafterafter = meals.find((item) => item.day === days[today + 3]);
     let futuremeals = [tomorrowMeal, dayafterMeal, dayafterafter];
     setFutureMeals(futuremeals);
-    let remaining = await moment(state.end_date).diff(
+    let remaining = moment(state.end_date).diff(
       moment(state.start_date),
       "days" || 0
     );
     setRemaining(remaining);
-    console.log(remaining);
     let futuredays = [days[today + 1], days[today + 2], days[today + 3]];
     setFutureDays(futuredays);
     setLoaded(true);
@@ -115,11 +114,20 @@ export default function SubscriptionItem({
         order_date: addOnsPlaced.find((s) => s.item === item).order_date,
       };
     });
+
     const res = await axios.put(
       "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getandupdateorderstatus/" +
         item.order_id,
-      datatoplace
+      {
+        add_on: datatoplace,
+      }
     );
+    const { data, status } = res.data;
+    if (status === 200) {
+      alert(
+        `Thank you for ordering some extras today with order id # ${item.order_id}`
+      );
+    }
   };
 
   useEffect(() => {
@@ -263,6 +271,7 @@ export default function SubscriptionItem({
             </View>
           </View>
         </ScrollView>
+
         <View
           style={{
             position: "absolute",
