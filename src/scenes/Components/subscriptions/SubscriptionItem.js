@@ -104,20 +104,28 @@ export default function SubscriptionItem({
   };
 
   const placeExtraOrder = async (addOnsPlaced) => {
-    
+    const datatoplace = Array.from(
+      new Set(addOnsPlaced.map((s) => s.item))
+    ).map((item) => {
+      return {
+        item: item,
+        rate: addOnsPlaced.find((s) => s.item === item).rate,
+      };
+    });
+    console.log(datatoplace);
+
     // const res = await axios.put(
     //   "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getandupdateorderstatus/" +
     //   item.order_id,
     //   addOnsPlaced
     // );
-    console.log(addOnsPlaced);
   };
 
   useEffect(() => {
     getCurrentOrderDetails();
     setstate({ ...state, ...item });
     fetchSubscriptionDetails();
-  }, [item,remaining]);
+  }, [item, remaining]);
 
   if (loaded) {
     const { address_type, flat_num, city, locality, postal_code } =
