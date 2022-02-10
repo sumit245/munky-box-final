@@ -26,8 +26,8 @@ export default function SubscriptionItem({
   const [state, setstate] = useState({
     plan: "",
     restaurant: "",
-    start_date: "",
-    end_date: "",
+    start_date: moment(),
+    end_date: moment(),
     time: "",
     address_type: "",
     flat_num: "",
@@ -107,7 +107,7 @@ export default function SubscriptionItem({
     getCurrentOrderDetails();
     setstate({ ...state, ...item });
     fetchSubscriptionDetails();
-  }, [item]);
+  }, [item,remaining]);
 
   if (loaded) {
     const { address_type, flat_num, city, locality, postal_code } =
