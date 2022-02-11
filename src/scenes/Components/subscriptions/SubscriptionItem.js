@@ -23,8 +23,8 @@ export default function SubscriptionItem({
   const [state, setstate] = useState({
     plan: "",
     restaurant: "",
-    start_date: "",
-    end_date: "",
+    start_date: moment(),
+    end_date: moment(),
     time: "",
     address_type: "",
     flat_num: "",

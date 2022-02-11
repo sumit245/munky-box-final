@@ -25,6 +25,7 @@ export default function BannerCarousel() {
     );
     const data = await response.data;
     setPage(data);
+    
     if (data.length !== 0) {
       setLoaded(true);
     }
