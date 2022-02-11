@@ -103,7 +103,7 @@ export default function AddOns({
     // Actions.push("wallet", { title: "My Wallet" })
   };
 
-  if (myaddons.length > 1) {
+  if (myaddons.length > 0) {
     return (
       <View
         style={{

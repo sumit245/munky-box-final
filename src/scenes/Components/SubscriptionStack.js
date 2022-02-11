@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Button, FlatList } from "react-native";
+import { FlatList, View, Text } from "react-native";
 import axios from "axios";
 import { getUser } from "../../services/user/getuser";
 import { MY_ORDER_URL } from "../../services/EndPoints";
@@ -12,7 +12,6 @@ export default function SubscriptionStack({ navigation }) {
   const [myorders, setMyOrders] = useState([]);
   const flatref = useRef(null);
   const [currentindex, setCurrentIndex] = useState(0);
-  const nextHandler = () => {};
 
   const getSubscriptions = async () => {
     const user = await getUser("user");
@@ -20,7 +19,8 @@ export default function SubscriptionStack({ navigation }) {
     const { user_id } = data;
     const response = await axios.get(MY_ORDER_URL + user_id);
     const myorder = await response.data;
-    setMyOrders(myorder);
+    let subscriptions = myorder.filter((item) => item.status === "started");
+    setMyOrders(subscriptions);
     setLoaded(true);
   };
 
@@ -34,32 +34,26 @@ export default function SubscriptionStack({ navigation }) {
     };
   }, []);
 
-  const onPressNext = (index) => {
-    if (flatref.current) {
-      flatref.current.scrollToIndex({
-        index: myorders.length > currentindex ? index++ : index,
-      });
-    }
-  };
-  const onPrevPress = (index) => {
-    if (flatref.current) {
-      flatref.current.scrollToIndex({
-        index: myorders.length < currentindex ? index-- : index,
-      });
-      console.log(index);
-    }
-  };
   const renderItem = ({ item, index }) => (
     <SubscriptionItem
       item={item}
       index={index}
-      nextHandler={nextHandler}
       width={width}
-      onPressNext={onPressNext}
-      onPrevPress={onPrevPress}
       getCurrentIndex={() => setCurrentIndex(index)}
       navigation={navigation}
     />
+  );
+
+  const ListEmptyComponent = () => (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text>You don't have any active subscriptions</Text>
+    </View>
   );
 
   if (loaded) {
@@ -69,6 +63,7 @@ export default function SubscriptionStack({ navigation }) {
           horizontal
           ref={flatref}
           pagingEnabled={true}
+          ListEmptyComponent={ListEmptyComponent}
           showsHorizontalScrollIndicator={false}
           data={myorders}
           renderItem={renderItem}

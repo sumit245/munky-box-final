@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
   SafeAreaView,
   ScrollView,
 } from "react-native";
@@ -19,8 +18,6 @@ export default function SubscriptionItem({
   width,
   index,
   navigation,
-  onPressNext,
-  onPrevPress,
   getCurrentIndex,
 }) {
   const [state, setstate] = useState({
@@ -142,6 +139,7 @@ export default function SubscriptionItem({
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
+
           <View
             style={{
               flexDirection: "row",
@@ -161,21 +159,26 @@ export default function SubscriptionItem({
               <Text style={styles.headersubtitle}>by {state.restaurant}</Text>
             </View>
           </View>
+
           <Text style={{ color: "#22cccf", fontWeight: "bold" }}>
             {item.category}
           </Text>
+          
         </View>
 
         <ScrollView>
           <View style={styles.tabContainer}>
+
             <View style={styles.tab}>
               <Text style={{ fontWeight: "bold", color: "#555" }}>STARTED</Text>
               <Text>{state.start_date}</Text>
             </View>
+
             <View style={styles.tab}>
               <Text style={{ fontWeight: "bold", color: "#555" }}>ENDS</Text>
               <Text>{state.end_date}</Text>
             </View>
+
             <View style={styles.tab}>
               <Text style={{ fontWeight: "bold", color: "#555" }}>
                 REMAINING
@@ -269,7 +272,9 @@ export default function SubscriptionItem({
               </Text>
               <FutureMeals meals={futuremeals} futuredays={futuredays} />
             </View>
+
           </View>
+
         </ScrollView>
 
         <View
