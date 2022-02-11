@@ -20,7 +20,8 @@ export default function SubscriptionStack({ navigation }) {
     const { user_id } = data;
     const response = await axios.get(MY_ORDER_URL + user_id);
     const myorder = await response.data;
-    setMyOrders(myorder);
+    let activeOrders=myorder.filter((item)=>item.status==="accepted")
+    setMyOrders(activeOrders);
     setLoaded(true);
   };
 
