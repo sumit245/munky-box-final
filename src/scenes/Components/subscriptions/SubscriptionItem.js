@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { View, Text, SafeAreaView, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 import axios from "axios";
 import { styles } from "../../styles/subscriptionTabStyle";
@@ -94,7 +89,7 @@ export default function SubscriptionItem({
         item.order_id
     );
     if (res.data !== null) {
-      let {delivered}=res.data
+      let { delivered } = res.data;
       setDelivered(delivered);
     }
   };
@@ -103,6 +98,7 @@ export default function SubscriptionItem({
     const datatoplace = Array.from(
       new Set(addOnsPlaced.map((s) => s.item))
     ).map((item) => {
+      console.log(item);
       return {
         item: item,
         rate: addOnsPlaced.find((s) => s.item === item).rate,
@@ -139,7 +135,6 @@ export default function SubscriptionItem({
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-
           <View
             style={{
               flexDirection: "row",
@@ -163,12 +158,10 @@ export default function SubscriptionItem({
           <Text style={{ color: "#22cccf", fontWeight: "bold" }}>
             {item.category}
           </Text>
-          
         </View>
 
         <ScrollView>
           <View style={styles.tabContainer}>
-
             <View style={styles.tab}>
               <Text style={{ fontWeight: "bold", color: "#555" }}>STARTED</Text>
               <Text>{state.start_date}</Text>
@@ -272,9 +265,7 @@ export default function SubscriptionItem({
               </Text>
               <FutureMeals meals={futuremeals} futuredays={futuredays} />
             </View>
-
           </View>
-
         </ScrollView>
 
         <View

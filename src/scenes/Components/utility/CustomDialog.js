@@ -18,7 +18,6 @@ const CustomDialog = ({
   cancelHandler,
 }) => {
   const [show, setShow] = React.useState(showDialog);
-  const hideDialog = () => setShow(false);
   const done = () => {
     doneHandler();
   };
