@@ -94,7 +94,7 @@ export default function SubscriptionItem({
         item.order_id
     );
     if (res.data !== null) {
-      let delivered = true;
+      let {delivered}=res.data
       setDelivered(delivered);
     }
   };
