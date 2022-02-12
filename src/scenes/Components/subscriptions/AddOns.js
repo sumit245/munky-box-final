@@ -79,7 +79,7 @@ export default function AddOns({
         subtotal: parseFloat(rate) * parseInt(qties[key]),
         order_date: moment().format("DD-MMM-YYYY"),
       };
-      setExtras({ ...extrass, extra });
+      setExtras([ ...extrass, extra ]);
     }
   };
 
