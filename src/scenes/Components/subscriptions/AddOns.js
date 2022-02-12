@@ -99,6 +99,7 @@ export default function AddOns({
   };
 
   const orderExtras = () => {
+    console.log("ok");
     const datatoplace = Array.from(new Set(extrass.map((s) => s.item))).map(
       (item) => {
         let singleadds = extrass.filter((s) => s.item === item);
@@ -111,6 +112,7 @@ export default function AddOns({
       }
     );
     placeExtraOrder(datatoplace);
+    console.log("ok");
     // Actions.push("wallet", { title: "My Wallet" })
   };
 
@@ -222,7 +224,7 @@ export default function AddOns({
         >
           <TouchableOpacity
             onPress={orderExtras}
-            disabled={qty === 0}
+            //disabled={qty === 0}
             style={{ marginRight: 8 }}
           >
             <Text
