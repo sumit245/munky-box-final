@@ -79,7 +79,7 @@ export default function AddOns({
         subtotal: parseFloat(rate) * parseInt(qties[key]),
         order_date: moment().format("DD-MMM-YYYY"),
       };
-      setExtras([ ...extrass, extra ]);
+      setExtras([...extrass, extra]);
     }
   };
 
@@ -99,7 +99,18 @@ export default function AddOns({
   };
 
   const orderExtras = () => {
-    placeExtraOrder(extrass);
+    const datatoplace = Array.from(new Set(extrass.map((s) => s.item))).map(
+      (item) => {
+        let singleadds = extrass.filter((s) => s.item === item);
+        let quantity = singleadds.reduce((max, addon) =>
+          max.qty > addon.qty ? max : addon
+        );
+        return {
+          ...quantity,
+        };
+      }
+    );
+    placeExtraOrder(datatoplace);
     // Actions.push("wallet", { title: "My Wallet" })
   };
 

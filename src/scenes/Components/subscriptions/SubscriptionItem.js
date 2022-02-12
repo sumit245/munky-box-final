@@ -95,33 +95,19 @@ export default function SubscriptionItem({
   };
 
   const placeExtraOrder = async (addOnsPlaced) => {
-    
-    const datatoplace = Array.from(
-      new Set(addOnsPlaced.map((s) => s.item))
-    ).map((item) => {
-      return {
-        item: item,
-        rate: addOnsPlaced.find((s) => s.item === item).rate,
-        qty: addOnsPlaced.find((s) => s.item === item).qty,
-        subtotal: addOnsPlaced.find((s) => s.item === item).subtotal,
-        order_date: addOnsPlaced.find((s) => s.item === item).order_date,
-      };
-    });
-    console.log(datatoplace);
-
-    // const res = await axios.put(
-    //   "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getandupdateorderstatus/" +
-    //     item.order_id,
-    //   {
-    //     add_on: datatoplace,
-    //   }
-    // );
-    // const { data, status } = res.data;
-    // if (status === 200) {
-    //   alert(
-    //     `Thank you for ordering some extras today with order id # ${item.order_id}`
-    //   );
-    // }
+    const res = await axios.put(
+      "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getandupdateorderstatus/" +
+        item.order_id,
+      {
+        add_on: addOnsPlaced,
+      }
+    );
+    const { data, status } = res.data;
+    if (status === 200) {
+      alert(
+        `Thank you for ordering some extras today with order id # ${item.order_id}`
+      );
+    }
   };
 
   useEffect(() => {
