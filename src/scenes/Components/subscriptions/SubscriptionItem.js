@@ -95,7 +95,7 @@ export default function SubscriptionItem({
   };
 
   const placeExtraOrder = async (addOnsPlaced) => {
-    console.log("h");
+    
     const res = await axios.put(
       "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getandupdateorderstatus/" +
         item.order_id,
