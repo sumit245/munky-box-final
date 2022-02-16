@@ -5,7 +5,13 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { CHECKOUT_URL } from "../../../services/EndPoints";
 import { styles } from "../../styles/CheckoutStyles";
 
-export default function BillingTable({ price, tip, discount, totalHandler }) {
+export default function BillingTable({
+  price,
+  tip,
+  discount,
+  totalHandler,
+  plan,
+}) {
   const [planFetched, setplanFetched] = useState(false);
   const [checks, setChecks] = useState(false);
   const [delivery_fee, setDeliveryFee] = useState("");
@@ -26,6 +32,7 @@ export default function BillingTable({ price, tip, discount, totalHandler }) {
     setTaxes(taxes);
     setplanFetched(true);
   };
+
   const calculator = (subtotal, delivery, service, taxes, discount, tip) => {
     let serviceCharge = subtotal * 0.01 * service;
     let total = subtotal + serviceCharge + delivery - discount + tip;
@@ -33,9 +40,11 @@ export default function BillingTable({ price, tip, discount, totalHandler }) {
     total = total + tax;
     return { serviceCharge, tax, total };
   };
+
   useEffect(() => {
     let componentMounted = true;
     if (componentMounted) {
+      console.log("Choosen plan is: ",plan);
       fetchFee();
       setChecks(true);
     }

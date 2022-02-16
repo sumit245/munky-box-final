@@ -8,8 +8,7 @@ import { width } from "./styles/HomeStyles";
 const ReviewItem = ({ title, avatar, review }) => {
   let stars=[]
   for (let index = 0; index < parseInt(review.rating); index++) {
-    stars.push(index)
-    
+    stars.push(index) 
   }
   return(
     <View style={styles.item}>

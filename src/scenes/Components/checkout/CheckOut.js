@@ -56,6 +56,7 @@ export default function CheckOut({
     total: 0,
     promo_code: "",
   });
+
   const [addressLoading, setAddressLoading] = useState(true);
   const [isKeyboardOn, setKeyboardOn] = useState(false);
 
@@ -208,7 +209,9 @@ export default function CheckOut({
       componentMounted = false;
     };
   }, []);
+
   const uri = documents[1].banner_image;
+
   if (state.loading) {
     return <Loader msg="Just a few steps away from you delicous food" />;
   }
@@ -295,6 +298,7 @@ export default function CheckOut({
           price={price}
         />
         <BillingTable
+          plan={state.plan}
           price={price}
           discount={state.discount}
           tip={state.tip}
