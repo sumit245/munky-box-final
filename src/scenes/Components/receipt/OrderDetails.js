@@ -10,22 +10,11 @@ import {
 
 import moment from "moment";
 import Icon from "react-native-vector-icons/Ionicons";
-import { styles } from "../../styles/HomeStyles";
-export default function OrderDetails({ route, navigation }) {
-  // const { order } = route.params;
-  // const { address_type, city, flat_num, locality, postal_code } = order.address;
+import { styles } from "./styles";
+export default function OrderDetails({ order, title }) {
+  const { address_type, city, flat_num, locality, postal_code } = order.address;
   return (
     <SafeAreaView style={styles.containerStyle}>
-      {/* <TouchableOpacity
-        style={{
-          alignSelf: "flex-start",
-          marginHorizontal: 8,
-          marginVertical: 4,
-        }}
-        onPress={() => navigation.goBack()}
-      >
-        <Icon name="chevron-back" size={24} color="#2277fc" />
-      </TouchableOpacity>
       <ScrollView
         contentContainerStyle={{ justifyContent: "flex-start", flex: 1 }}
         contentInsetAdjustmentBehavior="automatic"
@@ -131,7 +120,7 @@ export default function OrderDetails({ route, navigation }) {
             <Text style={styles.text}>PRICE</Text>
           </View>
         </View>
-      </ScrollView> */}
+      </ScrollView>
     </SafeAreaView>
   );
 }
