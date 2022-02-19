@@ -23,10 +23,15 @@ export default function HeaderComponent({ favCount, applyfilter }) {
       ) : (
         <Searchbar
           placeholder="Search by city"
-          style={{ width: width - 100,backgroundColor:"#ededed",elevation:0 }}
+          style={{
+            width: width - 100,
+            backgroundColor: "#ededed",
+            elevation: 0,
+          }}
           onChangeText={onChangeSearch}
-            value={searchQuery}
-            iconColor="#226cff"
+          value={searchQuery}
+          iconColor="#226cff"
+          clearIcon={() => <Icon name="close" size={16} color="#000" />}
         />
       )}
       <View style={{ flexDirection: "row", alignItems: "center" }}>
