@@ -41,6 +41,7 @@ export default class DetailStack extends Component {
     highLighted: false,
     favCount: 0,
     refreshing: false,
+    search: false,
   };
   _handleIndexChange = async (index) => {
     this.setState({
@@ -158,6 +159,11 @@ export default class DetailStack extends Component {
   };
   onRefresh = () => {
     this.getApiData();
+  };
+  setSearch = (e) => {
+    this.setState((prevState) => ({
+      search: !prevState.search,
+    }));
   };
 
   componentDidUpdate() {

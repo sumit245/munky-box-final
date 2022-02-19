@@ -35,6 +35,13 @@ export const styles = StyleSheet.create({
     marginHorizontal: 6,
     marginBottom: 6,
   },
+  headerWithSearch: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    height: 32,
+    marginHorizontal: 6,
+    marginBottom: 6,
+  },
   mainStyle: {
     flex: 1,
     justifyContent: "center",
