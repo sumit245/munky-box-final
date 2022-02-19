@@ -7,7 +7,7 @@ import FavoritePicker from "./FavoritePicker";
 import { Searchbar } from "react-native-paper";
 import SearchComponent from "./SearchComponent";
 import Icon from "react-native-vector-icons/Ionicons";
-export default function HeaderComponent({ favCount, applyfilter }) {
+export default function HeaderComponent({ favCount, applyfilter, searchTerm }) {
   const [isSearching, setSearching] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const setSearch = (state) => {
@@ -15,6 +15,7 @@ export default function HeaderComponent({ favCount, applyfilter }) {
   };
   const onChangeSearch = (query) => {
     setSearchQuery(query);
+    searchTerm(query);
   };
   return (
     <View style={!isSearching ? styles.header : styles.headerWithSearch}>

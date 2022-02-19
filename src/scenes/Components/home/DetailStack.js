@@ -43,6 +43,7 @@ export default class DetailStack extends Component {
     refreshing: false,
     search: false,
   };
+
   _handleIndexChange = async (index) => {
     this.setState({
       loading: true,
@@ -65,6 +66,7 @@ export default class DetailStack extends Component {
       });
     }
   };
+
   renderTabBar = (props) => (
     <TabBar
       {...props}
@@ -78,6 +80,7 @@ export default class DetailStack extends Component {
       inactiveColor="#272727"
     />
   );
+
   renderScene = ({ route }) => {
     switch (route.title) {
       case "Lunch":
@@ -89,6 +92,7 @@ export default class DetailStack extends Component {
         return null;
     }
   };
+
   getFavoriteCount = async () => {
     const users = await getUser("user");
     const { _id } = await users.data;
@@ -96,6 +100,7 @@ export default class DetailStack extends Component {
     const { favorite } = await userResponse.data;
     this.setState({ favCount: favorite.length });
   };
+
   async componentDidMount() {
     const cuisineResponse = await axios.get(CUISINE_URL);
     const cuisine = await cuisineResponse.data;
@@ -104,6 +109,7 @@ export default class DetailStack extends Component {
     this.getFavoriteCount();
     this.setState({ restaurant: restaurant, cuisine: cuisine, loading: false });
   }
+
   selectCuisine = async (cuisine) => {
     this.setState({
       loading: true,
@@ -120,6 +126,7 @@ export default class DetailStack extends Component {
       highLighted: cuisine,
     });
   };
+
   getApiData = async () => {
     this.setState({
       loading: true,
@@ -145,6 +152,7 @@ export default class DetailStack extends Component {
       </TouchableOpacity>
     );
   };
+
   applyfilter = async (filter) => {
     this.setState({
       loading: true,
@@ -157,9 +165,11 @@ export default class DetailStack extends Component {
       loading: false,
     });
   };
+
   onRefresh = () => {
     this.getApiData();
   };
+
   setSearch = (e) => {
     this.setState((prevState) => ({
       search: !prevState.search,
@@ -169,6 +179,9 @@ export default class DetailStack extends Component {
   componentDidUpdate() {
     this.getFavoriteCount();
   }
+  searchByCity = (query) => {
+    console.log(query);
+  };
 
   render() {
     const { cuisine, routes, index, loading, msg, highLighted, favCount } =
@@ -176,7 +189,11 @@ export default class DetailStack extends Component {
     {
       return !loading ? (
         <SafeAreaView style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
-          <HeaderComponent favCount={favCount} applyfilter={this.applyfilter} />
+          <HeaderComponent
+            favCount={favCount}
+            applyfilter={this.applyfilter}
+            searchTerm={this.searchByCity}
+          />
           <ScrollView
             style={{ flex: 1 }}
             refreshControl={
