@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DeliveryOptions from "./DeliveryOptions";
 import SortAndFilter from "./SortAndFilter";
-import { styles } from "../../styles/HomeStyles";
+import { styles, width } from "../../styles/HomeStyles";
 import { View } from "react-native";
 import FavoritePicker from "./FavoritePicker";
 import { Searchbar } from "react-native-paper";
+import SearchComponent from "./SearchComponent";
+import Icon from "react-native-vector-icons/Ionicons";
 export default function HeaderComponent({ favCount, applyfilter }) {
+  const [isSearching, setSearching] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const setSearch = (state) => {
+    setSearching(state);
+  };
+  const onChangeSearch = (query) => setSearchQuery(query);
   return (
-    <View style={styles.header}>
-      <DeliveryOptions />
+    <View style={!isSearching ? styles.header : styles.headerWithSearch}>
+      {!isSearching ? (
+        <DeliveryOptions />
+      ) : (
+        <Searchbar
+          placeholder="Search by city"
+          style={{ width: width - 100 }}
+          onChangeText={onChangeSearch}
+          value={searchQuery}
+          // clearIcon={() => <Icon name="close" size={18} />}
+        />
+      )}
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Searchbar/>
+        <SearchComponent setSearch={setSearch} />
         <FavoritePicker favCount={favCount} />
         <SortAndFilter applyFilter={applyfilter} />
       </View>
