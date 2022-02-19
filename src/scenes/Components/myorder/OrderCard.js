@@ -76,7 +76,6 @@ export default function OrderCard({ item }) {
               source={{
                 uri: rest.documents[0].restaurant_image,
               }}
-              // style={{ padding: 2 }}
             />
             <View
               style={{
@@ -119,6 +118,7 @@ export default function OrderCard({ item }) {
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
               style={[styles.actionButton, { backgroundColor: "#ccc" }]}
+              onPress={() => fetchOrderByID(item.order_id)}
             >
               <NewsPaper name="newspaper" size={16} color="#FFF" />
             </TouchableOpacity>
