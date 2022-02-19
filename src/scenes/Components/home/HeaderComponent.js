@@ -13,7 +13,9 @@ export default function HeaderComponent({ favCount, applyfilter }) {
   const setSearch = (state) => {
     setSearching(state);
   };
-  const onChangeSearch = (query) => setSearchQuery(query);
+  const onChangeSearch = (query) => {
+    setSearchQuery(query);
+  };
   return (
     <View style={!isSearching ? styles.header : styles.headerWithSearch}>
       {!isSearching ? (
@@ -24,7 +26,6 @@ export default function HeaderComponent({ favCount, applyfilter }) {
           style={{ width: width - 100 }}
           onChangeText={onChangeSearch}
           value={searchQuery}
-          // clearIcon={() => <Icon name="close" size={18} />}
         />
       )}
       <View style={{ flexDirection: "row", alignItems: "center" }}>
