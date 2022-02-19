@@ -15,7 +15,6 @@ export default function HeaderComponent({ favCount, applyfilter, searchTerm }) {
   };
   const onChangeSearch = (query) => {
     setSearchQuery(query);
-    searchTerm(query);
   };
   return (
     <View style={!isSearching ? styles.header : styles.headerWithSearch}>
@@ -33,6 +32,7 @@ export default function HeaderComponent({ favCount, applyfilter, searchTerm }) {
           value={searchQuery}
           iconColor="#226cff"
           clearIcon={() => <Icon name="close" size={16} color="#000" />}
+          onSubmitEditing={() => searchTerm(searchQuery)}
         />
       )}
       <View style={{ flexDirection: "row", alignItems: "center" }}>
