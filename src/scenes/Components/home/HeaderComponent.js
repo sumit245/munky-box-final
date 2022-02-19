@@ -25,7 +25,8 @@ export default function HeaderComponent({ favCount, applyfilter }) {
           placeholder="Search by city"
           style={{ width: width - 100,backgroundColor:"#ededed",elevation:0 }}
           onChangeText={onChangeSearch}
-          value={searchQuery}
+            value={searchQuery}
+            iconColor="#226cff"
         />
       )}
       <View style={{ flexDirection: "row", alignItems: "center" }}>
