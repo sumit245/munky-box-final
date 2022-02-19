@@ -14,7 +14,7 @@ const trimmer = (word) => {
 export default function CheckoutCards({ cardHandler, user, selected }) {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     let componentMounted = true;
     if (componentMounted) {
@@ -79,7 +79,6 @@ export default function CheckoutCards({ cardHandler, user, selected }) {
       </View>
     );
   } catch (error) {
-    console.log(error);
     return (
       <TouchableOpacity style={styles.optionCard} onPress={_nextAction}>
         <View style={styles.optionrow}>

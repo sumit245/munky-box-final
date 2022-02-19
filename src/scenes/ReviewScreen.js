@@ -6,85 +6,96 @@ import moment from "moment";
 import { avatarify } from "../../src/scenes/Components/utility/helpers";
 import { width } from "./styles/HomeStyles";
 const ReviewItem = ({ title, avatar, review }) => {
-  let stars=[]
+  let stars = [];
   for (let index = 0; index < parseInt(review.rating); index++) {
-    stars.push(index) 
+    stars.push(index);
   }
-  return(
+  return (
     <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-    <View style={{ flexDirection: "row", flex: 1 }}>
-      <View
-        style={{
-          height: 48,
-          width: 48,
-          borderRadius: 24,
-          backgroundColor: "purple",
-          justifyContent: "center",
-          alignItems: "center",
-          marginRight: 8,
-        }}
-      >
-        <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
-          {avatarify(review.user_name)}
-        </Text>
-      </View>
-
-      <View>
-        <Text style={{ marginLeft: 5, fontWeight: "bold" }}>
-          {review.user_name}
-        </Text>
+      <Text style={styles.title}>{title}</Text>
+      <View style={{ flexDirection: "row", flex: 1 }}>
         <View
           style={{
-            flexDirection: "row",
-            alignItems:"center",
-            width:width-100,
-            justifyContent: "space-between",
-            marginLeft: 5,
+            height: 48,
+            width: 48,
+            borderRadius: 24,
+            backgroundColor: "purple",
+            justifyContent: "center",
+            alignItems: "center",
+            marginRight: 8,
           }}
         >
+          <Text style={{ fontWeight: "bold", fontSize: 18, color: "#FFF" }}>
+            {avatarify(review.user_name)}
+          </Text>
+        </View>
+
+        <View>
+          <Text style={{ marginLeft: 5, fontWeight: "bold" }}>
+            {review.user_name}
+          </Text>
           <View
             style={{
-              
               flexDirection: "row",
               alignItems: "center",
-              marginVertical:4,
-              maxWidth:"60%"
-              
+              width: width - 100,
+              justifyContent: "space-between",
+              marginLeft: 5,
             }}
           >
-           {
-             stars.map((x,i)=>(
-              <Icon name="star" color="orange" size={18} style={{ padding: 2 }} key={i} />
-             ))
-           }
-            
-            
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginVertical: 4,
+                maxWidth: "60%",
+              }}
+            >
+              {stars.map((x, i) => (
+                <Icon
+                  name="star"
+                  color="orange"
+                  size={18}
+                  style={{ padding: 2 }}
+                  key={i}
+                />
+              ))}
+            </View>
+
+            <Text
+              style={{
+                fontWeight: "bold",
+                color: "#000",
+                fontSize: 12,
+                textAlign: "right",
+              }}
+            >
+              {moment(review.review_at).format("DD MMM, YYYY")}
+            </Text>
           </View>
-          
-          <Text style={{ fontWeight: "bold", color: "#000", fontSize: 12,textAlign:"right" }}>
-            {moment(review.review_at).format("DD MMM, YYYY")}
+
+          <Text
+            style={{ marginLeft: -48, marginVertical: 6, width: 380 }}
+            numberOfLines={3}
+          >
+            {review.details}
           </Text>
-          
-        
         </View>
-        
-        <Text style={{ marginLeft: -48,marginVertical:6,width:380}} numberOfLines={3} >{review.details}</Text>
       </View>
     </View>
-  </View>
-)}
+  );
+};
 
 export default function Rewards({ restaurant_id }) {
   const [review, setReview] = useState([]);
-  
+
   const fetchReview = async () => {
     const response = await axios.get(
       "http://munkybox-admin.herokuapp.com/api/review/"
     );
     const { data } = response;
     let review = data.filter((item) => item.restaurant_id === restaurant_id);
-    review.reverse()
+    review.reverse();
     setReview(review);
   };
   useEffect(() => {
@@ -106,7 +117,13 @@ export default function Rewards({ restaurant_id }) {
       </Text>
       <View style={{ flexDirection: "row" }}>
         {stars.map((item, key) => (
-          <Icon name="star" color="orange" size={18} style={{ padding: 2 }} key={key} />
+          <Icon
+            name="star"
+            color="orange"
+            size={18}
+            style={{ padding: 2 }}
+            key={key}
+          />
         ))}
       </View>
 

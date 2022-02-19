@@ -29,8 +29,26 @@ export default function OrderCard({ item }) {
     return (
       <Card style={{ padding: 10, margin: 4 }} key={item.order_id}>
         <Card.Content>
-          <View style={{flexDirection:"row",flex:1,marginVertical:12,justifyContent:"space-between"}}>
-            <Text style={{fontWeight:"bold",fontSize:14,color:"#000"}}>#{item.order_id}</Text>
+          <Text
+            style={{
+              fontSize: 14,
+              textTransform: "uppercase",
+              justifyContent: "flex-end",
+            }}
+          >
+            {item.status}
+          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              flex: 1,
+              marginVertical: 12,
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={{ fontWeight: "bold", fontSize: 14, color: "#000" }}>
+              #{item.order_id}
+            </Text>
             <Text>{moment(item.order_time).format("DD MMM YYYY")}</Text>
           </View>
           <View
@@ -68,9 +86,6 @@ export default function OrderCard({ item }) {
                 </Text>
               </View>
               <View>
-                <Text style={{ fontSize: 14, textTransform: "uppercase" }}>
-                  {item.status}
-                </Text>
                 <Text
                   style={{
                     textAlign: "right",
