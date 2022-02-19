@@ -34,7 +34,7 @@ export default function OrderCard({ item }) {
     );
     const { data } = res;
     if (data !== null) {
-      Actions.push("orderDetails", { order: data });
+      Actions.push("orderDetails", { order: data,title:"#"+id });
     } else {
       alert("No orders found!!!");
     }
