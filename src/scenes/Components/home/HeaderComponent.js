@@ -23,7 +23,7 @@ export default function HeaderComponent({ favCount, applyfilter }) {
       ) : (
         <Searchbar
           placeholder="Search by city"
-          style={{ width: width - 100 }}
+          style={{ width: width - 100,backgroundColor:"#ededed",elevation:0 }}
           onChangeText={onChangeSearch}
           value={searchQuery}
         />
