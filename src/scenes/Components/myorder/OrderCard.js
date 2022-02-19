@@ -33,7 +33,7 @@ export default function OrderCard({ item }) {
             style={{
               fontSize: 14,
               textTransform: "uppercase",
-              justifyContent: "flex-end",
+              textAlign: "right",
             }}
           >
             {item.status}
