@@ -305,6 +305,7 @@ export default function CheckOut({
           totalHandler={totalHandler}
         />
       </ScrollView>
+      
       {!isKeyboardOn && (
         <View
           style={{

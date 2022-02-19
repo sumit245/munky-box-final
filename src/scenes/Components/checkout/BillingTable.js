@@ -26,8 +26,19 @@ export default function BillingTable({
   const fetchFee = async () => {
     const response = await axios.get(CHECKOUT_URL);
     const exclusiveCharges = await response.data;
-    const { delivery_fee, service_fee, taxes } = exclusiveCharges;
-    setDeliveryFee(delivery_fee);
+    const {
+      delivery_fee,
+      service_fee,
+      taxes,
+      delivery_2_fee,
+      delivery_15_fee,
+      delivery_30_fee,
+    } = exclusiveCharges;
+    plan === "thirtyPlan"
+      ? setDeliveryFee(delivery_30_fee)
+      : plan === "fifteenPlan"
+      ? setDeliveryFee(delivery_15_fee)
+      : setDeliveryFee(delivery_2_fee);
     setServiceFee(service_fee);
     setTaxes(taxes);
     setplanFetched(true);
@@ -44,7 +55,7 @@ export default function BillingTable({
   useEffect(() => {
     let componentMounted = true;
     if (componentMounted) {
-      console.log("Choosen plan is: ",plan);
+      console.log("Choosen plan is: ", plan);
       fetchFee();
       setChecks(true);
     }
