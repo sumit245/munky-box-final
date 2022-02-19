@@ -29,6 +29,7 @@ import Contacts from "./scenes/Components/contacts/Contacts";
 import BackButton from "./scenes/Components/utility/BackButton";
 import About from "./scenes/About";
 import Rate from "./scenes/Components/ratings/Rate";
+import OrderDetails from "./scenes/Components/receipt/OrderDetails";
 
 export default function Routes() {
   const [user, setUser] = useState({});
@@ -72,7 +73,7 @@ export default function Routes() {
           component={Thankyou}
           title={"Order Placed"}
           renderRightButton={DoneRightButton}
-          rightButtonTextStyle={{marginTop:20,fontWeight:"bold"}}
+          rightButtonTextStyle={{ marginTop: 20, fontWeight: "bold" }}
         />
         <Scene
           key="manageNotifications"
@@ -180,6 +181,11 @@ export default function Routes() {
         <Scene
           key="ratings"
           component={Rate}
+          renderLeftButton={() => <BackButton />}
+        />
+        <Scene
+          key="orderDetails"
+          component={OrderDetails}
           renderLeftButton={() => <BackButton />}
         />
       </Scene>

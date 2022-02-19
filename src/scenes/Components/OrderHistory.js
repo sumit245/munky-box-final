@@ -6,8 +6,7 @@ import { getUser } from "../../services/user/getuser";
 import OrderCard from "./myorder/OrderCard";
 import NoOrders from "./myorder/NoOrders";
 import { styles } from "../styles/OrderHistoryStyle";
-import { Actions } from "react-native-router-flux";
-import BackButton from "./utility/BackButton";
+
 const renderItem = ({ item }) => <OrderCard item={item} />;
 
 export default class OrderHistory extends Component {

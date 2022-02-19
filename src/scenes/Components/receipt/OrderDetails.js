@@ -7,19 +7,16 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import Header from "../header/Header";
-import { styles } from "../../styles/itemstyle";
-import { useSelector } from "react-redux";
+
 import moment from "moment";
 import Icon from "react-native-vector-icons/Ionicons";
+import { styles } from "../../styles/HomeStyles";
 export default function OrderDetails({ route, navigation }) {
-  const { order } = route.params;
-  const { address_type, city, flat_num, locality, postal_code } = order.address;
-  const restaurant = useSelector((state) => state.restaurant);
-  const { restaurant_name, restaurant_id } = restaurant;
+  // const { order } = route.params;
+  // const { address_type, city, flat_num, locality, postal_code } = order.address;
   return (
-    <SafeAreaView style={styles.container}>
-      <TouchableOpacity
+    <SafeAreaView style={styles.containerStyle}>
+      {/* <TouchableOpacity
         style={{
           alignSelf: "flex-start",
           marginHorizontal: 8,
@@ -134,7 +131,7 @@ export default function OrderDetails({ route, navigation }) {
             <Text style={styles.text}>PRICE</Text>
           </View>
         </View>
-      </ScrollView>
+      </ScrollView> */}
     </SafeAreaView>
   );
 }

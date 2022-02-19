@@ -12,6 +12,7 @@ import moment from "moment";
 export default function OrderCard({ item }) {
   const [rest, setRest] = useState({});
   const [loading, setLoading] = useState(true);
+
   const fetchRestaurant = async (id) => {
     const restaurant = await axios.get(
       "http://munkybox-admin.herokuapp.com/api/newrest/getchefbyId/" + id
@@ -22,9 +23,23 @@ export default function OrderCard({ item }) {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchRestaurant(item.restaurant_id);
   }, []);
+
+  const fetchOrderByID = async (id) => {
+    const res = await axios.get(
+      "http://munkybox-admin.herokuapp.com/api/orders/getOrderbyID/" + id
+    );
+    const { data } = res;
+    if (data !== null) {
+      Actions.push("orderDetails", { order: data });
+    } else {
+      alert("No orders found!!!");
+    }
+  };
+
   if (!loading) {
     return (
       <Card style={{ padding: 10, margin: 4 }} key={item.order_id}>
@@ -61,7 +76,6 @@ export default function OrderCard({ item }) {
               source={{
                 uri: rest.documents[0].restaurant_image,
               }}
-              // style={{ padding: 2 }}
             />
             <View
               style={{
@@ -104,6 +118,7 @@ export default function OrderCard({ item }) {
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
               style={[styles.actionButton, { backgroundColor: "#ccc" }]}
+              onPress={() => fetchOrderByID(item.order_id)}
             >
               <NewsPaper name="newspaper" size={16} color="#FFF" />
             </TouchableOpacity>
