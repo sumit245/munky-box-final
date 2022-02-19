@@ -43,7 +43,7 @@ export default function Rate({ navigation, restaurant, order }) {
       role: "user",
       order_id: order.order_id,
       start_date: order.start_date,
-      end_date:order.end_date,
+      end_date: order.end_date,
       order_time: order.order_time,
       delivered_on: order.end_date,
       plan_name: order.plan,
@@ -59,7 +59,6 @@ export default function Rate({ navigation, restaurant, order }) {
     );
     const { data } = response;
     setLoaded(false);
-    console.log(data);
     if (data !== null) {
       setPlaced(true);
       Actions.pop();

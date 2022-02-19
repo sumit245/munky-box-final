@@ -55,7 +55,6 @@ export default function BillingTable({
   useEffect(() => {
     let componentMounted = true;
     if (componentMounted) {
-      console.log("Choosen plan is: ", plan);
       fetchFee();
       setChecks(true);
     }

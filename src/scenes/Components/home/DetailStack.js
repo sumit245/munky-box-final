@@ -182,7 +182,6 @@ export default class DetailStack extends Component {
   searchByCity = (query) => {
     let myRestaurant = this.state.restaurant;
     let filteredRestaurant = myRestaurant.filter((item) => item.city === query);
-    console.log(filteredRestaurant);
     this.setState({
       restaurant: filteredRestaurant,
     });
