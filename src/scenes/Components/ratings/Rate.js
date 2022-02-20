@@ -141,7 +141,7 @@ export default function Rate({ navigation, restaurant, order }) {
                       borderWidth: 2,
                       justifyContent: "center",
                       alignItems: "center",
-                      backgroundColor:likes.includes(feature) ? "#2962ff" : "#000"
+                      backgroundColor:likes.includes(feature) ? "#2962ff" : "#fff"
                     }}
                     textStyle={{
                       textAlign: "center",
