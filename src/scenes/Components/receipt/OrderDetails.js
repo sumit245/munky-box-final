@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, SafeAreaView, ScrollView } from "react-native";
-
+import Icon from "react-native-vector-icons/Ionicons";
 import moment from "moment";
 import { styles } from "./styles";
 export default function OrderDetails({ order, title }) {
   const { address_type, city, flat_num, locality, postal_code } = order.address;
   const [taxes, setTaxes] = useState(0);
   const [service_fee, setServiceFee] = useState(0);
+  const { cards } = order;
+
   useEffect(() => {
     let tax = order.taxes;
     let sf = order.service_fee;
@@ -115,24 +117,29 @@ export default function OrderDetails({ order, title }) {
           </View>
         </View>
         <View style={styles.row}>
-          <Text
-            style={{
-              fontStyle: "italic",
-              fontWeight: "bold",
-              color: "#777",
-              maxWidth: 200,
-              marginLeft: 4,
-            }}
-          >
-            Notes: {order.notes || "N/A"}
-          </Text>
-
+          <View>
+            <Text style={styles.text}>Paid from: </Text>
+            <View style={{ flexDirection: "row" }}>
+              <Icon
+                name={
+                  cards.brand === "master-card"
+                    ? "mastercard"
+                    : cards.brand === "diners-club"
+                    ? "dinners-club"
+                    : cards.brand
+                }
+                size={20}
+                color="#226ccf"
+              />
+              <Text style={styles.normalText}>{cards.number}</Text>
+            </View>
+          </View>
           <View
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
               alignSelf: "flex-end",
-              marginTop:-16
+              marginTop: -16,
             }}
           >
             <View>
@@ -175,49 +182,66 @@ export default function OrderDetails({ order, title }) {
               <Text style={[styles.normalText, { textAlign: "right" }]}>
                 ${parseFloat(taxes).toFixed(2)}
               </Text>
-              <Text style={[styles.normalText, { textAlign: "right",marginTop:12 }]}>
+              <Text
+                style={[
+                  styles.normalText,
+                  { textAlign: "right", marginTop: 12 },
+                ]}
+              >
                 ${order.total}
               </Text>
             </View>
           </View>
         </View>
       </View>
-
+      <View style={styles.row}>
+        <Text
+          style={{
+            fontStyle: "italic",
+            fontWeight: "bold",
+            color: "#777",
+            maxWidth: 200,
+            marginLeft: 4,
+          }}
+        >
+          Notes:
+          {order.notes || "N/A"}
+        </Text>
+      </View>
       <View style={styles.table}>
-          <View style={[styles.tableHead, { justifyContent: "flex-end" }]}>
-            <Text>Total: ${parseFloat(price).toFixed(2)}</Text>
-          </View>
-          <View style={styles.tableHead}>
-            <Text style={styles.text}>Add on</Text>
-            <Text style={styles.text}>Ordered on</Text>
-            <Text style={styles.text}>PRICE</Text>
-          </View>
-          {Array.isArray(order.add_on) &&
-            order.add_on.map((extra, key) => (
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  borderBottomWidth: 0.5,
-                  borderBottomColor: "#777",
-                }}
-                key={key}
-              >
-                <View>
-                  <Text style={{ padding: 4 }}>{extra.item}</Text>
-                  <Text style={{ padding: 4 }}>
-                    ${parseFloat(extra.rate).toFixed(2) + " x " + extra.qty}
-                  </Text>
-                </View>
-                
-                <Text style={{ padding: 4 }}>{extra.order_date}</Text>
+        <View style={[styles.tableHead, { justifyContent: "flex-end" }]}>
+          <Text>Total: ${parseFloat(price).toFixed(2)}</Text>
+        </View>
+        <View style={styles.tableHead}>
+          <Text style={styles.text}>Add on</Text>
+          <Text style={styles.text}>Ordered on</Text>
+          <Text style={styles.text}>PRICE</Text>
+        </View>
+        {Array.isArray(order.add_on) &&
+          order.add_on.map((extra, key) => (
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                borderBottomWidth: 0.5,
+                borderBottomColor: "#777",
+              }}
+              key={key}
+            >
+              <View>
+                <Text style={{ padding: 4 }}>{extra.item}</Text>
                 <Text style={{ padding: 4 }}>
-                  ${parseFloat(extra.subtotal).toFixed(2)}
+                  ${parseFloat(extra.rate).toFixed(2) + " x " + extra.qty}
                 </Text>
               </View>
-            ))}
-        </View>
-     
+
+              <Text style={{ padding: 4 }}>{extra.order_date}</Text>
+              <Text style={{ padding: 4 }}>
+                ${parseFloat(extra.subtotal).toFixed(2)}
+              </Text>
+            </View>
+          ))}
+      </View>
     </ScrollView>
   );
 }
