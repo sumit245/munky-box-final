@@ -27,6 +27,13 @@ export default function OrderDetails({ order, title }) {
     setTaxes(calcTax);
   }, []);
 
+  const trimmer = (word) => {
+    for (let i = 0; i <= word.length - 5; i++) {
+      word = word.replace(word[i], "*");
+    }
+    return word;
+  };
+
   function add(accumulator, a) {
     return parseFloat(accumulator) + parseFloat(a);
   }
@@ -131,7 +138,7 @@ export default function OrderDetails({ order, title }) {
                 size={20}
                 color="#226ccf"
               />
-              <Text style={styles.normalText}>{card.number}</Text>
+              <Text style={styles.normalText}>{trimmer(card.number)}</Text>
             </View>
           </View>
           <View
