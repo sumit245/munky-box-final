@@ -14,9 +14,15 @@ export default function OrderDetails({ order, title }) {
       ((parseFloat(order.price) + parseFloat(order.delivery_fee)) *
         parseFloat(sf)) /
       100;
-    let calcTax=(parseFloat(order.price) + parseFloat(order.delivery_fee)+parseFloat(calcSF)-parseFloat(order.discount))*parseFloat(order.taxes)/100
+    let calcTax =
+      ((parseFloat(order.price) +
+        parseFloat(order.delivery_fee) +
+        parseFloat(calcSF) -
+        parseFloat(order.discount)) *
+        parseFloat(order.taxes)) /
+      100;
     setServiceFee(calcSF);
-    setTaxes(calcTax)
+    setTaxes(calcTax);
   }, []);
   return (
     <ScrollView
@@ -47,43 +53,45 @@ export default function OrderDetails({ order, title }) {
                 {order.status}
               </Text>
               <Text style={styles.normalText}>From: </Text>
-              <Text style={styles.text}>
-                {order.restaurant + "(" + order.restaurant_id + ")"}
-              </Text>
+              <Text style={styles.text}>{order.restaurant}</Text>
+              <Text style={styles.text}>{order.restaurant_id}</Text>
             </View>
             <View>
               <Text style={[styles.text, { textAlign: "right" }]}>
                 #{order.order_id}
               </Text>
-              <Text style={styles.normalText}>
+              <Text style={[styles.normalText, { marginVertical: 2 }]}>
                 {order.user_name + "(" + order.user_id + ")"}
               </Text>
-              <Text style={styles.normalText}>
+              <Text style={[styles.normalText, { marginVertical: 2 }]}>
                 {(address_type || "") +
                   ", " +
                   (flat_num || "") +
-                  ", " +
+                  ",\n" +
                   (city || "") +
-                  "\n " +
                   (locality || "") +
                   ", " +
                   (postal_code || "")}
               </Text>
-              <Text style={styles.normalText}>M: {order.phone}</Text>
-              <Text style={styles.normalText}>E: {order.email_id}</Text>
-              <Text style={styles.normalText}>
+              <Text style={[styles.normalText, { marginVertical: 2 }]}>
+                M: {order.phone}
+              </Text>
+              <Text style={[styles.normalText, { marginVertical: 2 }]}>
+                E: {order.email_id}
+              </Text>
+              <Text style={[styles.normalText, { marginVertical: 2 }]}>
                 {moment(order.order_time).format("DD-MMM-YYYY HH:mm a")}
               </Text>
             </View>
           </View>
         </View>
 
-        <View style={[styles.row, { marginTop: 28 }]}>
+        <View style={[styles.row, { marginVertical: 36 }]}>
           <View style={styles.headerRows}>
-            <Text style={styles.text}>plan</Text>
-            <Text style={styles.text}>Start Date</Text>
-            <Text style={styles.text}>End Date</Text>
-            <Text style={styles.text}>Price</Text>
+            <Text style={[styles.text, { color: "#000" }]}>plan</Text>
+            <Text style={[styles.text, { color: "#000" }]}>Start Date</Text>
+            <Text style={[styles.text, { color: "#000" }]}>End Date</Text>
+            <Text style={[styles.text, { color: "#000" }]}>Price</Text>
           </View>
           <View style={styles.headerRows}>
             <Text style={styles.normalText}>
@@ -99,24 +107,24 @@ export default function OrderDetails({ order, title }) {
           </View>
         </View>
         <View style={styles.row}>
-          <View>
-            <Text
-              style={{
-                fontStyle: "italic",
-                fontWeight: "bold",
-                color: "#777",
-                maxWidth: 200,
-                marginLeft: 4,
-              }}
-            >
-              Notes: {order.notes || "N/A"}
-            </Text>
-          </View>
+          <Text
+            style={{
+              fontStyle: "italic",
+              fontWeight: "bold",
+              color: "#777",
+              maxWidth: 200,
+              marginLeft: 4,
+            }}
+          >
+            Notes: {order.notes || "N/A"}
+          </Text>
+
           <View
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
               alignSelf: "flex-end",
+              marginTop:-16
             }}
           >
             <View>
