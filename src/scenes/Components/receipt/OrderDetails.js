@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, SafeAreaView, ScrollView } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-vector-icons/Fontisto";
 import moment from "moment";
 import { styles } from "./styles";
 export default function OrderDetails({ order, title }) {
