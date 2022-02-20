@@ -30,6 +30,7 @@ import BackButton from "./scenes/Components/utility/BackButton";
 import About from "./scenes/About";
 import Rate from "./scenes/Components/ratings/Rate";
 import OrderDetails from "./scenes/Components/receipt/OrderDetails";
+import Download from "./scenes/Components/receipt/Download";
 
 export default function Routes() {
   const [user, setUser] = useState({});
@@ -187,6 +188,7 @@ export default function Routes() {
           key="orderDetails"
           component={OrderDetails}
           renderLeftButton={() => <BackButton />}
+          renderRightButton={() => <Download />}
         />
       </Scene>
     </Router>
