@@ -7,7 +7,7 @@ export default function OrderDetails({ order, title }) {
   const { address_type, city, flat_num, locality, postal_code } = order.address;
   const [taxes, setTaxes] = useState(0);
   const [service_fee, setServiceFee] = useState(0);
-  const { cards } = order;
+  const { card } = order;
 
   useEffect(() => {
     let tax = order.taxes;
@@ -122,16 +122,16 @@ export default function OrderDetails({ order, title }) {
             <View style={{ flexDirection: "row" }}>
               <Icon
                 name={
-                  cards.brand === "master-card"
+                  card.brand === "master-card"
                     ? "mastercard"
-                    : cards.brand === "diners-club"
+                    : card.brand === "diners-club"
                     ? "dinners-club"
-                    : cards.brand
+                    : card.brand
                 }
                 size={20}
                 color="#226ccf"
               />
-              <Text style={styles.normalText}>{cards.number}</Text>
+              <Text style={styles.normalText}>{card.number}</Text>
             </View>
           </View>
           <View
