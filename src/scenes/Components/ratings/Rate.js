@@ -133,7 +133,6 @@ export default function Rate({ navigation, restaurant, order }) {
                     mode="outlined"
                     onPress={() => pushToLiked(feature)}
                     selectedColor={likes.includes(feature) ? "#2962ff" : "#000"}
-                    
                     style={{
                       minWidth: 100,
                       height: 40,
@@ -141,12 +140,14 @@ export default function Rate({ navigation, restaurant, order }) {
                       borderWidth: 2,
                       justifyContent: "center",
                       alignItems: "center",
-                      backgroundColor:likes.includes(feature) ? "#2962ff" : "#fff"
+                      backgroundColor: likes.includes(feature)
+                        ? "orange"
+                        : "#fff",
                     }}
                     textStyle={{
                       textAlign: "center",
                       fontSize: 14,
-                      color: "#000",
+                      color: likes.includes(features) ? "#fff" : "#000",
                       fontWeight: "bold",
                     }}
                     key={key}
