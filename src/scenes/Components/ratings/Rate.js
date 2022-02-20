@@ -130,10 +130,10 @@ export default function Rate({ navigation, restaurant, order }) {
               >
                 {features.map((feature, key) => (
                   <Chip
-                    mode="flat"
+                    mode="outlined"
                     onPress={() => pushToLiked(feature)}
                     selectedColor={likes.includes(feature) ? "#2962ff" : "#000"}
-
+                    
                     style={{
                       minWidth: 100,
                       height: 40,
@@ -141,7 +141,7 @@ export default function Rate({ navigation, restaurant, order }) {
                       borderWidth: 2,
                       justifyContent: "center",
                       alignItems: "center",
-
+                      backgroundColor:likes.includes(feature) ? "#2962ff" : "#000"
                     }}
                     textStyle={{
                       textAlign: "center",
