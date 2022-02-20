@@ -101,9 +101,14 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   text: {
+    fontSize: 10,
     fontWeight: "bold",
     textTransform: "uppercase",
     color: "#777",
+  },
+  normalText: {
+    fontSize: 12,
+    color: "#000",
   },
   formBody: {
     padding: 8,
