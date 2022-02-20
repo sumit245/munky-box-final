@@ -24,6 +24,14 @@ export default function OrderDetails({ order, title }) {
     setServiceFee(calcSF);
     setTaxes(calcTax);
   }, []);
+
+  function add(accumulator, a) {
+    return parseFloat(accumulator) + parseFloat(a);
+  }
+  const subtotals =
+    Array.isArray(order.add_on) && order.add_on.map((item) => item.subtotal);
+  let price = subtotals.reduce(add, 0);
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -144,7 +152,7 @@ export default function OrderDetails({ order, title }) {
               <Text style={[styles.text, { marginVertical: 1, marginTop: 2 }]}>
                 Taxes({order.taxes}%):
               </Text>
-              <Text style={[styles.text, { marginVertical: 1, marginTop: 6 }]}>
+              <Text style={[styles.text, { marginVertical: 1, marginTop: 16 }]}>
                 Total:{" "}
               </Text>
             </View>
@@ -167,7 +175,7 @@ export default function OrderDetails({ order, title }) {
               <Text style={[styles.normalText, { textAlign: "right" }]}>
                 ${parseFloat(taxes).toFixed(2)}
               </Text>
-              <Text style={[styles.normalText, { textAlign: "right" }]}>
+              <Text style={[styles.normalText, { textAlign: "right",marginTop:12 }]}>
                 ${order.total}
               </Text>
             </View>
@@ -176,12 +184,40 @@ export default function OrderDetails({ order, title }) {
       </View>
 
       <View style={styles.table}>
-        <View style={styles.tableHead}>
-          <Text style={styles.text}>Add on</Text>
-          <Text style={styles.text}>Ordered on</Text>
-          <Text style={styles.text}>PRICE</Text>
+          <View style={[styles.tableHead, { justifyContent: "flex-end" }]}>
+            <Text>Total: ${parseFloat(price).toFixed(2)}</Text>
+          </View>
+          <View style={styles.tableHead}>
+            <Text style={styles.text}>Add on</Text>
+            <Text style={styles.text}>Ordered on</Text>
+            <Text style={styles.text}>PRICE</Text>
+          </View>
+          {Array.isArray(order.add_on) &&
+            order.add_on.map((extra, key) => (
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  borderBottomWidth: 0.5,
+                  borderBottomColor: "#777",
+                }}
+                key={key}
+              >
+                <View>
+                  <Text style={{ padding: 4 }}>{extra.item}</Text>
+                  <Text style={{ padding: 4 }}>
+                    ${parseFloat(extra.rate).toFixed(2) + " x " + extra.qty}
+                  </Text>
+                </View>
+                
+                <Text style={{ padding: 4 }}>{extra.order_date}</Text>
+                <Text style={{ padding: 4 }}>
+                  ${parseFloat(extra.subtotal).toFixed(2)}
+                </Text>
+              </View>
+            ))}
         </View>
-      </View>
+     
     </ScrollView>
   );
 }
