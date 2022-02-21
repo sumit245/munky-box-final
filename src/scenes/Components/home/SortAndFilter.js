@@ -40,7 +40,7 @@ export default class SortAndFilter extends Component {
   };
 
   clearFilters = () => {
-    this.setState({ filterCount: 0, rating: 0, meal_type: "", price: "" });
+    this.setState({ filterCount: 0, rating: 0, meal_type: "", price: "",selectedStar:0 });
   };
 
   applyFilter = () => {
