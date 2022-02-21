@@ -154,19 +154,20 @@ export default class DetailStack extends Component {
     );
   };
 
-  applyfilter = async (filter, filterCount) => {
-    console.log(filterCount);
+  applyfilter = async (filter, fc) => {
+    console.log("Filters applied",fc);
     this.setState({
-      loading: true,
-      msg: "Hold on tight!!! Fetching best foods for you",
+      filterCount: fc,
+     // loading: true,
+      //msg: "Hold on tight!!! Fetching best foods for you",
     });
-    const response = await axios.get(VEG_NON_VEG + filter);
-    const filteredRestaurant = await response.data;
-    this.setState({
-      restaurant: filteredRestaurant,
-      loading: false,
-      filterCount: filterCount,
-    });
+    //const response = await axios.get(VEG_NON_VEG + filter);
+    //const filteredRestaurant = await response.data;
+    // this.setState({
+    //   restaurant: filteredRestaurant,
+    //   loading: false,
+    //   filterCount: fc,
+    // });
   };
 
   onRefresh = () => {
@@ -191,8 +192,16 @@ export default class DetailStack extends Component {
   };
 
   render() {
-    const { cuisine, routes, index, loading, msg, highLighted, favCount } =
-      this.state;
+    const {
+      cuisine,
+      routes,
+      index,
+      loading,
+      msg,
+      highLighted,
+      favCount,
+      filterCount,
+    } = this.state;
     {
       return !loading ? (
         <SafeAreaView style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
@@ -200,7 +209,7 @@ export default class DetailStack extends Component {
             favCount={favCount}
             applyfilter={this.applyfilter}
             searchTerm={this.searchByCity}
-            filterCount={this.state.filterCount}
+            filterCount={filterCount}
           />
           <ScrollView
             style={{ flex: 1 }}
