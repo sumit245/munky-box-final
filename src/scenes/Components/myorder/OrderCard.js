@@ -8,10 +8,12 @@ import { styles } from "../../styles/OrderHistoryStyle";
 import axios from "axios";
 import { Actions } from "react-native-router-flux";
 import moment from "moment";
+import { getUser } from "../../../services/user/getuser";
 
-export default function OrderCard({ item }) {
+export default function OrderCard({ item, user_id }) {
   const [rest, setRest] = useState({});
   const [loading, setLoading] = useState(true);
+  const [hasReview, setHasReview] = useState(false);
 
   const fetchRestaurant = async (id) => {
     const restaurant = await axios.get(
@@ -34,9 +36,38 @@ export default function OrderCard({ item }) {
     );
     const { data } = res;
     if (data !== null) {
-      Actions.push("orderDetails", { order: data,title:"#"+id });
+      Actions.push("orderDetails", { order: data, title: "#" + id });
     } else {
       alert("No orders found!!!");
+    }
+  };
+
+  const fetchReviewyUser = async (order_id) => {
+    const user = await getUser("user");
+    const { user_id } = await user.data;
+    const response = await axios.get(
+      "http://munkybox-admin.herokuapp.com/api/review/getreviewByUser/" +
+        user_id +
+        "/" +
+        order_id
+    );
+    const { hasReview } = response.data;
+    setHasReview(hasReview);
+    console.log(order_id, "is", hasReview);
+  };
+  useEffect(() => {
+    fetchReviewyUser(item.order_id);
+  }, []);
+
+  const findAndRate = () => {
+    if (!hasReview) {
+      Actions.push("ratings", {
+        title: rest.restaurant_name,
+        order: item,
+        restaurant: rest,
+      });
+    } else {
+      alert("You have already reviewed this order");
     }
   };
 
@@ -128,13 +159,8 @@ export default function OrderCard({ item }) {
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
               style={[styles.actionButton, { backgroundColor: "#fa0" }]}
-              onPress={() =>
-                Actions.push("ratings", {
-                  title: rest.restaurant_name,
-                  order: item,
-                  restaurant: rest,
-                })
-              }
+              disabled={hasReview}
+              onPress={findAndRate}
             >
               <Icon name="ios-star" size={16} color="#FFF" />
             </TouchableOpacity>

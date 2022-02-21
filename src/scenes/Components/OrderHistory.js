@@ -43,6 +43,7 @@ export default class OrderHistory extends Component {
             </View>
           )}
           renderItem={renderItem}
+          
           keyExtractor={(item) => item.id}
         />
       </SafeAreaView>

@@ -132,7 +132,7 @@ export default function Rate({ navigation, restaurant, order }) {
                   <Chip
                     mode="outlined"
                     onPress={() => pushToLiked(feature)}
-                    selectedColor={likes.includes(feature) ? "#2962ff" : "#000"}
+                    selectedColor={likes.includes(feature) ? "orange" : "#000"}
                     style={{
                       minWidth: 100,
                       height: 40,
@@ -147,8 +147,8 @@ export default function Rate({ navigation, restaurant, order }) {
                     textStyle={{
                       textAlign: "center",
                       fontSize: 14,
-                      color: likes.includes(features) ? "#fff" : "#000",
                       fontWeight: "bold",
+                      color: likes.includes(feature) ? "#fff" : "#000",
                     }}
                     key={key}
                   >
