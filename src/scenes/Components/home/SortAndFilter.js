@@ -40,7 +40,7 @@ export default class SortAndFilter extends Component {
   };
 
   clearFilters = () => {
-    this.setState({ filterCount: 0 });
+    this.setState({ filterCount: 0, rating: 0, meal_type: "", price: "" });
   };
 
   applyFilter = () => {
@@ -71,7 +71,6 @@ export default class SortAndFilter extends Component {
       selectedStar,
     } = this.state;
     const stars = ["5", "4", "3", "2", "1"];
-    console.log(filterCount);
     return (
       <>
         <View>
@@ -222,17 +221,19 @@ export default class SortAndFilter extends Component {
           style={{ flexDirection: "row" }}
         >
           <Icon name="ios-options-outline" size={22} />
-          <Badge
-            size={16}
-            style={{
-              fontWeight: "bold",
-              left: -8,
-              top: -8,
-              backgroundColor: "red",
-            }}
-          >
-            {filterCount}
-          </Badge>
+          {filterCount > 0 && (
+            <Badge
+              size={16}
+              style={{
+                fontWeight: "bold",
+                left: -8,
+                top: -8,
+                backgroundColor: "red",
+              }}
+            >
+              {filterCount}
+            </Badge>
+          )}
         </TouchableOpacity>
       </>
     );

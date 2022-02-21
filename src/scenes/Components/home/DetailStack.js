@@ -155,7 +155,6 @@ export default class DetailStack extends Component {
   };
 
   applyfilter = async (filter, fc) => {
-    console.log("Filters applied",fc);
     this.setState({
       filterCount: fc,
      // loading: true,
