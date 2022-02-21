@@ -119,11 +119,6 @@ export default class AccountStack extends Component {
         </View>
 
         <View style={styles.drawerRow}>
-          <Icons name="cog-outline" color={"#000"} size={24} brand />
-          <Text style={styles.drawerText}>Pin Settings</Text>
-        </View>
-
-        <View style={styles.drawerRow}>
           <Icons name="mail-outline" color={"#000"} size={24} brand />
           <TouchableOpacity
             onPress={() => {

@@ -17,10 +17,11 @@ export default class SortAndFilter extends Component {
     rating: "",
     meal_type: "",
     price: "",
-    filter:"type_filter",
-    selected:0
+    filter: "type_filter",
+    selected: 0,
+    filterCount: this.props.filterCount,
+    selectedStar: "",
   };
-  filter_name = React.createRef("meal_type");
 
   setsortVisible = (visible) => {
     this.setState({ sortVisible: visible });
@@ -30,14 +31,47 @@ export default class SortAndFilter extends Component {
     this.setState({ filter: filter, selected: selected });
   };
 
+  mealTypeSelector = (value) => {
+    this.setState({ meal_type: value });
+  };
+
+  filterStar = (star) => {
+    this.setState({ selectedStar: star, rating: star });
+  };
+
+  clearFilters = () => {
+    this.setState({ filterCount: 0 });
+  };
+
   applyFilter = () => {
-    this.props.applyFilter(this.state.meal_type);
+    let fc = 0;
+    if (this.state.rating !== "") {
+      fc += 1;
+    }
+    if (this.state.meal_type !== "") {
+      fc += 1;
+    }
+    if (this.state.price !== "") {
+      fc += 1;
+    }
+    this.setState({ filterCount: fc });
     this.setState((prevState) => ({ sortVisible: !prevState.sortVisible }));
+    this.props.applyFilter(this.state.meal_type, this.state.filterCount);
   };
 
   render() {
-    const { sortVisible, filter, meal_type, rating, price, selected } =
-      this.state;
+    const {
+      sortVisible,
+      filter,
+      meal_type,
+      rating,
+      price,
+      selected,
+      filterCount,
+      selectedStar,
+    } = this.state;
+    const stars = ["5", "4", "3", "2", "1"];
+    console.log(filterCount);
     return (
       <>
         <View>
@@ -71,7 +105,6 @@ export default class SortAndFilter extends Component {
                         styles.filterText,
                         { color: selected === 0 ? "#00f" : "#444" },
                       ]}
-                      ref={this.filter_name}
                       onPress={() => this.toggleRight("type_filter", 0)}
                     >
                       Meal Type
@@ -96,42 +129,61 @@ export default class SortAndFilter extends Component {
                     >
                       Price
                     </Text>
-
-                    <Text
-                      style={[
-                        styles.filterText,
-                        { color: selected === 3 ? "#00f" : "#444" },
-                      ]}
-                      onPress={() => this.toggleRight("more_filter", 3)}
-                    >
-                      More Filters
-                    </Text>
                   </View>
                   <View style={styles.sortContent}>
                     {filter === "type_filter" ? (
                       <RadioButton.Group
-                        onValueChange={(value) =>
-                          this.setState({ meal_type: value })
-                        }
+                        onValueChange={(value) => this.mealTypeSelector(value)}
                         value={meal_type}
                       >
                         <RadioButton.Item label="Veg" value="Veg" />
                         <RadioButton.Item label="Non-Veg" value="Non-Veg" />
                       </RadioButton.Group>
                     ) : filter === "rating_filter" ? (
-                      <RadioButton.Group
-                        onValueChange={(value) =>
-                          this.setState({ rating: value })
-                        }
-                        value={rating}
+                      <View
+                        style={{
+                          marginTop: "20%",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
                       >
-                        <RadioButton.Item label="Any" value="any" />
-                        <RadioButton.Item
-                          label="Only 3+ rating"
-                          value="three"
-                        />
-                        <RadioButton.Item label="Only 4+ rating" value="four" />
-                      </RadioButton.Group>
+                        {stars.map((star, index) => (
+                          <TouchableOpacity
+                            style={{
+                              flexDirection: "row",
+                              alignItems: "center",
+                              padding: 4,
+                              width: 60,
+                              borderColor: "#ddd",
+                              borderRadius: 2,
+                              borderWidth: 0.8,
+                              marginHorizontal: 4,
+                              marginVertical: 2,
+                              justifyContent: "center",
+                              backgroundColor:
+                                star === selectedStar ? "orange" : "#fff",
+                            }}
+                            onPress={() => this.filterStar(star)}
+                          >
+                            <Icon
+                              name="star"
+                              size={16}
+                              color={star === selectedStar ? "#fff" : "#666"}
+                            />
+                            <Text
+                              style={{
+                                fontSize: 18,
+                                fontWeight: "bold",
+                                color: star === selectedStar ? "#fff" : "#666",
+                              }}
+                              key={index}
+                            >
+                              {" "}
+                              {star}
+                            </Text>
+                          </TouchableOpacity>
+                        ))}
+                      </View>
                     ) : filter === "price_filter" ? (
                       <RadioButton.Group
                         onValueChange={(value) =>
@@ -143,12 +195,15 @@ export default class SortAndFilter extends Component {
                         <RadioButton.Item label="High to Low" value="h2l" />
                         <RadioButton.Item label="Low to High" value="l2h" />
                       </RadioButton.Group>
-                    ):null}
+                    ) : null}
                   </View>
                 </View>
               </View>
               <View style={styles.filterActions}>
-                <TouchableOpacity style={styles.filterBtn}>
+                <TouchableOpacity
+                  style={styles.filterBtn}
+                  onPress={this.clearFilters}
+                >
                   <Text style={{ fontSize: 16, color: "#f00" }}>Clear All</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -167,9 +222,17 @@ export default class SortAndFilter extends Component {
           style={{ flexDirection: "row" }}
         >
           <Icon name="ios-options-outline" size={22} />
-          {/* <Badge size={16} style={{ fontWeight: "bold", left: -8, top: -8,backgroundColor:"red" }}>
-            1
-          </Badge> */}
+          <Badge
+            size={16}
+            style={{
+              fontWeight: "bold",
+              left: -8,
+              top: -8,
+              backgroundColor: "red",
+            }}
+          >
+            {filterCount}
+          </Badge>
         </TouchableOpacity>
       </>
     );

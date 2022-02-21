@@ -7,6 +7,7 @@ import moment from "moment";
 import MealList, { Item } from "./MealList";
 import AddOns from "./AddOns";
 import FutureMeals from "./FutureMeals";
+import Loader from "../utility/Loader";
 
 export default function SubscriptionItem({
   item,
@@ -61,6 +62,7 @@ export default function SubscriptionItem({
   }, [index]);
 
   const fetchSubscriptionDetails = async () => {
+    setLoaded(false);
     const restaurantorders = await axios.get(
       "https://munkybox-admin.herokuapp.com/api/newrest/getorders/" +
         item.restaurant_id
@@ -73,16 +75,16 @@ export default function SubscriptionItem({
     let dayafterafter = meals.find((item) => item.day === days[today + 3]);
     let futuremeals = [tomorrowMeal, dayafterMeal, dayafterafter];
     setFutureMeals(futuremeals);
-    let remaining = moment(state.end_date).diff(
-      moment(state.start_date),
-      "days" || 0
-    );
-    setRemaining(remaining);
     let futuredays = [days[today + 1], days[today + 2], days[today + 3]];
     setFutureDays(futuredays);
+    setstate({ ...state, ...item });
     setLoaded(true);
   };
-
+  const fetchRemaining = () => {
+    let remaining =
+      moment(state.end_date).diff(moment(state.start_date), "days") || 0;
+    setRemaining(remaining);
+  };
   const getCurrentOrderDetails = async () => {
     const res = await axios.get(
       "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getOrderDetails/" +
@@ -116,9 +118,11 @@ export default function SubscriptionItem({
 
   useEffect(() => {
     getCurrentOrderDetails();
-    setstate({ ...state, ...item });
     fetchSubscriptionDetails();
-  }, [item, remaining]);
+  }, [item]);
+  useEffect(() => {
+    fetchRemaining();
+  }, [state.start_date, state.end_date]);
 
   if (loaded) {
     const { address_type, flat_num, city, locality, postal_code } =
@@ -278,6 +282,8 @@ export default function SubscriptionItem({
       </SafeAreaView>
     );
   } else {
-    return null;
+    return (
+      <Loader msg="Please wait while we are fetching your subscriptions" />
+    );
   }
 }

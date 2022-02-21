@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 
 export default function SearchComponent({ search, setSearch }) {
-  const [searching, setSearching] = useState(false);
+  const [searching, setSearching] = useState(true);
   const isSearching = () => {
     setSearching(!searching);
     setSearch(searching);

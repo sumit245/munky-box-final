@@ -42,6 +42,7 @@ export default class DetailStack extends Component {
     favCount: 0,
     refreshing: false,
     search: false,
+    filterCount: 0,
   };
 
   _handleIndexChange = async (index) => {
@@ -153,16 +154,18 @@ export default class DetailStack extends Component {
     );
   };
 
-  applyfilter = async (filter) => {
+  applyfilter = async (filter, filterCount) => {
+    console.log(filterCount);
     this.setState({
       loading: true,
       msg: "Hold on tight!!! Fetching best foods for you",
     });
     const response = await axios.get(VEG_NON_VEG + filter);
-    const filtererRestaurant = await response.data;
+    const filteredRestaurant = await response.data;
     this.setState({
-      restaurant: filtererRestaurant,
+      restaurant: filteredRestaurant,
       loading: false,
+      filterCount: filterCount,
     });
   };
 
@@ -197,6 +200,7 @@ export default class DetailStack extends Component {
             favCount={favCount}
             applyfilter={this.applyfilter}
             searchTerm={this.searchByCity}
+            filterCount={this.state.filterCount}
           />
           <ScrollView
             style={{ flex: 1 }}
