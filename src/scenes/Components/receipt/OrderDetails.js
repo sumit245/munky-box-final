@@ -12,17 +12,15 @@ export default function OrderDetails({ order, title }) {
   useEffect(() => {
     let tax = order.taxes;
     let sf = order.service_fee;
-    let calcSF =
-      ((parseFloat(order.price) + parseFloat(order.delivery_fee)) *
-        parseFloat(sf)) /
-      100;
+    let calcSF = parseFloat(order.price) * parseFloat(sf) * 0.01;
     let calcTax =
-      ((parseFloat(order.price) +
+      (parseFloat(order.price) +
         parseFloat(order.delivery_fee) +
         parseFloat(calcSF) -
-        parseFloat(order.discount)) *
-        parseFloat(order.taxes)) /
-      100;
+        parseFloat(order.discount) +
+        parseFloat(order.tip)) *
+      parseFloat(order.taxes) *
+      0.01;
     setServiceFee(calcSF);
     setTaxes(calcTax);
   }, []);
