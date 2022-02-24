@@ -12,10 +12,7 @@ export default class Logo extends Component {
           }}
         >
           <Text style={{ color: "#F15050", fontSize: 30, fontWeight: "bold" }}>
-            Munky
-          </Text>
-          <Text style={{ color: "#155ef6", fontSize: 29, fontWeight: "bold" }}>
-            Box
+            Feasti
           </Text>
         </View>
       </>

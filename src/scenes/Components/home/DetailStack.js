@@ -36,6 +36,7 @@ export default class DetailStack extends Component {
     ],
     cuisine: [],
     restaurant: [],
+    tempRestaurant: [],
     loading: true,
     msg: "Fetching some best restaurant for you",
     highLighted: false,
@@ -154,19 +155,23 @@ export default class DetailStack extends Component {
     );
   };
 
-  applyfilter = async (filter, fc) => {
+  applyfilter = (filter, fc) => {
+    let allRestaurant = this.state.restaurant;
     this.setState({
       filterCount: fc,
-     // loading: true,
-      //msg: "Hold on tight!!! Fetching best foods for you",
+      tempRestaurant: allRestaurant,
     });
-    //const response = await axios.get(VEG_NON_VEG + filter);
-    //const filteredRestaurant = await response.data;
-    // this.setState({
-    //   restaurant: filteredRestaurant,
-    //   loading: false,
-    //   filterCount: fc,
-    // });
+    let filteredRestaurant = allRestaurant.filter(
+      (item) => item.meal_type === filter
+    );
+    this.setState({
+      restaurant: filteredRestaurant,
+    });
+  };
+
+  clearfilter = () => {
+    let allRestaurant = this.state.tempRestaurant;
+    this.setState({ restaurant: allRestaurant });
   };
 
   onRefresh = () => {
@@ -182,12 +187,19 @@ export default class DetailStack extends Component {
   componentDidUpdate() {
     this.getFavoriteCount();
   }
-  searchByCity = (query) => {
-    let myRestaurant = this.state.restaurant;
-    let filteredRestaurant = myRestaurant.filter((item) => item.city === query);
-    this.setState({
-      restaurant: filteredRestaurant,
-    });
+
+  searchByCity = (query,isSearching) => {
+    let allRestaurant = this.state.restaurant;
+    if (query === "") {
+      this.setState({ restaurant: allRestaurant });
+    } else {
+      let filteredRestaurant = allRestaurant.filter(
+        (item) => item.city === query
+      );
+      this.setState({
+        restaurant: filteredRestaurant,
+      });
+    }
   };
 
   render() {
@@ -202,72 +214,75 @@ export default class DetailStack extends Component {
       filterCount,
     } = this.state;
     {
-      return !loading ? (
+      return (
         <SafeAreaView style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
           <HeaderComponent
             favCount={favCount}
             applyfilter={this.applyfilter}
+            clearfilter={this.clearfilter}
             searchTerm={this.searchByCity}
             filterCount={filterCount}
           />
-          <ScrollView
-            style={{ flex: 1 }}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.loading}
-                onRefresh={this.onRefresh}
-                colors={["#f00", "#0f0", "#00f"]}
+          {!loading ? (
+            <ScrollView
+              style={{ flex: 1 }}
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.loading}
+                  onRefresh={this.onRefresh}
+                  colors={["#f00", "#0f0", "#00f"]}
+                />
+              }
+            >
+              <View>
+                <FlatList
+                  contentContainerStyle={{ marginLeft: 4, marginBottom: 8 }}
+                  data={cuisine}
+                  ListHeaderComponent={() => (
+                    <>
+                      <TouchableOpacity
+                        style={[
+                          styles.firstCuisine,
+                          {
+                            borderColor: !highLighted ? "#2266cf" : "fff",
+                          },
+                        ]}
+                        onPress={this.getApiData}
+                      >
+                        <Icon name="restaurant-outline" size={20} />
+                      </TouchableOpacity>
+                      <Text
+                        style={[
+                          styles.cuisine_name,
+                          {
+                            fontWeight: !highLighted ? "bold" : "normal",
+                          },
+                        ]}
+                      >
+                        All
+                      </Text>
+                    </>
+                  )}
+                  renderItem={this.renderCuisine}
+                  keyExtractor={(item) => item._id}
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                />
+              </View>
+              <BannerCarousel />
+
+              <TabView
+                navigationState={{ index, routes }}
+                renderScene={this.renderScene}
+                renderTabBar={this.renderTabBar}
+                onIndexChange={this._handleIndexChange}
+                style={{ marginTop: -20, marginHorizontal: 2 }}
               />
-            }
-          >
-            <View>
-              <FlatList
-                contentContainerStyle={{ marginLeft: 4, marginBottom: 8 }}
-                data={cuisine}
-                ListHeaderComponent={() => (
-                  <>
-                    <TouchableOpacity
-                      style={[
-                        styles.firstCuisine,
-                        {
-                          borderColor: !highLighted ? "#2266cf" : "fff",
-                        },
-                      ]}
-                      onPress={this.getApiData}
-                    >
-                      <Icon name="restaurant-outline" size={20} />
-                    </TouchableOpacity>
-                    <Text
-                      style={[
-                        styles.cuisine_name,
-                        {
-                          fontWeight: !highLighted ? "bold" : "normal",
-                        },
-                      ]}
-                    >
-                      All
-                    </Text>
-                  </>
-                )}
-                renderItem={this.renderCuisine}
-                keyExtractor={(item) => item._id}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-              />
-            </View>
-            <BannerCarousel />
-            {/* <Lunch restaurant={this.state.restaurant} /> */}
-            <TabView
-              navigationState={{ index, routes }}
-              renderScene={this.renderScene}
-              renderTabBar={this.renderTabBar}
-              onIndexChange={this._handleIndexChange}
-              style={{ marginTop: -20, marginHorizontal: 2 }}
-            />
-          </ScrollView>
+            </ScrollView>
+          ) : (
+            <Loader msg={msg} />
+          )}
         </SafeAreaView>
-      ) : (
-        <Loader msg={msg} />
       );
     }
   }

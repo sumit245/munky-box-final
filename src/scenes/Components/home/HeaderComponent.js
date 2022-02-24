@@ -10,6 +10,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 export default function HeaderComponent({
   favCount,
   applyfilter,
+  clearfilter,
   searchTerm,
   filterCount,
 }) {
@@ -43,7 +44,11 @@ export default function HeaderComponent({
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <SearchComponent setSearch={setSearch} />
         <FavoritePicker favCount={favCount} />
-        <SortAndFilter applyFilter={applyfilter} filterCount={filterCount} />
+        <SortAndFilter
+          applyFilter={applyfilter}
+          filterCount={filterCount}
+          clearfilter={clearfilter}
+        />
       </View>
     </View>
   );

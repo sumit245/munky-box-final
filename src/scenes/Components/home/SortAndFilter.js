@@ -40,7 +40,15 @@ export default class SortAndFilter extends Component {
   };
 
   clearFilters = () => {
-    this.setState({ filterCount: 0, rating: 0, meal_type: "", price: "",selectedStar:0 });
+    this.setState({
+      filterCount: 0,
+      rating: 0,
+      meal_type: "",
+      price: "",
+      selectedStar: 0,
+      sortVisible: false,
+    });
+    this.props.clearfilter();
   };
 
   applyFilter = () => {
