@@ -55,7 +55,11 @@ export const ModalOpener = ({ restaurant_id }) => {
               margin: 1,
             }}
           >
-            <Image style={styles.imageThumbnail} source={{ uri: item.image }} />
+            <Image
+              style={styles.imageThumbnail}
+              source={{ uri: item.image }}
+              resizeMode="contain"
+            />
             <Text
               style={{
                 textAlign: "center",
@@ -63,8 +67,8 @@ export const ModalOpener = ({ restaurant_id }) => {
                 bottom: 20,
                 left: "40%",
                 fontWeight: "bold",
-                fontSize:16,
-                color:"#fff"
+                fontSize: 16,
+                color: "#fff",
               }}
             >
               {item.image_name}
