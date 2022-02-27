@@ -68,7 +68,7 @@ export const ModalOpener = ({ restaurant_id }) => {
                 left: "40%",
                 fontWeight: "bold",
                 fontSize: 16,
-                color: "#fff",
+                color: "#000",
               }}
             >
               {item.image_name}
