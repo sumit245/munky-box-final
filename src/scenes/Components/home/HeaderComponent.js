@@ -13,6 +13,7 @@ export default function HeaderComponent({
   clearfilter,
   searchTerm,
   filterCount,
+  clearSearch,
 }) {
   const [isSearching, setSearching] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -36,6 +37,7 @@ export default function HeaderComponent({
           }}
           onChangeText={onChangeSearch}
           value={searchQuery}
+          onIconPress={clearSearch}
           iconColor="#226cff"
           clearIcon={() => <Icon name="close" size={16} color="#000" />}
           onSubmitEditing={() => searchTerm(searchQuery)}

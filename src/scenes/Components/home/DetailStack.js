@@ -109,7 +109,12 @@ export default class DetailStack extends Component {
     const restaurantResponse = await axios.get(RESTAURANT_URL);
     const restaurant = await restaurantResponse.data;
     this.getFavoriteCount();
-    this.setState({ restaurant: restaurant, cuisine: cuisine, loading: false });
+    this.setState({
+      restaurant: restaurant,
+      cuisine: cuisine,
+      loading: false,
+      tempRestaurant: restaurant,
+    });
   }
 
   selectCuisine = async (cuisine) => {
@@ -188,20 +193,16 @@ export default class DetailStack extends Component {
     this.getFavoriteCount();
   }
 
-  searchByCity = (query,isSearching) => {
-    let allRestaurant = this.state.restaurant;
-    if (query === "") {
-      this.setState({ restaurant: allRestaurant });
-    } else {
-      let filteredRestaurant = allRestaurant.filter(
-        (item) => item.city === query
-      );
-      this.setState({
-        restaurant: filteredRestaurant,
-      });
-    }
+  searchByCity = (query, isSearching) => {
+    let allRestaurant = tempRestaurant;
+    let filteredRestaurant = allRestaurant.filter((item) => item.city);
+    this.setState({
+      restaurant: filteredRestaurant,
+    });
   };
-
+  clearSearch = () => {
+    this.setState({ restaurant: tempRestaurant });
+  };
   render() {
     const {
       cuisine,
@@ -222,6 +223,7 @@ export default class DetailStack extends Component {
             clearfilter={this.clearfilter}
             searchTerm={this.searchByCity}
             filterCount={filterCount}
+            clearSearch={this.clearSearch}
           />
           {!loading ? (
             <ScrollView

@@ -57,7 +57,7 @@ export default function OrderCard({ item, user_id }) {
   };
   useEffect(() => {
     fetchReviewyUser(item.order_id);
-  }, []);
+  }, [item.order_id]);
 
   const findAndRate = () => {
     if (!hasReview) {
@@ -159,7 +159,6 @@ export default function OrderCard({ item, user_id }) {
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
               style={[styles.actionButton, { backgroundColor: "#fa0" }]}
-              disabled={hasReview}
               onPress={findAndRate}
             >
               <Icon name="ios-star" size={16} color="#FFF" />

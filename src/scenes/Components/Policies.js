@@ -7,15 +7,9 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-
-//import for the animation of Collapse and Expand
 import * as Animatable from "react-native-animatable";
-
-//import for the Accordion view
 import Accordion from "react-native-collapsible/Accordion";
 
-//Dummy content to show
-//You can also use dynamic data by calling web service
 const CONTENT = [
   {
     title: "Terms and Conditions",
@@ -43,22 +37,15 @@ const SELECTORS = [
 ];
 
 const Policies = () => {
-  // Ddefault active selector
   const [activeSections, setActiveSections] = useState([]);
-  // Collapsed condition for the single collapsible
   const [collapsed, setCollapsed] = useState(true);
-  // MultipleSelect is for the Multiple Expand allowed
-  // True: Expand multiple at a time
-  // False: One can be expand at a time
   const [multipleSelect, setMultipleSelect] = useState(false);
 
   const toggleExpanded = () => {
-    //Toggling the state of single Collapsible
     setCollapsed(!collapsed);
   };
 
   const setSections = (sections) => {
-    //setting up a active section state
     setActiveSections(sections.includes(undefined) ? [] : sections);
   };
 

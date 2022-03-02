@@ -38,6 +38,7 @@
     "react-native-paper": "^4.2.0",
     "react-native-parallax-scroll-view": "^0.21.3",
     "react-native-phone-number-input": "^1.1.0",
+    "react-native-pin-view": "^3.0.2",
     "react-native-ratings": "^8.1.0",
     "react-native-reanimated": "^2.2.0",
     "react-native-router-flux": "^4.3.1",

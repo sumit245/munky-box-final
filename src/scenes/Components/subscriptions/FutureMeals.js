@@ -11,7 +11,7 @@ export default function FutureMeals({ meals, futuredays }) {
   ]);
 
   const [index, setIndex] = useState(0);
-
+  
   const renderTabBar = (props) => (
     <TabBar
       {...props}
