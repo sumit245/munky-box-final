@@ -7,6 +7,7 @@ export default function SearchComponent({ search, setSearch }) {
   const isSearching = () => {
     setSearching(!searching);
     setSearch(searching);
+    
   };
   return (
     <View>

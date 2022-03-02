@@ -8,6 +8,7 @@ import MealList, { Item } from "./MealList";
 import AddOns from "./AddOns";
 import FutureMeals from "./FutureMeals";
 import Loader from "../utility/Loader";
+import Notes from "./Notes";
 
 export default function SubscriptionItem({
   item,
@@ -70,19 +71,44 @@ export default function SubscriptionItem({
     const { meals } = await restaurantorders.data;
     let todayMeal = meals.find((item) => item.day === days[today]);
     setTodayMeal(todayMeal);
-    let tomorrowMeal = meals.find((item) => item.day === days[today + 1]);
-    let dayafterMeal = meals.find((item) => item.day === days[today + 2]);
-    let dayafterafter = meals.find((item) => item.day === days[today + 3]);
-    let futuremeals = [tomorrowMeal, dayafterMeal, dayafterafter];
-    setFutureMeals(futuremeals);
-    let futuredays = [days[today + 1], days[today + 2], days[today + 3]];
-    setFutureDays(futuredays);
+    if (today <= 3) {
+      let tomorrowMeal = meals.find((item) => item.day === days[today + 1]);
+      let dayafterMeal = meals.find((item) => item.day === days[today + 2]);
+      let dayafterafter = meals.find((item) => item.day === days[today + 3]);
+      let futuremeals = [tomorrowMeal, dayafterMeal, dayafterafter];
+      setFutureMeals(futuremeals);
+      let futuredays = [days[today + 1], days[today + 2], days[today + 3]];
+      setFutureDays(futuredays);
+    } else if (today === 4) {
+      let tomorrowMeal = meals.find((item) => item.day === "Friday");
+      let dayafterMeal = meals.find((item) => item.day === "Saturday");
+      let dayafterafter = meals.find((item) => item.day === "Sunday");
+      let futuremeals = [tomorrowMeal, dayafterMeal, dayafterafter];
+      setFutureMeals(futuremeals);
+      let futuredays = ["Friday", "Saturday", "Sunday"];
+      setFutureDays(futuredays);
+    } else if (today === 5) {
+      let tomorrowMeal = meals.find((item) => item.day === "Saturday");
+      let dayafterMeal = meals.find((item) => item.day === "Sunday");
+      let dayafterafter = meals.find((item) => item.day === "Monday");
+      let futuremeals = [tomorrowMeal, dayafterMeal, dayafterafter];
+      setFutureMeals(futuremeals);
+      let futuredays = ["Saturday", "Sunday", "Monday"];
+      setFutureDays(futuredays);
+    } else if (today === 6) {
+      let tomorrowMeal = meals.find((item) => item.day === "Sunday");
+      let dayafterMeal = meals.find((item) => item.day === "Monday");
+      let dayafterafter = meals.find((item) => item.day === "Tuesday");
+      let futuremeals = [tomorrowMeal, dayafterMeal, dayafterafter];
+      setFutureMeals(futuremeals);
+      let futuredays = ["Sunday", "Monday", "Tuesday"];
+      setFutureDays(futuredays);
+    }
     setstate({ ...state, ...item });
     setLoaded(true);
   };
   const fetchRemaining = () => {
-    let remaining =
-      moment(state.end_date).diff(moment(state.start_date), "days") || 0;
+    let remaining = moment(state.end_date).diff(moment(), "days") || 0;
     setRemaining(remaining);
   };
   const getCurrentOrderDetails = async () => {
@@ -252,6 +278,10 @@ export default function SubscriptionItem({
               />
             </View>
 
+            <View style={styles.optionCard}>
+              <Notes notes={item.notes} order_id={item._id} />
+            </View>
+
             <View style={[styles.optionCard, { width: width - 4 }]}>
               <Text
                 style={{ fontWeight: "bold", fontSize: 16, marginBottom: 4 }}
@@ -262,23 +292,6 @@ export default function SubscriptionItem({
             </View>
           </View>
         </ScrollView>
-
-        <View
-          style={{
-            position: "absolute",
-            bottom: "-1%",
-            left: "36%",
-            elevation: 10,
-            zIndex: 1000,
-            justifyContent: "space-between",
-            flexDirection: "row",
-            alignItems: "center",
-            marginHorizontal: "2%",
-            width: "96%",
-          }}
-        >
-          <Icon name="dots-three-horizontal" size={48} color="#000" />
-        </View>
       </SafeAreaView>
     );
   } else {

@@ -188,7 +188,7 @@ export default class DetailStack extends Component {
     this.getFavoriteCount();
   }
 
-  searchByCity = (query,isSearching) => {
+  searchByCity = (query,isSearchingr) => {
     let allRestaurant = this.state.restaurant;
     if (query === "") {
       this.setState({ restaurant: allRestaurant });

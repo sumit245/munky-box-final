@@ -25,15 +25,16 @@ export default function BannerCarousel() {
     );
     const data = await response.data;
     setPage(data);
-    
+
     if (data.length !== 0) {
       setLoaded(true);
     }
   };
   const registerClicks = async (restaurant) => {
+    const id = restaurant.banner.promo_id;
     const response = await axios.get(
       "http://munkybox-admin.herokuapp.com/api/chefdashboard/getchefbyidandupdatebannercount/" +
-        restaurant.restaurant.restaurant_id
+        id
     );
     Actions.push("details", {
       title: restaurant.restaurant.restaurant_name,
