@@ -14,7 +14,7 @@ export default class PlanDuration extends Component {
       modalVisible: false,
       selectedStartDate: null,
       selectedEndDate: null,
-      minDate: new Date(),
+      minDate: moment(new Date()).add(1,"day"),
     };
   }
   onDateChange = (date, type) => {

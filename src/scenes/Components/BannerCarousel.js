@@ -33,7 +33,7 @@ export default function BannerCarousel() {
   const registerClicks = async (restaurant) => {
     const response = await axios.get(
       "http://munkybox-admin.herokuapp.com/api/chefdashboard/getchefbyidandupdatebannercount/" +
-        restaurant.restaurant.restaurant_id
+        restaurant.banner.promo_id
     );
     Actions.push("details", {
       title: restaurant.restaurant.restaurant_name,
