@@ -75,11 +75,75 @@ const ReviewItem = ({ title, avatar, review }) => {
           </View>
 
           <Text
-            style={{ marginLeft: -48, marginVertical: 6, width: 380 }}
-            numberOfLines={3}
+            style={{
+              marginLeft: -48,
+              marginVertical: 6,
+              maxWidth: width - 48,
+              textAlign: "justify",
+              flexShrink: 1,
+              flexWrap: "wrap",
+              alignItems: "flex-start",
+            }}
+            numberOfLines={7}
           >
             {review.details}
           </Text>
+
+          {review.comments.length > 0 ? (
+            <View
+              style={{
+                marginVertical: 16,
+                backgroundColor: "#ededed",
+                padding: 8,
+                borderRadius: 6,
+                marginLeft: -6,
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginBottom: 8,
+                }}
+              >
+                <Text
+                  style={{ fontWeight: "bold", fontSize: 12, marginRight: 4 }}
+                >
+                  {review.comments[0].restaurant_name}
+                </Text>
+                <View
+                  style={{
+                    paddingHorizontal: 4,
+                    padding: 1,
+                    backgroundColor: "#4464b7",
+                    borderRadius: 14,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginHorizontal: 2,
+                  }}
+                >
+                  <Text
+                    style={{ color: "#fff", fontSize: 10, textAlign: "center" }}
+                  >
+                    Replied ✔
+                  </Text>
+                </View>
+              </View>
+              <Text
+                style={{
+                  marginVertical: 6,
+                  maxWidth: "100%",
+                  textAlign: "justify",
+                  flexShrink: 1,
+                  flexWrap: "wrap",
+                  alignItems: "flex-start",
+                }}
+                numberOfLines={7}
+              >
+                {review.comments[0].body}
+              </Text>
+            </View>
+          ) : null}
         </View>
       </View>
     </View>

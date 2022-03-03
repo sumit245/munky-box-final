@@ -22,9 +22,9 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   cuisineContent: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     alignSelf: "center",
     borderWidth: 1,
   },

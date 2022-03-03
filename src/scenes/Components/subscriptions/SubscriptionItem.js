@@ -198,7 +198,8 @@ export default function SubscriptionItem({
                 REMAINING
               </Text>
               <Text>
-                {remaining} {parseInt(remaining) > 1 ? "Meals" : "Meal"}
+                {parseInt(remaining) + 1}{" "}
+                {parseInt(remaining) > 1 ? "Meals" : "Meal"}
               </Text>
             </View>
           </View>
