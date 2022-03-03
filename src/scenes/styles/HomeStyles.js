@@ -102,6 +102,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 14,
     fontWeight: "bold",
+    flexWrap:"wrap"
   },
   price: {
     borderRightWidth: 0.6,

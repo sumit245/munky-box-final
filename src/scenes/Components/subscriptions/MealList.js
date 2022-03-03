@@ -25,7 +25,7 @@ export const Item = ({ meal, index }) => {
             size={18}
             color={type === "veg" ? "#0f0" : "#f00"}
           />
-          <View>
+          <View style={{width:"90%"}}>
             <Text style={styles.title}>{meal_name}</Text>
             <Text style={[styles.subtitle,{fontWeight:"normal"}]} numberOfLines={2}>
               {description}

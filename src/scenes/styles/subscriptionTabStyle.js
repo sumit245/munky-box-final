@@ -43,6 +43,9 @@ export const styles = StyleSheet.create({
     marginLeft: 4,
     fontSize: 14,
     fontWeight: "bold",
+    flexWrap:"wrap",
+    alignItems:"flex-start",
+    flexShrink:1
   },
   subtitle: {
     fontSize: 12,
