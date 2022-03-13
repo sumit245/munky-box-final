@@ -27,7 +27,7 @@ export default class ManageAddress extends Component {
           style={{ flex: 1 }}
         >
           <ScrollView>
-            <MaterialMapView style={styles.materialMapView}></MaterialMapView>
+            <MaterialMapView style={styles.materialMapView}/>
             <ManualEntry
               address={this.props.address}
               entryMethod={this.props.entryMethod}

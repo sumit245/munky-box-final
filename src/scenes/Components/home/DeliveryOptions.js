@@ -30,12 +30,20 @@ export default class DeliveryOptions extends Component {
     await saveUser("user", JSON.stringify(users));
     this.setState({ addresses: addresses });
   };
-  async componentDidMount() {
+  async fetchandsave() {
     const users = await getUser("user");
     const { _id } = users.data;
     const userResponse = await axios.get(USER_URL + _id);
     const { addresses } = await userResponse.data;
     this.setState({ addresses: addresses, address: addresses[0].address_type });
+  }
+  componentDidMount() {
+    this.fetchandsave();
+  }
+  componentDidUpdate(prevProps) {
+    if (this.state.address !== this.props.address) {
+      this.fetchandsave();
+    }
   }
   render() {
     const { modalVisible, addresses } = this.state;
@@ -60,59 +68,72 @@ export default class DeliveryOptions extends Component {
                 >
                   <Icon name="close-sharp" color="red" size={18} />
                 </TouchableOpacity>
-                <View style={{flex:1}}>
-                <ScrollView style={{height:120}} showsVerticalScrollIndicator={true} >
-                {addresses.map((data, key) => (
-                  <TouchableOpacity
-                    style={{
-                      flexDirection: "row",
-                      paddingVertical: 2,
-                      borderBottomColor: "#979797",
-                      borderBottomWidth: 0.3,
-                      borderBottomStartRadius: 30,
-                      width: 200,
-                    }}
-                    key={key}
-                    onPress={() => {
-                      this.setAddress(data.address_type);
-                    }}
+                <View style={{ flex: 1 }}>
+                  <ScrollView
+                    style={{ height: 120 }}
+                    showsVerticalScrollIndicator={true}
                   >
-                    <Icon
-                      name={
-                        data.address_type === "home"
-                          ? "ios-home-outline"
-                          : data.address_type === "office"
-                          ? "business-outline"
-                          : "earth-outline"
-                      }
-                      size={16}
-                      style={styles.modalText}
-                      color="#979797"
-                    />
-                    <View>
-
-                    <Text style={styles.modalText}>{data.address_type}</Text>
-                    <Text style={[styles.modalText,{fontSize:12,fontWeight:"normal"}]}>{(data.flat_num ||"")+","+(data.locality||"")+" "+(data.city||"")}</Text>
-                    </View>
-                  </TouchableOpacity>
-                ))}
-                
-                </ScrollView>
+                    {addresses.map((data, key) => (
+                      <TouchableOpacity
+                        style={{
+                          flexDirection: "row",
+                          paddingVertical: 2,
+                          borderBottomColor: "#979797",
+                          borderBottomWidth: 0.3,
+                          borderBottomStartRadius: 30,
+                          width: 200,
+                        }}
+                        key={key}
+                        onPress={() => {
+                          this.setAddress(data.address_type);
+                        }}
+                      >
+                        <Icon
+                          name={
+                            data.address_type === "home"
+                              ? "ios-home-outline"
+                              : data.address_type === "office"
+                              ? "business-outline"
+                              : "earth-outline"
+                          }
+                          size={16}
+                          style={styles.modalText}
+                          color="#979797"
+                        />
+                        <View>
+                          <Text style={styles.modalText}>
+                            {data.address_type}
+                          </Text>
+                          <Text
+                            style={[
+                              styles.modalText,
+                              { fontSize: 12, fontWeight: "normal" },
+                            ]}
+                          >
+                            {(data.flat_num || "") +
+                              "," +
+                              (data.locality || "") +
+                              " " +
+                              (data.city || "")}
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    ))}
+                  </ScrollView>
                 </View>
-                  <Text
-                    style={[
-                      styles.modalText,
-                      { fontWeight: "bold", color: "#226ccf" },
-                    ]}
-                    onPress={() => {
-                      this.setState({ modalVisible: false });
-                      Actions.push("listAddress");
-                    }}
-                  >
-                    <Icon name="add-sharp" size={20} color="#226ccf" />
-                    Add Address
-                  </Text>
-                
+                <Text
+                  style={[
+                    styles.modalText,
+                    { fontWeight: "bold", color: "#226ccf" },
+                  ]}
+                  onPress={() => {
+                    this.setState({ modalVisible: false });
+                    Actions.push("listAddress");
+                  }}
+                >
+                  <Icon name="add-sharp" size={20} color="#226ccf" />
+                  Add Address
+                </Text>
               </View>
             </TouchableOpacity>
           </Modal>

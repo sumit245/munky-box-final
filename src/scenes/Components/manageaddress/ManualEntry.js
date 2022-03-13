@@ -83,7 +83,7 @@ export default class ManualEntry extends Component {
     //problem in this block:TODO
   };
   render() {
-    const { style, address_type, loading } = this.state;
+    const { address_type, loading } = this.state;
     if (!loading) {
       return (
         <View style={styles.container}>
@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
   },
   selectAddress: {
     fontSize: 16,
-    color: "#000",
+    color: "#000",    
     padding: 6,
   },
   inputContainer: {
@@ -294,8 +294,6 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 0.2,
     marginHorizontal: 2,
-    bottom: -148,
-    position: "absolute",
     padding: 6,
     height: 44,
     backgroundColor: "#2962ff",
