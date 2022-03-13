@@ -7,7 +7,7 @@ import {
   Image,
   SafeAreaView,
   Keyboard,
-  StatusBar,
+  LogBox,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import CheckoutAddress from "./CheckoutAddress";
@@ -25,7 +25,12 @@ import { Actions } from "react-native-router-flux";
 import { styles, width, height } from "../../styles/CheckoutStyles";
 import Loader from "../utility/Loader";
 import BackButton from "../utility/BackButton";
-
+import {
+  useStripe,
+  useConfirmPayment,
+  StripeProvider,
+} from "@stripe/stripe-react-native";
+LogBox.ignoreAllLogs(true);
 export default function CheckOut({
   plan,
   restaurant,
@@ -56,9 +61,13 @@ export default function CheckOut({
     total: 0,
     promo_code: "",
   });
-
+  const { confirmPayment, loading } = useConfirmPayment();
   const [addressLoading, setAddressLoading] = useState(true);
   const [isKeyboardOn, setKeyboardOn] = useState(false);
+  const STRIPE_ERROR = "Payment service error. Try again later.";
+  const SERVER_ERROR = "Server error. Try again later.";
+  const STRIPE_PUBLISHABLE_KEY =
+    "pk_test_51KammvB9SdGdzaTpAZcPCcQVMesbuC5qY3Sng1rdnEfnfo2geOUP8CQ27sw0WBjpiMpdYBRoAQ1eX8czY8BEEWdO00teqn55mD";
 
   const getchefbynameandupdatecartcount = async (restaurant_id) => {
     let MENU_COUNT_URL =
@@ -114,6 +123,23 @@ export default function CheckOut({
       service_fee: service_fee,
     });
   };
+  const fetchPaymentIntentClientSecret = async (amount) => {
+    const response = await fetch(
+      "https://munkybox-admin.herokuapp.com/api/stripe/create-payment-intent",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: amount,
+          currency: "cad",
+        }),
+      }
+    );
+    const { clientSecret } = await response.json();
+    return clientSecret;
+  };
   const orderNow = async () => {
     const {
       user,
@@ -138,6 +164,7 @@ export default function CheckOut({
       promo_id,
       promo_code,
     } = state;
+    const clientSecret = await fetchPaymentIntentClientSecret(total * 100);
     const { user_id, email_id, first_name, last_name, phone } = user;
     const newOrder = {
       time: time,
@@ -167,10 +194,24 @@ export default function CheckOut({
       notes,
       order_time: new Date().toISOString(),
     };
+    const billingDetails = {
+      email_id: newOrder.email_id,
+      user_id: newOrder.user_id,
+      user_name: newOrder.user_name,
+      restaurant_id: newOrder.restaurant_id,
+    };
+    const { paymentIntent, error } = await confirmPayment(
+      clientSecret,
+      {
+        type: "Card",
+        billingDetails,
+      },
+    );
     const response = await axios.post(ORDER_URL, newOrder);
     const data = await response.data;
     Actions.push("thankyou", { id: data.data._id, msg: data.msg });
   };
+
   const fetchUser = async () => {
     const response = await getUser("user");
     const user = await response.data;
@@ -216,114 +257,120 @@ export default function CheckOut({
   }
   return (
     <SafeAreaView style={styles.container}>
-      <View
-        style={{
-          position: "absolute",
-          left: 5,
-          top: 48,
-          borderRadius: 20,
-          backgroundColor: "#cccccc",
-          zIndex: 1000,
-          height: 30,
-          width: 30,
-          justifyContent: "center",
-        }}
-      >
-        <BackButton />
-      </View>
-      <ScrollView
-        stickyHeaderIndices={[1]}
-        showsVerticalScrollIndicator={false}
-      >
-        <Image
-          source={{ uri: uri }}
-          style={{ width: width, height: 170, resizeMode: "cover" }}
-          height={150}
-        />
-        <View style={styles.restaurantHeader}>
-          <View style={styles.restaurantTitle}>
-            <Icon
-              style={{ margin: 2, marginTop: 6 }}
-              name="stop-circle"
-              color={meal_type === "veg" ? "#2aaf21" : "#cc2224"}
-              size={16}
-            />
-            <Text style={styles.welcomeText}>{restaurant}</Text>
-          </View>
-          <View style={{ marginTop: 2 }}>
-            <View style={styles.subheader}>
-              <Text style={[styles.mealText, { color: "#777" }]}>
-                Subscription
-              </Text>
-              <Text style={[styles.mealText, { color: "#777" }]}>Price</Text>
-            </View>
-            <View style={styles.subheader}>
-              <Text style={styles.mealText}>
-                {plan === "thirtyPlan"
-                  ? " 30 Meals"
-                  : plan === "fifteenPlan"
-                  ? " 15 Meals"
-                  : " 2 Meals"}
-              </Text>
-              <Text style={styles.mealText}>
-                {"$"}
-                {price}
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        <PlanDuration plan={plan} dateHandler={dateHandler} />
-        <DeliverySlots category={category} slotHandler={slotHandler} />
-        {!addressLoading && (
-          <CheckoutAddress
-            addressHandler={addressHandler}
-            user={state.user}
-            selected={state.address}
-          />
-        )}
-
-        <CheckoutCards
-          cardHandler={cardHandler}
-          user={state.user}
-          selected={state.card}
-        />
-
-        <DeliveryNotes noteHandler={noteHandler} />
-        <TipOption tipHandler={tipHandler} />
-        <PromoOptions
-          couponHandler={couponHandler}
-          coupons={promo}
-          price={price}
-        />
-        <BillingTable
-          plan={state.plan}
-          price={price}
-          discount={state.discount}
-          tip={state.tip}
-          totalHandler={totalHandler}
-        />
-      </ScrollView>
-      
-      {!isKeyboardOn && (
+      <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY}>
         <View
           style={{
-            flexDirection: "row",
+            position: "absolute",
+            left: 5,
+            top: 48,
+            borderRadius: 20,
+            backgroundColor: "#cccccc",
+            zIndex: 1000,
+            height: 30,
+            width: 30,
+            justifyContent: "center",
           }}
         >
-          <View style={styles.totalCount}>
-            <Text
-              style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}
-            >
-              ${state.total}
-            </Text>
+          <BackButton />
+        </View>
+        <ScrollView
+          stickyHeaderIndices={[1]}
+          showsVerticalScrollIndicator={false}
+        >
+          <Image
+            source={{ uri: uri }}
+            style={{ width: width, height: 170, resizeMode: "cover" }}
+            height={150}
+          />
+          <View style={styles.restaurantHeader}>
+            <View style={styles.restaurantTitle}>
+              <Icon
+                style={{ margin: 2, marginTop: 6 }}
+                name="stop-circle"
+                color={meal_type === "veg" ? "#2aaf21" : "#cc2224"}
+                size={16}
+              />
+              <Text style={styles.welcomeText}>{restaurant}</Text>
+            </View>
+            <View style={{ marginTop: 2 }}>
+              <View style={styles.subheader}>
+                <Text style={[styles.mealText, { color: "#777" }]}>
+                  Subscription
+                </Text>
+                <Text style={[styles.mealText, { color: "#777" }]}>Price</Text>
+              </View>
+              <View style={styles.subheader}>
+                <Text style={styles.mealText}>
+                  {plan === "thirtyPlan"
+                    ? " 30 Meals"
+                    : plan === "fifteenPlan"
+                    ? " 15 Meals"
+                    : " 2 Meals"}
+                </Text>
+                <Text style={styles.mealText}>
+                  {"$"}
+                  {price}
+                </Text>
+              </View>
+            </View>
           </View>
 
-          <TouchableOpacity style={styles.button} onPress={orderNow}>
-            <Text style={styles.btnText}>PROCEED TO PAY</Text>
-          </TouchableOpacity>
-        </View>
-      )}
+          <PlanDuration plan={plan} dateHandler={dateHandler} />
+          <DeliverySlots category={category} slotHandler={slotHandler} />
+          {!addressLoading && (
+            <CheckoutAddress
+              addressHandler={addressHandler}
+              user={state.user}
+              selected={state.address}
+            />
+          )}
+
+          <CheckoutCards
+            cardHandler={cardHandler}
+            user={state.user}
+            selected={state.card}
+          />
+
+          <DeliveryNotes noteHandler={noteHandler} />
+          <TipOption tipHandler={tipHandler} />
+          <PromoOptions
+            couponHandler={couponHandler}
+            coupons={promo}
+            price={price}
+          />
+          <BillingTable
+            plan={state.plan}
+            price={price}
+            discount={state.discount}
+            tip={state.tip}
+            totalHandler={totalHandler}
+          />
+        </ScrollView>
+
+        {!isKeyboardOn && (
+          <View
+            style={{
+              flexDirection: "row",
+            }}
+          >
+            <View style={styles.totalCount}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: "bold",
+                  textAlign: "center",
+                }}
+              >
+                ${state.total}
+              </Text>
+            </View>
+
+            <TouchableOpacity style={styles.button} onPress={orderNow}>
+              <Text style={styles.btnText}>PROCEED TO PAY</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </StripeProvider>
     </SafeAreaView>
   );
 }
