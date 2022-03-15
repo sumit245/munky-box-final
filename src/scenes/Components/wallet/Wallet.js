@@ -112,6 +112,7 @@ export default function Wallet({ total, card }) {
                 backgroundColor: "#fff",
                 padding: 8,
                 borderRadius: 20,
+                justifyContent:"center"
               }}
             >
               <TextInput
