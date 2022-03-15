@@ -15,6 +15,7 @@ export default function SubscriptionItem({
   width,
   index,
   navigation,
+  card,
   getCurrentIndex,
 }) {
   const [state, setstate] = useState({
@@ -275,6 +276,7 @@ export default function SubscriptionItem({
                 day={1}
                 meals={todayMeal}
                 order_id={item.order_id}
+                card={card}
                 placeExtraOrder={placeExtraOrder}
               />
             </View>

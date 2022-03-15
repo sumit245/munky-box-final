@@ -15,7 +15,7 @@ import {
   StripeProvider,
 } from "@stripe/stripe-react-native";
 
-export default function Wallet({ total }) {
+export default function Wallet({ total, card }) {
   const [balance, setBalance] = useState(0);
   const [isRechargeMode, setisRechargeMode] = useState(false);
   const [hasBalance, setHasBalance] = useState(false);
@@ -23,6 +23,8 @@ export default function Wallet({ total }) {
   const { initPaymentSheet, presentPaymentSheet, createPaymentMethod } =
     useStripe();
   const [loading, setLoading] = useState(false);
+  const [mycard, setMyCard] = useState({});
+  const stripe = useStripe();
   const { confirmPayment } = useConfirmPayment();
   const STRIPE_PUBLISHABLE_KEY =
     "pk_test_51KammvB9SdGdzaTpAZcPCcQVMesbuC5qY3Sng1rdnEfnfo2geOUP8CQ27sw0WBjpiMpdYBRoAQ1eX8czY8BEEWdO00teqn55mD";
@@ -30,6 +32,7 @@ export default function Wallet({ total }) {
   useEffect(() => {
     if (total <= balance) {
       setHasBalance(true);
+      setMyCard(card);
     }
   }, [total]);
 
@@ -50,18 +53,35 @@ export default function Wallet({ total }) {
     const { clientSecret } = await response.json();
     return clientSecret;
   };
-
-  const onSubmit = async () => {
-    const clientSecret = await fetchPaymentIntentClientSecret(total * 100);
-    console.log(clientSecret);
-    const { paymentMethod, error } = await createPaymentMethod({
-      type: "Card",
+  async function stripeTokenHandler(token) {
+    const paymentData = { token: token.id };
+    const response = await fetch("/charge", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(paymentData),
     });
-    if (!error) {
-      alert("Recharge Done!!");
+    return response.json();
+  }
+  const onSubmit = async () => {
+    const result = await stripe.createToken(mycard);
+    console.log(result);
+    if (result.error) {
+      alert(result.error.message);
     } else {
-      alert(error.message);
+      stripeTokenHandler(result.token);
     }
+    // const clientSecret = await fetchPaymentIntentClientSecret(total * 100);
+    // console.log(clientSecret);
+    // const { paymentMethod, error } = await createPaymentMethod({
+    //   type: "Card",
+    // });
+    // if (!error) {
+    //   alert("Recharge Done!!");
+    // } else {
+    //   alert(error.message);
+    // }
   };
 
   return (

@@ -11,6 +11,7 @@ export default function AddOns({
   day,
   meals,
   order_id,
+  card,
   placeExtraOrder,
 }) {
   const [myaddons, setMyAddOns] = useState([]);
@@ -19,7 +20,6 @@ export default function AddOns({
   const [total, setTotal] = useState(0);
   const [pulled, setPulled] = useState(false);
   const [extrass, setExtras] = useState([]);
-
   const fetchAddOn = () => {
     let add_ons = [];
     if (meals !== "undefined" && meals !== null) {
@@ -112,7 +112,7 @@ export default function AddOns({
       }
     );
     // placeExtraOrder(datatoplace);
-    Actions.push("wallet", { title: "My Wallet", total: total });
+    Actions.push("wallet", { title: "My Wallet", total: total,card:card });
   };
 
   if (myaddons.length > 0) {
