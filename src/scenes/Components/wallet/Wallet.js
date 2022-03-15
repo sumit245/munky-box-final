@@ -67,6 +67,7 @@ export default function Wallet({ total, card }) {
   const onSubmit = async () => {
     const result = await stripe.createToken(mycard);
     console.log(result);
+    console.log(mycard);
     if (result.error) {
       alert(result.error.message);
     } else {

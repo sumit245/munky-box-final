@@ -95,6 +95,7 @@ const ReviewItem = ({ title, avatar, review }) => {
                 marginVertical: 16,
                 backgroundColor: "#ededed",
                 padding: 8,
+                maxWidth:"90%",
                 borderRadius: 6,
                 marginLeft: -6,
               }}
@@ -132,8 +133,8 @@ const ReviewItem = ({ title, avatar, review }) => {
               <Text
                 style={{
                   marginVertical: 6,
-                  maxWidth: "100%",
-                  textAlign: "justify",
+                  maxWidth: "98%",
+                  //textAlign: "justify",
                   flexShrink: 1,
                   flexWrap: "wrap",
                   alignItems: "flex-start",
