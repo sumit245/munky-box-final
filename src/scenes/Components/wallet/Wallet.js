@@ -112,12 +112,13 @@ export default function Wallet({ total, card }) {
                 backgroundColor: "#fff",
                 padding: 8,
                 borderRadius: 20,
-                justifyContent:"center"
+                justifyContent:"center",
+                flexDirection:"row"
               }}
             >
               <Text>$</Text>
               <TextInput
-                style={{ height: 40, backgroundColor: "#fff", width: 160 }}
+                style={{ height: 40, backgroundColor: "#fff", width: 160,borderLeftWidth:1,borderLeftColor:"#ededed" }}
                 onChangeText={(text) => onChangeText(text)}
                 value={value}
               />
