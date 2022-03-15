@@ -15,9 +15,8 @@ import {
   StripeProvider,
 } from "@stripe/stripe-react-native";
 
-export default function Wallet({ total, card }) {
+export default function Wallet({ total, card, user_id, action, data }) {
   const [balance, setBalance] = useState(0);
-  const [isRechargeMode, setisRechargeMode] = useState(true);
   const [hasBalance, setHasBalance] = useState(false);
   const [value, onChangeText] = React.useState("");
   const {
@@ -34,15 +33,14 @@ export default function Wallet({ total, card }) {
     if (total <= balance) {
       setHasBalance(true);
     }
-  }, [total]);
+  }, [total, balance]);
 
   useEffect(() => {
     setMyCard(card[0]);
   }, [card]);
 
-  const stripeTokenHandler = async (token, amount) => {
-    const paymentData = { token: token, amount: amount };
-
+  const stripeTokenHandler = async (token, amount, id) => {
+    const paymentData = { token: token, amount: amount, user_id: id };
     const response = await fetch(
       "https://munkybox-admin.herokuapp.com/api/stripe/charge/",
       {
@@ -82,11 +80,11 @@ export default function Wallet({ total, card }) {
       if (result.error) {
         alert(result.error.message);
       } else {
-        stripeTokenHandler(result.id, parseFloat(total)).then((res) => {
+        stripeTokenHandler(result.id, parseInt(value), user_id).then((res) => {
           const { paid } = res;
-          setPaid(paid);
           if (paid) {
-            alert("Recharge Done!!");
+            alert(`Recharge done with amount $${value}  !!`);
+            setBalance(parseFloat(value).toFixed(2));
           } else {
             alert(error.message);
           }
@@ -97,7 +95,7 @@ export default function Wallet({ total, card }) {
     }
   };
   const onSubmit = () => {
-    setisRechargeMode(true);
+    action(data);
   };
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "space-between" }}>
@@ -213,6 +211,7 @@ export default function Wallet({ total, card }) {
               margin: 2,
             }}
             disabled={!hasBalance}
+            onPress={onSubmit}
           >
             <Text
               style={{

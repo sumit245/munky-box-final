@@ -16,6 +16,7 @@ export default function SubscriptionItem({
   index,
   navigation,
   card,
+  user_id,
   getCurrentIndex,
 }) {
   const [state, setstate] = useState({
@@ -146,7 +147,6 @@ export default function SubscriptionItem({
   useEffect(() => {
     getCurrentOrderDetails();
     fetchSubscriptionDetails();
-    console.log(card[0]);
   }, [item]);
   useEffect(() => {
     fetchRemaining();
@@ -278,6 +278,7 @@ export default function SubscriptionItem({
                 meals={todayMeal}
                 order_id={item.order_id}
                 card={card}
+                user_id={user_id}
                 placeExtraOrder={placeExtraOrder}
               />
             </View>
