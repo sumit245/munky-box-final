@@ -97,8 +97,9 @@ export default function Wallet({ total, card }) {
       if (result.error) {
         alert(result.error.message);
       } else {
-        const res = await stripeTokenHandler(result.id, total);
-        console.log(res);
+        stripeTokenHandler(result.id, total).then((res) => {
+          console.log(res);
+        });
       }
     } catch (error) {
       alert(error);
