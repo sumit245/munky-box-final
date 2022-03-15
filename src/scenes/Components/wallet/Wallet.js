@@ -30,12 +30,15 @@ export default function Wallet({ total, card }) {
     "pk_test_51KammvB9SdGdzaTpAZcPCcQVMesbuC5qY3Sng1rdnEfnfo2geOUP8CQ27sw0WBjpiMpdYBRoAQ1eX8czY8BEEWdO00teqn55mD";
 
   useEffect(() => {
+
     if (total <= balance) {
       setHasBalance(true);
-      setMyCard(card);
-      console.log(card);
     }
   }, [total]);
+
+  useEffect(()=>{
+    setMyCard(card)
+  },[card])
 
   const fetchPaymentIntentClientSecret = async (amount) => {
     const response = await fetch(
@@ -54,26 +57,32 @@ export default function Wallet({ total, card }) {
     const { clientSecret } = await response.json();
     return clientSecret;
   };
-  async function stripeTokenHandler(token) {
+   function stripeTokenHandler(token) {
     const paymentData = { token: token.id };
-    const response = await fetch("/charge", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(paymentData),
-    });
-    return response.json();
+    console.log(paymentData);
+    //const response = await fetch("/charge", {
+      //method: "POST",
+    //  headers: {
+        //"Content-Type": "application/json",
+      //},
+    //  body: JSON.stringify(paymentData),
+   // });
+   // return response.json();
   }
-  const onSubmit = async () => {
-    const result = await stripe.createToken(mycard);
-    console.log(result);
-    console.log(mycard);
-    if (result.error) {
-      alert(result.error.message);
-    } else {
-      stripeTokenHandler(result.token);
+  const onSubmit =  async() => {
+    
+    try {
+      const result = await stripe.createToken(mycard);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
     }
+    //console.log(mycard);
+    //if (result.error) {
+    //  alert(result.error.message);
+   // } else {
+    //  stripeTokenHandler(result.token);
+   // }
     // const clientSecret = await fetchPaymentIntentClientSecret(total * 100);
     // console.log(clientSecret);
     // const { paymentMethod, error } = await createPaymentMethod({

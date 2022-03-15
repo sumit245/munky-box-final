@@ -37,11 +37,13 @@ export default function AddOns({
     if (mounted) {
       setMyAddOns(extras);
       fetchAddOn();
+      console.log(card);
     }
     return () => {
       mounted = false;
     };
   }, []);
+
 
   useEffect(() => {
     let subt = [];
