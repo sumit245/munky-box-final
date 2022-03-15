@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import { IconButton } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
 import { width } from "../../styles/AuthStyle";
+import { Actions } from "react-native-router-flux";
 
 export default function AddOns({
   extras,
@@ -110,8 +111,8 @@ export default function AddOns({
         };
       }
     );
-    placeExtraOrder(datatoplace);
-    // Actions.push("wallet", { title: "My Wallet" })
+    // placeExtraOrder(datatoplace);
+    Actions.push("wallet", { title: "My Wallet", total: total });
   };
 
   if (myaddons.length > 0) {

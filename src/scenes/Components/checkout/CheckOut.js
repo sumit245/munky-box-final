@@ -61,7 +61,10 @@ export default function CheckOut({
     total: 0,
     promo_code: "",
   });
-  const { confirmPayment, loading } = useConfirmPayment();
+  const [submitted, setSubmitted] = useState(false);
+  // const [error, setError] = useState(null);
+  // const { confirmPayment, loading } = useConfirmPayment();
+  const { createPaymentMethod, handleCardAction } = useStripe();
   const [addressLoading, setAddressLoading] = useState(true);
   const [isKeyboardOn, setKeyboardOn] = useState(false);
   const STRIPE_ERROR = "Payment service error. Try again later.";
@@ -123,6 +126,7 @@ export default function CheckOut({
       service_fee: service_fee,
     });
   };
+
   const fetchPaymentIntentClientSecret = async (amount) => {
     const response = await fetch(
       "https://munkybox-admin.herokuapp.com/api/stripe/create-payment-intent",
@@ -140,6 +144,36 @@ export default function CheckOut({
     const { clientSecret } = await response.json();
     return clientSecret;
   };
+
+  // const getCreditCardToken = (creditCardData) => {
+  //   const card = {
+  //     "card[number]": creditCardData.number.replace(/ /g, ""),
+  //     "card[exp_month]": creditCardData.expiry.split("/")[0],
+  //     "card[exp_year]": creditCardData.expiry.split("/")[1],
+  //     "card[cvc]": creditCardData.cvc,
+  //   };
+  //   return fetch("https://api.stripe.com/v1/tokens", {
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/x-www-form-urlencoded",
+  //       Authorization: `Bearer ${STRIPE_PUBLISHABLE_KEY}`,
+  //     },
+  //     method: "post",
+  //     body: Object.keys(card)
+  //       .map((key) => key + "=" + card[key])
+  //       .join("&"),
+  //   }).then((response) => response.json());
+  // };
+
+  // const subscribeUser = (creditCardToken) => {
+  //   return new Promise((resolve) => {
+  //     console.log("Credit card token\n", creditCardToken);
+  //     setTimeout(() => {
+  //       resolve({ status: true });
+  //     }, 1000);
+  //   });
+  // };
+
   const orderNow = async () => {
     const {
       user,
@@ -164,6 +198,7 @@ export default function CheckOut({
       promo_id,
       promo_code,
     } = state;
+
     const clientSecret = await fetchPaymentIntentClientSecret(total * 100);
     const { user_id, email_id, first_name, last_name, phone } = user;
     const newOrder = {
@@ -200,13 +235,12 @@ export default function CheckOut({
       user_name: newOrder.user_name,
       restaurant_id: newOrder.restaurant_id,
     };
-    const { paymentIntent, error } = await confirmPayment(
-      clientSecret,
-      {
-        type: "Card",
-        billingDetails,
-      },
-    );
+    const { paymentMethod, error } = await createPaymentMethod({
+      type: "Card",
+      card: card,
+      billingDetails,
+    });
+    
     const response = await axios.post(ORDER_URL, newOrder);
     const data = await response.data;
     Actions.push("thankyou", { id: data.data._id, msg: data.msg });
@@ -365,7 +399,11 @@ export default function CheckOut({
               </Text>
             </View>
 
-            <TouchableOpacity style={styles.button} onPress={orderNow}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={orderNow}
+              disabled={submitted}
+            >
               <Text style={styles.btnText}>PROCEED TO PAY</Text>
             </TouchableOpacity>
           </View>
