@@ -102,54 +102,13 @@ export default function Wallet({ total, card }) {
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "space-between", }}>
       <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY}>
-        {isRechargeMode ? (
-          <View style={{ flex: 1, justifyContent: "center" }}>
-            <View
-              style={{
-                width: 200,
-                height: 44,
-                alignSelf: "center",
-                backgroundColor: "#fff",
-                padding: 8,
-                borderRadius: 20,
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "row",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 22,
-                  //padding: 8,
-                  borderRightWidth: 1,
-                  borderRightColor: "#cdcdcd",
-                  fontWeight: "bold",
-                  color: "#000",
-                }}
-              >
-                $
-              </Text>
-              <TextInput
-                style={{
-                  height: 40,
-                  backgroundColor: "#fff",
-                  width: 140,
-                  borderBottomWidth: 0,
-                  justifyContent: "center",
-                  textAlign: "center",
-                  
-                }}
-                placeholderTextColor="#777"
-                underlineColor="transparent"
-                placeholder="5.00"
-                onChangeText={(text) => onChangeText(text)}
-                value={value}
-              />
-            </View>
-          </View>
-        ) : (
+        <View style={{ flex: 1, }}>
           <View
-            style={{ alignItems: "center", justifyContent: "center", flex: 1 }}
+            style={{
+              alignItems: "center",
+              justifyContent: "flex-start",
+              marginVertical: 16,
+            }}
           >
             <Image
               source={PIC}
@@ -158,12 +117,62 @@ export default function Wallet({ total, card }) {
               style={{ height: 124, maxHeight: 164, width: 120 }}
             />
             <Text
-              style={{ fontSize: 16, fontWeight: "bold", textAlign: "center" }}
+              style={{
+                fontSize: 28,
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
             >
               ${parseFloat(balance).toFixed(2)}
             </Text>
           </View>
-        )}
+          <Text style={{ textAlign: "center", padding: 16, fontSize: 18 }}>
+            Top-up Amount
+          </Text>
+          <View
+            style={{
+              width: 200,
+              height: 44,
+              alignSelf: "center",
+              backgroundColor: "#fff",
+              padding: 8,
+              borderRadius: 20,
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "row",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 22,
+                padding: 8,
+                borderRightWidth: 1,
+                borderRightColor: "#cdcdcd",
+                fontWeight: "bold",
+                color: "#000",
+              }}
+            >
+              $
+            </Text>
+            <TextInput
+              style={{
+                height: 40,
+                backgroundColor: "#fff",
+                width: 132,
+                borderBottomWidth: 0,
+                justifyContent: "center",
+                fontSize: 22,
+                marginHorizontal: 8,
+              }}
+              placeholderTextColor="#777"
+              underlineColor="transparent"
+              placeholder="5.00"
+              keyboardType="numeric"
+              onChangeText={(text) => onChangeText(text)}
+              value={value}
+            />
+          </View>
+        </View>
 
         <View style={{ flexDirection: "row", margin: 4 }}>
           <TouchableOpacity
