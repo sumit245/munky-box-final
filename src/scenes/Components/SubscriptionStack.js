@@ -12,17 +12,18 @@ export default function SubscriptionStack({ navigation }) {
   const [myorders, setMyOrders] = useState([]);
   const flatref = useRef(null);
   const [currentindex, setCurrentIndex] = useState(0);
+  const [card,setCard]=useState({})
 
   const getSubscriptions = async () => {
     const user = await getUser("user");
     const { data } = await user;
-    const { user_id } = data;
+    const { user_id,card } = data;
     const response = await axios.get(MY_ORDER_URL + user_id);
     const myorder = await response.data;
     let subscriptions = myorder.filter((item) => item.status === "started");
-    console.log(subscriptions.length);
     setMyOrders(subscriptions);
     setLoaded(true);
+    setCard(card)
   };
 
   useEffect(() => {
@@ -42,6 +43,7 @@ export default function SubscriptionStack({ navigation }) {
       width={width}
       getCurrentIndex={() => setCurrentIndex(index)}
       navigation={navigation}
+      card={card}
     />
   );
 
