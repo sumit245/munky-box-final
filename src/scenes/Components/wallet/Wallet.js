@@ -19,16 +19,14 @@ export default function Wallet({ total, card }) {
   const [balance, setBalance] = useState(0);
   const [isRechargeMode, setisRechargeMode] = useState(false);
   const [hasBalance, setHasBalance] = useState(false);
-  const [value, onChangeText] = React.useState("$5.00");
+  const [value, onChangeText] = React.useState("5.00");
   const {
     initPaymentSheet,
     presentPaymentSheet,
     createPaymentMethod,
     createToken,
   } = useStripe();
-  const [loading, setLoading] = useState(false);
   const [mycard, setMyCard] = useState({});
-  const { confirmPayment } = useConfirmPayment();
   const STRIPE_PUBLISHABLE_KEY =
     "pk_test_51KammvB9SdGdzaTpAZcPCcQVMesbuC5qY3Sng1rdnEfnfo2geOUP8CQ27sw0WBjpiMpdYBRoAQ1eX8czY8BEEWdO00teqn55mD";
 
@@ -42,35 +40,22 @@ export default function Wallet({ total, card }) {
     setMyCard(card[0]);
   }, [card]);
 
-  const fetchPaymentIntentClientSecret = async (amount) => {
+  const stripeTokenHandler = async (token, amount) => {
+    const paymentData = { token: token, amount: amount };
+
     const response = await fetch(
-      "https://munkybox-admin.herokuapp.com/api/stripe/create-payment-intent",
+      "https://munkybox-admin.herokuapp.com/api/stripe/charge/",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          amount: amount,
-          currency: "cad",
-        }),
+        body: JSON.stringify(paymentData),
       }
     );
-    const { clientSecret } = await response.json();
-    return clientSecret;
-  };
-  const stripeTokenHandler = async (token, amount) => {
-    const paymentData = { token: token, amount: amount };
-
-    const response = await fetch("https://munkybox-admin.herokuapp.com/api/stripe/charge", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(paymentData),
-    });
     return response.json();
   };
+
   const getCreditCardToken = (creditCardData) => {
     const card = {
       "card[number]": creditCardData.number.replace(/ /g, ""),
@@ -91,43 +76,50 @@ export default function Wallet({ total, card }) {
     }).then((response) => response.json());
   };
 
-  const onSubmit = async () => {
+  const recharge = async () => {
     try {
       const result = await getCreditCardToken(mycard);
       if (result.error) {
         alert(result.error.message);
       } else {
         stripeTokenHandler(result.id, total).then((res) => {
-          console.log(res);
+          const { paid } = res;
+          setPaid(paid);
+          if (paid) {
+            alert("Recharge Done!!");
+          } else {
+            alert(error.message);
+          }
         });
       }
     } catch (error) {
       alert(error);
     }
-    //console.log(mycard);
-
-    // const clientSecret = await fetchPaymentIntentClientSecret(total * 100);
-    // console.log(clientSecret);
-    // const { paymentMethod, error } = await createPaymentMethod({
-    //   type: "Card",
-    // });
-    // if (!error) {
-    //   alert("Recharge Done!!");
-    // } else {
-    //   alert(error.message);
-    // }
   };
-
+  const onSubmit = () => {
+    setisRechargeMode(true);
+  };
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "space-between" }}>
       <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY}>
         {isRechargeMode ? (
-          <View>
-            <TextInput
-              style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-              onChangeText={(text) => onChangeText(text)}
-              value={value}
-            />
+          <View style={{ flex: 1, justifyContent: "center" }}>
+            <View
+              style={{
+                width: 200,
+                height: 40,
+                alignSelf: "center",
+                backgroundColor: "#fff",
+                padding: 8,
+                borderRadius: 20,
+              }}
+            >
+              <TextInput
+                style={{ height: 40, backgroundColor: "#fff", width: 160 }}
+                onChangeText={(text) => onChangeText(text)}
+                value={value}
+              />
+            </View>
           </View>
         ) : (
           <View
