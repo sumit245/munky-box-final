@@ -17,7 +17,7 @@ import {
 
 export default function Wallet({ total, card }) {
   const [balance, setBalance] = useState(0);
-  const [isRechargeMode, setisRechargeMode] = useState(false);
+  const [isRechargeMode, setisRechargeMode] = useState(true);
   const [hasBalance, setHasBalance] = useState(false);
   const [value, onChangeText] = React.useState("5.00");
   const {
@@ -170,7 +170,7 @@ export default function Wallet({ total, card }) {
           <TouchableOpacity
             style={{
               borderColor: "#226ccf",
-              backgroundColor: "#226ccf",
+              backgroundColor: "#008000",
               borderRadius: 24,
               padding: 10,
               height: 48,
