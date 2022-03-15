@@ -112,7 +112,7 @@ export default function Wallet({ total, card }) {
                 backgroundColor: "#fff",
                 padding: 8,
                 borderRadius: 20,
-                justifyContent:"center"
+                justifyContent: "center",
               }}
             >
               <Text>$</Text>
@@ -141,48 +141,57 @@ export default function Wallet({ total, card }) {
           </View>
         )}
 
-        {hasBalance ? (
+        <View style={{ flexDirection: "row", margin: 4 }}>
           <TouchableOpacity
             style={{
-              backgroundColor: "#226ccf",
+              borderColor: "#000",
+              borderWidth: 1,
+              borderRadius: 24,
+              height: 48,
               padding: 10,
               justifyContent: "center",
               alignItems: "center",
-              width: width,
-            }}
-          >
-            <Text
-              style={{
-                textTransform: "uppercase",
-                color: "#fff",
-                fontWeight: "bold",
-              }}
-            >
-              Pay ${total}
-            </Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#226ccf",
-              padding: 10,
-              justifyContent: "center",
-              alignItems: "center",
-              width: width,
+              flex: 1,
+              margin: 2,
             }}
             onPress={onSubmit}
           >
             <Text
               style={{
                 textTransform: "uppercase",
-                color: "#fff",
+                color: "#000",
                 fontWeight: "bold",
+                fontSize:18
               }}
             >
-              Recharge your wallet
+              Recharge Now
             </Text>
           </TouchableOpacity>
-        )}
+          <TouchableOpacity
+            style={{
+              borderColor: "#226ccf",
+              backgroundColor: "#226ccf",
+              borderRadius: 24,
+              padding: 10,
+              height: 48,
+              justifyContent: "center",
+              alignItems: "center",
+              flex: 1,
+              margin: 2,
+            }}
+          >
+            <Text
+              style={{
+                textTransform: "uppercase",
+                color: "#fff",
+                fontWeight: "bold",
+                fontSize:18
+              }}
+            >
+              Pay ${total}
+            </Text>
+          </TouchableOpacity>
+        </View>
       </StripeProvider>
     </SafeAreaView>
   );
