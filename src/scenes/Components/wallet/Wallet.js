@@ -62,7 +62,7 @@ export default function Wallet({ total, card }) {
   const stripeTokenHandler = async (token, amount) => {
     const paymentData = { token: token, amount: amount };
 
-    const response = await fetch("/charge", {
+    const response = await fetch("https://munkybox-admin.herokuapp.com/api/stripe/charge", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
