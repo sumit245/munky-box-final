@@ -115,6 +115,7 @@ export default function Wallet({ total, card }) {
                 justifyContent:"center"
               }}
             >
+              <Text>$</Text>
               <TextInput
                 style={{ height: 40, backgroundColor: "#fff", width: 160 }}
                 onChangeText={(text) => onChangeText(text)}
