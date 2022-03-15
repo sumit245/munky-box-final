@@ -112,7 +112,7 @@ export default function AddOns({
       }
     );
     // placeExtraOrder(datatoplace);
-    Actions.push("wallet", { title: "My Wallet", total: total,card:card });
+    Actions.push("wallet", { title: "My Wallet", total: total, card: card });
   };
 
   if (myaddons.length > 0) {
@@ -223,7 +223,7 @@ export default function AddOns({
         >
           <TouchableOpacity
             onPress={orderExtras}
-            //disabled={qty === 0}
+            disabled={qty === 0}
             style={{ marginRight: 8 }}
           >
             <Text

@@ -146,6 +146,7 @@ export default function SubscriptionItem({
   useEffect(() => {
     getCurrentOrderDetails();
     fetchSubscriptionDetails();
+    console.log(card[0]);
   }, [item]);
   useEffect(() => {
     fetchRemaining();

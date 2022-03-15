@@ -33,6 +33,7 @@ export default function Wallet({ total, card }) {
     if (total <= balance) {
       setHasBalance(true);
       setMyCard(card);
+      console.log(card);
     }
   }, [total]);
 
