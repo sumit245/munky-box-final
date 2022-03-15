@@ -100,7 +100,7 @@ export default function Wallet({ total, card }) {
     setisRechargeMode(true);
   };
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: "space-between" }}>
+    <SafeAreaView style={{ flex: 1, justifyContent: "space-between", }}>
       <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY}>
         {isRechargeMode ? (
           <View style={{ flex: 1, justifyContent: "center" }}>
@@ -120,7 +120,7 @@ export default function Wallet({ total, card }) {
               <Text
                 style={{
                   fontSize: 22,
-                  padding: 8,
+                  //padding: 8,
                   borderRightWidth: 1,
                   borderRightColor: "#cdcdcd",
                   fontWeight: "bold",
