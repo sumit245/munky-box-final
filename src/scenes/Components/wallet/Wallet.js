@@ -19,7 +19,7 @@ export default function Wallet({ total, card }) {
   const [balance, setBalance] = useState(0);
   const [isRechargeMode, setisRechargeMode] = useState(true);
   const [hasBalance, setHasBalance] = useState(false);
-  const [value, onChangeText] = React.useState("5.00");
+  const [value, onChangeText] = React.useState("");
   const {
     initPaymentSheet,
     presentPaymentSheet,
@@ -107,17 +107,41 @@ export default function Wallet({ total, card }) {
             <View
               style={{
                 width: 200,
-                height: 40,
+                height: 44,
                 alignSelf: "center",
                 backgroundColor: "#fff",
                 padding: 8,
                 borderRadius: 20,
                 justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "row",
               }}
             >
-              <Text>$</Text>
+              <Text
+                style={{
+                  fontSize: 22,
+                  padding: 8,
+                  borderRightWidth: 1,
+                  borderRightColor: "#cdcdcd",
+                  fontWeight: "bold",
+                  color: "#000",
+                }}
+              >
+                $
+              </Text>
               <TextInput
-                style={{ height: 40, backgroundColor: "#fff", width: 160,borderLeftWidth:1,borderLeftColor:"#ededed" }}
+                style={{
+                  height: 40,
+                  backgroundColor: "#fff",
+                  width: 140,
+                  borderBottomWidth: 0,
+                  justifyContent: "center",
+                  textAlign: "center",
+                  
+                }}
+                placeholderTextColor="#777"
+                underlineColor="transparent"
+                placeholder="5.00"
                 onChangeText={(text) => onChangeText(text)}
                 value={value}
               />
@@ -161,7 +185,7 @@ export default function Wallet({ total, card }) {
                 textTransform: "uppercase",
                 color: "#000",
                 fontWeight: "bold",
-                fontSize:18
+                fontSize: 18,
               }}
             >
               Recharge Now
@@ -185,7 +209,7 @@ export default function Wallet({ total, card }) {
                 textTransform: "uppercase",
                 color: "#fff",
                 fontWeight: "bold",
-                fontSize:18
+                fontSize: 18,
               }}
             >
               Pay ${total}
