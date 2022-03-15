@@ -117,7 +117,7 @@ export default function Wallet({ total, card }) {
             >
               <Text>$</Text>
               <TextInput
-                style={{ height: 40, backgroundColor: "#fff", width: 160 }}
+                style={{ height: 40, backgroundColor: "#fff", width: 160,borderLeftWidth:1,borderLeftColor:"#ededed" }}
                 onChangeText={(text) => onChangeText(text)}
                 value={value}
               />
