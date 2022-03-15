@@ -20,25 +20,27 @@ export default function Wallet({ total, card }) {
   const [isRechargeMode, setisRechargeMode] = useState(false);
   const [hasBalance, setHasBalance] = useState(false);
   const [value, onChangeText] = React.useState("$5.00");
-  const { initPaymentSheet, presentPaymentSheet, createPaymentMethod } =
-    useStripe();
+  const {
+    initPaymentSheet,
+    presentPaymentSheet,
+    createPaymentMethod,
+    createToken,
+  } = useStripe();
   const [loading, setLoading] = useState(false);
   const [mycard, setMyCard] = useState({});
-  const stripe = useStripe();
   const { confirmPayment } = useConfirmPayment();
   const STRIPE_PUBLISHABLE_KEY =
     "pk_test_51KammvB9SdGdzaTpAZcPCcQVMesbuC5qY3Sng1rdnEfnfo2geOUP8CQ27sw0WBjpiMpdYBRoAQ1eX8czY8BEEWdO00teqn55mD";
 
   useEffect(() => {
-
     if (total <= balance) {
       setHasBalance(true);
     }
   }, [total]);
 
-  useEffect(()=>{
-    setMyCard(card)
-  },[card])
+  useEffect(() => {
+    setMyCard(card[0]);
+  }, [card]);
 
   const fetchPaymentIntentClientSecret = async (amount) => {
     const response = await fetch(
@@ -56,33 +58,53 @@ export default function Wallet({ total, card }) {
     );
     const { clientSecret } = await response.json();
     return clientSecret;
-  };
-   function stripeTokenHandler(token) {
-    const paymentData = { token: token.id };
+  };45
+  function stripeTokenHandler(token) {
+    const paymentData = { token: token };
     console.log(paymentData);
     //const response = await fetch("/charge", {
-      //method: "POST",
+    //method: "POST",
     //  headers: {
-        //"Content-Type": "application/json",
-      //},
+    //"Content-Type": "application/json",
+    //},
     //  body: JSON.stringify(paymentData),
-   // });
-   // return response.json();
+    // });
+    // return response.json();
   }
-  const onSubmit =  async() => {
-    
+  const getCreditCardToken = (creditCardData) => {
+    console.log(creditCardData);
+    const card = {
+      "card[number]": creditCardData.number.replace(/ /g, ""),
+      "card[exp_month]": creditCardData.expiry.split("/")[0],
+      "card[exp_year]": creditCardData.expiry.split("/")[1],
+      "card[cvc]": creditCardData.cvc,
+    };
+    return fetch("https://api.stripe.com/v1/tokens", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Bearer ${STRIPE_PUBLISHABLE_KEY}`,
+      },
+      method: "post",
+      body: Object.keys(card)
+        .map((key) => key + "=" + card[key])
+        .join("&"),
+    }).then((response) => response.json());
+  };
+
+  const onSubmit = async () => {
     try {
-      const result = await stripe.createToken(mycard);
+      const result = await getCreditCardToken(mycard);
       console.log(result);
     } catch (error) {
       console.log(error);
     }
     //console.log(mycard);
-    //if (result.error) {
-    //  alert(result.error.message);
-   // } else {
-    //  stripeTokenHandler(result.token);
-   // }
+    if (result.error) {
+     alert(result.error.message);
+    } else {
+     stripeTokenHandler(result.id);
+    }
     // const clientSecret = await fetchPaymentIntentClientSecret(total * 100);
     // console.log(clientSecret);
     // const { paymentMethod, error } = await createPaymentMethod({
