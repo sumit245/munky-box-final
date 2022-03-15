@@ -82,7 +82,7 @@ export default function Wallet({ total, card }) {
       if (result.error) {
         alert(result.error.message);
       } else {
-        stripeTokenHandler(result.id, total).then((res) => {
+        stripeTokenHandler(result.id, parseFloat(total)).then((res) => {
           const { paid } = res;
           setPaid(paid);
           if (paid) {
@@ -187,7 +187,7 @@ export default function Wallet({ total, card }) {
               flex: 1,
               margin: 2,
             }}
-            onPress={onSubmit}
+            onPress={recharge}
           >
             <Text
               style={{
@@ -212,6 +212,7 @@ export default function Wallet({ total, card }) {
               flex: 1,
               margin: 2,
             }}
+            disabled={!hasBalance}
           >
             <Text
               style={{
