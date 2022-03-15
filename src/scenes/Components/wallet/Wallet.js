@@ -58,7 +58,7 @@ export default function Wallet({ total, card }) {
     );
     const { clientSecret } = await response.json();
     return clientSecret;
-  };45
+  };
   function stripeTokenHandler(token) {
     const paymentData = { token: token };
     console.log(paymentData);
@@ -72,7 +72,6 @@ export default function Wallet({ total, card }) {
     // return response.json();
   }
   const getCreditCardToken = (creditCardData) => {
-    console.log(creditCardData);
     const card = {
       "card[number]": creditCardData.number.replace(/ /g, ""),
       "card[exp_month]": creditCardData.expiry.split("/")[0],
@@ -95,16 +94,16 @@ export default function Wallet({ total, card }) {
   const onSubmit = async () => {
     try {
       const result = await getCreditCardToken(mycard);
-      console.log(result);
+      if (result.error) {
+        alert(result.error.message);
+       } else {
+        stripeTokenHandler(result.id);
+       }
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
     //console.log(mycard);
-    if (result.error) {
-     alert(result.error.message);
-    } else {
-     stripeTokenHandler(result.id);
-    }
+    
     // const clientSecret = await fetchPaymentIntentClientSecret(total * 100);
     // console.log(clientSecret);
     // const { paymentMethod, error } = await createPaymentMethod({
