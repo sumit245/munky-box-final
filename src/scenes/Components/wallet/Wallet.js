@@ -5,10 +5,10 @@ import {
   View,
   Text,
   Image,
+  TextInput,
 } from "react-native";
-import { width } from "../../styles/HomeStyles";
 import PIC from "../../../../assets/wallet.png";
-import { TextInput } from "react-native-paper";
+import CheckoutCards from "../checkout/CheckoutCards";
 import {
   useStripe,
   useConfirmPayment,
@@ -100,13 +100,22 @@ export default function Wallet({ total, card, user_id, action, data }) {
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "space-between" }}>
       <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY}>
-        <View style={{ flex: 1 }}>
+        <View
+          style={{
+            padding: 10,
+            backgroundColor: "#fff",
+            marginVertical: 8,
+            marginHorizontal: 2,
+            elevation: 2,
+            borderRadius: 4,
+          }}
+        >
           <View
             style={{
               alignItems: "center",
               justifyContent: "flex-start",
               marginVertical: 16,
-              backgroundColor:"#fff"
+              padding: 10,
             }}
           >
             <Image
@@ -136,6 +145,8 @@ export default function Wallet({ total, card, user_id, action, data }) {
               backgroundColor: "#fff",
               padding: 8,
               borderRadius: 20,
+              borderColor: "#cdcdcd",
+              borderWidth: 1,
               justifyContent: "center",
               alignItems: "center",
               flexDirection: "row",
@@ -172,6 +183,8 @@ export default function Wallet({ total, card, user_id, action, data }) {
             />
           </View>
         </View>
+
+        <CheckoutCards />
 
         <View style={{ flexDirection: "row", margin: 4 }}>
           <TouchableOpacity
