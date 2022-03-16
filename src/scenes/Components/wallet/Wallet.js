@@ -106,6 +106,7 @@ export default function Wallet({ total, card, user_id, action, data }) {
               alignItems: "center",
               justifyContent: "flex-start",
               marginVertical: 16,
+              backgroundColor:"#fff"
             }}
           >
             <Image
