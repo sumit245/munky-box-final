@@ -12,6 +12,7 @@ export default function AddOns({
   meals,
   order_id,
   card,
+  user_id,
   placeExtraOrder,
 }) {
   const [myaddons, setMyAddOns] = useState([]);
@@ -42,7 +43,6 @@ export default function AddOns({
       mounted = false;
     };
   }, []);
-
 
   useEffect(() => {
     let subt = [];
@@ -112,8 +112,15 @@ export default function AddOns({
         };
       }
     );
-    // placeExtraOrder(datatoplace);
-    Actions.push("wallet", { title: "My Wallet", total: total, card: card });
+
+    Actions.push("wallet", {
+      title: "My Wallet",
+      total: total,
+      card: card,
+      user_id: user_id,
+      action: placeExtraOrder,
+      data: datatoplace,
+    });
   };
 
   if (myaddons.length > 0) {
