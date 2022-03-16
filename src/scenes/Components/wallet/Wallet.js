@@ -136,7 +136,7 @@ export default function Wallet({ total, action, data }) {
   };
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "space-between" }}>
-      <ScrollView>
+      {/* <ScrollView> */}
         <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY}>
           <View
             style={{
@@ -228,7 +228,7 @@ export default function Wallet({ total, action, data }) {
             selected={state.card}
           />
         </StripeProvider>
-      </ScrollView>
+      {/* </ScrollView> */}
       <View style={styles.optionCard}>
         <Text>
           1. Recharge of wallet amount of {value > 0 ? "$" : null}
