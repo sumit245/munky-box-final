@@ -194,7 +194,6 @@ export default function Wallet({ total, card, user_id, action, data }) {
               <Text
                 style={{
                   fontSize: 22,
-                  padding: 8,
                   borderRightWidth: 1,
                   borderRightColor: "#cdcdcd",
                   fontWeight: "bold",
@@ -246,62 +245,61 @@ export default function Wallet({ total, card, user_id, action, data }) {
               <Text>I agree to the terms and condition above.</Text>
             </View>
           </View>
-
-          <View style={{ flexDirection: "row", margin: 4 }}>
-            <TouchableOpacity
-              style={{
-                borderColor: "#000",
-                borderWidth: 1,
-                borderRadius: 24,
-                height: 48,
-                padding: 10,
-                justifyContent: "center",
-                alignItems: "center",
-                flex: 1,
-                margin: 2,
-              }}
-              onPress={recharge}
-            >
-              <Text
-                style={{
-                  textTransform: "uppercase",
-                  color: "#000",
-                  fontWeight: "bold",
-                  fontSize: 18,
-                }}
-              >
-                Recharge Now
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                borderColor: "#226ccf",
-                backgroundColor: "#008000",
-                borderRadius: 24,
-                padding: 10,
-                height: 48,
-                justifyContent: "center",
-                alignItems: "center",
-                flex: 1,
-                margin: 2,
-              }}
-              disabled={!hasBalance}
-              onPress={onSubmit}
-            >
-              <Text
-                style={{
-                  textTransform: "uppercase",
-                  color: "#fff",
-                  fontWeight: "bold",
-                  fontSize: 18,
-                }}
-              >
-                Pay ${total}
-              </Text>
-            </TouchableOpacity>
-          </View>
         </StripeProvider>
       </ScrollView>
+      <View style={{ flexDirection: "row", margin: 4 }}>
+        <TouchableOpacity
+          style={{
+            borderColor: "#000",
+            borderWidth: 1,
+            borderRadius: 24,
+            height: 48,
+            padding: 10,
+            justifyContent: "center",
+            alignItems: "center",
+            flex: 1,
+            margin: 2,
+          }}
+          onPress={recharge}
+        >
+          <Text
+            style={{
+              textTransform: "uppercase",
+              color: "#000",
+              fontWeight: "bold",
+              fontSize: 18,
+            }}
+          >
+            Recharge Now
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            borderColor: "#226ccf",
+            backgroundColor: "#008000",
+            borderRadius: 24,
+            padding: 10,
+            height: 48,
+            justifyContent: "center",
+            alignItems: "center",
+            flex: 1,
+            margin: 2,
+          }}
+          disabled={!hasBalance}
+          onPress={onSubmit}
+        >
+          <Text
+            style={{
+              textTransform: "uppercase",
+              color: "#fff",
+              fontWeight: "bold",
+              fontSize: 18,
+            }}
+          >
+            Pay ${total}
+          </Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }
