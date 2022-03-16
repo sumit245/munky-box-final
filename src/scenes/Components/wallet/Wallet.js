@@ -20,7 +20,7 @@ import { getUser } from "../../../services/user/getuser";
 import { styles } from "../../styles/CheckoutStyles";
 import { Checkbox } from "react-native-paper";
 
-export default function Wallet({ total, card, user_id, action, data }) {
+export default function Wallet({ total, action, data }) {
   const [balance, setBalance] = useState(0);
   const [hasBalance, setHasBalance] = useState(false);
   const [value, onChangeText] = React.useState("");
@@ -29,14 +29,9 @@ export default function Wallet({ total, card, user_id, action, data }) {
     wallet_balance: {},
     user: {},
   });
-  const {
-    initPaymentSheet,
-    presentPaymentSheet,
-    createPaymentMethod,
-    createToken,
-  } = useStripe();
   const [mycard, setMyCard] = useState({});
   const [checked, setChecked] = React.useState(false);
+  const [number, setNumber] = useState("");
   const STRIPE_PUBLISHABLE_KEY =
     "pk_test_51KammvB9SdGdzaTpAZcPCcQVMesbuC5qY3Sng1rdnEfnfo2geOUP8CQ27sw0WBjpiMpdYBRoAQ1eX8czY8BEEWdO00teqn55mD";
 
@@ -47,8 +42,8 @@ export default function Wallet({ total, card, user_id, action, data }) {
   }, [total, balance]);
 
   useEffect(() => {
-    setMyCard(card[0]);
-  }, [card]);
+    fetchUser();
+  }, []);
 
   const trimmer = (word) => {
     for (let i = 0; i <= word.length - 5; i++) {
@@ -68,15 +63,13 @@ export default function Wallet({ total, card, user_id, action, data }) {
         card: cards[0],
       });
       setMyCard(cards[0]);
+      let num = trimmer(state.card.number);
+      setNumber(num);
     } else {
       alert("Please login or register to proceed");
       Actions.jump("auth");
     }
   };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
 
   const stripeTokenHandler = async (token, amount, id) => {
     const paymentData = { token: token, amount: amount, user_id: id };
@@ -239,7 +232,7 @@ export default function Wallet({ total, card, user_id, action, data }) {
       <View style={styles.optionCard}>
         <Text>
           1. Recharge of wallet amount of {value > 0 ? "$" : null}
-          {value} will be made using credit card {trimmer(state.card.number)}.
+          {value} will be made using credit card {number}.
         </Text>
         <Text>
           2. Wallet amount is non refundable and will not be refunded back. You
