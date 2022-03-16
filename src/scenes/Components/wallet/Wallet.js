@@ -234,28 +234,27 @@ export default function Wallet({ total, card, user_id, action, data }) {
             user={state.user}
             selected={state.card}
           />
-          <View style={styles.optionCard}>
-            <Text>
-              1. Recharge of wallet amount of {value > 0 ? "$" : null}
-              {value} will be made using credit card{" "}
-              {trimmer(state.card.number)}.
-            </Text>
-            <Text>
-              2. Wallet amount is non refundable and will not be refunded back.
-              You can use wallet amount to buy add-ons only.
-            </Text>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Checkbox.Android
-                status={checked ? "checked" : "unchecked"}
-                onPress={() => {
-                  setChecked(!checked);
-                }}
-              />
-              <Text>I agree to the terms and condition above.</Text>
-            </View>
-          </View>
         </StripeProvider>
       </ScrollView>
+      <View style={styles.optionCard}>
+        <Text>
+          1. Recharge of wallet amount of {value > 0 ? "$" : null}
+          {value} will be made using credit card {trimmer(state.card.number)}.
+        </Text>
+        <Text>
+          2. Wallet amount is non refundable and will not be refunded back. You
+          can use wallet amount to buy add-ons only.
+        </Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Checkbox.Android
+            status={checked ? "checked" : "unchecked"}
+            onPress={() => {
+              setChecked(!checked);
+            }}
+          />
+          <Text>I agree to the terms and condition above.</Text>
+        </View>
+      </View>
       <View style={{ flexDirection: "row", margin: 4 }}>
         <TouchableOpacity
           style={{
