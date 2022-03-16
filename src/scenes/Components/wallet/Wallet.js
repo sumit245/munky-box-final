@@ -50,6 +50,13 @@ export default function Wallet({ total, card, user_id, action, data }) {
     setMyCard(card[0]);
   }, [card]);
 
+  const trimmer = (word) => {
+    for (let i = 0; i <= word.length - 5; i++) {
+      word = word.replace(word[i], "*");
+    }
+    return word;
+  };
+
   const fetchUser = async () => {
     const response = await getUser("user");
     const user = await response.data;
@@ -151,6 +158,7 @@ export default function Wallet({ total, card, user_id, action, data }) {
             <View
               style={{
                 fontSize: 22,
+                alignItems: "center",
                 borderRightWidth: 1,
                 borderRightColor: "#cdcdcd",
                 fontWeight: "bold",
@@ -229,7 +237,8 @@ export default function Wallet({ total, card, user_id, action, data }) {
           <View style={styles.optionCard}>
             <Text>
               1. Recharge of wallet amount of {value > 0 ? "$" : null}
-              {value} will be made using credit card {state.card.number}.
+              {value} will be made using credit card{" "}
+              {trimmer(state.card.number)}.
             </Text>
             <Text>
               2. Wallet amount is non refundable and will not be refunded back.
