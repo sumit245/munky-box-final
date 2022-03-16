@@ -150,10 +150,11 @@ export default function Wallet({ total, card, user_id, action, data }) {
           >
             <View
               style={{
-                alignItems: "center",
-                justifyContent: "flex-start",
-                marginVertical: 16,
-                padding: 10,
+                fontSize: 22,
+                borderRightWidth: 1,
+                borderRightColor: "#cdcdcd",
+                fontWeight: "bold",
+                color: "#000",
               }}
             >
               <Image
