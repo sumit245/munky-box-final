@@ -100,9 +100,6 @@ export default function Wallet({ total, card, user_id, action, data }) {
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "space-between", }}>
       <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY}>
-<<<<<<< HEAD
-        <View style={{ flex: 1, }}>
-=======
         <View
           style={{
             padding: 10,
@@ -113,12 +110,11 @@ export default function Wallet({ total, card, user_id, action, data }) {
             borderRadius: 4,
           }}
         >
->>>>>>> ce7624928f37be1f7ac82f053c0f6cb988cb1cb4
           <View
             style={{
               alignItems: "center",
               justifyContent: "flex-start",
-              marginVertical: 16,
+             
               padding: 10,
             }}
           >
@@ -159,7 +155,6 @@ export default function Wallet({ total, card, user_id, action, data }) {
             <Text
               style={{
                 fontSize: 22,
-                padding: 8,
                 borderRightWidth: 1,
                 borderRightColor: "#cdcdcd",
                 fontWeight: "bold",
