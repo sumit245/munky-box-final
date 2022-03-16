@@ -32,6 +32,7 @@ export default function Wallet({ total, action, data }) {
   const [mycard, setMyCard] = useState({});
   const [checked, setChecked] = React.useState(false);
   const [number, setNumber] = useState("");
+  const [user_id, setUserId] = useState("");
   const STRIPE_PUBLISHABLE_KEY =
     "pk_test_51KammvB9SdGdzaTpAZcPCcQVMesbuC5qY3Sng1rdnEfnfo2geOUP8CQ27sw0WBjpiMpdYBRoAQ1eX8czY8BEEWdO00teqn55mD";
 
@@ -43,7 +44,7 @@ export default function Wallet({ total, action, data }) {
 
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [user_id]);
 
   const trimmer = (word) => {
     for (let i = 0; i <= word.length - 5; i++) {
@@ -65,6 +66,7 @@ export default function Wallet({ total, action, data }) {
       setMyCard(cards[0]);
       let num = trimmer(state.card.number);
       setNumber(num);
+      setUserId(user.user_id);
     } else {
       alert("Please login or register to proceed");
       Actions.jump("auth");
@@ -151,8 +153,6 @@ export default function Wallet({ total, action, data }) {
             style={{
               fontSize: 22,
               alignItems: "center",
-              borderRightWidth: 1,
-              borderRightColor: "#cdcdcd",
               fontWeight: "bold",
               color: "#000",
             }}
