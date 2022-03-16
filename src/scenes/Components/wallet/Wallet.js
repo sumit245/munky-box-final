@@ -14,11 +14,18 @@ import {
   useConfirmPayment,
   StripeProvider,
 } from "@stripe/stripe-react-native";
+import { Actions } from "react-native-router-flux";
+import { getUser } from "../../../services/user/getuser";
 
 export default function Wallet({ total, card, user_id, action, data }) {
   const [balance, setBalance] = useState(0);
   const [hasBalance, setHasBalance] = useState(false);
   const [value, onChangeText] = React.useState("");
+  const [state, setState] = useState({
+    card: {},
+    wallet_balance: {},
+    user: {},
+  });
   const {
     initPaymentSheet,
     presentPaymentSheet,
@@ -38,6 +45,26 @@ export default function Wallet({ total, card, user_id, action, data }) {
   useEffect(() => {
     setMyCard(card[0]);
   }, [card]);
+
+  const fetchUser = async () => {
+    const response = await getUser("user");
+    const user = await response.data;
+    const { cards } = user;
+    if (user !== null) {
+      setState({
+        ...state,
+        user: user,
+        card: cards[0],
+      });
+    } else {
+      alert("Please login or register to proceed");
+      Actions.jump("auth");
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   const stripeTokenHandler = async (token, amount, id) => {
     const paymentData = { token: token, amount: amount, user_id: id };
@@ -96,6 +123,11 @@ export default function Wallet({ total, card, user_id, action, data }) {
   };
   const onSubmit = () => {
     action(data);
+  };
+  const cardHandler = (card) => {
+    let { cards } = state.user;
+    let currentCard = cards.filter((item) => item.number === card);
+    setState({ ...state, card: currentCard[0] });
   };
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "space-between", }}>
@@ -183,7 +215,11 @@ export default function Wallet({ total, card, user_id, action, data }) {
           </View>
         </View>
 
-        <CheckoutCards />
+        <CheckoutCards
+          cardHandler={cardHandler}
+          user={state.user}
+          selected={state.card}
+        />
 
         <View style={{ flexDirection: "row", margin: 4 }}>
           <TouchableOpacity
