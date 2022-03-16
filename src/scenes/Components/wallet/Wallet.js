@@ -128,14 +128,17 @@ export default function Wallet({ total, action, data }) {
       alert(error);
     }
   };
+  
   const onSubmit = () => {
     action(data);
   };
+
   const cardHandler = (card) => {
     let { cards } = state.user;
     let currentCard = cards.filter((item) => item.number === card);
     setState({ ...state, card: currentCard[0] });
   };
+
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "space-between" }}>
       <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY}>
