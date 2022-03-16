@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text, View, FlatList, TouchableOpacity } from "react-native";
-import { Checkbox, TextInput } from "react-native-paper";
+import { TextInput } from "react-native-paper";
 import Icon from "react-native-vector-icons/Ionicons";
 import { styles } from "../../styles/CheckoutStyles";
 
@@ -29,7 +29,7 @@ export default function TipOption({ tipHandler }) {
   const [tip_amount, setTipAmt] = useState("");
 
   const selectTip = (tip) => {
-    if (tip ==="Other") {
+    if (tip === "Other") {
       setTip(true);
       setTipAmt(tip);
     } else {

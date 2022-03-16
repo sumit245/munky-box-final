@@ -62,8 +62,6 @@ export default function CheckOut({
     promo_code: "",
   });
   const [submitted, setSubmitted] = useState(false);
-  // const [error, setError] = useState(null);
-  // const { confirmPayment, loading } = useConfirmPayment();
   const { createPaymentMethod, handleCardAction } = useStripe();
   const [addressLoading, setAddressLoading] = useState(true);
   const [isKeyboardOn, setKeyboardOn] = useState(false);
