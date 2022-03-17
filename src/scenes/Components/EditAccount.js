@@ -101,6 +101,7 @@ export default class EditAccount extends Component {
       dataToSend
     );
     const response = await res.data;
+    
     if (res.status === 200) {
       this.setState({ loading: false });
       saveUser("user", JSON.stringify(response)).then((res) => {

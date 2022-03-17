@@ -115,6 +115,7 @@ export default function AddOns({
 
     Actions.push("wallet", {
       title: "My Wallet",
+      isAddOn: true,
       total: total,
       card: card,
       user_id: user_id,

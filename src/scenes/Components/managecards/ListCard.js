@@ -152,10 +152,15 @@ export default class ListCard extends Component {
     checked: "home",
     modalVisible: false,
     user_id: "",
+    wallet_balance: 0,
   };
   fetchUser = () => {
     getUser("user").then((res) => {
-      this.setState({ cards: res.data.cards, user_id: res.data._id });
+      this.setState({
+        cards: res.data.cards,
+        user_id: res.data._id,
+        wallet_balance: res.data.wallet_balance,
+      });
     });
   };
   componentDidMount() {
@@ -184,7 +189,7 @@ export default class ListCard extends Component {
     const response = await axios.put(USER_URL + this.state.user_id, {
       cards: cards,
     });
-    const { data } =  response;
+    const { data } = response;
 
     let local = JSON.stringify(data);
     saveUser("user", local);
@@ -220,7 +225,6 @@ export default class ListCard extends Component {
                     justifyContent: "center",
                   }}
                 >
-                  
                   <SwipeableQuickActionButton
                     style={{
                       backgroundColor: "#ff2244",

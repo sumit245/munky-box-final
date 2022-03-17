@@ -115,7 +115,7 @@ export default function ResultDetails({ item, promo }) {
   useEffect(() => {
     fetchReview();
   }, []);
-  // <RenderRightButton restaurant_id={restaurant_id} />;
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Image

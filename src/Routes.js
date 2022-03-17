@@ -130,6 +130,7 @@ export default function Routes() {
         />
         <Scene
           key="wallet"
+          title="My Wallet"
           component={Wallet}
           renderLeftButton={() => <BackButton />}
         />
