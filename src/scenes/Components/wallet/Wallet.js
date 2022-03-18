@@ -167,9 +167,11 @@ export default function Wallet({ total, action, data, isAddOn }) {
   };
 
   const cardHandler = (card) => {
+    console.log(card);
     let { cards } = state.user;
     let currentCard = cards.filter((item) => item.number === card);
     setState({ ...state, card: currentCard[0] });
+    setMyCard(currentCard[0]);
   };
 
   return (
