@@ -73,11 +73,13 @@ export default function Wallet({ total, action, data, isAddOn }) {
 
   const stripeTokenHandler = async (token, amount, id) => {
     const paymentData = { token: token, amount: amount, user_id: id };
-    const response = await axios.post(
+    console.log(paymentData);
+    /* const response = await axios.post(
       "https://munkybox-admin.herokuapp.com/api/stripe/charge/",
       paymentData
     );
     return response.data;
+     */
   };
 
   const getCreditCardToken = (creditCardData) => {
@@ -118,10 +120,10 @@ export default function Wallet({ total, action, data, isAddOn }) {
           );
           const { status, data } = res.data;
           if (status === 201) {
-            saveUser("user", JSON.stringify(res.data)).then(() => {
-              stripeTokenHandler(result.id, parseInt(value), user_id).then(
-                (res) => {
-                  console.log(res);
+            stripeTokenHandler(result.id, parseInt(value), user_id).then((resp)=>{
+              console.log(resp);
+            saveUser("user", JSON.stringify(res.data)).then((user) => {
+              console.log(user);
                   // const { paid } = res;
                   // if (paid) {
                   //   setLoading(false);
@@ -136,8 +138,10 @@ export default function Wallet({ total, action, data, isAddOn }) {
                   //   alert(error.message);
                   // }
                 }
-              );
-            });
+              ).catch(err=>alert(err));
+            }).catch(error=>{
+              console.log("error in stripe");
+              alert(error)});
           }
         }
       }
