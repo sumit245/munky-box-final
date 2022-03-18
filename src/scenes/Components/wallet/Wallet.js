@@ -17,7 +17,6 @@ import { styles } from "../../styles/CheckoutStyles";
 import { ActivityIndicator, Checkbox, Colors } from "react-native-paper";
 import axios from "axios";
 
-
 export default function Wallet({ total, action, data, isAddOn }) {
   const [balance, setBalance] = useState(0);
   const [hasBalance, setHasBalance] = useState(false);
@@ -74,17 +73,11 @@ export default function Wallet({ total, action, data, isAddOn }) {
 
   const stripeTokenHandler = async (token, amount, id) => {
     const paymentData = { token: token, amount: amount, user_id: id };
-    const response = await fetch(
+    const response = await axios.post(
       "https://munkybox-admin.herokuapp.com/api/stripe/charge/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(paymentData),
-      }
+      paymentData
     );
-    return response.json();
+    return response.data;
   };
 
   const getCreditCardToken = (creditCardData) => {
@@ -118,9 +111,6 @@ export default function Wallet({ total, action, data, isAddOn }) {
         if (parseFloat(value) <= 0) {
           setLoading(false);
           alert("Amount must be greater than zero!!!");
-        } else if (!checked) {
-          setLoading(false);
-          alert("Please accept the following terms");
         } else {
           const res = await axios.put(
             "http://munkybox-admin.herokuapp.com/api/users/" + id,
@@ -131,19 +121,20 @@ export default function Wallet({ total, action, data, isAddOn }) {
             saveUser("user", JSON.stringify(res.data)).then(() => {
               stripeTokenHandler(result.id, parseInt(value), user_id).then(
                 (res) => {
-                  const { paid } = res;
-                  if (paid) {
-                    setLoading(false);
-                    alert(`Recharge done with amount $${value}  !!`);
-                    setBalance(
-                      parseFloat(
-                        parseFloat(value) + parseFloat(balance)
-                      ).toFixed(2)
-                    );
-                  } else {
-                    setLoading(false);
-                    alert(error.message);
-                  }
+                  console.log(res);
+                  // const { paid } = res;
+                  // if (paid) {
+                  //   setLoading(false);
+                  //   alert(`Recharge done with amount $${value}  !!`);
+                  //   setBalance(
+                  //     parseFloat(
+                  //       parseFloat(value) + parseFloat(balance)
+                  //     ).toFixed(2)
+                  //   );
+                  // } else {
+                  //   setLoading(false);
+                  //   alert(error.message);
+                  // }
                 }
               );
             });
@@ -157,7 +148,15 @@ export default function Wallet({ total, action, data, isAddOn }) {
   };
 
   const onSubmit = () => {
-    action(data);
+    let wb = parseFloat(balance) - parseFloat(total);
+    setLoading(true);
+    if (parseFloat(total) <= parseFloat(balance)) {
+      action(data, wb);
+      setLoading(false);
+    } else {
+      setLoading(false);
+      alert("Insufficient Funds");
+    }
   };
 
   const cardHandler = (card) => {
@@ -330,16 +329,24 @@ export default function Wallet({ total, action, data, isAddOn }) {
               disabled={!hasBalance}
               onPress={onSubmit}
             >
-              <Text
-                style={{
-                  textTransform: "uppercase",
-                  color: "#fff",
-                  fontWeight: "bold",
-                  fontSize: 18,
-                }}
-              >
-                Pay ${total}
-              </Text>
+              {loading ? (
+                <ActivityIndicator
+                  size="small"
+                  animating={true}
+                  color={Colors.red900}
+                />
+              ) : (
+                <Text
+                  style={{
+                    textTransform: "uppercase",
+                    color: "#fff",
+                    fontWeight: "bold",
+                    fontSize: 18,
+                  }}
+                >
+                  Pay ${total}
+                </Text>
+              )}
             </TouchableOpacity>
           )}
         </View>
