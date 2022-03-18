@@ -9,6 +9,7 @@ import AddOns from "./AddOns";
 import FutureMeals from "./FutureMeals";
 import Loader from "../utility/Loader";
 import Notes from "./Notes";
+import { saveUser } from "../../../services/user/getuser";
 
 export default function SubscriptionItem({
   item,
@@ -124,7 +125,7 @@ export default function SubscriptionItem({
     }
   };
 
-  const placeExtraOrder = async (addOnsPlaced) => {
+  const placeExtraOrder = async (addOnsPlaced, wallet_balance) => {
     const res = await axios.put(
       "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getandupdateorderstatus/" +
         item.order_id,
@@ -134,12 +135,15 @@ export default function SubscriptionItem({
     );
     const response = await axios.put(
       "http://munkybox-admin.herokuapp.com/api/orders/" + item._id,
-      { add_on: addOnsPlaced }
+      { add_on: addOnsPlaced, wallet_balance: wallet_balance }
     );
     const { data, status } = res.data;
     if (status === 200) {
-      alert(
-        `Thank you for ordering some extras today with order id # ${item.order_id}`
+      const updateLocal = await saveUser("user", JSON.stringify(res.data)).then(
+        () =>
+          alert(
+            `Thank you for ordering some extras today with order id # ${item.order_id}`
+          )
       );
     }
   };
