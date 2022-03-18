@@ -178,8 +178,8 @@ export default class ListCard extends Component {
   );
   changeSelector = (selected) => {
     if (this.props.checkout) {
-      this.props.onSelectCard(selected);
-      Actions.pop();
+    this.props.onSelectCard(selected);
+    Actions.pop();
     }
     this.setState({ checked: selected });
   };

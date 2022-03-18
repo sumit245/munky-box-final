@@ -31,6 +31,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
   const [number, setNumber] = useState("");
   const [user_id, setUserId] = useState("");
   const [id, setId] = useState("");
+  const [ordering, setOrdering] = useState(false);
   const [loading, setLoading] = useState(false);
   const STRIPE_PUBLISHABLE_KEY =
     "pk_test_51KammvB9SdGdzaTpAZcPCcQVMesbuC5qY3Sng1rdnEfnfo2geOUP8CQ27sw0WBjpiMpdYBRoAQ1eX8czY8BEEWdO00teqn55mD";
@@ -43,7 +44,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
 
   useEffect(() => {
     fetchUser();
-  }, [user_id, balance, mycard]);
+  }, []);
 
   const trimmer = (word) => {
     for (let i = 0; i <= word.length - 5; i++) {
@@ -154,14 +155,24 @@ export default function Wallet({ total, action, data, isAddOn }) {
     }
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     let wb = parseFloat(balance) - parseFloat(total);
-    setLoading(true);
+    setOrdering(true);
     if (hasBalance) {
-      action(data, wb);
-      setLoading(false);
+      action(data);
+      const res = await axios.put(
+        "http://munkybox-admin.herokuapp.com/api/users/" + id,
+        { wallet_balance: parseFloat(balance) - parseFloat(value) }
+      );
+      const { status, data } = res.data;
+      if (status === 201) {
+        saveUser("user", JSON.stringify(res.data)).then(() => {
+          setBalance(parseFloat(balance) - parseFloat(value));
+        });
+      }
+      setOrdering(false);
     } else {
-      setLoading(false);
+      setOrdering(false);
       alert("Insufficient Funds");
     }
   };
@@ -337,7 +348,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
               }}
               onPress={onSubmit}
             >
-              {loading ? (
+              {ordering ? (
                 <ActivityIndicator
                   size="small"
                   animating={true}
