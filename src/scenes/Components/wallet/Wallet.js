@@ -243,7 +243,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
                   fontSize: 22,
                   marginHorizontal: 8,
                 }}
-                placeholderTextColor="#777"
+                placeholderTextColor="#ccc"
                 underlineColor="transparent"
                 placeholder="5.00"
                 keyboardType="numeric"
