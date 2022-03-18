@@ -157,7 +157,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
   const onSubmit = () => {
     let wb = parseFloat(balance) - parseFloat(total);
     setLoading(true);
-    if (parseFloat(total) <= parseFloat(balance)) {
+    if (hasBalance) {
       action(data, wb);
       setLoading(false);
     } else {
@@ -333,7 +333,6 @@ export default function Wallet({ total, action, data, isAddOn }) {
                 flex: 1,
                 margin: 2,
               }}
-              disabled={!hasBalance}
               onPress={onSubmit}
             >
               {loading ? (
