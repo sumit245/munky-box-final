@@ -73,13 +73,11 @@ export default function Wallet({ total, action, data, isAddOn }) {
 
   const stripeTokenHandler = async (token, amount, id) => {
     const paymentData = { token: token, amount: amount, user_id: id };
-    console.log(paymentData);
-    /* const response = await axios.post(
+    const response = await axios.post(
       "https://munkybox-admin.herokuapp.com/api/stripe/charge/",
       paymentData
     );
     return response.data;
-     */
   };
 
   const getCreditCardToken = (creditCardData) => {
@@ -120,28 +118,33 @@ export default function Wallet({ total, action, data, isAddOn }) {
           );
           const { status, data } = res.data;
           if (status === 201) {
-            stripeTokenHandler(result.id, parseInt(value), user_id).then((resp)=>{
-              console.log(resp);
-            saveUser("user", JSON.stringify(res.data)).then((user) => {
-              console.log(user);
-                  // const { paid } = res;
-                  // if (paid) {
-                  //   setLoading(false);
-                  //   alert(`Recharge done with amount $${value}  !!`);
-                  //   setBalance(
-                  //     parseFloat(
-                  //       parseFloat(value) + parseFloat(balance)
-                  //     ).toFixed(2)
-                  //   );
-                  // } else {
-                  //   setLoading(false);
-                  //   alert(error.message);
-                  // }
+            stripeTokenHandler(result.id, parseInt(value), user_id)
+              .then((resp) => {
+                const { paid } = resp;
+                if (paid) {
+                  saveUser("user", JSON.stringify(res.data))
+                    .then(() => {
+                      setLoading(false);
+                      alert(`Recharge done with amount $${value}  !!`);
+                      setBalance(
+                        parseFloat(
+                          parseFloat(value) + parseFloat(balance)
+                        ).toFixed(2)
+                      );
+                      onChangeText(0);
+                      setChecked(false);
+                    })
+                    .catch((err) => {
+                      setLoading(false);
+                      alert(err);
+                    });
                 }
-              ).catch(err=>alert(err));
-            }).catch(error=>{
-              console.log("error in stripe");
-              alert(error)});
+              })
+              .catch((error) => {
+                setLoading(false);
+                console.log("error in stripe");
+                alert(error);
+              });
           }
         }
       }
