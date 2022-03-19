@@ -58,9 +58,7 @@ export default function Lunch({ restaurant }) {
           <Text>Stay Connected we are dedicated to serve you better!!</Text>
         </View>
       )}
-      // ListHeaderComponent={()=><BannerCarousel/>}
       showsVerticalScrollIndicator={false}
-      renderItem={renderItem}
       renderItem={(item) => renderItem(item, isFavorite)}
       keyExtractor={(item) => item._id}
     />

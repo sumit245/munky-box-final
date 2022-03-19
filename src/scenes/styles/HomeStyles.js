@@ -93,6 +93,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 4,
     margin: 2,
+    marginVertical:8
   },
   image: {
     width: "99%",
