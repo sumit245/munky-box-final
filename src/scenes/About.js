@@ -17,12 +17,6 @@ export default function About() {
       content:
         "A Privacy Policy agreement is the agreement where you specify if you collect personal data from your users, what kind of personal data you collect and what you do with that data.",
     },
-    {
-      key: "return",
-      title: "Return",
-      content:
-        "Our Return & Refund Policy template lets you get started with a Return and Refund Policy agreement. This template is free to download and use.According to TrueShip study, over 60% of customers review a Return/Refund Policy before they make a purchasing decision.",
-    }
   ]);
   const renderTabBar = (props) => (
     <TabBar
@@ -49,12 +43,7 @@ export default function About() {
             <Text style={{ textAlign: "justify" }}>{route.content}</Text>
           </View>
         );
-      case "return":
-        return (
-          <View style={{ marginHorizontal: 4 }}>
-            <Text style={{ textAlign: "justify" }}>{route.content}</Text>
-          </View>
-        );
+
       default:
         break;
     }
@@ -68,7 +57,6 @@ export default function About() {
         renderScene={renderScene}
         onIndexChange={setIndex}
         renderTabBar={renderTabBar}
-        
       />
     </SafeAreaView>
   );
