@@ -8,9 +8,7 @@ import { Actions } from "react-native-router-flux";
 
 export default function AddOns({
   extras,
-  day,
   meals,
-  order_id,
   card,
   user_id,
   placeExtraOrder,
