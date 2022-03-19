@@ -28,11 +28,12 @@ export default function Wallet({ total, action, data, isAddOn }) {
   });
   const [mycard, setMyCard] = useState({});
   const [checked, setChecked] = useState(false);
-  const [number, setNumber] = useState("");
+  
   const [user_id, setUserId] = useState("");
   const [id, setId] = useState("");
   const [ordering, setOrdering] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [fetching,setFetching]=useState(false)
   const STRIPE_PUBLISHABLE_KEY =
     "pk_test_51KammvB9SdGdzaTpAZcPCcQVMesbuC5qY3Sng1rdnEfnfo2geOUP8CQ27sw0WBjpiMpdYBRoAQ1eX8czY8BEEWdO00teqn55mD";
 
@@ -44,16 +45,11 @@ export default function Wallet({ total, action, data, isAddOn }) {
 
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [fetching]);
 
-  const trimmer = (word) => {
-    for (let i = 0; i <= word.length - 5; i++) {
-      word = word.replace(word[i], "*");
-    }
-    return word;
-  };
 
   const fetchUser = async () => {
+    console.log("User getting");
     const response = await getUser("user");
     const user = await response.data;
     const { cards } = user;
@@ -64,11 +60,12 @@ export default function Wallet({ total, action, data, isAddOn }) {
         card: cards[0],
       });
       setMyCard(cards[0]);
-      let num = trimmer(state.card.number);
-      setNumber(num);
+      
+      
       setUserId(user.user_id);
       setId(user._id);
       setBalance(user.wallet_balance);
+      setFetching(true)
     }
   };
 
@@ -106,6 +103,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
     try {
       const result = await getCreditCardToken(mycard);
       if (result.error) {
+        console.log("error in getting token");
         setLoading(false);
         alert(result.error.message);
       } else {
@@ -162,12 +160,12 @@ export default function Wallet({ total, action, data, isAddOn }) {
       action(data);
       const res = await axios.put(
         "http://munkybox-admin.herokuapp.com/api/users/" + id,
-        { wallet_balance: parseFloat(balance) - parseFloat(value) }
+        { wallet_balance: wb}
       );
       const { status, data } = res.data;
       if (status === 201) {
         saveUser("user", JSON.stringify(res.data)).then(() => {
-          setBalance(parseFloat(balance) - parseFloat(value));
+          setBalance(wb);
         });
       }
       setOrdering(false);
@@ -185,6 +183,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
     setMyCard(currentCard[0]);
   };
 
+  if(fetching){
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "space-between" }}>
       <ScrollView>
@@ -282,7 +281,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
         <View style={styles.optionCard}>
           <Text>
             1. Recharge of wallet amount of {value > 0 ? "$" : null}
-            {value} will be made using credit card {number}.
+            {value} will be made using above credit card.
           </Text>
           <Text>
             2. Wallet amount is non refundable and will not be refunded back.
@@ -372,4 +371,11 @@ export default function Wallet({ total, action, data, isAddOn }) {
       </View>
     </SafeAreaView>
   );
+}else{
+  return(
+    <SafeAreaView style={{flex:1,justifyContent:"center"}}>
+      <ActivityIndicator size="large" color={Colors.red900} animating/>
+    </SafeAreaView>
+  )
+}
 }
