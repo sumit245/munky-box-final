@@ -151,10 +151,11 @@ export default function CheckOut({
       restaurant_id: restaurant,
       plan_name: plan,
     };
-    const response = await axios.post(
-      "https://munkybox-admin.herokuapp.com/api/stripe/pay/",
-      paymentData
-    );
+    console.log(paymentData);
+    // const response = await axios.post(
+    //   "https://munkybox-admin.herokuapp.com/api/stripe/pay/",
+    //   paymentData
+    // );
     return response.data;
   };
 
