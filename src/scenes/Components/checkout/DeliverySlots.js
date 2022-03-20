@@ -83,12 +83,13 @@ export default class DeliverySlots extends Component {
             marginVertical: 2,
             marginBottom: 4,
             paddingVertical: 2,
+            alignItems:'flex-start'
           }}
         >
           <Text style={styles.optionsLabels}>Select a delivery slot</Text>
           <Text
             style={{
-              fontSize: 14,
+              fontSize: 12,
               color: "#db7e24",
               fontWeight: "bold",
             }}
