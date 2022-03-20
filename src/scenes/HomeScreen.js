@@ -18,7 +18,7 @@ export default function HomeScreen({ navigation }) {
         initialRouteName="Meals"
         activeColor="#ff6600"
         inactiveColor="#ff9900"
-        labeled={false}
+        labeled={true}
         barStyle={{ backgroundColor: "white", justifyContent: "flex-start" }}
       >
         <Tab.Screen
