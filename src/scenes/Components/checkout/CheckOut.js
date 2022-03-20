@@ -238,7 +238,7 @@ export default function CheckOut({
       card: card,
       billingDetails,
     });
-    
+
     const response = await axios.post(ORDER_URL, newOrder);
     const data = await response.data;
     Actions.push("thankyou", { id: data.data._id, msg: data.msg });
@@ -319,7 +319,11 @@ export default function CheckOut({
               <Icon
                 style={{ margin: 2, marginTop: 6 }}
                 name="stop-circle"
-                color={meal_type === "veg" ? "#2aaf21" : "#cc2224"}
+                color={
+                  meal_type === "veg" || meal_type === "Veg"
+                    ? "#2aaf21"
+                    : "#cc2224"
+                }
                 size={16}
               />
               <Text style={styles.welcomeText}>{restaurant}</Text>
