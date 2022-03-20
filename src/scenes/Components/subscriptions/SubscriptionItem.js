@@ -137,8 +137,8 @@ export default function SubscriptionItem({
         "http://munkybox-admin.herokuapp.com/api/orders/" + item._id,
         { add_on: addOnsPlaced }
       );
-      const response = response.data;
-      console.log(response);
+      const resp = response.data;
+      console.log(resp);
       // if (status === 201) {
       //   alert(
       //     `Thank you for ordering some extras today with order id # ${item.order_id}`
