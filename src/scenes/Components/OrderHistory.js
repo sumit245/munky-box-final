@@ -36,14 +36,19 @@ export default class OrderHistory extends Component {
               }}
             >
               <Text
-                style={{ fontWeight: "bold", fontSize: 18, color: "#227fff" }}
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 18,
+                  color: "#000",
+                  textAlign: "center",
+                  padding: 10,
+                }}
               >
                 My Orders
               </Text>
             </View>
           )}
           renderItem={renderItem}
-          
           keyExtractor={(item) => item.id}
         />
       </SafeAreaView>
