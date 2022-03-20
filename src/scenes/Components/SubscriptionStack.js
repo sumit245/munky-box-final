@@ -59,7 +59,14 @@ export default function SubscriptionStack({ navigation }) {
         alignItems: "center",
       }}
     >
-      <Text style={{ textAlign: "center",fontSize:18,fontWeight:'bold' }}>
+      <Text
+        style={{
+          textAlign: "center",
+          fontSize: 18,
+          fontWeight: "bold",
+          marginHorizontal: "20%",
+        }}
+      >
         You don't have any active subscriptions
       </Text>
     </View>
