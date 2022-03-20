@@ -38,7 +38,11 @@ export default function ItemCard({ item, isFavorite, isHome }) {
 
       if (componentMounted) {
         setPlan(data);
-        if (Array.isArray(promo) && promo.length !== 0 && promo[0].status==="Active") {
+        if (
+          Array.isArray(promo) &&
+          promo.length !== 0 &&
+          promo[0].status === "Active"
+        ) {
           setState({
             discount: promo[0].discount,
             discount_type: promo[0].discount_type,
@@ -76,8 +80,8 @@ export default function ItemCard({ item, isFavorite, isHome }) {
           justifyContent: "space-between",
           padding: 2,
           margin: 2,
-          marginVertical:4,
-          marginBottom:8
+          marginVertical: 4,
+          marginBottom: 8,
         }}
       >
         <View style={{ flexDirection: "row" }}>
@@ -103,7 +107,9 @@ export default function ItemCard({ item, isFavorite, isHome }) {
               <Icon
                 name="stop-circle"
                 size={16}
-                color={meal_type === "Veg" ? "green" : "red"}
+                color={
+                  meal_type === "Veg" || meal_type === "veg" ? "green" : "red"
+                }
               />{" "}
             </Text>
             <Text
