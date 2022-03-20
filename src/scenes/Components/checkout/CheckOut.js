@@ -152,10 +152,10 @@ export default function CheckOut({
       plan_name: plan,
     };
     console.log(paymentData);
-    // const response = await axios.post(
-    //   "https://munkybox-admin.herokuapp.com/api/stripe/pay/",
-    //   paymentData
-    // );
+    const response = await axios.post(
+      "https://munkybox-admin.herokuapp.com/api/stripe/pay",
+      paymentData
+    );
     return response.data;
   };
 
