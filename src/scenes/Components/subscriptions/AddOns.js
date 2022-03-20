@@ -8,6 +8,7 @@ import { Actions } from "react-native-router-flux";
 
 export default function AddOns({
   extras,
+  hasAddOn,
   meals,
   card,
   user_id,
@@ -99,27 +100,31 @@ export default function AddOns({
   };
 
   const orderExtras = () => {
-    const datatoplace = Array.from(new Set(extrass.map((s) => s.item))).map(
-      (item) => {
-        let singleadds = extrass.filter((s) => s.item === item);
-        let quantity = singleadds.reduce((max, addon) =>
-          max.qty > addon.qty ? max : addon
-        );
-        return {
-          ...quantity,
-        };
-      }
-    );
+    if (!hasAddOn) {
+      const datatoplace = Array.from(new Set(extrass.map((s) => s.item))).map(
+        (item) => {
+          let singleadds = extrass.filter((s) => s.item === item);
+          let quantity = singleadds.reduce((max, addon) =>
+            max.qty > addon.qty ? max : addon
+          );
+          return {
+            ...quantity,
+          };
+        }
+      );
 
-    Actions.push("wallet", {
-      title: "My Wallet",
-      isAddOn: true,
-      total: total,
-      card: card,
-      user_id: user_id,
-      action: placeExtraOrder,
-      data: datatoplace,
-    });
+      Actions.push("wallet", {
+        title: "My Wallet",
+        isAddOn: true,
+        total: total,
+        card: card,
+        user_id: user_id,
+        action: placeExtraOrder,
+        data: datatoplace,
+      });
+    } else {
+      alert("You have already ordered add-ons for the day");
+    }
   };
 
   if (myaddons.length > 0) {

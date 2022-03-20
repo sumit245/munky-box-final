@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, SafeAreaView, ScrollView } from "react-native";
-import Icon from "react-native-vector-icons/Entypo";
 import axios from "axios";
 import { styles } from "../../styles/subscriptionTabStyle";
 import moment from "moment";
-import MealList, { Item } from "./MealList";
+import { Item } from "./MealList";
 import AddOns from "./AddOns";
 import FutureMeals from "./FutureMeals";
 import Loader from "../utility/Loader";
@@ -14,7 +13,6 @@ export default function SubscriptionItem({
   item,
   width,
   index,
-  navigation,
   card,
   user_id,
   getCurrentIndex,
@@ -59,7 +57,7 @@ export default function SubscriptionItem({
   const today = moment().weekday();
   const [futuremeals, setFutureMeals] = useState([]);
   const [remaining, setRemaining] = useState(0);
-
+  const [hasAddOn,setHasAddOn]=useState(false)
   useEffect(() => {
     getCurrentIndex(index);
   }, [index]);
@@ -119,8 +117,11 @@ export default function SubscriptionItem({
         item.order_id
     );
     if (res.data !== null) {
-      let { delivered } = res.data;
+      let { delivered, add_on } = res.data;
       setDelivered(delivered);
+      if (add_on && add_on.length > 0) {
+        setHasAddOn(true);
+      }
     }
   };
 
@@ -281,6 +282,7 @@ export default function SubscriptionItem({
                 card={card}
                 user_id={user_id}
                 placeExtraOrder={placeExtraOrder}
+                hasAddOn={hasAddOn}
               />
             </View>
 
