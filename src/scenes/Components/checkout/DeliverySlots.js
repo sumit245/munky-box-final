@@ -88,7 +88,7 @@ export default class DeliverySlots extends Component {
           <Text style={styles.optionsLabels}>Select a delivery slot</Text>
           <Text
             style={{
-              fontSize: 10,
+              fontSize: 14,
               color: "#db7e24",
               fontWeight: "bold",
             }}
