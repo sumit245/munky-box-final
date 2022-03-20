@@ -132,14 +132,13 @@ export default function SubscriptionItem({
         add_on: addOnsPlaced,
       }
     );
-    console.log(res.data.status, addOnsPlaced);
-    if (res.data !== null) {
+    if (res.data.status === 200) {
       const response = await axios.put(
         "http://munkybox-admin.herokuapp.com/api/orders/" + item._id,
         { add_on: addOnsPlaced }
       );
       const { data, status } = response.data;
-      if (status === 200) {
+      if (status === 201) {
         alert(
           `Thank you for ordering some extras today with order id # ${item.order_id}`
         );
