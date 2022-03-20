@@ -72,12 +72,12 @@ export default class DetailStack extends Component {
   renderTabBar = (props) => (
     <TabBar
       {...props}
-      indicatorStyle={{ backgroundColor: "#2266cf", marginHorizontal: 2 }}
+      indicatorStyle={{ backgroundColor: "#ff9900", marginHorizontal: 60,width:100, }}
       style={{
         backgroundColor: "transparent",
         height: 40,
       }}
-      activeColor="#2266ff"
+      activeColor="#ff6600"
       labelStyle={{ fontWeight: "bold" }}
       inactiveColor="#272727"
     />
@@ -248,7 +248,7 @@ export default class DetailStack extends Component {
             >
               <View>
                 <FlatList
-                  contentContainerStyle={{ marginLeft: 4, marginBottom: 8 }}
+                  contentContainerStyle={{ marginLeft: 4, marginBottom: 12,marginVertical:8 }}
                   data={cuisine}
                   ListHeaderComponent={() => (
                     <>

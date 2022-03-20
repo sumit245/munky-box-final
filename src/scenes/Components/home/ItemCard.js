@@ -76,6 +76,8 @@ export default function ItemCard({ item, isFavorite, isHome }) {
           justifyContent: "space-between",
           padding: 2,
           margin: 2,
+          marginVertical:4,
+          marginBottom:8
         }}
       >
         <View style={{ flexDirection: "row" }}>

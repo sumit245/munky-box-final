@@ -132,7 +132,9 @@ export default class ListAddress extends Component {
   changeSelector = (selected) => {
     if (this.props.checkout) {
       this.props.onAddressSelect(selected);
-      Actions.pop();
+      Actions.pop({refresh:{},timeout:1});
+    }else if(this.props.isHome){
+      Actions.push('home',{isAdded:true})
     }
     this.setState({ checked: selected });
   };

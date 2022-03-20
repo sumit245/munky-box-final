@@ -79,7 +79,7 @@ export default class ManualEntry extends Component {
     this.setState({ loading: false });
     this.props.entryMethod
       ? Actions.push("home")
-      : Actions.pop({ refresh: {} });
+      : Actions.pop({ refresh: {} })
     //problem in this block:TODO
   };
   render() {
@@ -258,6 +258,7 @@ export default class ManualEntry extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    
     justifyContent: "space-between",
     borderWidth: 1,
     backgroundColor: "#FFF",
@@ -294,6 +295,8 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 0.2,
     marginHorizontal: 2,
+    position:"absolute",
+    bottom:-180,
     padding: 6,
     height: 44,
     backgroundColor: "#2962ff",
