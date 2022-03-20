@@ -143,34 +143,40 @@ export default function CheckOut({
     return clientSecret;
   };
 
-  // const getCreditCardToken = (creditCardData) => {
-  //   const card = {
-  //     "card[number]": creditCardData.number.replace(/ /g, ""),
-  //     "card[exp_month]": creditCardData.expiry.split("/")[0],
-  //     "card[exp_year]": creditCardData.expiry.split("/")[1],
-  //     "card[cvc]": creditCardData.cvc,
-  //   };
-  //   return fetch("https://api.stripe.com/v1/tokens", {
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/x-www-form-urlencoded",
-  //       Authorization: `Bearer ${STRIPE_PUBLISHABLE_KEY}`,
-  //     },
-  //     method: "post",
-  //     body: Object.keys(card)
-  //       .map((key) => key + "=" + card[key])
-  //       .join("&"),
-  //   }).then((response) => response.json());
-  // };
+  const stripeTokenHandler = async (token, amount, id, restaurant, plan) => {
+    const paymentData = {
+      token: token,
+      amount: amount,
+      user_id: id,
+      restaurant_id: restaurant,
+      plan_name: plan,
+    };
+    const response = await axios.post(
+      "https://munkybox-admin.herokuapp.com/api/stripe/pay/",
+      paymentData
+    );
+    return response.data;
+  };
 
-  // const subscribeUser = (creditCardToken) => {
-  //   return new Promise((resolve) => {
-  //     console.log("Credit card token\n", creditCardToken);
-  //     setTimeout(() => {
-  //       resolve({ status: true });
-  //     }, 1000);
-  //   });
-  // };
+  const getCreditCardToken = (creditCardData) => {
+    const card = {
+      "card[number]": creditCardData.number.replace(/ /g, ""),
+      "card[exp_month]": creditCardData.expiry.split("/")[0],
+      "card[exp_year]": creditCardData.expiry.split("/")[1],
+      "card[cvc]": creditCardData.cvc,
+    };
+    return fetch("https://api.stripe.com/v1/tokens", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Bearer ${STRIPE_PUBLISHABLE_KEY}`,
+      },
+      method: "post",
+      body: Object.keys(card)
+        .map((key) => key + "=" + card[key])
+        .join("&"),
+    }).then((response) => response.json());
+  };
 
   const orderNow = async () => {
     const {
@@ -197,51 +203,68 @@ export default function CheckOut({
       promo_code,
     } = state;
 
-    const clientSecret = await fetchPaymentIntentClientSecret(total * 100);
-    const { user_id, email_id, first_name, last_name, phone } = user;
-    const newOrder = {
-      time: time,
-      user_id: user_id,
-      restaurant_id: restaurant_id,
-      email_id: email_id,
-      promo_id: promo_id,
-      promo_code: promo_code,
-      user_name: first_name + " " + last_name,
-      address,
-      card: card,
-      category: category,
-      meal_type: meal_type,
-      phone: phone,
-      restaurant,
-      plan,
-      base_price,
-      price,
-      discount,
-      delivery_fee,
-      service_fee,
-      taxes,
-      total,
-      tip,
-      start_date,
-      end_date,
-      notes,
-      order_time: new Date().toISOString(),
-    };
-    const billingDetails = {
-      email_id: newOrder.email_id,
-      user_id: newOrder.user_id,
-      user_name: newOrder.user_name,
-      restaurant_id: newOrder.restaurant_id,
-    };
-    const { paymentMethod, error } = await createPaymentMethod({
-      type: "Card",
-      card: card,
-      billingDetails,
-    });
+    const result = await getCreditCardToken(card);
+    if (result.error) {
+      console.log("Error in getting card token");
+      alert(result.error.message);
+    } else {
+      stripeTokenHandler(
+        result.id,
+        parseFloat(price),
+        user.user_id,
+        restaurant_id,
+        plan
+      )
+        .then((resp) => {
+          const { paid } = resp;
+          if (paid) {
+            const { user_id, email_id, first_name, last_name, phone } = user;
+            const newOrder = {
+              time: time,
+              user_id: user_id,
+              restaurant_id: restaurant_id,
+              email_id: email_id,
+              promo_id: promo_id,
+              promo_code: promo_code,
+              user_name: first_name + " " + last_name,
+              address,
+              card: card,
+              category: category,
+              meal_type: meal_type,
+              phone: phone,
+              restaurant,
+              plan,
+              base_price,
+              price,
+              discount,
+              delivery_fee,
+              service_fee,
+              taxes,
+              total,
+              tip,
+              start_date,
+              end_date,
+              notes,
+              order_time: new Date().toISOString(),
+            };
+            axios
+              .post(ORDER_URL, newOrder)
+              .then((response) => {
+                const { data } = response;
 
-    const response = await axios.post(ORDER_URL, newOrder);
-    const data = await response.data;
-    Actions.push("thankyou", { id: data.data._id, msg: data.msg });
+                Actions.push("thankyou", { id: data.data._id, msg: data.msg });
+              })
+              .catch((err) => {
+                console.log(err);
+                alert("Error ordering food");
+              });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("Error in stripe");
+        });
+    }
   };
 
   const fetchUser = async () => {
