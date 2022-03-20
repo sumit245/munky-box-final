@@ -64,10 +64,11 @@ export default function SubscriptionStack({ navigation }) {
           textAlign: "center",
           fontSize: 18,
           fontWeight: "bold",
-          marginHorizontal: "20%",
+          color:"#000",
+          marginHorizontal: width/10,
         }}
       >
-        You don't have any active subscriptions
+        You don't have any active subscriptions.
       </Text>
     </View>
   );
