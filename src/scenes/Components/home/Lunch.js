@@ -1,10 +1,8 @@
 import React from "react";
 import { FlatList, View, Text } from "react-native";
 import { getUser } from "../../../services/user/getuser";
-import { width } from "../../styles/HomeStyles";
 import Icon from "react-native-vector-icons/Ionicons";
 import ItemCard from "./ItemCard";
-import BannerCarousel from "../BannerCarousel";
 const renderItem = ({ item, index }, isFavorite) => (
   <ItemCard key={index} item={item} isFavorite={isFavorite} />
 );

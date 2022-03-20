@@ -11,6 +11,7 @@ export default function Cuisine({ image, title, highLighted }) {
           styles.cuisineContent,
           { borderColor: highLighted ? "#2266cf" : "#fff" },
         ]}
+        resizeMode="contain"
       />
       <Text
         style={[

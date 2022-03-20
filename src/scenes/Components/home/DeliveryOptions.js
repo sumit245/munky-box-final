@@ -12,6 +12,7 @@ export default class DeliveryOptions extends Component {
     modalVisible: false,
     address: "Select address",
     addresses: [],
+    changed:false
   };
 
   setModalVisible = () => {
@@ -28,7 +29,8 @@ export default class DeliveryOptions extends Component {
     });
     users.data.addresses = addresses;
     await saveUser("user", JSON.stringify(users));
-    this.setState({ addresses: addresses });
+    console.log(users);
+    this.setState({ addresses: addresses,changed:true });
   };
   async fetchandsave() {
     const users = await getUser("user");
@@ -40,11 +42,13 @@ export default class DeliveryOptions extends Component {
   componentDidMount() {
     this.fetchandsave();
   }
-  componentDidUpdate(prevProps) {
-    if (this.state.address !== this.props.address) {
-      this.fetchandsave();
+  componentDidUpdate(){
+    if(this.props.isAdded){
+      this.fetchandsave()
     }
   }
+ 
+
   render() {
     const { modalVisible, addresses } = this.state;
     return (
@@ -128,7 +132,7 @@ export default class DeliveryOptions extends Component {
                   ]}
                   onPress={() => {
                     this.setState({ modalVisible: false });
-                    Actions.push("listAddress");
+                    Actions.push("listAddress",{isHome:true});
                   }}
                 >
                   <Icon name="add-sharp" size={20} color="#226ccf" />
@@ -145,9 +149,10 @@ export default class DeliveryOptions extends Component {
           </Text>
           <Text
             style={{
-              top: -2,
+              top: 2,
               textTransform: "capitalize",
               fontWeight: "bold",
+              fontSize:16
             }}
           >
             {this.state.address}

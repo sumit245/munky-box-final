@@ -24,9 +24,8 @@ export const styles = StyleSheet.create({
   cuisineContent: {
     width: 48,
     height: 48,
-    borderRadius: 24,
     alignSelf: "center",
-    borderWidth: 1,
+    
   },
   header: {
     flexDirection: "row",
@@ -85,7 +84,7 @@ export const styles = StyleSheet.create({
   },
   modalText: {
     padding: 2,
-    fontSize:12,
+    fontSize:16,
     fontWeight: "bold",
     textTransform: "capitalize",
   },
