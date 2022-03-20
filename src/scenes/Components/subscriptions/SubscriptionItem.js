@@ -138,6 +138,7 @@ export default function SubscriptionItem({
         { add_on: addOnsPlaced }
       );
       const { data, status } = response.data;
+      console.log(status);
       if (status === 201) {
         alert(
           `Thank you for ordering some extras today with order id # ${item.order_id}`
