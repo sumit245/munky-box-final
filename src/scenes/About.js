@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, SafeAreaView } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
+import WebView from "react-native-webview";
+
+const PDFReader = ({ url: uri }) => (
+  <WebView style={{ flex: 1 }} source={{ uri }} />
+);
 
 export default function About() {
   const [index, setIndex] = useState(0);
+  const [uri, setUri] = useState("");
+  useEffect(() => {
+    setUri("../../assets/tnc.pdf");
+  }, []);
+
   const [routes] = useState([
     {
       key: "tnc",
@@ -34,7 +44,7 @@ export default function About() {
       case "tnc":
         return (
           <View style={{ marginHorizontal: 4 }}>
-            <Text style={{ textAlign: "justify" }}>{route.content}</Text>
+            <PDFReader url={uri} />
           </View>
         );
       case "privacy":
