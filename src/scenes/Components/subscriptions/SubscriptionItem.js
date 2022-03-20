@@ -137,13 +137,11 @@ export default function SubscriptionItem({
         "http://munkybox-admin.herokuapp.com/api/orders/" + item._id,
         { add_on: addOnsPlaced }
       );
-      const resp = response.data;
-      console.log(resp);
-      // if (status === 201) {
-      //   alert(
-      //     `Thank you for ordering some extras today with order id # ${item.order_id}`
-      //   );
-      // }
+      const { data, status, msg } = response.data;
+      console.log(data);
+      if (status === 201) {
+        alert(`${msg} with order id # ${item.order_id}`);
+      }
     }
   };
 
