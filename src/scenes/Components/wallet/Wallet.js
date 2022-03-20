@@ -28,12 +28,13 @@ export default function Wallet({ total, action, data, isAddOn }) {
   });
   const [mycard, setMyCard] = useState({});
   const [checked, setChecked] = useState(false);
-  
+
   const [user_id, setUserId] = useState("");
   const [id, setId] = useState("");
   const [ordering, setOrdering] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [fetching,setFetching]=useState(false)
+  const [fetching, setFetching] = useState(false);
+  const [addOn, setAddOn] = useState([]);
   const STRIPE_PUBLISHABLE_KEY =
     "pk_test_51KammvB9SdGdzaTpAZcPCcQVMesbuC5qY3Sng1rdnEfnfo2geOUP8CQ27sw0WBjpiMpdYBRoAQ1eX8czY8BEEWdO00teqn55mD";
 
@@ -45,11 +46,10 @@ export default function Wallet({ total, action, data, isAddOn }) {
 
   useEffect(() => {
     fetchUser();
+    setAddOn(data);
   }, [fetching]);
 
-
   const fetchUser = async () => {
-    console.log("User getting");
     const response = await getUser("user");
     const user = await response.data;
     const { cards } = user;
@@ -60,12 +60,11 @@ export default function Wallet({ total, action, data, isAddOn }) {
         card: cards[0],
       });
       setMyCard(cards[0]);
-      
-      
+
       setUserId(user.user_id);
       setId(user._id);
       setBalance(user.wallet_balance);
-      setFetching(true)
+      setFetching(true);
     }
   };
 
@@ -157,10 +156,10 @@ export default function Wallet({ total, action, data, isAddOn }) {
     let wb = parseFloat(balance) - parseFloat(total);
     setOrdering(true);
     if (hasBalance) {
-      action(data);
+      action(addOn);
       const res = await axios.put(
         "http://munkybox-admin.herokuapp.com/api/users/" + id,
-        { wallet_balance: wb}
+        { wallet_balance: wb }
       );
       const { status, data } = res.data;
       if (status === 201) {
@@ -183,171 +182,137 @@ export default function Wallet({ total, action, data, isAddOn }) {
     setMyCard(currentCard[0]);
   };
 
-  if(fetching){
-  return (
-    <SafeAreaView style={{ flex: 1, justifyContent: "space-between" }}>
-      <ScrollView>
-        <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY}>
-          <View
-            style={{
-              padding: 10,
-              backgroundColor: "#fff",
-              marginVertical: 8,
-              marginHorizontal: 2,
-              elevation: 2,
-              borderRadius: 4,
-            }}
-          >
+  if (fetching) {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: "space-between" }}>
+        <ScrollView>
+          <StripeProvider publishableKey={STRIPE_PUBLISHABLE_KEY}>
             <View
               style={{
-                fontSize: 22,
-                alignItems: "center",
-                fontWeight: "bold",
-                color: "#000",
-              }}
-            >
-              <Image
-                source={PIC}
-                height={84}
-                width={120}
-                style={{ height: 124, maxHeight: 164, width: 120 }}
-              />
-              <Text
-                style={{
-                  fontSize: 28,
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                ${parseFloat(balance).toFixed(2)}
-              </Text>
-            </View>
-            <Text style={{ textAlign: "center", padding: 16, fontSize: 18 }}>
-              Top-up Amount
-            </Text>
-            <View
-              style={{
-                width: 200,
-                height: 44,
-                alignSelf: "center",
+                padding: 10,
                 backgroundColor: "#fff",
-                padding: 8,
-                borderRadius: 20,
-                borderColor: "#cdcdcd",
-                borderWidth: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "row",
+                marginVertical: 8,
+                marginHorizontal: 2,
+                elevation: 2,
+                borderRadius: 4,
               }}
             >
-              <Text
+              <View
                 style={{
                   fontSize: 22,
-                  borderRightWidth: 1,
-                  borderRightColor: "#cdcdcd",
+                  alignItems: "center",
                   fontWeight: "bold",
                   color: "#000",
                 }}
               >
-                $
+                <Image
+                  source={PIC}
+                  height={84}
+                  width={120}
+                  style={{ height: 124, maxHeight: 164, width: 120 }}
+                />
+                <Text
+                  style={{
+                    fontSize: 28,
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  ${parseFloat(balance).toFixed(2)}
+                </Text>
+              </View>
+              <Text style={{ textAlign: "center", padding: 16, fontSize: 18 }}>
+                Top-up Amount
               </Text>
-              <TextInput
+              <View
                 style={{
-                  height: 40,
+                  width: 200,
+                  height: 44,
+                  alignSelf: "center",
                   backgroundColor: "#fff",
-                  width: 132,
-                  borderBottomWidth: 0,
+                  padding: 8,
+                  borderRadius: 20,
+                  borderColor: "#cdcdcd",
+                  borderWidth: 1,
                   justifyContent: "center",
-                  fontSize: 22,
-                  marginHorizontal: 8,
+                  alignItems: "center",
+                  flexDirection: "row",
                 }}
-                placeholderTextColor="#ccc"
-                underlineColor="transparent"
-                placeholder="5.00"
-                keyboardType="numeric"
-                onChangeText={(text) => onChangeText(text)}
-                value={value}
+              >
+                <Text
+                  style={{
+                    fontSize: 22,
+                    borderRightWidth: 1,
+                    borderRightColor: "#cdcdcd",
+                    fontWeight: "bold",
+                    color: "#000",
+                  }}
+                >
+                  $
+                </Text>
+                <TextInput
+                  style={{
+                    height: 40,
+                    backgroundColor: "#fff",
+                    width: 132,
+                    borderBottomWidth: 0,
+                    justifyContent: "center",
+                    fontSize: 22,
+                    marginHorizontal: 8,
+                  }}
+                  placeholderTextColor="#ccc"
+                  underlineColor="transparent"
+                  placeholder="5.00"
+                  keyboardType="numeric"
+                  onChangeText={(text) => onChangeText(text)}
+                  value={value}
+                />
+              </View>
+            </View>
+            <CheckoutCards
+              cardHandler={cardHandler}
+              user={state.user}
+              selected={state.card}
+            />
+          </StripeProvider>
+        </ScrollView>
+        <View>
+          <View style={styles.optionCard}>
+            <Text>
+              1. Recharge of wallet amount of {value > 0 ? "$" : null}
+              {value} will be made using above credit card.
+            </Text>
+            <Text>
+              2. Wallet amount is non refundable and will not be refunded back.
+              You can use wallet amount to buy add-ons only.
+            </Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Checkbox.Android
+                status={checked ? "checked" : "unchecked"}
+                onPress={() => {
+                  setChecked(!checked);
+                }}
               />
+              <Text>I agree to the terms and condition above.</Text>
             </View>
           </View>
-          <CheckoutCards
-            cardHandler={cardHandler}
-            user={state.user}
-            selected={state.card}
-          />
-        </StripeProvider>
-      </ScrollView>
-      <View>
-        <View style={styles.optionCard}>
-          <Text>
-            1. Recharge of wallet amount of {value > 0 ? "$" : null}
-            {value} will be made using above credit card.
-          </Text>
-          <Text>
-            2. Wallet amount is non refundable and will not be refunded back.
-            You can use wallet amount to buy add-ons only.
-          </Text>
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Checkbox.Android
-              status={checked ? "checked" : "unchecked"}
-              onPress={() => {
-                setChecked(!checked);
-              }}
-            />
-            <Text>I agree to the terms and condition above.</Text>
-          </View>
-        </View>
-        <View style={{ flexDirection: "row", margin: 4 }}>
-          <TouchableOpacity
-            style={{
-              borderColor: "#000",
-              borderWidth: 1,
-              borderRadius: 24,
-              height: 48,
-              padding: 10,
-              justifyContent: "center",
-              alignItems: "center",
-              flex: 1,
-              margin: 2,
-            }}
-            onPress={recharge}
-            disabled={!checked}
-          >
-            {loading ? (
-              <ActivityIndicator
-                size="small"
-                animating={true}
-                color={Colors.red900}
-              />
-            ) : (
-              <Text
-                style={{
-                  textTransform: "uppercase",
-                  color: "#000",
-                  fontWeight: "bold",
-                  fontSize: 18,
-                }}
-              >
-                Recharge Now
-              </Text>
-            )}
-          </TouchableOpacity>
-          {isAddOn && (
+          <View style={{ flexDirection: "row", margin: 4 }}>
             <TouchableOpacity
               style={{
-                borderColor: "#226ccf",
-                backgroundColor: "#008000",
+                borderColor: "#000",
+                borderWidth: 1,
                 borderRadius: 24,
-                padding: 10,
                 height: 48,
+                padding: 10,
                 justifyContent: "center",
                 alignItems: "center",
                 flex: 1,
                 margin: 2,
               }}
-              onPress={onSubmit}
+              onPress={recharge}
+              disabled={!checked}
             >
-              {ordering ? (
+              {loading ? (
                 <ActivityIndicator
                   size="small"
                   animating={true}
@@ -357,25 +322,59 @@ export default function Wallet({ total, action, data, isAddOn }) {
                 <Text
                   style={{
                     textTransform: "uppercase",
-                    color: "#fff",
+                    color: "#000",
                     fontWeight: "bold",
                     fontSize: 18,
                   }}
                 >
-                  Pay ${total}
+                  Recharge Now
                 </Text>
               )}
             </TouchableOpacity>
-          )}
+            {isAddOn && (
+              <TouchableOpacity
+                style={{
+                  borderColor: "#226ccf",
+                  backgroundColor: "#008000",
+                  borderRadius: 24,
+                  padding: 10,
+                  height: 48,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flex: 1,
+                  margin: 2,
+                }}
+                onPress={onSubmit}
+              >
+                {ordering ? (
+                  <ActivityIndicator
+                    size="small"
+                    animating={true}
+                    color={Colors.red900}
+                  />
+                ) : (
+                  <Text
+                    style={{
+                      textTransform: "uppercase",
+                      color: "#fff",
+                      fontWeight: "bold",
+                      fontSize: 18,
+                    }}
+                  >
+                    Pay ${total}
+                  </Text>
+                )}
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
-  );
-}else{
-  return(
-    <SafeAreaView style={{flex:1,justifyContent:"center"}}>
-      <ActivityIndicator size="large" color={Colors.red900} animating/>
-    </SafeAreaView>
-  )
-}
+      </SafeAreaView>
+    );
+  } else {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
+        <ActivityIndicator size="large" color={Colors.red900} animating />
+      </SafeAreaView>
+    );
+  }
 }
