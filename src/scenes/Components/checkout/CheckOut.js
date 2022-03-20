@@ -211,7 +211,7 @@ export default function CheckOut({
     } else {
       stripeTokenHandler(
         result.id,
-        parseFloat(price),
+        parseFloat(total),
         user.user_id,
         restaurant_id,
         plan
