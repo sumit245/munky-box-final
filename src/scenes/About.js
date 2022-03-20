@@ -7,10 +7,6 @@ const PDFReader = ({ url: uri }) => <WebView source={{ uri }} />;
 
 export default function About() {
   const [index, setIndex] = useState(0);
-  const [uri, setUri] = useState("");
-  useEffect(() => {
-    setUri("");
-  }, [uri]);
 
   const [routes] = useState([
     {
@@ -35,9 +31,13 @@ export default function About() {
   const renderScene = ({ route }) => {
     switch (route.key) {
       case "tnc":
-        return <PDFReader url="http://feasticom.herokuapp.com/terms-of-service" />;
+        return (
+          <PDFReader url="https://feasticom.herokuapp.com/terms-of-service" />
+        );
       case "privacy":
-        return <PDFReader url="http://feasticom.herokuapp.com/privacy-policy" />;
+        return (
+          <PDFReader url="https://feasticom.herokuapp.com/privacy-policy" />
+        );
       default:
         break;
     }
