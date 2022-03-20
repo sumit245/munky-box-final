@@ -3,9 +3,7 @@ import { View, Text, SafeAreaView } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
 import WebView from "react-native-webview";
 
-const PDFReader = ({ url: uri }) => (
-  <WebView style={{ flex: 1 }} source={{ uri }} />
-);
+const PDFReader = ({ url: uri }) => <WebView source={{ uri }} />;
 
 export default function About() {
   const [index, setIndex] = useState(0);
@@ -27,7 +25,6 @@ export default function About() {
   const renderTabBar = (props) => (
     <TabBar
       {...props}
-      scrollEnabled
       style={{
         marginBottom: 8,
       }}
@@ -49,7 +46,6 @@ export default function About() {
     <SafeAreaView style={{ flex: 1 }}>
       <TabView
         lazy
-        swipeEnabled
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
