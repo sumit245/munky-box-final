@@ -125,7 +125,6 @@ export default function SubscriptionItem({
   };
 
   const placeExtraOrder = async (addOnsPlaced) => {
-    console.log(addOnsPlaced);
     const res = await axios.put(
       "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getandupdateorderstatus/" +
         item.order_id,
@@ -133,6 +132,7 @@ export default function SubscriptionItem({
         add_on: addOnsPlaced,
       }
     );
+    console.log(res.data.status, addOnsPlaced);
     if (res.data !== null) {
       const response = await axios.put(
         "http://munkybox-admin.herokuapp.com/api/orders/" + item._id,
