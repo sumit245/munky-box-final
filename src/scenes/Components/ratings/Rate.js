@@ -114,6 +114,7 @@ export default function Rate({ navigation, restaurant, order }) {
                   textAlign: "center",
                   fontSize: 16,
                   fontWeight: "bold",
+                  marginVertical: 8,
                 }}
               >
                 What did you like?{" "}
@@ -125,7 +126,7 @@ export default function Rate({ navigation, restaurant, order }) {
                   justifyContent: "space-between",
                   flexWrap: "wrap",
                   marginHorizontal: 20,
-                  marginVertical: 2,
+                  marginVertical: 8,
                 }}
               >
                 {features.map((feature, key) => (
