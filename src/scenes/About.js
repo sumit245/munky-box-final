@@ -12,20 +12,16 @@ export default function About() {
   const [uri, setUri] = useState("");
   useEffect(() => {
     setUri("../../assets/tnc.pdf");
-  }, []);
+  }, [uri]);
 
   const [routes] = useState([
     {
       key: "tnc",
       title: "T&C",
-      content:
-        'The following terms and conditions, together with any referenced documents (collectively, "Terms of Use") form a legal agreement between you and your employer, employees, agents, contractors and any other entity on whose behalf you accept these terms (collectively, “you” and “your”), and ServiceNow, Inc. (“ServiceNow,” “we,” “us” and “our”).',
     },
     {
       key: "privacy",
       title: "Privacy",
-      content:
-        "A Privacy Policy agreement is the agreement where you specify if you collect personal data from your users, what kind of personal data you collect and what you do with that data.",
     },
   ]);
   const renderTabBar = (props) => (
@@ -44,12 +40,7 @@ export default function About() {
       case "tnc":
         return <PDFReader url={uri} />;
       case "privacy":
-        return (
-          <View style={{ marginHorizontal: 4 }}>
-            <Text style={{ textAlign: "justify" }}>{route.content}</Text>
-          </View>
-        );
-
+        return <PDFReader url={uri} />;
       default:
         break;
     }
