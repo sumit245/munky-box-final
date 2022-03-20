@@ -42,11 +42,7 @@ export default function About() {
   const renderScene = ({ route }) => {
     switch (route.key) {
       case "tnc":
-        return (
-          <View style={{ marginHorizontal: 4 }}>
-            <PDFReader url={uri} />
-          </View>
-        );
+        return <PDFReader url={uri} />;
       case "privacy":
         return (
           <View style={{ marginHorizontal: 4 }}>
