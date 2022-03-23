@@ -143,7 +143,8 @@ export default function Rate({ navigation, restaurant, order }) {
                       : ["#fff", "transparent"]}
                       style={{
                         borderWidth: 2,
-                        borderRadius: 5,
+                        borderColor: likes.includes(feature) ? "#ff6600" : '#ccc',
+                        borderRadius: 20,
                         minWidth: 100,
                         height: 40,
                         marginVertical: 2,
