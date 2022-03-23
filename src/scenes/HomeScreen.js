@@ -19,7 +19,11 @@ export default function HomeScreen({ navigation }) {
         activeColor="#ff6600"
         inactiveColor="#ff9900"
         labeled={true}
-        barStyle={{ backgroundColor: "white", justifyContent: "flex-start" }}
+        barStyle={{
+          backgroundColor: "white",
+          justifyContent: "flex-start",
+          fontWeight: "bold",
+        }}
       >
         <Tab.Screen
           name="Meals"
@@ -28,18 +32,19 @@ export default function HomeScreen({ navigation }) {
             tabBarIcon: ({ color }) => (
               <Icon name="ios-home-outline" color={color} size={24} />
             ),
-            tabBarLabel:"Home"
+
+            tabBarLabel: "Home",
+            ta,
           }}
         />
         <Tab.Screen
           name="My Orders"
           component={OrderHistory}
-        
           options={{
             tabBarIcon: ({ color }) => (
               <Icon name="cart-outline" color={color} size={24} />
             ),
-            tabBarLabel:"My Orders"
+            tabBarLabel: "My Orders",
           }}
         />
         <Tab.Screen
@@ -50,7 +55,7 @@ export default function HomeScreen({ navigation }) {
             tabBarIcon: ({ color }) => (
               <Icon name="md-duplicate-outline" color={color} size={24} />
             ),
-            tabBarLabel:"Subscriptions"
+            tabBarLabel: "Subscriptions",
           }}
         />
         <Tab.Screen
@@ -60,7 +65,7 @@ export default function HomeScreen({ navigation }) {
             tabBarIcon: ({ color }) => (
               <Icon name="person-circle-outline" color={color} size={24} />
             ),
-            tabBarLabel:"Profile"
+            tabBarLabel: "Profile",
           }}
         />
       </Tab.Navigator>
