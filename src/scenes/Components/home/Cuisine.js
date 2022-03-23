@@ -9,14 +9,14 @@ export default function Cuisine({ image, title, highLighted }) {
         source={{ uri: image }}
         style={[
           styles.cuisineContent,
-          { borderColor: highLighted ? "#ff9900" : "#fff" },
+          { borderColor: highLighted ? "#ff6600" : "#fff" },
         ]}
         resizeMode="contain"
       />
       <Text
         style={[
           styles.cuisine_name,
-          { fontWeight: highLighted ? "bold" : "normal",color:highLighted?"#ff9900":"#000" },
+          { fontWeight: highLighted ? "bold" : "normal",color:highLighted?"#ff6600":"#000" },
         ]}
       >
         {title}

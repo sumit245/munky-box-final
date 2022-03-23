@@ -110,7 +110,7 @@ export default class SortAndFilter extends Component {
                     <Text
                       style={[
                         styles.filterText,
-                        { color: selected === 0 ? "#00f" : "#444" },
+                        { color: selected === 0 ? "#ff6600" : "#444" },
                       ]}
                       onPress={() => this.toggleRight("type_filter", 0)}
                     >
@@ -120,7 +120,7 @@ export default class SortAndFilter extends Component {
                     <Text
                       style={[
                         styles.filterText,
-                        { color: selected === 1 ? "#00f" : "#444" },
+                        { color: selected === 1 ? "#ff6600" : "#444" },
                       ]}
                       onPress={() => this.toggleRight("rating_filter", 1)}
                     >
@@ -130,7 +130,7 @@ export default class SortAndFilter extends Component {
                     <Text
                       style={[
                         styles.filterText,
-                        { color: selected === 2 ? "#00f" : "#444" },
+                        { color: selected === 2 ? "#ff660" : "#444" },
                       ]}
                       onPress={() => this.toggleRight("price_filter", 2)}
                     >

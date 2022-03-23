@@ -128,7 +128,7 @@ export default function ItemCard({ item, isFavorite, isHome }) {
 
         <Text
           style={{
-            color: "#ffa726",
+            color: "#ff6600",
             fontWeight: "bold",
           }}
           onPress={() => Actions.push("reviews")}
