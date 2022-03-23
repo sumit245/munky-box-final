@@ -96,6 +96,7 @@ export default function TipOption({ tipHandler }) {
           value={tip_amount}
           activeOutlineColor="#ff6600"
           dense
+          outlineColor="#ff6600"
           returnKeyType="done"
           keyboardType="numeric"
           autoFocus={tip}
