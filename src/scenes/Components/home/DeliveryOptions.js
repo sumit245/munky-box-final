@@ -29,7 +29,6 @@ export default class DeliveryOptions extends Component {
     });
     users.data.addresses = addresses;
     await saveUser("user", JSON.stringify(users));
-    console.log(users);
     this.setState({ addresses: addresses,changed:true });
   };
   async fetchandsave() {
@@ -144,8 +143,8 @@ export default class DeliveryOptions extends Component {
         </View>
 
         <View>
-          <Text onPress={this.setModalVisible}>
-            DELIVER TO <Icon name="chevron-down-outline" size={18} />
+          <Text onPress={this.setModalVisible} style={{textAlignVertical:"center"}}>
+            DELIVER TO <Icon name="chevron-down-outline" size={20} color="#ff9900" />
           </Text>
           <Text
             style={{

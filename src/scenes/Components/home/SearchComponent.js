@@ -13,7 +13,7 @@ export default function SearchComponent({ search, setSearch }) {
     <View>
       {searching ? (
         <TouchableOpacity onPress={isSearching}>
-          <Icon name="search" size={24} color="#226cff" />
+          <Icon name="search" size={24} color="#000" />
         </TouchableOpacity>
       ) : (
         <TouchableOpacity onPress={isSearching}>

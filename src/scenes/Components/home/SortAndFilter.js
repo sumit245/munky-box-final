@@ -236,7 +236,8 @@ export default class SortAndFilter extends Component {
                 fontWeight: "bold",
                 left: -8,
                 top: -8,
-                backgroundColor: "red",
+                backgroundColor: "#ff6600",
+                color:"#fff"
               }}
             >
               {filterCount}

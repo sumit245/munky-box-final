@@ -30,7 +30,7 @@ export default function FavoritePicker({ favCount }) {
         <View style={{ marginTop: -6, marginLeft: -10 }}>
           <Badge
             size={16}
-            style={{ backgroundColor: "red", fontWeight: "bold" }}
+            style={{ backgroundColor: "#ff6600", fontWeight: "bold",color:"#fff" }}
           >
             {count}
           </Badge>
