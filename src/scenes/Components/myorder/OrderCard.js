@@ -47,9 +47,9 @@ export default function OrderCard({ item, user_id }) {
     const { user_id } = await user.data;
     const response = await axios.get(
       "http://munkybox-admin.herokuapp.com/api/review/getreviewByUser/" +
-        user_id +
-        "/" +
-        order_id
+      user_id +
+      "/" +
+      order_id
     );
     const { hasReview } = response.data;
     setHasReview(hasReview);
@@ -80,6 +80,9 @@ export default function OrderCard({ item, user_id }) {
               fontSize: 14,
               textTransform: "uppercase",
               textAlign: "right",
+              color: item.status === "accepted" ? "#ffc300" :
+                item.status === "started" ? "#f5a617" :
+                item.status === "rejected" ? "#777" : "#22cf6c"
             }}
           >
             {item.status}
@@ -126,8 +129,8 @@ export default function OrderCard({ item, user_id }) {
                   {item.plan === "twoPlan"
                     ? "2 Meals"
                     : item.plan === "fifteenPlan"
-                    ? "15 Meals"
-                    : "30 Meals"}
+                      ? "15 Meals"
+                      : "30 Meals"}
                 </Text>
               </View>
               <View>
