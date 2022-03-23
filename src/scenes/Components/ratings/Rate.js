@@ -133,34 +133,34 @@ export default function Rate({ navigation, restaurant, order }) {
                 }}
               >
                 {features.map((feature, key) => (
-                  <LinearGradient colors={likes.includes(feature)
-                    ? ["#ff6600", "#ff6600"]
-                    : ["#fff", "transparent"]}>
-                    <Chip
-                      mode="outlined"
-                      onPress={() => pushToLiked(feature)}
-                      selectedColor={likes.includes(feature) ? "#ff6600" : "#000"}
-                      key={key}
+
+                  <TouchableOpacity
+                    onPress={() => pushToLiked(feature)}
+                    key={key}
+                  >
+                    <LinearGradient colors={likes.includes(feature)
+                      ? ["#ff6600", "#ff6600"]
+                      : ["#fff", "transparent"]}
                       style={{
                         borderWidth: 2,
+                        borderRadius: 5,
                         minWidth: 100,
                         height: 40,
                         marginVertical: 2,
                         justifyContent: "center",
                         alignItems: "center",
-                        backgroundColor: likes.includes(feature) ? "#ff6600" : "#fff"
                       }}
-                      textStyle={{
+                    >
+                      <Text style={{
                         textAlign: "center",
                         fontSize: 14,
                         fontWeight: "bold",
                         color: likes.includes(feature) ? "#fff" : "#000",
-                      }}
-                    >
+                      }}>{feature}</Text>
 
-                      {feature}
-                    </Chip>
-                  </LinearGradient>
+                    </LinearGradient>
+                  </TouchableOpacity>
+
                 ))}
               </View>
             </View>
