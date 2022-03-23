@@ -94,6 +94,7 @@ export default function TipOption({ tipHandler }) {
         <TextInput
           style={{ backgroundColor: "#fff", marginHorizontal: 20 }}
           value={tip_amount}
+          activeOutlineColor="#ff6600"
           dense
           returnKeyType="done"
           keyboardType="numeric"

@@ -429,7 +429,6 @@ export default function CheckOut({
               disabled={submitted}
             >
               <LinearGradient colors={["#ff9900", "#ff6600"]} style={styles.button}>
-
                 <Text style={styles.btnText}>PROCEED TO PAY</Text>
               </LinearGradient>
             </TouchableOpacity>
