@@ -144,7 +144,7 @@ export default function AddOns({
           <TouchableOpacity onPress={() => setPulled(!pulled)}>
             <Icon
               name={!pulled ? "chevron-forward" : "chevron-down"}
-              color="#000"
+              color="#ff6600"
               size={24}
             />
           </TouchableOpacity>
@@ -239,7 +239,7 @@ export default function AddOns({
             style={{ marginRight: 8 }}
           >
             <Text
-              style={{ fontSize: 16, fontWeight: "bold", color: "#226ccf" }}
+              style={{ fontSize: 16, fontWeight: "bold", color: "#ff6600" }}
             >
               Pay
             </Text>
