@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
     borderColor: "#ff6600",
     position: "absolute",
     bottom: 20,
-    marginHorizontal: "20%",
+    marginHorizontal: "25%",
     padding: 10,
     height: 48,
     alignItems: "center",
