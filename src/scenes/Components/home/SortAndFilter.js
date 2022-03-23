@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
   filterBody: {
     flex: 1,
     position: "absolute",
-    bottom: 2,
+    bottom: 12,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     width: width - 4,
