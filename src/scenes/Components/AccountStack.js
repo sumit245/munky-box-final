@@ -149,9 +149,9 @@ export default class AccountStack extends Component {
 
           <LinearGradient colors={["#ff9900", "#ff6600"]} style={{
             position: "absolute",
-            width: 56,
-            height: 56,
-            borderRadius: 28,
+            width: 40,
+            height: 40,
+            borderRadius: 20,
             justifyContent: 'center',
             alignItems: 'center',
             bottom: 10,
