@@ -20,7 +20,7 @@ import { ModalOpener } from "./services/documentopener/documentopener";
 import ListAddress from "./scenes/Components/manageaddress/ListAddress";
 import { getUser } from "./services/user/getuser";
 import EditAccount from "./scenes/Components/EditAccount";
-import ListCard from "./scenes/Components/managecards/ListCard";
+import ListCard, { _renderWalletRightButton } from "./scenes/Components/managecards/ListCard";
 import NotificationStack from "./scenes/Components/NotificationStack";
 import Favouite from "./scenes/Components/Favouite";
 import Thankyou, { DoneRightButton } from "./scenes/Thankyou";
