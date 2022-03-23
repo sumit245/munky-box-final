@@ -188,9 +188,11 @@ export default class ListCard extends Component {
   };
   componentDidMount() {
     this.fetchUser();
+    <RenderWalletRightButton wallet_balance={wallet_balance} />
   }
   componentDidUpdate() {
     this.fetchUser();
+    
   }
   renderAddress = ({ item }, checked) => (
     <PaymentCard
@@ -229,7 +231,7 @@ export default class ListCard extends Component {
   };
   render() {
     const { cards, checked, modalVisible, selectedcard, title, wallet_balance } = this.state;
-    <RenderWalletRightButton wallet_balance={wallet_balance} />
+    
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <Provider>
