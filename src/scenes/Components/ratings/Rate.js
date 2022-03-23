@@ -200,7 +200,7 @@ export default function Rate({ navigation, restaurant, order }) {
               width: "98%",
               borderRadius: 6,
               borderWidth: 0.2,
-              marginHorizontal: 2,
+              marginHorizontal: "2%",
               padding: 6,
               height: 44,
               alignItems: "center",
