@@ -161,7 +161,7 @@ export default function OrderCard({ item, user_id }) {
 
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
-              style={[styles.actionButton, { backgroundColor: "#fa0" }]}
+              style={[styles.actionButton, { backgroundColor: "#f60" }]}
               onPress={findAndRate}
             >
               <Icon name="ios-star" size={16} color="#FFF" />
