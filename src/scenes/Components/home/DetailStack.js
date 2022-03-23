@@ -256,7 +256,7 @@ export default class DetailStack extends Component {
                         style={[
                           styles.firstCuisine,
                           {
-                            borderColor: !highLighted ? "#2266cf" : "fff",
+                            borderColor: !highLighted ? "#ff9900" : "fff",
                           },
                         ]}
                         onPress={this.getApiData}
@@ -268,6 +268,7 @@ export default class DetailStack extends Component {
                           styles.cuisine_name,
                           {
                             fontWeight: !highLighted ? "bold" : "normal",
+                            color:!highLighted?"#ff9900":"#000"
                           },
                         ]}
                       >

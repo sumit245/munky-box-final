@@ -146,6 +146,8 @@ export default function BannerCarousel() {
           loop
           index={0}
           pageSize={width}
+          activePageIndicatorStyle={{ color: "#ff9900" }}
+          pageIndicatorStyle={{backgroundColor:"#ff9900"}}
         >
           {page.map((image, index) => renderPage(image, index))}
         </Carousel>
