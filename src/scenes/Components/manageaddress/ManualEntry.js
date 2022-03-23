@@ -209,15 +209,15 @@ export default class ManualEntry extends Component {
                 marginTop: 48,
               }}
             >
-              <Chip
-                icon="home"
-                selected={address_type === "home" ? true : false}
-                mode="outlined"
-                onPress={this.selectChip("home")}
-                selectedColor={address_type == "home" ? "#2962ff" : "#000"}
-              >
-                Home
-              </Chip>
+              <LinearGradient
+                style={{ borderRadius: 12, borderWidth: 1, borderColor: "#ff6600" }}
+                colors={address_type === "home" ? ["#ff9900", "#ff6600"] : ["#fff", "transparent"]}>
+                <TouchableOpacity onPress={this.selectChip("home")}>
+                  <Icon name="home" size={24} color={address_type === "home" ? "#fff" : "#000"} />
+                  <Text style={address_type === "home" ? "#fff" : "#000"}>Home</Text>
+                </TouchableOpacity>
+              </LinearGradient>
+
               <Chip
                 icon="office-building"
                 selected={address_type === "work" ? true : false}
