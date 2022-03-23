@@ -335,18 +335,18 @@ export default function Wallet({ total, action, data, isAddOn }) {
               )}
             </TouchableOpacity>
             {isAddOn && (
-              <TouchableOpacity onPress={onSubmit}>
-                <LinearGradient colors={["#ff9900", "#ff6600"]} style={{
-                  borderColor: "#226ccf",
-                  backgroundColor: "#008000",
-                  borderRadius: 24,
-                  padding: 10,
-                  height: 48,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flex: 1,
-                  margin: 2,
-                }}>
+              <LinearGradient colors={["#ff9900", "#ff6600"]} style={{
+                borderColor: "#226ccf",
+                backgroundColor: "#008000",
+                borderRadius: 24,
+                padding: 10,
+                height: 48,
+                justifyContent: "center",
+                alignItems: "center",
+                flex: 1,
+                margin: 2,
+              }}>
+                <TouchableOpacity onPress={onSubmit}>
                   {ordering ? (
                     <ActivityIndicator
                       size="small"
@@ -365,8 +365,8 @@ export default function Wallet({ total, action, data, isAddOn }) {
                       Pay ${total}
                     </Text>
                   )}
-                </LinearGradient>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              </LinearGradient>
             )}
           </View>
         </View>
