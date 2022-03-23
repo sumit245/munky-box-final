@@ -9,7 +9,12 @@ function MaterialMapView(props) {
   return (
     <View style={[styles.container, props.style]}>
       <MapView style={styles.MapView1}></MapView>
-      <BackButton />
+      <View
+        style={{ position: "absolute", left: 8, top: 8, elevation: 2 }}
+
+      >
+        <BackButton />
+      </View>
     </View>
   );
 }
