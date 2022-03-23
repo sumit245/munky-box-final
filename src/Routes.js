@@ -109,7 +109,7 @@ export default function Routes() {
               <View
                 style={{
                   height: 14,
-                  backgroundColor: "#c62828cc",
+                  backgroundColor: "#ff6600",
                   borderRadius: 7,
                   justifyContent: "center",
                   alignItems: "center",
