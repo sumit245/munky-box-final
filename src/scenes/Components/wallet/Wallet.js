@@ -300,40 +300,41 @@ export default function Wallet({ total, action, data, isAddOn }) {
             </View>
           </View>
           <View style={{ flexDirection: "row", margin: 4 }}>
-            <TouchableOpacity
-              style={{
-                borderColor: "#000",
-                borderWidth: 1,
-                borderRadius: 24,
-                height: 48,
-                padding: 10,
-                justifyContent: "center",
-                alignItems: "center",
-                flex: 1,
-                margin: 2,
-              }}
-              onPress={recharge}
-              disabled={!checked}
-            >
-              {loading ? (
-                <ActivityIndicator
-                  size="small"
-                  animating={true}
-                  color={Colors.red900}
-                />
-              ) : (
-                <Text
-                  style={{
-                    textTransform: "uppercase",
-                    color: "#000",
-                    fontWeight: "bold",
-                    fontSize: 18,
-                  }}
-                >
-                  Recharge Now
-                </Text>
-              )}
-            </TouchableOpacity>
+            <LinearGradient style={{
+              borderColor: "#000",
+              borderWidth: 1,
+              borderRadius: 24,
+              height: 48,
+              padding: 10,
+              justifyContent: "center",
+              alignItems: "center",
+              flex: 1,
+              margin: 2,
+            }} colors={["#fff", "transparent"]}>
+              <TouchableOpacity
+                onPress={recharge}
+                disabled={!checked}
+              >
+                {loading ? (
+                  <ActivityIndicator
+                    size="small"
+                    animating={true}
+                    color={Colors.red900}
+                  />
+                ) : (
+                  <Text
+                    style={{
+                      textTransform: "uppercase",
+                      color: "#000",
+                      fontWeight: "bold",
+                      fontSize: 18,
+                    }}
+                  >
+                    Recharge Now
+                  </Text>
+                )}
+              </TouchableOpacity>
+            </LinearGradient>
             {isAddOn && (
               <LinearGradient colors={["#ff9900", "#ff6600"]} style={{
                 borderColor: "#226ccf",
