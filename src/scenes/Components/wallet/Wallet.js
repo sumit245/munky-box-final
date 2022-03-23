@@ -337,8 +337,8 @@ export default function Wallet({ total, action, data, isAddOn }) {
             </LinearGradient>
             {isAddOn && (
               <LinearGradient colors={["#ff9900", "#ff6600"]} style={{
-                borderColor: "#226ccf",
-                backgroundColor: "#008000",
+                borderColor: "#ff6600",
+                
                 borderRadius: 24,
                 padding: 10,
                 height: 48,

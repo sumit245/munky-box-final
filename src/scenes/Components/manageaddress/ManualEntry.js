@@ -90,7 +90,7 @@ export default class ManualEntry extends Component {
         <View style={styles.container}>
           <View>
             <Text
-              style={[styles.headerText, { color: "#4972ff", padding: 10 }]}
+              style={[styles.headerText, { color: "#ff6600", padding: 10 }]}
             >
               Add an Address
             </Text>
