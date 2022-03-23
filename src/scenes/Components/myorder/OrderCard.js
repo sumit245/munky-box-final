@@ -184,7 +184,7 @@ export default function OrderCard({ item, user_id }) {
             >
               <Redo name="redo-alt" size={16} color="#FFF" />
             </TouchableOpacity>
-            <Text>REORDER</Text>
+            <Text>Re-order</Text>
           </View>
         </Card.Actions>
       </Card>
