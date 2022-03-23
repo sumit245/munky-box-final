@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FlatList, View, Text } from "react-native";
 import { getUser } from "../../../services/user/getuser";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -37,6 +37,11 @@ export default function Lunch({ restaurant }) {
       unmounted = true;
     };
   }, []);
+  useEffect(() => {
+    console.log(restaurant);
+  }, [])
+
+
 
   return (
     <FlatList
@@ -50,7 +55,7 @@ export default function Lunch({ restaurant }) {
             marginTop: 40,
           }}
         >
-          <Icon name="md-sad-sharp" size={64} color="#ffa726" />
+          <Icon name="md-sad-sharp" size={64} color="#ff9900" />
 
           <Text>Oops! No restaurant found online</Text>
           <Text>Stay Connected we are dedicated to serve you better!!</Text>
@@ -58,7 +63,7 @@ export default function Lunch({ restaurant }) {
       )}
       showsVerticalScrollIndicator={false}
       renderItem={(item) => renderItem(item, isFavorite)}
-      keyExtractor={(item) => item._id}
+      keyExtractor={(item, index) => 'key' + index}
     />
   );
 }

@@ -35,7 +35,6 @@ export default function ItemCard({ item, isFavorite, isHome }) {
     const fetchProfits = async () => {
       const response = await axios.get(PROFIT_URL);
       const { data } = await response;
-
       if (componentMounted) {
         setPlan(data);
         if (
@@ -58,10 +57,11 @@ export default function ItemCard({ item, isFavorite, isHome }) {
       componentMounted = false;
     };
   }, [item]);
+
   return (
     <Card style={styles.item} key={_id}>
       <Card.Cover
-        source={{ uri: Array.isArray(documents) && documents[1].banner_image }}
+        source={{ uri: Array.isArray(documents) ? documents[1].banner_image : "" }}
         style={styles.image}
         resizeMode="cover"
       />
@@ -88,7 +88,7 @@ export default function ItemCard({ item, isFavorite, isHome }) {
           <Avatar.Image
             size={40}
             source={{
-              uri: Array.isArray(documents) && documents[0].restaurant_image,
+              uri: Array.isArray(documents) ? documents[0].restaurant_image : "",
             }}
             style={{ marginRight: 4 }}
           />
