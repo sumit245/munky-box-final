@@ -228,8 +228,8 @@ export default class ListCard extends Component {
     });
   };
   render() {
-    const { cards, checked, modalVisible, selectedcard, title } = this.state;
-    <RenderWalletRightButton wallet_balance={this.state.wallet_balance} />
+    const { cards, checked, modalVisible, selectedcard, title, wallet_balance } = this.state;
+    <RenderWalletRightButton wallet_balance={wallet_balance} />
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <Provider>
