@@ -23,6 +23,7 @@ import Trash from "../../../../assets/Trash.png";
 
 import axios from "axios";
 import { USER_URL } from "../../../services/EndPoints";
+import { LinearGradient } from "expo-linear-gradient";
 const ListEmptyContent = () => {
   return (
     <View style={styles.centerContent}>
@@ -100,6 +101,7 @@ const PaymentCard = ({ item, checked, changeSelector }) => {
           value={item.number}
           status={checked === item.number ? "checked" : "unchecked"}
           onPress={() => changeSelector(item.number)}
+          color="#ff6600"
         />
       </View>
       <View style={styles.cardBody}>
@@ -246,14 +248,16 @@ export default class ListCard extends Component {
               keyExtractor={(item) => item.number}
             />
           </View>
+          <LinearGradient colors={["#ff9900","#ff6600"]} style={styles.button}>
           <TouchableOpacity
-            style={styles.button}
+            
             onPress={() => {
               this.setState({ modalVisible: true, title: "Add Card" });
             }}
           >
             <Text style={styles.btnText}>ADD NEW Card</Text>
-          </TouchableOpacity>
+            </TouchableOpacity>
+            </LinearGradient>
           {modalVisible && (
             <ManageCard
               modalVisible={modalVisible}
@@ -318,15 +322,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    width: width - 5,
-    borderRadius: 6,
-    borderWidth: 0.2,
-    marginHorizontal: 2,
-    paddingHorizontal: 5,
-    height: 45,
-    backgroundColor: "#2962ff",
-    position: "absolute",
-    bottom: 6,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: "#ff6600",
+    marginBottom: 20,
+    marginHorizontal: "20%",
+    padding: 10,
+    height: 48,
+    alignItems: "center",
     justifyContent: "center",
   },
   btnText: {
