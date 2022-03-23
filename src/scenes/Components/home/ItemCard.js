@@ -34,7 +34,7 @@ export default function ItemCard({ item, isFavorite, isHome }) {
     let componentMounted = true;
     const fetchProfits = async () => {
       const response = await axios.get(PROFIT_URL);
-      const { data } = await response;
+      const { data } = response;
       if (componentMounted) {
         setPlan(data);
         if (

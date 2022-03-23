@@ -6,6 +6,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { styles } from "../../styles/ResultStyles";
 import { PROFIT_URL } from "../../../services/EndPoints";
 import axios from "axios";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function PlanChooser({
   base_2price,
@@ -23,14 +24,14 @@ export default function PlanChooser({
       planName === "twoPlan"
         ? "2 Meals"
         : planName === "fifteenPlan"
-        ? "15 Meals"
-        : "30 Meals";
+          ? "15 Meals"
+          : "30 Meals";
     let mypromo =
       restaurant_plans === promo.plan_name
         ? promo
         : restaurant_plans === promo.meal_plan
-        ? promo
-        : null;
+          ? promo
+          : null;
     Actions.push("checkout", {
       restaurant: restaurant,
       restaurant_id: restaurant_id,
@@ -117,22 +118,24 @@ export default function PlanChooser({
               ${parseFloat(base_2price) + parseFloat(plan.twoPlan)}
             </Text>
           </View>
-          <TouchableOpacity
-            onPress={() =>
-              getPlan(
-                "twoPlan",
-                parseFloat(base_2price) + parseFloat(plan.twoPlan),
-                base_2price
-              )
-            }
-            style={styles.selectoffer}
-          >
-            <Text
-              style={{ fontSize: 16, fontWeight: "bold", color: "#ffffff" }}
+          <LinearGradient colors={["#ff9900", "#ff6600"]} style={styles.selectoffer}>
+            <TouchableOpacity
+              onPress={() =>
+                getPlan(
+                  "twoPlan",
+                  parseFloat(base_2price) + parseFloat(plan.twoPlan),
+                  base_2price
+                )
+              }
+
             >
-              CHOOSE
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={{ fontSize: 16, fontWeight: "bold", color: "#ffffff" }}
+              >
+                CHOOSE
+              </Text>
+            </TouchableOpacity>
+          </LinearGradient>
         </View>
       </Card>
       <Card style={styles.planCard}>
@@ -148,23 +151,24 @@ export default function PlanChooser({
               ${parseFloat(base_15price) + parseFloat(plan.fifteenPlan)}
             </Text>
           </View>
+          <LinearGradient colors={["#ff9900", "#ff6600"]} style={styles.selectoffer}>
+            <TouchableOpacity
+              onPress={() =>
+                getPlan(
+                  "fifteenPlan",
+                  parseFloat(base_15price) + parseFloat(plan.fifteenPlan),
+                  base_15price
+                )
+              }
 
-          <TouchableOpacity
-            onPress={() =>
-              getPlan(
-                "fifteenPlan",
-                parseFloat(base_15price) + parseFloat(plan.fifteenPlan),
-                base_15price
-              )
-            }
-            style={styles.selectoffer}
-          >
-            <Text
-              style={{ fontSize: 16, fontWeight: "bold", color: "#ffffff" }}
             >
-              CHOOSE
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={{ fontSize: 16, fontWeight: "bold", color: "#ffffff" }}
+              >
+                CHOOSE
+              </Text>
+            </TouchableOpacity>
+          </LinearGradient>
         </View>
       </Card>
       <Card style={styles.planCard}>
@@ -180,22 +184,24 @@ export default function PlanChooser({
               ${parseFloat(base_30price) + parseFloat(plan.thirtyPlan)}
             </Text>
           </View>
-          <TouchableOpacity
-            onPress={() =>
-              getPlan(
-                "thirtyPlan",
-                parseFloat(base_30price) + parseFloat(plan.thirtyPlan),
-                base_30price
-              )
-            }
-            style={styles.selectoffer}
-          >
-            <Text
-              style={{ fontSize: 16, fontWeight: "bold", color: "#ffffff" }}
+          <LinearGradient colors={["#ff9900", "#ff6600"]} style={styles.selectoffer}>
+            <TouchableOpacity
+              onPress={() =>
+                getPlan(
+                  "thirtyPlan",
+                  parseFloat(base_30price) + parseFloat(plan.thirtyPlan),
+                  base_30price
+                )
+              }
+
             >
-              CHOOSE
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={{ fontSize: 16, fontWeight: "bold", color: "#ffffff" }}
+              >
+                CHOOSE
+              </Text>
+            </TouchableOpacity>
+          </LinearGradient>
         </View>
       </Card>
     </>

@@ -30,9 +30,10 @@ export const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    height: 32,
+    height: 48,
     marginHorizontal: 6,
     marginBottom: 6,
+    paddingBottom: 8,
   },
   headerWithSearch: {
     flexDirection: "row",

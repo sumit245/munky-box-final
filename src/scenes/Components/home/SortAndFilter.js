@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { RadioButton, Badge } from "react-native-paper";
+import { LinearGradient } from "expo-linear-gradient";
 const { width } = Dimensions.get("window");
 export default class SortAndFilter extends Component {
   state = {
@@ -217,16 +218,17 @@ export default class SortAndFilter extends Component {
                     Clear All
                   </Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.filterBtn, { backgroundColor: "#ff7700" }]}
-                  onPress={() => this.applyFilter()}
-                >
-                  <Text
-                    style={{ fontSize: 16, color: "#fff", fontWeight: "bold" }}
+                <LinearGradient colors={["#ff9900", "#ff6600"]} style={styles.filterBtn}>
+                  <TouchableOpacity
+                    onPress={() => this.applyFilter()}
                   >
-                    Apply
-                  </Text>
-                </TouchableOpacity>
+                    <Text
+                      style={{ fontSize: 16, color: "#fff", fontWeight: "bold" }}
+                    >
+                      Apply
+                    </Text>
+                  </TouchableOpacity>
+                </LinearGradient>
               </View>
             </View>
           </Modal>

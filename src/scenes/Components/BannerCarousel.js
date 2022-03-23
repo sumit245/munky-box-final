@@ -12,6 +12,7 @@ import {
 import { styles } from "../styles/HomeStyles";
 import axios from "axios";
 import { Actions } from "react-native-router-flux";
+import {LinearGradient} from "expo-linear-gradient"
 
 const { width, height } = Dimensions.get("window");
 
@@ -103,10 +104,10 @@ export default function BannerCarousel() {
           >
             {image.restaurant.restaurant_name}
           </Text>
-          <View
+          <LinearGradient
+            colors={["#ff9900","#ff6600"]}
             style={{
               borderRadius: 2,
-              backgroundColor: "#ff7600",
               padding: 2,
               marginTop: 4,
             }}
@@ -114,7 +115,7 @@ export default function BannerCarousel() {
             <Text style={{ fontWeight: "bold", color: "#fff" }}>
               COUPON: {image.banner.promo_code}
             </Text>
-          </View>
+          </LinearGradient>
         </View>
         <View
           style={{

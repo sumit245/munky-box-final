@@ -72,7 +72,7 @@ export default class DetailStack extends Component {
   renderTabBar = (props) => (
     <TabBar
       {...props}
-      indicatorStyle={{ backgroundColor: "#ff9900", marginHorizontal: 60,width:100, }}
+      indicatorStyle={{ backgroundColor: "#ff9900", marginHorizontal: 60, width: 100, }}
       style={{
         backgroundColor: "transparent",
         height: 40,
@@ -88,8 +88,8 @@ export default class DetailStack extends Component {
       case "Lunch":
         return <Lunch restaurant={this.state.restaurant} />;
       case "Dinner":
-        return <Lunch restaurant={this.state.restaurant} />;
 
+        return <Lunch restaurant={this.state.restaurant} />;
       default:
         return null;
     }
@@ -189,8 +189,10 @@ export default class DetailStack extends Component {
     }));
   };
 
-  componentDidUpdate() {
-    this.getFavoriteCount();
+  componentDidUpdate(prevState, prevProps) {
+    if (this.state.favCount !== prevState.favCount) {
+      this.getFavoriteCount();
+    }
   }
 
   searchByCity = (query, isSearching) => {
@@ -248,7 +250,7 @@ export default class DetailStack extends Component {
             >
               <View>
                 <FlatList
-                  contentContainerStyle={{ marginLeft: 4, marginBottom: 12,marginVertical:8 }}
+                  contentContainerStyle={{ marginLeft: 4, marginBottom: 12, marginVertical: 8 }}
                   data={cuisine}
                   ListHeaderComponent={() => (
                     <>
@@ -268,7 +270,7 @@ export default class DetailStack extends Component {
                           styles.cuisine_name,
                           {
                             fontWeight: !highLighted ? "bold" : "normal",
-                            color:!highLighted?"#ff9900":"#000"
+                            color: !highLighted ? "#ff6600" : "#000"
                           },
                         ]}
                       >

@@ -52,10 +52,10 @@ export default function ResultDetails({ item, promo }) {
       style={{
         backgroundColor: "transparent",
       }}
-      activeColor="#2266ff"
+      activeColor="#ff6600"
       labelStyle={{ fontWeight: "bold" }}
       inactiveColor="#272727"
-      indicatorStyle={{ backgroundColor: "#2266cf", marginHorizontal: 2 }}
+      indicatorStyle={{ backgroundColor: "#ff9900", marginHorizontal: 2 }}
     />
   );
 
@@ -135,16 +135,16 @@ export default function ResultDetails({ item, promo }) {
         }
         style={styles.ratingAndReviews}
       >
-        <Icon name="star" color="#ffa726" />
+        <Icon name="star" color="#ff6600" />
         <Text
           style={{
             marginHorizontal: 2,
-            color: "#ffa726",
+            color: "#ff6600",
             fontWeight: "bold",
           }}
         >
           {rating || "5" + "/5 | "}
-          <Text style={{ color: "#000", textDecorationLine: "underline" }}>
+          <Text style={{ color: "#226ccf", textDecorationLine: "underline" }}>
             {" "}
             Reviews ({review.length || 0})
           </Text>

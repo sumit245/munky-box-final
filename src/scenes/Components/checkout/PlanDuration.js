@@ -56,7 +56,7 @@ export default class PlanDuration extends Component {
             {" To "}
             {selectedEndDate || "--"}
           </Text>
-          <Icon name="ios-calendar-outline" color="#226ccf" size={22} />
+          <Icon name="ios-calendar-outline" color="#ff6600" size={22} />
         </TouchableOpacity>
         <Modal
           animationType="fade"

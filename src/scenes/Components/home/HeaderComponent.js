@@ -29,7 +29,7 @@ export default function HeaderComponent({
         <DeliveryOptions />
       ) : (
         <Searchbar
-          placeholder="Search by city"
+          placeholder="Search..."
           style={{
             width: width - 100,
             backgroundColor: "#ededed",
@@ -39,7 +39,6 @@ export default function HeaderComponent({
           value={searchQuery}
           iconColor="#226cff"
           clearIcon={()=>null}
-          //clearIcon={() => <Icon name="close" size={16} color="#000" />}
           onSubmitEditing={() => searchTerm(searchQuery)}
         />
       )}

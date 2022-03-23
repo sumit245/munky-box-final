@@ -9,7 +9,8 @@ const renderItem = ({ item, index }, isFavorite) => (
 export default function Lunch({ restaurant }) {
   const [isFavorite, setisFavorite] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
-  React.useEffect(() => {
+
+  useEffect(() => {
     let unmounted = false;
     setLoading(true);
     getUser("user")
@@ -36,17 +37,13 @@ export default function Lunch({ restaurant }) {
     return () => {
       unmounted = true;
     };
-  }, []);
-  useEffect(() => {
-    console.log(restaurant);
-  }, [])
-
-
+  }, [loading]);
 
   return (
     <FlatList
       contentContainerStyle={{ paddingBottom: 4 }}
       data={restaurant}
+      initialNumToRender={2}
       ListEmptyComponent={() => (
         <View
           style={{

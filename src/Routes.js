@@ -31,6 +31,7 @@ import About from "./scenes/About";
 import Rate from "./scenes/Components/ratings/Rate";
 import OrderDetails from "./scenes/Components/receipt/OrderDetails";
 import Download from "./scenes/Components/receipt/Download";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Routes() {
   const [user, setUser] = useState({});
@@ -159,18 +160,20 @@ export default function Routes() {
           key="details"
           component={ResultDetails}
           renderLeftButton={() => (
-            <TouchableOpacity
-              style={{
-                height: 50,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => {
-                Actions.pop();
-              }}
-            >
-              <Icon name="chevron-back" size={28} color="#223fdc" />
-            </TouchableOpacity>
+            <LinearGradient colors={["#ff9900", "#ff6600"]} style={{
+              height: 28,
+              width: 28,
+              marginHorizontal: 4,
+              borderRadius: 14,
+            }}>
+              <TouchableOpacity
+                onPress={() => {
+                  Actions.pop();
+                }}
+              >
+                <Icon name="chevron-back-sharp" size={28} color="#ffffff" />
+              </TouchableOpacity>
+            </LinearGradient>
           )}
           renderRightButton={RenderRightButton}
         />

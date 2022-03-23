@@ -90,7 +90,7 @@ export default class DeliverySlots extends Component {
           <Text
             style={{
               fontSize: 12,
-              color: "#db7e24",
+              color: "#ff6600",
               fontWeight: "bold",
             }}
           >
