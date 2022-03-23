@@ -54,7 +54,7 @@ const ReviewItem = ({ title, avatar, review }) => {
               {stars.map((x, i) => (
                 <Icon
                   name="star"
-                  color="#ff9900"
+                  color="#ff6600"
                   size={18}
                   style={{ padding: 2 }}
                   key={i}
