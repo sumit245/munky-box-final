@@ -133,7 +133,7 @@ export default function ItemCard({ item, isFavorite, isHome }) {
           }}
           onPress={() => Actions.push("reviews")}
         >
-          <Icon name="star" color="#ffa726" />
+          <Icon name="star" color="#ff6600" />
           {rating || "5"}
           {"/5"}
         </Text>
