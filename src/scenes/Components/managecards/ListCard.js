@@ -24,7 +24,7 @@ import axios from "axios";
 import { USER_URL } from "../../../services/EndPoints";
 import { LinearGradient } from "expo-linear-gradient";
 
-export const _renderWalletRightButton = ({ wallet_balance }) => {
+export const RenderWalletRightButton = ({ wallet_balance }) => {
   useEffect(() => {
     console.log(wallet_balance);
   }, [])
@@ -189,7 +189,7 @@ export default class ListCard extends Component {
     });
   };
   renderHeader = () => (
-    <_renderWalletRightButton wallet_balance={this.state.wallet_balance} />
+    <RenderWalletRightButton wallet_balance={this.state.wallet_balance} />
   )
   componentDidMount() {
     this.fetchUser();
