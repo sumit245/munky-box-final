@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
   },
   filterActions: {
     position: "absolute",
-    bottom: 10,
+    bottom: 18,
     width: width - 8,
     flexDirection: "row",
     justifyContent: "space-around",
