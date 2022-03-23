@@ -5,9 +5,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 import DetailStack from "./Components/home/DetailStack";
 import AccountStack from "./Components/AccountStack";
 import SubscriptionStack from "./Components/SubscriptionStack";
-import Favouite from "./Components/Favouite";
-import { getUser } from "../services/user/getuser";
 import OrderHistory from "./Components/OrderHistory";
+import { Text } from 'react-native'
 
 const Tab = createMaterialBottomTabNavigator();
 
