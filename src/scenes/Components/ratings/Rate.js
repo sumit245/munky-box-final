@@ -197,7 +197,7 @@ export default function Rate({ navigation, restaurant, order }) {
             onPress={onSubmit}
           >
             <LinearGradient style={{
-              width: "98%",
+              width: "96%",
               borderRadius: 6,
               borderWidth: 0.2,
               marginHorizontal: "2%",
