@@ -149,9 +149,12 @@ export default class AccountStack extends Component {
 
           <LinearGradient colors={["#ff9900", "#ff6600"]} style={{
             position: "absolute",
+            width: 40,
+            height: 40,
+            borderRadius: 20,
+            padding: 4,
             bottom: 0,
             left: "40%",
-            borderBottomColor: "#fff",
           }}>
             <TouchableOpacity
               onPress={this.showDialog}
