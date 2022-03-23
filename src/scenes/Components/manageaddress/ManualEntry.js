@@ -238,7 +238,7 @@ export default class ManualEntry extends Component {
               </Chip>
             </View>
           </View>
-          <LinearGradient style={[styles.button, { marginHorizontal: "30%" }]} colors={["#ff9900", "#ff6600"]}>
+          <LinearGradient style={[styles.button, { marginHorizontal: "28%" }]} colors={["#ff9900", "#ff6600"]}>
             <TouchableOpacity
               onPress={this._confirmLocation}
             >
