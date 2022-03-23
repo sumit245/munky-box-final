@@ -123,6 +123,7 @@ export default class ManageCard extends Component {
             </Text>
             <TextInput
               placeholder="Name"
+              selectionColor="#ff6600"
               defaultValue={this.state.card_holder}
               style={styles.inputContainer}
               onChangeText={this._onChangeText("card_holder")}
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontSize: 12,
-    color: "#2962ff",
+    color: "#ff6600",
     fontWeight: "bold",
     textTransform: "uppercase",
   },
