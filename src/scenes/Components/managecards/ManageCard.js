@@ -36,7 +36,7 @@ export default class ManageCard extends Component {
     });
   };
   cardAdd = async () => {
-    let { card_holder, country, postal_code,cardDetails } = this.state;
+    let { card_holder, country, postal_code, cardDetails } = this.state;
     let attemptCard = JSON.parse(cardDetails).values;
     const card = {
       brand: attemptCard.type,
@@ -53,7 +53,7 @@ export default class ManageCard extends Component {
     const { data } = response;
     const updateLocal = await saveUser("user", JSON.stringify(data));
     alert(data.msg);
-    this.setState({visible:false})
+    this.setState({ visible: false })
   };
   showModal = () => this.setState({ visible: true });
   hideModal = () => this.setState({ visible: false });
@@ -100,23 +100,16 @@ export default class ManageCard extends Component {
             addtionalInputsProps={{
               number: {
                 defaultValue: "123456778812",
-              },
-              name: {
-                defaultValue: "my name",
-                maxLength: 40,
-              },
-              postalCode: {
-                returnKeyType: "go",
-              },
+              }
             }}
           />
-          <View style={{ marginHorizontal: 8,marginVertical:16 }}>
+          <View style={{ marginHorizontal: 8, marginVertical: 16 }}>
             <Text
               style={{
                 fontSize: 14,
                 marginTop: 2,
                 fontWeight: "bold",
-                marginVertical:12
+                marginVertical: 12
               }}
             >
               Cardholder's Name

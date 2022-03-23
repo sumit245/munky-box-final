@@ -87,7 +87,7 @@ const PaymentCard = ({ item, checked, changeSelector }) => {
           }}
         >
           <PaymentIcon
-            name={
+            type={
               item.brand === "master-card"
                 ? "mastercard"
                 : item.brand
