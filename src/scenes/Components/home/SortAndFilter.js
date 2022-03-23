@@ -181,7 +181,7 @@ export default class SortAndFilter extends Component {
                               style={{
                                 fontSize: 18,
                                 fontWeight: "bold",
-                                color: star === selectedStar ? "#fff" : "#666",
+                                color: star === selectedStar ? "#fff" : "#ff9900",
                               }}
                               key={index}
                             >
