@@ -1,3 +1,4 @@
+import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import { Text, View, FlatList, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-paper";
@@ -44,32 +45,28 @@ export default function TipOption({ tipHandler }) {
 
   const renderItem = ({ item }, tip_amount) => {
     return (
-      <TouchableOpacity
-        style={[
-          styles.tipBox,
-          {
-            backgroundColor: tip_amount === item.option ? "#ff7539cc" : "#FFF",
-          },
-        ]}
-        onPress={() => handler(item.option)}
+      <TouchableOpacity onPress={() => handler(item.option)}
       >
-        <Text
-          style={{
-            color: tip_amount === item.option ? "#FFF" : "#777",
-            padding: 1,
-            fontWeight: "bold",
-          }}
-        >
-          {item.id !== 4 && "$"}
-          {item.option}
-        </Text>
+        <LinearGradient colors={tip_amount === item.option ? ["#ff9900", "#ff6600"] : ["#fff", "transparent"]} style={styles.tipBox}>
+          <Text
+            style={{
+              color: tip_amount === item.option ? "#FFF" : "#777",
+              padding: 1,
+              fontWeight: "bold",
+            }}
+          >
+            {item.id !== 4 && "$"}
+            {item.option}
+          </Text>
+        </LinearGradient>
       </TouchableOpacity>
+
     );
   };
   return (
     <View style={styles.optionCard}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Icon name="gift-outline" size={24} color="#df7070" />
+        <Icon name="gift-outline" size={24} color="#ff6600" />
         <Text
           style={[styles.optionsLabels, { marginHorizontal: 4, fontSize: 16 }]}
         >

@@ -107,7 +107,7 @@ export default class DeliverySlots extends Component {
                 <Text style={styles.radioLabel}>{slot.slot_name}</Text>
                 <View style={styles.radioRow}>
                   <Text>{slot.slot_time}</Text>
-                  <RadioButton.Android value={slot.slot_time} />
+                  <RadioButton.Android value={slot.slot_time} color="#ff6600" />
                 </View>
               </RadioButton.Group>
             ))

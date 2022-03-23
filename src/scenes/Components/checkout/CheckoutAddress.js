@@ -82,7 +82,7 @@ export default function CheckoutAddress({ addressHandler, selected }) {
             </View>
             <Button
               mode="text"
-              color="orange"
+              color="#ff6600"
               style={{ marginRight: -20 }}
               onPress={_nextAction}
             >

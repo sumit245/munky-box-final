@@ -65,7 +65,7 @@ export default class PromoOptions extends Component {
       <View style={styles.optionCard}>
         <View style={[styles.optionrow, { alignItems: "center" }]}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Icon name="shopping-sale" size={24} color="#f74" />
+            <Icon name="shopping-sale" size={24} color="#ff6600" />
             <Text
               style={{
                 fontWeight: "bold",
@@ -77,7 +77,7 @@ export default class PromoOptions extends Component {
             >
               Apply coupon
             </Text>
-            <Icon name="star" color="#f74" size={8} />
+            <Icon name="star" color="#ff6600" size={8} />
           </View>
           <Icon
             name={!pulled ? "angle-right" : "angle-down"}
@@ -115,7 +115,7 @@ export default class PromoOptions extends Component {
                     {coupons.promo_code}
                   </Text>
                 </Text>
-                <Button mode="text" color="#f74" onPress={this.applyCoupon}>
+                <Button mode="text" color="#ff6600" onPress={this.applyCoupon}>
                   {applied ? "APPLIED" : "APPLY"}
                 </Button>
               </View>

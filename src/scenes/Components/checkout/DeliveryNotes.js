@@ -28,6 +28,8 @@ export default function DeliveryNotes({ noteHandler,notesprop }) {
           autoFocus
           dense={true}
           value={notes}
+          outlineColor="#ff6600"
+          activeOutlineColor="#ff6600"
           style={{ backgroundColor: "#fff" }}
           placeholder="Place the delivery at door"
           onChangeText={setNotes}

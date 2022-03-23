@@ -30,6 +30,7 @@ import {
   useConfirmPayment,
   StripeProvider,
 } from "@stripe/stripe-react-native";
+import { LinearGradient } from "expo-linear-gradient";
 LogBox.ignoreAllLogs(true);
 export default function CheckOut({
   plan,
@@ -319,8 +320,6 @@ export default function CheckOut({
             position: "absolute",
             left: 5,
             top: 48,
-            borderRadius: 20,
-            backgroundColor: "#cccccc",
             zIndex: 1000,
             height: 30,
             width: 30,
@@ -364,8 +363,8 @@ export default function CheckOut({
                   {plan === "thirtyPlan"
                     ? " 30 Meals"
                     : plan === "fifteenPlan"
-                    ? " 15 Meals"
-                    : " 2 Meals"}
+                      ? " 15 Meals"
+                      : " 2 Meals"}
                 </Text>
                 <Text style={styles.mealText}>
                   {"$"}
@@ -426,11 +425,13 @@ export default function CheckOut({
             </View>
 
             <TouchableOpacity
-              style={styles.button}
               onPress={orderNow}
               disabled={submitted}
             >
-              <Text style={styles.btnText}>PROCEED TO PAY</Text>
+              <LinearGradient colors={["#ff9900", "#ff6600"]} style={styles.button}>
+
+                <Text style={styles.btnText}>PROCEED TO PAY</Text>
+              </LinearGradient>
             </TouchableOpacity>
           </View>
         )}
