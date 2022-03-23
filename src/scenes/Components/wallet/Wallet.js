@@ -16,6 +16,7 @@ import { getUser, saveUser } from "../../../services/user/getuser";
 import { styles } from "../../styles/CheckoutStyles";
 import { ActivityIndicator, Checkbox, Colors } from "react-native-paper";
 import axios from "axios";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Wallet({ total, action, data, isAddOn }) {
   const [balance, setBalance] = useState(0);
@@ -334,8 +335,8 @@ export default function Wallet({ total, action, data, isAddOn }) {
               )}
             </TouchableOpacity>
             {isAddOn && (
-              <TouchableOpacity
-                style={{
+              <TouchableOpacity onPress={onSubmit}>
+                <LinearGradient colors={["#ff9900", "#ff6600"]} style={{
                   borderColor: "#226ccf",
                   backgroundColor: "#008000",
                   borderRadius: 24,
@@ -345,27 +346,26 @@ export default function Wallet({ total, action, data, isAddOn }) {
                   alignItems: "center",
                   flex: 1,
                   margin: 2,
-                }}
-                onPress={onSubmit}
-              >
-                {ordering ? (
-                  <ActivityIndicator
-                    size="small"
-                    animating={true}
-                    color={Colors.red900}
-                  />
-                ) : (
-                  <Text
-                    style={{
-                      textTransform: "uppercase",
-                      color: "#fff",
-                      fontWeight: "bold",
-                      fontSize: 18,
-                    }}
-                  >
-                    Pay ${total}
-                  </Text>
-                )}
+                }}>
+                  {ordering ? (
+                    <ActivityIndicator
+                      size="small"
+                      animating={true}
+                      color={Colors.red900}
+                    />
+                  ) : (
+                    <Text
+                      style={{
+                        textTransform: "uppercase",
+                        color: "#fff",
+                        fontWeight: "bold",
+                        fontSize: 18,
+                      }}
+                    >
+                      Pay ${total}
+                    </Text>
+                  )}
+                </LinearGradient>
               </TouchableOpacity>
             )}
           </View>
