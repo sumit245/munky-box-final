@@ -290,6 +290,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
               <Checkbox.Android
                 status={checked ? "checked" : "unchecked"}
                 rippleColor="#ff6600"
+                color="#ff6600"
                 onPress={() => {
                   setChecked(!checked);
                 }}
