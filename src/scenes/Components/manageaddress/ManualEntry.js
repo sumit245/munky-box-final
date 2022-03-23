@@ -105,6 +105,9 @@ export default class ManualEntry extends Component {
                 mode="flat"
                 defaultValue={this.state.flat_num}
                 placeholder="House Number"
+                underlineColor="#ff6600"
+                outlineColor="#ff6600"
+                activeOutlineColor="#ff6600"
                 left={
                   <TextInput.Icon
                     name={() => (
@@ -126,6 +129,9 @@ export default class ManualEntry extends Component {
                 mode="flat"
                 defaultValue={this.state.locality}
                 placeholder="Street Address"
+                underlineColor="#ff6600"
+                outlineColor="#ff6600"
+                activeOutlineColor="#ff6600"
                 left={
                   <TextInput.Icon
                     name={() => (
@@ -166,6 +172,9 @@ export default class ManualEntry extends Component {
                 mode="flat"
                 defaultValue={this.state.city}
                 placeholder="Ontario"
+                underlineColor="#ff6600"
+                outlineColor="#ff6600"
+                activeOutlineColor="#ff6600"
                 left={
                   <TextInput.Icon
                     name={() => (
@@ -184,7 +193,10 @@ export default class ManualEntry extends Component {
                 style={[styles.inputContainer, { width: "46%" }]}
                 mode="flat"
                 defaultValue={this.state.postal_code}
+                underlineColor="#ff6600"
                 placeholder="Postal Code"
+                outlineColor="#ff6600"
+                activeOutlineColor="#ff6600"
                 left={
                   <TextInput.Icon
                     name={() => (
@@ -209,15 +221,15 @@ export default class ManualEntry extends Component {
                 marginTop: 48,
               }}
             >
-              <LinearGradient
-                style={{ borderRadius: 14, borderWidth: 1, borderColor: "#ff6600",padding:6,width:60,height:28 }}
-                colors={address_type === "home" ? ["#ff9900", "#ff6600"] : ["#fff", "transparent"]}>
-                <TouchableOpacity onPress={this.selectChip("home")} style={{ flexDirection: "row",alignItems:"center" }}>
-                  <Icon name="home-outline" size={20} color={address_type === "home" ? "#fff" : "#000"} />
-                  <Text style={{color:address_type === "home" ? "#fff" : "#000"}}>Home</Text>
-                </TouchableOpacity>
-              </LinearGradient>
-
+              <Chip
+                icon="home"
+                selected={address_type === "home" ? true : false}
+                mode="outlined"
+                onPress={this.selectChip("home")}
+                selectedColor={address_type == "home" ? "#2962ff" : "#000"}
+              >
+                Home
+              </Chip>
               <Chip
                 icon="office-building"
                 selected={address_type === "work" ? true : false}
