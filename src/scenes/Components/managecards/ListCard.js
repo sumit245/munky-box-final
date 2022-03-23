@@ -24,6 +24,41 @@ import Trash from "../../../../assets/Trash.png";
 import axios from "axios";
 import { USER_URL } from "../../../services/EndPoints";
 import { LinearGradient } from "expo-linear-gradient";
+export const RenderWalletRightButton = () => (
+  <TouchableOpacity
+    style={{
+      height: 50,
+      alignItems: "center",
+      justifyContent: "flex-end",
+      flexDirection: "row",
+    }}
+    onPress={() => {
+      Actions.push("wallet");
+    }}
+  >
+    <Ionicon name="wallet-outline" size={24} />
+    <View
+      style={{
+        height: 14,
+        backgroundColor: "#ff6600",
+        borderRadius: 7,
+        justifyContent: "center",
+        alignItems: "center",
+        marginRight: 12,
+        padding: 4,
+      }}
+    >
+      <Text
+        style={{
+          textAlign: "center",
+          color: "#FFF",
+        }}
+      >
+        0
+      </Text>
+    </View>
+  </TouchableOpacity>
+)
 const ListEmptyContent = () => {
   return (
     <View style={styles.centerContent}>

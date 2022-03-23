@@ -20,7 +20,7 @@ import { ModalOpener } from "./services/documentopener/documentopener";
 import ListAddress from "./scenes/Components/manageaddress/ListAddress";
 import { getUser } from "./services/user/getuser";
 import EditAccount from "./scenes/Components/EditAccount";
-import ListCard from "./scenes/Components/managecards/ListCard";
+import ListCard, { RenderWalletRightButton } from "./scenes/Components/managecards/ListCard";
 import NotificationStack from "./scenes/Components/NotificationStack";
 import Favouite from "./scenes/Components/Favouite";
 import Thankyou, { DoneRightButton } from "./scenes/Thankyou";
@@ -93,41 +93,7 @@ export default function Routes() {
           key="manageCards"
           component={ListCard}
           renderLeftButton={() => <BackButton />}
-          renderRightButton={() => (
-            <TouchableOpacity
-              style={{
-                height: 50,
-                alignItems: "center",
-                justifyContent: "flex-end",
-                flexDirection: "row",
-              }}
-              onPress={() => {
-                Actions.push("wallet");
-              }}
-            >
-              <Icon name="wallet-outline" size={24} />
-              <View
-                style={{
-                  height: 14,
-                  backgroundColor: "#ff6600",
-                  borderRadius: 7,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginRight: 12,
-                  padding: 4,
-                }}
-              >
-                <Text
-                  style={{
-                    textAlign: "center",
-                    color: "#FFF",
-                  }}
-                >
-                  0
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
+          renderRightButton={() => <RenderWalletRightButton />}
         />
         <Scene
           key="wallet"
