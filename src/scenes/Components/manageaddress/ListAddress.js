@@ -246,8 +246,6 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     borderWidth: 1,
     borderColor: "#ff6600",
-    position: "absolute",
-    bottom: -180,
     padding: 10,
     height: 48,
     alignItems: "center",
