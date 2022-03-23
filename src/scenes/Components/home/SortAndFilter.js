@@ -212,7 +212,7 @@ export default class SortAndFilter extends Component {
                   onPress={this.clearFilters}
                 >
                   <Text
-                    style={{ fontSize: 16, color: "fff", fontWeight: "bold" }}
+                    style={{ fontSize: 16, color: "#fff", fontWeight: "bold" }}
                   >
                     Clear All
                   </Text>
