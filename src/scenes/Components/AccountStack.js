@@ -1,3 +1,4 @@
+import { LinearGradient } from "expo-linear-gradient";
 import React, { Component } from "react";
 import {
   View,
@@ -22,7 +23,7 @@ export default class AccountStack extends Component {
       ...this.props,
       user: {},
       signoff: false,
-      show:true
+      show: true
     };
   }
   fetchUser = () => {
@@ -36,16 +37,16 @@ export default class AccountStack extends Component {
   componentDidMount() {
     this.fetchUser();
   }
-  showDialog=()=>{
-    this.setState(prevState=>({signoff:!prevState.signoff}))
+  showDialog = () => {
+    this.setState(prevState => ({ signoff: !prevState.signoff }))
   }
 
   logout = async () => {
-    const res=await removeUser("user")
-      this.setState({signoff:false})
-      const response = clearAll();
-      response.then(() => Actions.jump("auth"));
-    
+    const res = await removeUser("user")
+    this.setState({ signoff: false })
+    const response = clearAll();
+    response.then(() => Actions.jump("auth"));
+
   };
 
   render() {
@@ -57,118 +58,116 @@ export default class AccountStack extends Component {
     return (
       <SafeAreaView style={styles.navdrawer}>
         <Provider>
-        <View style={styles.header}>
-          <View style={styles.imageNUmName}>
-            <View style={styles.profileContainer}>
-              <Image
-                source={{ uri: data.profile_picture }}
-                style={styles.profilepic}
-              />
-            </View>
-            <View style={{ marginLeft: 10, marginTop: 16 }}>
-              <Text style={{ fontSize: 16, color: "#000", fontWeight: "bold" }}>
-                {user}
-              </Text>
-              <TouchableOpacity
-                onPress={() => Actions.push("editaccount", { type: "edit" })}
-              >
-                <Text style={{ color: "#24af9e", fontWeight: "bold" }}>
-                  Edit Account
+          <View style={styles.header}>
+            <View style={styles.imageNUmName}>
+              <View style={styles.profileContainer}>
+                <Image
+                  source={{ uri: data.profile_picture }}
+                  style={styles.profilepic}
+                />
+              </View>
+              <View style={{ marginLeft: 10, marginTop: 16 }}>
+                <Text style={{ fontSize: 16, color: "#000", fontWeight: "bold" }}>
+                  {user}
                 </Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => Actions.push("editaccount", { type: "edit" })}
+                >
+                  <Text style={{ color: "#24af9e", fontWeight: "bold" }}>
+                    Edit Account
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
 
-        <View style={styles.drawerRow}>
-          <Icons name="earth" color={"#000"} size={24} brand />
-          <TouchableOpacity
-            onPress={() => {
-              Actions.push("listAddress");
-            }}
-          >
-            <Text style={styles.drawerText}>Manage Address</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.drawerRow}>
+            <Icons name="earth" color={"#000"} size={24} brand />
+            <TouchableOpacity
+              onPress={() => {
+                Actions.push("listAddress");
+              }}
+            >
+              <Text style={styles.drawerText}>Manage Address</Text>
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.drawerRow}>
-          <Icons name="md-card-outline" color={"#000"} size={24} />
-          <TouchableOpacity
-            onPress={() => {
-              Actions.push("manageCards", {
-                title: "Manage Payments",
-                checkout: false,
-              });
-            }}
-          >
-            <Text style={styles.drawerText}>Manage Payments</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.drawerRow}>
+            <Icons name="md-card-outline" color={"#000"} size={24} />
+            <TouchableOpacity
+              onPress={() => {
+                Actions.push("manageCards", {
+                  title: "Manage Payments",
+                  checkout: false,
+                });
+              }}
+            >
+              <Text style={styles.drawerText}>Manage Payments</Text>
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.drawerRow}>
-          <Icons name="notifications-outline" color={"#000"} size={24} brand />
-          <TouchableOpacity
-            onPress={() =>
-              Actions.push("manageNotifications", {
-                title: "Manage Notifications",
-              })
-            }
-          >
-            <Text style={styles.drawerText}>Notifications</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.drawerRow}>
+            <Icons name="notifications-outline" color={"#000"} size={24} brand />
+            <TouchableOpacity
+              onPress={() =>
+                Actions.push("manageNotifications", {
+                  title: "Manage Notifications",
+                })
+              }
+            >
+              <Text style={styles.drawerText}>Notifications</Text>
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.drawerRow}>
-          <Icons name="mail-outline" color={"#000"} size={24} brand />
-          <TouchableOpacity
-            onPress={() => {
-              Actions.push("contacts");
-            }}
-          >
-            <Text style={styles.drawerText}>Support</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.drawerRow}>
+            <Icons name="mail-outline" color={"#000"} size={24} brand />
+            <TouchableOpacity
+              onPress={() => {
+                Actions.push("contacts");
+              }}
+            >
+              <Text style={styles.drawerText}>Support</Text>
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.drawerRow}>
-          <Icons
-            name="md-document-text-outline"
-            color={"#000"}
-            style={{ fontWeight: "bold" }}
-            size={24}
-            brand
-          />
-          <TouchableOpacity
-            onPress={() => {
-              Actions.push("policies");
-            }}
-          >
-            <Text style={styles.drawerText}>About Us</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.drawerRow}>
+            <Icons
+              name="md-document-text-outline"
+              color={"#000"}
+              style={{ fontWeight: "bold" }}
+              size={24}
+              brand
+            />
+            <TouchableOpacity
+              onPress={() => {
+                Actions.push("policies");
+              }}
+            >
+              <Text style={styles.drawerText}>About Us</Text>
+            </TouchableOpacity>
+          </View>
 
-        <TouchableOpacity
-          onPress={this.showDialog}
-          style={[
-            styles.drawerRow,
-            {
-              position: "absolute",
-              bottom: 0,
-              left: "40%",
-              borderBottomColor: "#fff",
-            },
-          ]}
-        >
-          <Icons name="exit-outline" color={"#000"} size={30} brand />
-        </TouchableOpacity>
-        {this.state.signoff && (
-          <CustomDialog
-            title="Sign Out"
-            showDialog={this.state.signoff}
-            doneHandler={this.logout}
-            cancelHandler={this.showDialog}
-            text="Are you sure you want to logout?"
-          />
-        )}
+          <LinearGradient colors={["#ff9900", "#ff6600"]} style={{
+            position: "absolute",
+            bottom: 0,
+            left: "40%",
+            borderBottomColor: "#fff",
+          }}>
+            <TouchableOpacity
+              onPress={this.showDialog}
+            >
+              <Icons name="power-sharp" color={"#fff"} size={30} brand />
+            </TouchableOpacity>
+          </LinearGradient>
+          {this.state.signoff && (
+            <CustomDialog
+              title="Sign Out"
+              showDialog={this.state.signoff}
+              doneHandler={this.logout}
+              cancelHandler={this.showDialog}
+              text="Are you sure you want to logout?"
+            />
+          )}
         </Provider>
       </SafeAreaView>
     );
