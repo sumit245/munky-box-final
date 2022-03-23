@@ -34,8 +34,9 @@ export default function HomeScreen({ navigation }) {
               <Icon name="ios-home-outline" color={color} size={24} />
             ),
 
-            tabBarLabel: "Home",
-            labelStyle: { fontWeight: "bold" },
+            tabBarLabel: (
+              <Text style={{ fontWeight: "bold", color: "#ff6600" }}>Home</Text>
+            ),
           }}
         />
         <Tab.Screen
@@ -45,8 +46,11 @@ export default function HomeScreen({ navigation }) {
             tabBarIcon: ({ color }) => (
               <Icon name="cart-outline" color={color} size={24} />
             ),
-            tabBarLabel: "My Orders",
-            labelStyle: { fontWeight: "bold" },
+            tabBarLabel: (
+              <Text style={{ fontWeight: "bold", color: "#ff6600" }}>
+                My Orders
+              </Text>
+            ),
           }}
         />
         <Tab.Screen
@@ -57,8 +61,11 @@ export default function HomeScreen({ navigation }) {
             tabBarIcon: ({ color }) => (
               <Icon name="md-duplicate-outline" color={color} size={24} />
             ),
-            tabBarLabel: "Subscriptions",
-            labelStyle: { fontWeight: "bold" },
+            tabBarLabel: (
+              <Text style={{ fontWeight: "bold", color: "#ff6600" }}>
+                Subscriptions
+              </Text>
+            ),
           }}
         />
         <Tab.Screen
@@ -68,8 +75,11 @@ export default function HomeScreen({ navigation }) {
             tabBarIcon: ({ color }) => (
               <Icon name="person-circle-outline" color={color} size={24} />
             ),
-            tabBarLabel: "Profile",
-            labelStyle: { fontWeight: "bold" },
+            tabBarLabel: (
+              <Text style={{ fontWeight: "bold", color: "#ff6600" }}>
+                Profile
+              </Text>
+            ),
           }}
         />
       </Tab.Navigator>
