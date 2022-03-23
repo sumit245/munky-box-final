@@ -97,6 +97,7 @@ export default function TipOption({ tipHandler }) {
           activeOutlineColor="#ff6600"
           outlineColor="#ff6600"
           underlineColor="#ff6600"
+          activeUnderlineColor="#ff6600"
           dense
           returnKeyType="done"
           keyboardType="numeric"
