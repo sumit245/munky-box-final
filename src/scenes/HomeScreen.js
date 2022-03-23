@@ -34,7 +34,7 @@ export default function HomeScreen({ navigation }) {
             ),
 
             tabBarLabel: "Home",
-            ta,
+            
           }}
         />
         <Tab.Screen
