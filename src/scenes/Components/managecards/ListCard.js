@@ -10,7 +10,7 @@ import Icon from "react-native-vector-icons/Fontisto";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import { Actions } from "react-native-router-flux";
 import { width } from "../../styles/HomeStyles";
-import { IconButton, RadioButton, Provider } from "react-native-paper";
+import { IconButton, RadioButton, Provider, Badge } from "react-native-paper";
 import { PaymentIcon } from "react-native-payment-icons"
 import { getUser, saveUser } from "../../../services/user/getuser";
 import ManageCard from "./ManageCard";
@@ -24,7 +24,7 @@ import Trash from "../../../../assets/Trash.png";
 import axios from "axios";
 import { USER_URL } from "../../../services/EndPoints";
 import { LinearGradient } from "expo-linear-gradient";
-export const RenderWalletRightButton = () => (
+export const RenderWalletRightButton = ({ wallet_balance }) => (
   <TouchableOpacity
     style={{
       height: 50,
@@ -37,26 +37,9 @@ export const RenderWalletRightButton = () => (
     }}
   >
     <Ionicon name="wallet-outline" size={24} />
-    <View
-      style={{
-        height: 14,
-        backgroundColor: "#ff6600",
-        borderRadius: 7,
-        justifyContent: "center",
-        alignItems: "center",
-        marginRight: 12,
-        padding: 4,
-      }}
-    >
-      <Text
-        style={{
-          textAlign: "center",
-          color: "#FFF",
-        }}
-      >
-        0
-      </Text>
-    </View>
+    <Badge style={{ backgroundColor: "#ff6600" }}>
+      {wallet_balance}
+    </Badge>
   </TouchableOpacity>
 )
 const ListEmptyContent = () => {
