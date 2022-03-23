@@ -167,7 +167,7 @@ export default function SubscriptionItem({
               marginVertical: 8,
             }}
           >
-            <View style={{ marginLeft: 16, marginVertical: 4 }}>
+            <View style={{ marginLeft: 12, marginVertical: 4 }}>
               <Text style={styles.headerTitle}>
                 {state.plan === "twoPlan"
                   ? "2 Meals"
