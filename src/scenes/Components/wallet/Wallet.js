@@ -11,7 +11,6 @@ import {
 import PIC from "../../../../assets/wallet.png";
 import CheckoutCards from "../checkout/CheckoutCards";
 import { StripeProvider } from "@stripe/stripe-react-native";
-import { Actions } from "react-native-router-flux";
 import { getUser, saveUser } from "../../../services/user/getuser";
 import { styles } from "../../styles/CheckoutStyles";
 import { ActivityIndicator, Checkbox, Colors } from "react-native-paper";
@@ -261,6 +260,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
                     fontSize: 22,
                     marginHorizontal: 8,
                   }}
+                  selectionColor="#ff6600"
                   placeholderTextColor="#ccc"
                   underlineColor="transparent"
                   placeholder="5.00"
