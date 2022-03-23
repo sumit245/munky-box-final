@@ -34,7 +34,7 @@ export default function HomeScreen({ navigation }) {
             ),
 
             tabBarLabel: "Home",
-            
+            labelStyle:{fontWeight:"bold"}
           }}
         />
         <Tab.Screen
@@ -45,6 +45,7 @@ export default function HomeScreen({ navigation }) {
               <Icon name="cart-outline" color={color} size={24} />
             ),
             tabBarLabel: "My Orders",
+            labelStyle:{fontWeight:"bold"}
           }}
         />
         <Tab.Screen
@@ -56,6 +57,7 @@ export default function HomeScreen({ navigation }) {
               <Icon name="md-duplicate-outline" color={color} size={24} />
             ),
             tabBarLabel: "Subscriptions",
+            labelStyle:{fontWeight:"bold"}
           }}
         />
         <Tab.Screen
@@ -66,6 +68,7 @@ export default function HomeScreen({ navigation }) {
               <Icon name="person-circle-outline" color={color} size={24} />
             ),
             tabBarLabel: "Profile",
+            labelStyle:{fontWeight:"bold"}
           }}
         />
       </Tab.Navigator>
