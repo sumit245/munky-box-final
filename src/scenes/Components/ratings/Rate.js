@@ -150,6 +150,7 @@ export default function Rate({ navigation, restaurant, order }) {
                         marginVertical: 2,
                         justifyContent: "center",
                         alignItems: "center",
+                        padding:4
                       }}
                     >
                       <Text style={{
