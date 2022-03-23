@@ -226,8 +226,8 @@ export default class ManualEntry extends Component {
                 selected={address_type === "home" ? true : false}
                 mode="outlined"
                 onPress={this.selectChip("home")}
-                selectedColor={address_type == "home" ? "#2962ff" : "#000"}
-                style={{borderColor:address_type == "home" ? "#ff6600" : "#ededed",borderWidth:1}}
+
+                style={{ borderColor: address_type == "home" ? "#ff6600" : "#ededed", borderWidth: 1 }}
               >
                 Home
               </Chip>
@@ -236,8 +236,8 @@ export default class ManualEntry extends Component {
                 selected={address_type === "work" ? true : false}
                 mode="outlined"
                 onPress={this.selectChip("work")}
-                selectedColor={address_type == "work" ? "#2962ff" : "#000"}
-                style={{borderColor:address_type == "work" ? "#ff6600" : "#ededed",borderWidth:1}}
+
+                style={{ borderColor: address_type == "work" ? "#ff6600" : "#ededed", borderWidth: 1 }}
               >
                 Work
               </Chip>
@@ -246,8 +246,8 @@ export default class ManualEntry extends Component {
                 selected={address_type === "other" ? true : false}
                 mode="outlined"
                 onPress={this.selectChip("other")}
-                selectedColor={address_type == "other" ? "#2962ff" : "#000"}
-                style={{borderColor:address_type == "other" ? "#ff6600" : "#ededed",borderWidth:1}}
+
+                style={{ borderColor: address_type == "other" ? "#ff6600" : "#ededed", borderWidth: 1 }}
               >
                 Others
               </Chip>

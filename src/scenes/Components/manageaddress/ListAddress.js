@@ -19,6 +19,7 @@ import {
 } from "react-native-swipe-list";
 import { RadioButton } from "react-native-paper";
 import Trash from "../../../../assets/Trash.png";
+import { LinearGradient } from "expo-linear-gradient";
 
 const ListEmptyContent = () => {
   return (
@@ -57,8 +58,8 @@ const AddressCard = ({ item, checked, changeSelector }) => (
             item.address_type === "home"
               ? "home-outline"
               : item.address_type === "office"
-              ? "business-outline"
-              : "earth-outline"
+                ? "business-outline"
+                : "earth-outline"
           }
           size={24}
           color="#777"
@@ -69,6 +70,7 @@ const AddressCard = ({ item, checked, changeSelector }) => (
         value={item._id}
         status={checked === item._id ? "checked" : "unchecked"}
         onPress={() => changeSelector(item._id)}
+        color="#ff6600"
       />
     </View>
     <View style={[styles.cardBody, { borderBottomWidth: 0 }]}>
@@ -86,7 +88,7 @@ export default class ListAddress extends Component {
     checked: "home",
     userid: "",
   };
-  
+
   fetchUser = () => {
     getUser("user").then((res) => {
       let { _id } = res.data;
@@ -113,7 +115,7 @@ export default class ListAddress extends Component {
       addresses: addresses,
     });
     const { data } = response;
-    
+
     let local = JSON.stringify(data);
     saveUser("user", local);
     this.setState({
@@ -132,9 +134,9 @@ export default class ListAddress extends Component {
   changeSelector = (selected) => {
     if (this.props.checkout) {
       this.props.onAddressSelect(selected);
-      Actions.pop({refresh:{},timeout:1});
-    }else if(this.props.isHome){
-      Actions.push('home',{isAdded:true})
+      Actions.pop({ refresh: {}, timeout: 1 });
+    } else if (this.props.isHome) {
+      Actions.push('home', { isAdded: true })
     }
     this.setState({ checked: selected });
   };
@@ -151,7 +153,7 @@ export default class ListAddress extends Component {
           ListEmptyComponent={() => {
             return <ListEmptyContent />;
           }}
-          
+
           renderRightActions={({ item }) => (
             <SwipeableQuickActions
               style={{
@@ -176,15 +178,16 @@ export default class ListAddress extends Component {
             </SwipeableQuickActions>
           )}
         />
+        <LinearGradient style={styles.button} colors={["#ff9900", "#ff6600"]}>
+          <TouchableOpacity
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            Actions.push("manageAddress");
-          }}
-        >
-          <Text style={styles.confirmLocation}>ADD NEW ADDRESS</Text>
-        </TouchableOpacity>
+            onPress={() => {
+              Actions.push("manageAddress");
+            }}
+          >
+            <Text style={styles.confirmLocation}>ADD NEW ADDRESS</Text>
+          </TouchableOpacity>
+        </LinearGradient>
       </View>
     );
   }
@@ -240,15 +243,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    width: width - 5,
-    borderRadius: 6,
-    borderWidth: 0.2,
-    marginHorizontal: 2,
-    paddingHorizontal: 5,
-    height: 45,
-    backgroundColor: "#2962ff",
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: "#ff6600",
     position: "absolute",
-    bottom: 6,
+    bottom: -180,
+    padding: 10,
+    height: 48,
+    alignItems: "center",
     justifyContent: "center",
   },
   confirmLocation: {
