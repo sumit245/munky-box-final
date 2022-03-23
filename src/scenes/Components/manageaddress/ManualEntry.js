@@ -210,11 +210,11 @@ export default class ManualEntry extends Component {
               }}
             >
               <LinearGradient
-                style={{ borderRadius: 12, borderWidth: 1, borderColor: "#ff6600" }}
+                style={{ borderRadius: 14, borderWidth: 1, borderColor: "#ff6600",padding:6,width:60,height:28 }}
                 colors={address_type === "home" ? ["#ff9900", "#ff6600"] : ["#fff", "transparent"]}>
                 <TouchableOpacity onPress={this.selectChip("home")} style={{ flexDirection: "row",alignItems:"center" }}>
                   <Icon name="home-outline" size={20} color={address_type === "home" ? "#fff" : "#000"} />
-                  <Text style={address_type === "home" ? "#fff" : "#000"}>Home</Text>
+                  <Text style={{color:address_type === "home" ? "#fff" : "#000"}}>Home</Text>
                 </TouchableOpacity>
               </LinearGradient>
 
