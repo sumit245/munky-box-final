@@ -188,7 +188,6 @@ export default class ListCard extends Component {
   };
   componentDidMount() {
     this.fetchUser();
-    <RenderWalletRightButton wallet_balance={this.state.wallet_balance} />
   }
   componentDidUpdate() {
     this.fetchUser();
@@ -196,44 +195,45 @@ export default class ListCard extends Component {
   }
   renderAddress = ({ item }, checked) => (
     <PaymentCard
-      item={item}
-      checked={checked}
-      changeSelector={this.changeSelector}
+    item={item}
+    checked={checked}
+    changeSelector={this.changeSelector}
     />
-  );
-  changeSelector = (selected) => {
-    if (this.props.checkout) {
-      this.props.onSelectCard(selected);
-      Actions.pop();
-    }
-    this.setState({ checked: selected });
-  };
-  deleteAddress = async (id) => {
-    let renderedCards = [...this.state.cards];
-    let cards = renderedCards.filter((value) => value.number !== id);
-    const response = await axios.put(USER_URL + this.state.user_id, {
-      cards: cards,
-    });
-    const { data } = response;
-
-    let local = JSON.stringify(data);
-    saveUser("user", local);
-    this.setState({
-      cards: cards,
-    });
-  };
-  openEdit = ({ item }) => {
-    this.setState({
-      modalVisible: true,
-      selectedcard: item,
-      title: "Edit Card",
-    });
-  };
-  render() {
-    const { cards, checked, modalVisible, selectedcard, title, wallet_balance } = this.state;
-    
-    return (
-      <ScrollView contentContainerStyle={styles.container}>
+    );
+    changeSelector = (selected) => {
+      if (this.props.checkout) {
+        this.props.onSelectCard(selected);
+        Actions.pop();
+      }
+      this.setState({ checked: selected });
+    };
+    deleteAddress = async (id) => {
+      let renderedCards = [...this.state.cards];
+      let cards = renderedCards.filter((value) => value.number !== id);
+      const response = await axios.put(USER_URL + this.state.user_id, {
+        cards: cards,
+      });
+      const { data } = response;
+      
+      let local = JSON.stringify(data);
+      saveUser("user", local);
+      this.setState({
+        cards: cards,
+      });
+    };
+    openEdit = ({ item }) => {
+      this.setState({
+        modalVisible: true,
+        selectedcard: item,
+        title: "Edit Card",
+      });
+    };
+    render() {
+      const { cards, checked, modalVisible, selectedcard, title, wallet_balance } = this.state;
+      
+      return (
+        <ScrollView contentContainerStyle={styles.container}>
+          <RenderWalletRightButton wallet_balance={this.state.wallet_balance} />
         <Provider>
           <View>
             <SwipeableFlatList
