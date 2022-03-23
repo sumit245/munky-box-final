@@ -144,7 +144,7 @@ export default class DeliveryOptions extends Component {
 
         <View>
           <Text onPress={this.setModalVisible} style={{textAlignVertical:"center"}}>
-            DELIVER TO <Icon name="chevron-down-outline" size={20} color="#ff9900" />
+            DELIVER TO <Icon name="chevron-down-outline" size={20} color="#ff6600" />
           </Text>
           <Text
             style={{
