@@ -1,4 +1,5 @@
 import axios from "axios";
+import { LinearGradient } from "expo-linear-gradient";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import {
@@ -85,6 +86,7 @@ export default function Rate({ navigation, restaurant, order }) {
             <View>
               <Text
                 style={{
+                  marginTop: 20,
                   textAlign: "center",
                   fontWeight: "bold",
                   fontSize: 20,
@@ -100,6 +102,7 @@ export default function Rate({ navigation, restaurant, order }) {
             <AirbnbRating
               reviews={["Worst", "Bad", "Good", "Satisfied", "Excellent!!!"]}
               onFinishRating={changeRating}
+              selectedColor="#ff6600"
             />
 
             <View
@@ -130,31 +133,34 @@ export default function Rate({ navigation, restaurant, order }) {
                 }}
               >
                 {features.map((feature, key) => (
-                  <Chip
-                    mode="outlined"
-                    onPress={() => pushToLiked(feature)}
-                    selectedColor={likes.includes(feature) ? "orange" : "#000"}
-                    style={{
-                      minWidth: 100,
-                      height: 40,
-                      marginVertical: 2,
-                      borderWidth: 2,
-                      justifyContent: "center",
-                      alignItems: "center",
-                      backgroundColor: likes.includes(feature)
-                        ? "orange"
-                        : "#fff",
-                    }}
-                    textStyle={{
-                      textAlign: "center",
-                      fontSize: 14,
-                      fontWeight: "bold",
-                      color: likes.includes(feature) ? "#fff" : "#000",
-                    }}
-                    key={key}
-                  >
-                    {feature}
-                  </Chip>
+                  <LinearGradient colors={likes.includes(feature)
+                    ? ["#ff6600", "#ff6600"]
+                    : ["#fff", "transparent"]}>
+                    <Chip
+                      mode="outlined"
+                      onPress={() => pushToLiked(feature)}
+                      selectedColor={likes.includes(feature) ? "#ff6600" : "#000"}
+                      key={key}
+                      style={{
+                        borderWidth: 2,
+                        minWidth: 100,
+                        height: 40,
+                        marginVertical: 2,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: likes.includes(feature) ? "#ff6600" : "#fff"
+                      }}
+                      textStyle={{
+                        textAlign: "center",
+                        fontSize: 14,
+                        fontWeight: "bold",
+                        color: likes.includes(feature) ? "#fff" : "#000",
+                      }}
+                    >
+
+                      {feature}
+                    </Chip>
+                  </LinearGradient>
                 ))}
               </View>
             </View>
@@ -186,7 +192,9 @@ export default function Rate({ navigation, restaurant, order }) {
           </ScrollView>
 
           <TouchableOpacity
-            style={{
+            onPress={onSubmit}
+          >
+            <LinearGradient style={{
               width: "98%",
               borderRadius: 6,
               borderWidth: 0.2,
@@ -195,20 +203,19 @@ export default function Rate({ navigation, restaurant, order }) {
               height: 44,
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: "#A91B60",
-            }}
-            onPress={onSubmit}
-          >
-            <Text
-              style={{
-                color: "#fff",
-                textTransform: "uppercase",
-                fontWeight: "bold",
-                fontSize: 20,
-              }}
-            >
-              Submit
-            </Text>
+
+            }} colors={["#ff9900", "#ff6600"]}>
+              <Text
+                style={{
+                  color: "#fff",
+                  textTransform: "uppercase",
+                  fontWeight: "bold",
+                  fontSize: 20,
+                }}
+              >
+                Submit
+              </Text>
+            </LinearGradient>
           </TouchableOpacity>
         </SafeAreaView>
       </Provider>

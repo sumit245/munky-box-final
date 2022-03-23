@@ -83,7 +83,8 @@ export default function OrderCard({ item, user_id }) {
               textAlign: "right",
               color: item.status === "accepted" ? "#ffc300" :
                 item.status === "started" ? "#f5a617" :
-                  item.status === "rejected" ? "#777" : "#22cf6c"
+                  item.status === "pending" ? "#aaa" :
+                    item.status === "rejected" ? "#777" : "#22cf6c"
             }}
           >
             {item.status}
