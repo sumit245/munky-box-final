@@ -93,7 +93,7 @@ export default function Routes() {
           key="manageCards"
           component={ListCard}
           renderLeftButton={() => <BackButton />}
-          renderRightButton={() => <RenderWalletRightButton />}
+          renderRightButton={RenderWalletRightButton}
         />
         <Scene
           key="wallet"
