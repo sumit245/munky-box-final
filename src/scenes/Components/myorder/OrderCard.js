@@ -78,11 +78,12 @@ export default function OrderCard({ item, user_id }) {
           <Text
             style={{
               fontSize: 14,
+              fontWeight: "bold",
               textTransform: "uppercase",
               textAlign: "right",
               color: item.status === "accepted" ? "#ffc300" :
                 item.status === "started" ? "#f5a617" :
-                item.status === "rejected" ? "#777" : "#22cf6c"
+                  item.status === "rejected" ? "#777" : "#22cf6c"
             }}
           >
             {item.status}
