@@ -167,7 +167,7 @@ export default function SubscriptionItem({
               marginVertical: 8,
             }}
           >
-            <View style={{ marginLeft: 2, marginVertical: 4 }}>
+            <View style={{ marginLeft: 4, marginVertical: 4 }}>
               <Text style={styles.headerTitle}>
                 {state.plan === "twoPlan"
                   ? "2 Meals"
@@ -180,7 +180,7 @@ export default function SubscriptionItem({
             </View>
           </View>
 
-          <Text style={{ color: "#22cccf", fontWeight: "bold" }}>
+          <Text style={{ color: item.category==="Lunch"?"#ff9900":"#ff6600", fontWeight: "bold" }}>
             {item.category}
           </Text>
         </View>
@@ -248,7 +248,7 @@ export default function SubscriptionItem({
                 style={{
                   marginVertical: 4,
                   width: 15,
-                  borderTopColor: "#c43e00",
+                  borderTopColor: "#ff6600",
                   borderTopWidth: 4,
                   height: 12,
                   marginHorizontal: 2,

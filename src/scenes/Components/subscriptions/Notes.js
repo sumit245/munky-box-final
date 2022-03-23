@@ -40,7 +40,7 @@ export default function Notes({ notes, order_id }) {
           Delivery Notes
         </Text>
         <TouchableOpacity onPress={() => updateNotes(order_id)}>
-          <Text style={{ fontSize: 14, fontWeight: "bold", color: "#226ccf" }}>
+          <Text style={{ fontSize: 14, fontWeight: "bold", color: "#ff6600" }}>
             {!pulled ? "Update" : "Save"}
           </Text>
         </TouchableOpacity>
@@ -50,7 +50,9 @@ export default function Notes({ notes, order_id }) {
       ) : (
         <TextInput
           mode="outlined"
-          numberOfLines={4}
+            numberOfLines={4}
+            outlineColor="#ff6600"
+            activeOutlineColor="#ff6600"
           label="Notes"
           value={thisnotes}
           onChangeText={(text) => setNotes(text)}
