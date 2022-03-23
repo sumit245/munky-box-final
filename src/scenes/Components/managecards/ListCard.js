@@ -11,6 +11,7 @@ import Ionicon from "react-native-vector-icons/Ionicons";
 import { Actions } from "react-native-router-flux";
 import { width } from "../../styles/HomeStyles";
 import { IconButton, RadioButton, Provider } from "react-native-paper";
+import {PaymentIcon} from "react-native-payment-icons"
 import { getUser, saveUser } from "../../../services/user/getuser";
 import ManageCard from "./ManageCard";
 import {
@@ -84,16 +85,13 @@ const PaymentCard = ({ item, checked, changeSelector }) => {
             alignItems: "center",
           }}
         >
-          <Icon
+          <PaymentIcon
             name={
               item.brand === "master-card"
                 ? "mastercard"
-                : item.brand === "diners-club"
-                ? "dinners-club"
                 : item.brand
             }
-            size={20}
-            color="#226ccf"
+            width={50}
           />
           <Text style={styles.headerText}>{card_number}</Text>
         </View>
