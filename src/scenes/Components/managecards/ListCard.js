@@ -23,30 +23,7 @@ import Trash from "../../../../assets/Trash.png";
 import axios from "axios";
 import { USER_URL } from "../../../services/EndPoints";
 import { LinearGradient } from "expo-linear-gradient";
-export const RenderWalletRightButton = ({ wallet_balance }) => {
-  useEffect(() => {
-    console.log(wallet_balance);
-  }, [])
 
-  return (
-    <TouchableOpacity
-      style={{
-        height: 50,
-        alignItems: "center",
-        justifyContent: "flex-end",
-        flexDirection: "row",
-      }}
-      onPress={() => {
-        Actions.push("wallet");
-      }}
-    >
-      <Ionicon name="wallet-outline" size={24} />
-      <Badge style={{ backgroundColor: "#ff6600" }}>
-        {wallet_balance}
-      </Badge>
-    </TouchableOpacity>
-  )
-}
 const ListEmptyContent = () => {
   return (
     <View style={styles.centerContent}>
@@ -228,9 +205,36 @@ export default class ListCard extends Component {
       title: "Edit Card",
     });
   };
+  _renderWalletRightButton = ({ wallet_balance }) => {
+    useEffect(() => {
+      console.log(wallet_balance);
+    }, [])
+
+    return (
+      <TouchableOpacity
+        style={{
+          height: 50,
+          alignItems: "center",
+          justifyContent: "flex-end",
+          flexDirection: "row",
+        }}
+        onPress={() => {
+          Actions.push("wallet");
+        }}
+      >
+        <Ionicon name="wallet-outline" size={24} />
+        <Badge style={{ backgroundColor: "#ff6600" }}>
+          {wallet_balance}
+        </Badge>
+      </TouchableOpacity>
+    )
+  }
+  UNSAFE_componentWillMount() {
+    Actions.refresh({ right: this._renderWalletRightButton })
+  }
   render() {
     const { cards, checked, modalVisible, selectedcard, title, wallet_balance } = this.state;
-    
+
     return (
       <ScrollView contentContainerStyle={styles.container}>
         {/* <RenderWalletRightButton wallet_balance={this.state.wallet_balance} /> */}

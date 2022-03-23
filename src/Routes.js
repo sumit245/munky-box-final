@@ -20,7 +20,7 @@ import { ModalOpener } from "./services/documentopener/documentopener";
 import ListAddress from "./scenes/Components/manageaddress/ListAddress";
 import { getUser } from "./services/user/getuser";
 import EditAccount from "./scenes/Components/EditAccount";
-import ListCard, { RenderWalletRightButton } from "./scenes/Components/managecards/ListCard";
+import ListCard from "./scenes/Components/managecards/ListCard";
 import NotificationStack from "./scenes/Components/NotificationStack";
 import Favouite from "./scenes/Components/Favouite";
 import Thankyou, { DoneRightButton } from "./scenes/Thankyou";
@@ -93,7 +93,7 @@ export default function Routes() {
           key="manageCards"
           component={ListCard}
           renderLeftButton={() => <BackButton />}
-          renderRightButton={RenderWalletRightButton}
+          renderRightButton={ListCard._renderRightButton}
         />
         <Scene
           key="wallet"
