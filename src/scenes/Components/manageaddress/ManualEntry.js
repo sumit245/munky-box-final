@@ -289,7 +289,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   button: {
-    width: width - 5,
     borderRadius: 6,
     borderWidth: 0.2,
     marginHorizontal: 2,
@@ -297,7 +296,6 @@ const styles = StyleSheet.create({
     bottom: -180,
     padding: 6,
     height: 44,
-    backgroundColor: "#2962ff",
     alignItems: "center",
     justifyContent: "center",
   },
