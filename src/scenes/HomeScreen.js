@@ -24,7 +24,7 @@ export default function HomeScreen({ navigation }) {
           justifyContent: "flex-start",
           fontWeight: "bold",
         }}
-        tabBarOptions={{ fontWeight: "bold" }}
+        tabBarOptions={{ labelStyle: { fontWeight: "bold" } }}
       >
         <Tab.Screen
           name="Meals"
