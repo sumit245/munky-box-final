@@ -74,10 +74,10 @@ const AddressCard = ({ item, checked, changeSelector }) => (
       />
     </View>
     <View style={[styles.cardBody, { borderBottomWidth: 0 }]}>
-      <Text style={styles.content}>{item.flat_num}</Text>
+      <Text style={styles.content}>{item.flat_num},</Text>
       <Text style={styles.content}>{item.locality}</Text>
-      <Text style={styles.content}>{item.city}</Text>
-      <Text style={styles.content}>{item.postal_code}</Text>
+      <Text style={styles.content}>{item.city},</Text>
+      <Text style={styles.content}>{item.postal_code},</Text>
       <Text style={styles.content}>{item.state}</Text>
     </View>
   </View>
