@@ -175,13 +175,13 @@ export default class SortAndFilter extends Component {
                             <Icon
                               name="star"
                               size={16}
-                              color={star === selectedStar ? "#fff" : "#666"}
+                              color={star === selectedStar ? "#fff" : "#ff6600"}
                             />
                             <Text
                               style={{
                                 fontSize: 18,
                                 fontWeight: "bold",
-                                color: star === selectedStar ? "#fff" : "#ff9900",
+                                color: star === selectedStar ? "#fff" : "#666",
                               }}
                               key={index}
                             >
