@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import {
   View,
   TouchableOpacity,
@@ -9,8 +9,7 @@ import {
 import Icon from "react-native-vector-icons/Fontisto";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import { Actions } from "react-native-router-flux";
-import { width } from "../../styles/HomeStyles";
-import { IconButton, RadioButton, Provider, Badge } from "react-native-paper";
+import { RadioButton, Provider, Badge } from "react-native-paper";
 import { PaymentIcon } from "react-native-payment-icons"
 import { getUser, saveUser } from "../../../services/user/getuser";
 import ManageCard from "./ManageCard";
@@ -24,24 +23,30 @@ import Trash from "../../../../assets/Trash.png";
 import axios from "axios";
 import { USER_URL } from "../../../services/EndPoints";
 import { LinearGradient } from "expo-linear-gradient";
-export const RenderWalletRightButton = ({ wallet_balance }) => (
-  <TouchableOpacity
-    style={{
-      height: 50,
-      alignItems: "center",
-      justifyContent: "flex-end",
-      flexDirection: "row",
-    }}
-    onPress={() => {
-      Actions.push("wallet");
-    }}
-  >
-    <Ionicon name="wallet-outline" size={24} />
-    <Badge style={{ backgroundColor: "#ff6600" }}>
-      {wallet_balance}
-    </Badge>
-  </TouchableOpacity>
-)
+export const RenderWalletRightButton = ({ wallet_balance }) => {
+  useEffect(() => {
+    console.log(wallet_balance);
+  }, [])
+
+  return (
+    <TouchableOpacity
+      style={{
+        height: 50,
+        alignItems: "center",
+        justifyContent: "flex-end",
+        flexDirection: "row",
+      }}
+      onPress={() => {
+        Actions.push("wallet");
+      }}
+    >
+      <Ionicon name="wallet-outline" size={24} />
+      <Badge style={{ backgroundColor: "#ff6600" }}>
+        {wallet_balance}
+      </Badge>
+    </TouchableOpacity>
+  )
+}
 const ListEmptyContent = () => {
   return (
     <View style={styles.centerContent}>
