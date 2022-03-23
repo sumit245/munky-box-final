@@ -153,7 +153,7 @@ export default class AccountStack extends Component {
             height: 40,
             borderRadius: 20,
             padding: 4,
-            bottom: 0,
+            bottom: 10,
             left: "40%",
           }}>
             <TouchableOpacity
