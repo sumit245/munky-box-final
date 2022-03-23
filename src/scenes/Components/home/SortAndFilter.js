@@ -208,16 +208,24 @@ export default class SortAndFilter extends Component {
               </View>
               <View style={styles.filterActions}>
                 <TouchableOpacity
-                  style={styles.filterBtn}
+                  style={[styles.filterBtn, { backgroundColor: "red" }]}
                   onPress={this.clearFilters}
                 >
-                  <Text style={{ fontSize: 16, color: "#f00" }}>Clear All</Text>
+                  <Text
+                    style={{ fontSize: 16, color: "fff", fontWeight: "bold" }}
+                  >
+                    Clear All
+                  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={styles.filterBtn}
+                  style={[styles.filterBtn, { backgroundColor: "#ff7700" }]}
                   onPress={() => this.applyFilter()}
                 >
-                  <Text style={{ fontSize: 16, color: "#4c6" }}>Apply</Text>
+                  <Text
+                    style={{ fontSize: 16, color: "#fff", fontWeight: "bold" }}
+                  >
+                    Apply
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -237,7 +245,7 @@ export default class SortAndFilter extends Component {
                 left: -8,
                 top: -8,
                 backgroundColor: "#ff6600",
-                color:"#fff"
+                color: "#fff",
               }}
             >
               {filterCount}
