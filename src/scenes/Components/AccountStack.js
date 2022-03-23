@@ -73,7 +73,7 @@ export default class AccountStack extends Component {
                 <TouchableOpacity
                   onPress={() => Actions.push("editaccount", { type: "edit" })}
                 >
-                  <Text style={{ color: "#24af9e", fontWeight: "bold" }}>
+                  <Text style={{ color: "#ff6600", fontWeight: "bold" }}>
                     Edit Account
                   </Text>
                 </TouchableOpacity>
@@ -149,17 +149,18 @@ export default class AccountStack extends Component {
 
           <LinearGradient colors={["#ff9900", "#ff6600"]} style={{
             position: "absolute",
-            width: 40,
-            height: 40,
-            borderRadius: 20,
-            padding: 4,
+            width: 56,
+            height: 56,
+            borderRadius: 28,
+            justifyContent: 'center',
+            alignItems: 'center',
             bottom: 10,
             left: "45%",
           }}>
             <TouchableOpacity
               onPress={this.showDialog}
             >
-              <Icons name="power-sharp" color={"#fff"} size={30} brand />
+              <Icons name="power-sharp" color={"#fff"} size={28} brand />
             </TouchableOpacity>
           </LinearGradient>
           {this.state.signoff && (
