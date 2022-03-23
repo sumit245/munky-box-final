@@ -216,7 +216,7 @@ export default class ManualEntry extends Component {
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
-                marginHorizontal: 2,
+                marginHorizontal: 8,
                 marginVertical: 24,
                 marginTop: 48,
               }}
