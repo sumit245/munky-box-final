@@ -105,7 +105,7 @@ export default class ManualEntry extends Component {
                 mode="flat"
                 defaultValue={this.state.flat_num}
                 placeholder="House Number"
-                underlineColor="#ff6600"
+                activeUnderlineColor="#ff6600"
                 outlineColor="#ff6600"
                 activeOutlineColor="#ff6600"
                 left={
@@ -129,7 +129,7 @@ export default class ManualEntry extends Component {
                 mode="flat"
                 defaultValue={this.state.locality}
                 placeholder="Street Address"
-                underlineColor="#ff6600"
+                activeUnderlineColor="#ff6600"
                 outlineColor="#ff6600"
                 activeOutlineColor="#ff6600"
                 left={
@@ -172,7 +172,7 @@ export default class ManualEntry extends Component {
                 mode="flat"
                 defaultValue={this.state.city}
                 placeholder="Ontario"
-                underlineColor="#ff6600"
+                activeUnderlineColor="#ff6600"
                 outlineColor="#ff6600"
                 activeOutlineColor="#ff6600"
                 left={
@@ -193,7 +193,7 @@ export default class ManualEntry extends Component {
                 style={[styles.inputContainer, { width: "46%" }]}
                 mode="flat"
                 defaultValue={this.state.postal_code}
-                underlineColor="#ff6600"
+                activeUnderlineColor="#ff6600"
                 placeholder="Postal Code"
                 outlineColor="#ff6600"
                 activeOutlineColor="#ff6600"
