@@ -1,4 +1,5 @@
 import axios from "axios";
+import { LinearGradient } from "expo-linear-gradient";
 import React, { Component } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { TextInput, Chip } from "react-native-paper";
@@ -80,7 +81,7 @@ export default class ManualEntry extends Component {
     this.props.entryMethod
       ? Actions.push("home")
       : Actions.pop({ refresh: {} })
-    //problem in this block:TODO
+
   };
   render() {
     const { address_type, loading } = this.state;
@@ -237,16 +238,13 @@ export default class ManualEntry extends Component {
               </Chip>
             </View>
           </View>
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              Actions.push("home");
-            }}
-            onPress={this._confirmLocation}
-          >
-            <Text style={styles.confirmLocation}>Save & proceed</Text>
-          </TouchableOpacity>
+          <LinearGradient style={[styles.button, { marginHorizontal: "20%" }]} colors={["#ff9900", "#ff6600"]}>
+            <TouchableOpacity
+              onPress={this._confirmLocation}
+            >
+              <Text style={styles.confirmLocation}>Save & proceed</Text>
+            </TouchableOpacity>
+          </LinearGradient>
         </View>
       );
     } else {
@@ -258,7 +256,7 @@ export default class ManualEntry extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
+
     justifyContent: "space-between",
     borderWidth: 1,
     backgroundColor: "#FFF",
@@ -274,7 +272,7 @@ const styles = StyleSheet.create({
   },
   selectAddress: {
     fontSize: 16,
-    color: "#000",    
+    color: "#000",
     padding: 6,
   },
   inputContainer: {
@@ -295,8 +293,8 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 0.2,
     marginHorizontal: 2,
-    position:"absolute",
-    bottom:-180,
+    position: "absolute",
+    bottom: -180,
     padding: 6,
     height: 44,
     backgroundColor: "#2962ff",
