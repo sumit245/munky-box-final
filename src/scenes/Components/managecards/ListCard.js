@@ -229,9 +229,7 @@ export default class ListCard extends Component {
       </TouchableOpacity>
     )
   }
-  UNSAFE_componentWillMount() {
-    Actions.refresh({ right: this._renderWalletRightButton })
-  }
+
   render() {
     const { cards, checked, modalVisible, selectedcard, title, wallet_balance } = this.state;
 
