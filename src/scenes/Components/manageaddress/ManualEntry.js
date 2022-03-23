@@ -213,7 +213,7 @@ export default class ManualEntry extends Component {
                 style={{ borderRadius: 12, borderWidth: 1, borderColor: "#ff6600" }}
                 colors={address_type === "home" ? ["#ff9900", "#ff6600"] : ["#fff", "transparent"]}>
                 <TouchableOpacity onPress={this.selectChip("home")} style={{ flexDirection: "row",alignItems:"center" }}>
-                  <Icon name="home" size={24} color={address_type === "home" ? "#fff" : "#000"} />
+                  <Icon name="home-outline" size={20} color={address_type === "home" ? "#fff" : "#000"} />
                   <Text style={address_type === "home" ? "#fff" : "#000"}>Home</Text>
                 </TouchableOpacity>
               </LinearGradient>
