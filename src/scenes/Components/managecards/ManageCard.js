@@ -5,6 +5,7 @@ import {
   TextInput,
   View,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { LiteCreditCardInput } from "react-native-credit-card-input";
 import { getUser, saveUser } from "../../../services/user/getuser";
@@ -52,7 +53,9 @@ export default class ManageCard extends Component {
     const response = await axios.put("https://munkybox-admin.herokuapp.com/api/users/addcard/" + _id, { card });
     const { data } = response;
     const updateLocal = await saveUser("user", JSON.stringify(data));
-    alert(data.msg);
+    Alert.alert("Success", data.msg, [{
+      text: "OK", onPress: () => console.log("OK Pressed"),style:"cancel"
+    }])
     this.setState({ visible: false })
   };
   showModal = () => this.setState({ visible: true });
