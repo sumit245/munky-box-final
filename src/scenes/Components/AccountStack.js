@@ -154,7 +154,7 @@ export default class AccountStack extends Component {
             borderRadius: 20,
             padding: 4,
             bottom: 10,
-            left: "40%",
+            left: "45%",
           }}>
             <TouchableOpacity
               onPress={this.showDialog}
