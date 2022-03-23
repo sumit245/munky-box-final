@@ -11,7 +11,7 @@ import Ionicon from "react-native-vector-icons/Ionicons";
 import { Actions } from "react-native-router-flux";
 import { width } from "../../styles/HomeStyles";
 import { IconButton, RadioButton, Provider } from "react-native-paper";
-import {PaymentIcon} from "react-native-payment-icons"
+import { PaymentIcon } from "react-native-payment-icons"
 import { getUser, saveUser } from "../../../services/user/getuser";
 import ManageCard from "./ManageCard";
 import {
@@ -178,8 +178,8 @@ export default class ListCard extends Component {
   );
   changeSelector = (selected) => {
     if (this.props.checkout) {
-    this.props.onSelectCard(selected);
-    Actions.pop();
+      this.props.onSelectCard(selected);
+      Actions.pop();
     }
     this.setState({ checked: selected });
   };
@@ -248,16 +248,15 @@ export default class ListCard extends Component {
               keyExtractor={(item) => item.number}
             />
           </View>
-          <LinearGradient colors={["#ff9900","#ff6600"]} style={styles.button}>
-          <TouchableOpacity
-            
-            onPress={() => {
-              this.setState({ modalVisible: true, title: "Add Card" });
-            }}
-          >
-            <Text style={styles.btnText}>ADD NEW Card</Text>
+          <LinearGradient colors={["#ff9900", "#ff6600"]} style={styles.button}>
+            <TouchableOpacity
+              onPress={() => {
+                this.setState({ modalVisible: true, title: "Add Card" });
+              }}
+            >
+              <Text style={styles.btnText}>ADD NEW Card</Text>
             </TouchableOpacity>
-            </LinearGradient>
+          </LinearGradient>
           {modalVisible && (
             <ManageCard
               modalVisible={modalVisible}
@@ -325,7 +324,8 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     borderWidth: 1,
     borderColor: "#ff6600",
-    marginBottom: 20,
+    position: "absolute",
+    bottom: 20,
     marginHorizontal: "20%",
     padding: 10,
     height: 48,
