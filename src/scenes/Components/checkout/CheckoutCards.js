@@ -49,7 +49,7 @@ export default function CheckoutCards({ cardHandler, user, selected }) {
                 width: 50,
                 height: 50,
                 borderRadius: 2,
-                borderColor: "#777",
+                borderColor: "#ff6600",
                 borderWidth: 0.8,
                 marginRight: 4,
                 alignItems: "center",

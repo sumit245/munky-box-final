@@ -54,7 +54,7 @@ const ReviewItem = ({ title, avatar, review }) => {
               {stars.map((x, i) => (
                 <Icon
                   name="star"
-                  color="orange"
+                  color="#ff9900"
                   size={18}
                   style={{ padding: 2 }}
                   key={i}
@@ -134,7 +134,6 @@ const ReviewItem = ({ title, avatar, review }) => {
                 style={{
                   marginVertical: 6,
                   maxWidth: "98%",
-                  //textAlign: "justify",
                   flexShrink: 1,
                   flexWrap: "wrap",
                   alignItems: "flex-start",
@@ -184,7 +183,7 @@ export default function Rewards({ restaurant_id }) {
         {stars.map((item, key) => (
           <Icon
             name="star"
-            color="orange"
+            color="#ff6600"
             size={18}
             style={{ padding: 2 }}
             key={key}
