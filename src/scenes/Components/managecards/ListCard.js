@@ -188,7 +188,7 @@ export default class ListCard extends Component {
   };
   componentDidMount() {
     this.fetchUser();
-    <RenderWalletRightButton wallet_balance={wallet_balance} />
+    <RenderWalletRightButton wallet_balance={this.state.wallet_balance} />
   }
   componentDidUpdate() {
     this.fetchUser();
