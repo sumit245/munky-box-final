@@ -302,7 +302,7 @@ export default class EditAccount extends Component {
             </View>
             {loading && (
               <View style={styles.loading}>
-                <ActivityIndicator size="large" />
+                <ActivityIndicator size="large" color="#ff6600" />
               </View>
             )}
           </KeyboardAvoidingView>
