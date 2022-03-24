@@ -192,7 +192,7 @@ export default function Contacts({ navigation }) {
             text={msgContent}
             showDialog={discard}
             doneHandler={doneHandler}
-            cancelHandler={cancelHandler}
+            // cancelHandler={cancelHandler}
           />
         )}
       </SafeAreaView>
