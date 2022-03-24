@@ -5,14 +5,15 @@ import {
   Text,
   StyleSheet,
   ScrollView,
+  Image
 } from "react-native";
 import Icon from "react-native-vector-icons/Fontisto";
-import Ionicon from "react-native-vector-icons/Ionicons";
 import { Actions } from "react-native-router-flux";
 import { RadioButton, Provider, Badge } from "react-native-paper";
 import { PaymentIcon } from "react-native-payment-icons"
 import { getUser, saveUser } from "../../../services/user/getuser";
 import ManageCard from "./ManageCard";
+import PIC from "../../../../assets/wallet.png";
 import {
   SwipeableFlatList,
   SwipeableQuickActionButton,
@@ -24,30 +25,6 @@ import axios from "axios";
 import { USER_URL } from "../../../services/EndPoints";
 import { LinearGradient } from "expo-linear-gradient";
 
-export const RenderWalletRightButton = ({ wallet_balance }) => {
-  useEffect(() => {
-    console.log(wallet_balance);
-  }, [])
-
-  return (
-    <TouchableOpacity
-      style={{
-        height: 50,
-        alignItems: "center",
-        justifyContent: "flex-end",
-        flexDirection: "row",
-      }}
-      onPress={() => {
-        Actions.push("wallet");
-      }}
-    >
-      <Ionicon name="wallet-outline" size={24} />
-      <Badge style={{ backgroundColor: "#ff6600" }}>
-        {wallet_balance}
-      </Badge>
-    </TouchableOpacity>
-  )
-}
 
 const ListEmptyContent = () => {
   return (
@@ -241,8 +218,43 @@ export default class ListCard extends Component {
 
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        {/* <RenderWalletRightButton wallet_balance={this.state.wallet_balance} /> */}
+
         <Provider>
+          <View
+            style={{
+              padding: 10,
+              backgroundColor: "#fff",
+              marginVertical: 8,
+              marginHorizontal: 2,
+              elevation: 2,
+              borderRadius: 4,
+            }}
+          >
+            <View
+              style={{
+                fontSize: 22,
+                alignItems: "center",
+                fontWeight: "bold",
+                color: "#000",
+              }}
+            >
+              <Image
+                source={PIC}
+                height={84}
+                width={120}
+                style={{ height: 124, maxHeight: 164, width: 120 }}
+              />
+              <Text
+                style={{
+                  fontSize: 28,
+                  fontWeight: "bold",
+                  textAlign: "center",
+                }}
+              >
+                ${parseFloat(wallet_balance).toFixed(2)}
+              </Text>
+            </View>
+          </View>
           <View>
             <SwipeableFlatList
               data={cards}
@@ -313,6 +325,7 @@ const styles = StyleSheet.create({
     margin: 4,
     backgroundColor: "#fff",
     borderRadius: 6,
+    borderColor:"#979797",
     elevation: 4,
     padding: 2,
   },
