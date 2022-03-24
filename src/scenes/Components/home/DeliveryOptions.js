@@ -127,14 +127,14 @@ export default class DeliveryOptions extends Component {
                 <Text
                   style={[
                     styles.modalText,
-                    { fontWeight: "bold", color: "#226ccf" },
+                    { fontWeight: "bold", color: "#ff6600" },
                   ]}
                   onPress={() => {
                     this.setState({ modalVisible: false });
                     Actions.push("listAddress",{isHome:true});
                   }}
                 >
-                  <Icon name="add-sharp" size={20} color="#226ccf" />
+                  <Icon name="add-sharp" size={20} color="#ff6600" />
                   Add Address
                 </Text>
               </View>
