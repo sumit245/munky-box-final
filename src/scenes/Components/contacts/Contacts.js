@@ -68,13 +68,8 @@ export default function Contacts({ navigation }) {
         "Delivered!!!",
         "Your message has been sent to the admin. They will contact you soon!!",
         [
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ])
-      // setDiscard(true);
-      // setmsgTitle("Delivered!!!");
-      // setmsgContent(
-      //   ""
-      // );
+          { text: "OK", onPress: () => navigation.goBack() }
+        ])
     }
   };
   const doneHandler = () => {
@@ -84,9 +79,16 @@ export default function Contacts({ navigation }) {
     setDiscard(false)
   };
   const deleteMsg = () => {
-    setDiscard(true);
-    setmsgTitle("Are you sure?");
-    setmsgContent("Your message will be discarded!!!");
+    Alert.alert(
+      "Are you Sure?",
+      "Your message will be discarded",
+      [{
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+      },
+      { text: "OK", onPress: () => navigation.goBack() }
+      ])
   };
   return (
     <Provider>
