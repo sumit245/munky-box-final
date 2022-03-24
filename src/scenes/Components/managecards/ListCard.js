@@ -224,8 +224,9 @@ export default class ListCard extends Component {
               elevation: 2,
               borderRadius: 4,
               borderColor: "#979797",
-              marginBottom:16
-              
+              borderWidth: 2,
+              marginBottom: 16
+
             }}
           >
             <View
@@ -251,12 +252,13 @@ export default class ListCard extends Component {
               >
                 ${parseFloat(wallet_balance).toFixed(2)}
               </Text>
+              <Text style={{ color: "#226ccf", textDecorationLine: "underline", fontWeight: 'bold', fontSize: 20 }} onPress={() => Actions.push("wallet")} >Recharge Now</Text>
             </View>
           </View>
           <View>
             <SwipeableFlatList
               data={cards}
-              contentContainerStyle={{ paddingBottom: 2,marginBottom:4 }}
+              contentContainerStyle={{ paddingBottom: 2, marginBottom: 4 }}
               renderItem={(item) => this.renderAddress(item, checked)}
               ListEmptyComponent={() => {
                 return <ListEmptyContent />;
