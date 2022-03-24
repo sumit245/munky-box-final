@@ -9,12 +9,9 @@ import {
   Dimensions,
   Alert,
 } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
 import { IconButton, Provider } from "react-native-paper";
 import axios from "axios";
-import SuccessDialog from "../utility/SuccessDialog";
 import { getUser } from "../../../services/user/getuser";
-import CustomDialog from "../utility/CustomDialog";
 import BackButton from "../utility/BackButton";
 
 const DARKGRAY = "#777";
@@ -30,9 +27,7 @@ export default function Contacts({ navigation }) {
     phone: "",
     body: "",
   });
-  const [discard, setDiscard] = useState(false);
-  const [msgTitle, setmsgTitle] = useState("");
-  const [msgContent, setmsgContent] = useState("");
+
   async function fetchUser() {
     const response = await getUser("user");
     const { data } = await response;
@@ -72,12 +67,8 @@ export default function Contacts({ navigation }) {
         ])
     }
   };
-  const doneHandler = () => {
-    navigation.goBack();
-  };
-  const cancelHandler = () => {
-    setDiscard(false)
-  };
+
+
   const deleteMsg = () => {
     Alert.alert(
       "Are you Sure?",
@@ -195,15 +186,7 @@ export default function Contacts({ navigation }) {
             {/* Body */}
           </View>
         </ScrollView>
-        {discard && (
-          <CustomDialog
-            title={msgTitle}
-            text={msgContent}
-            showDialog={discard}
-            doneHandler={doneHandler}
-          // cancelHandler={cancelHandler}
-          />
-        )}
+
       </SafeAreaView>
     </Provider>
   );
@@ -272,6 +255,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     padding: 2,
     flex: 1,
+    height:"100%",
     justifyContent: "space-between",
   },
   inputContainer: {
