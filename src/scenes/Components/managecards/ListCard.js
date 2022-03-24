@@ -223,8 +223,8 @@ export default class ListCard extends Component {
               marginHorizontal: 2,
               elevation: 2,
               borderRadius: 4,
-              borderColor: "#979797",
-              borderWidth: 2,
+              borderColor: "#c9c9c9",
+              borderWidth: 0.5,
               marginBottom: 16
 
             }}
