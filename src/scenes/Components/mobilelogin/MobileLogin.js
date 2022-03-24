@@ -143,7 +143,7 @@ class OTPLogin extends React.PureComponent {
           </TouchableOpacity>
           <LinearGradient colors={["#ff9900", "#ff6600"]} style={[
             styles.btnOTP,
-            { width: width / 2.5, height: 40, marginHorizontal: 10 },
+            { width: width / 2.5, height: 40, marginHorizontal: 10,borderColor:'#ff6600' },
           ]} >
             <TouchableOpacity
 

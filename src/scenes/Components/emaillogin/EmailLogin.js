@@ -6,8 +6,8 @@ import { width } from "../../styles/HomeStyles";
 
 export default function EmailLogin() {
   return (
-    <TouchableOpacity style={[styles.btnOTP, { width: width - 48,alignSelf:'center' }]}>
-      <Icon name="keypad-outline" color="#4267B2" size={26} />
+    <TouchableOpacity style={[styles.btnOTP, { width: width - 48, alignSelf: 'center' }]}>
+      <Icon name="keypad-outline" color="#ff6600" size={26} />
       <Text style={{ fontSize: 20, fontWeight: "bold" }}>
         Continue with PIN
       </Text>
