@@ -87,6 +87,7 @@ class OTPLogin extends React.PureComponent {
             }
             containerStyle={styles.textInputContainer}
             textInputStyle={styles.roundedTextInput}
+            tintColor="#ff6600"
             inputCount={6}
             textInputProps={{
               returnKeyType: "done",
