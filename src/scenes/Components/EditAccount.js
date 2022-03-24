@@ -294,6 +294,7 @@ export default class EditAccount extends Component {
                           color: "#ff6600",
                           textDecorationLine: "underline",
                         }}
+                        onLayout={()=>console.log("Hello")}
                       />
                     }
                   />
