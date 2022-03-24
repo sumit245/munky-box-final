@@ -80,13 +80,13 @@ export default class EditAccount extends Component {
     if (!first_name) {
       alert("First name is required");
       this.setState({ loading: false })
-      
+
       return;
     }
     if (!last_name) {
       alert("Last name is required");
       this.setState({ loading: false })
-      
+
       return;
     }
     const dataToSend = {
@@ -101,7 +101,7 @@ export default class EditAccount extends Component {
       dataToSend
     );
     const response = await res.data;
-    
+
     if (res.status === 200) {
       this.setState({ loading: false });
       saveUser("user", JSON.stringify(response)).then((res) => {
@@ -179,7 +179,7 @@ export default class EditAccount extends Component {
                     paddingHorizontal: 10,
                   }}
                 >
-                  <Button onPress={this.editState}>
+                  <Button onPress={this.editState} color="#ff6600" >
                     {editable ? "save" : "Edit"}
                   </Button>
                 </View>
@@ -199,6 +199,9 @@ export default class EditAccount extends Component {
                 ) : (
                   <TextInput
                     mode="flat"
+                    outlineColor="#ff6600"
+                    activeOutlineColor="#ff6600"
+                    activeUnderlineColor="#ff6600"
                     onChangeText={this.onChangeText("first_name")}
                     value={first_name}
                     style={styles.inputContainer}
@@ -220,6 +223,9 @@ export default class EditAccount extends Component {
                 ) : (
                   <TextInput
                     mode="flat"
+                    outlineColor="#ff6600"
+                    activeOutlineColor="#ff6600"
+                    activeUnderlineColor="#ff6600"
                     onChangeText={this.onChangeText("last_name")}
                     value={last_name}
                     style={styles.inputContainer}
@@ -240,17 +246,22 @@ export default class EditAccount extends Component {
                 ) : (
                   <TextInput
                     mode="flat"
+                    outlineColor="#ff6600"
+                    activeOutlineColor="#ff6600"
+                    activeUnderlineColor="#ff6600"
                     onChangeText={this.onChangeText("phone")}
                     value={phone}
                     keyboardType="numeric"
                     style={styles.inputContainer}
                     right={
                       <TextInput.Affix
+                        
                         text="Verified"
                         textStyle={{
-                          color: "#22c6cf",
+                          color: "#ff6600",
                           textDecorationLine: "underline",
                         }}
+                        
                       />
                     }
                   />
@@ -269,7 +280,10 @@ export default class EditAccount extends Component {
                   </View>
                 ) : (
                   <TextInput
-                    mode="flat"
+                      mode="flat"
+                      outlineColor="#ff6600"
+                      activeOutlineColor="#ff6600"
+                      activeUnderlineColor="#ff6600"
                     onChangeText={this.onChangeText("email_id")}
                     value={email_id}
                     style={styles.inputContainer}
@@ -277,7 +291,7 @@ export default class EditAccount extends Component {
                       <TextInput.Affix
                         text="Verify"
                         textStyle={{
-                          color: "#22c6cf",
+                          color: "#ff6600",
                           textDecorationLine: "underline",
                         }}
                       />

@@ -159,7 +159,7 @@ export default class RegistrationForm extends Component {
                 </TouchableOpacity>
               </View>
 
-              <Button onPress={this._nextAction}>Next</Button>
+              <Button onPress={this._nextAction} color="#ff6600">Next</Button>
             </View>
 
             <View>
@@ -169,6 +169,7 @@ export default class RegistrationForm extends Component {
               </Text>
               <TextInput
                 onChangeText={this.onChangeText("first_name")}
+                selectionColor="#ff6600"
                 value={this.state.first_name}
                 style={styles.inputContainer}
                 placeholder="John"
@@ -184,6 +185,7 @@ export default class RegistrationForm extends Component {
               <TextInput
                 onChangeText={this.onChangeText("last_name")}
                 value={this.state.last_name}
+                selectionColor="#ff6600"
                 style={styles.inputContainer}
                 placeholder="Doe"
               />
@@ -199,6 +201,7 @@ export default class RegistrationForm extends Component {
                 <TextInput
                   onChangeText={this.onChangeText("phone")}
                   value={this.state.phone}
+                  selectionColor="#ff6600"
                   keyboardType="numeric"
                   style={styles.inputContainer}
                   placeholder="+1 999-999-999"
@@ -215,6 +218,7 @@ export default class RegistrationForm extends Component {
                 <TextInput
                   onChangeText={this.onChangeText("email_id")}
                   value={this.state.email_id}
+                  selectionColor="#ff6600"
                   style={styles.inputContainer}
                   placeholder="abc@mail.net"
                 />
