@@ -6,9 +6,7 @@ import {
   SafeAreaView,
   ScrollView,
   TextInput,
-  TouchableOpacity,
   Dimensions,
-  AsyncStorage,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { IconButton, Provider } from "react-native-paper";
@@ -16,13 +14,14 @@ import axios from "axios";
 import SuccessDialog from "../utility/SuccessDialog";
 import { getUser } from "../../../services/user/getuser";
 import CustomDialog from "../utility/CustomDialog";
+import BackButton from "../utility/BackButton";
 
 const DARKGRAY = "#777";
 const { width, height } = Dimensions.get("window");
 
 export default function Contacts({ navigation }) {
   const [info, setInfo] = useState({
-    receipient: "support@munkybox.com",
+    receipient: "support@feasti.com",
     subject: "",
     user_name: "",
     user_id: "",
@@ -93,13 +92,10 @@ export default function Contacts({ navigation }) {
             elevation: 1,
           }}
         >
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={{ flexDirection: "row", alignItems: "center" }}
-          >
-            <Icon name="chevron-back" size={24} />
+          <View style={{ marginLeft: 8, flexDirection: 'row' }}>
+            <BackButton />
             <Text style={{ fontWeight: "bold", fontSize: 18 }}>Compose</Text>
-          </TouchableOpacity>
+          </View>
 
           <View
             style={{
@@ -108,7 +104,7 @@ export default function Contacts({ navigation }) {
               padding: 4,
             }}
           >
-            
+
             <IconButton icon="send" color="#126e72" onPress={sendEmail} />
             <IconButton icon="delete" color="#ef2145" onPress={deleteMsg} />
           </View>
@@ -153,6 +149,8 @@ export default function Contacts({ navigation }) {
               </View>
               <TextInput
                 value={info.subject}
+                selectionColor="#ff6600"
+                underlineColorAndroid="#ff6600"
                 style={[styles.inputContainer, { marginTop: 12 }]}
                 onChangeText={(text) => setInfo({ ...info, subject: text })}
               />
@@ -168,6 +166,7 @@ export default function Contacts({ navigation }) {
                 placeholder="Write a description in maximum 250 characters"
                 placeholderTextColor="#777"
                 multiline
+                selectionColor="#ff6600"
                 textAlignVertical="top"
                 style={[
                   styles.inputContainer,
