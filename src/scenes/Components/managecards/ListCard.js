@@ -252,7 +252,7 @@ export default class ListCard extends Component {
               >
                 ${parseFloat(wallet_balance).toFixed(2)}
               </Text>
-              <Text style={{ color: "#226ccf", textDecorationLine: "underline", fontWeight: 'bold', fontSize: 20 }} onPress={() => Actions.push("wallet")} >Recharge Now</Text>
+              <Text style={{ color: "#226ccf", textDecorationLine: "underline", fontWeight: 'bold', fontSize: 16,marginTop:12 }} onPress={() => Actions.push("wallet")} >Recharge Now</Text>
             </View>
           </View>
           <View>
