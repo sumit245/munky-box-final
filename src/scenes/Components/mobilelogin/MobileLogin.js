@@ -92,6 +92,7 @@ class OTPLogin extends React.PureComponent {
               returnKeyType: "done",
               returnKeyLabel: "Done",
               keyboardType: "number-pad",
+              selectionColor: "#ff6600"
             }}
             returnKeyType="done"
             inputCellLength={1}
@@ -108,6 +109,7 @@ class OTPLogin extends React.PureComponent {
                 marginLeft: -4,
                 marginTop: -8,
               }}
+
               digitTxtStyle={{ color: "#fff" }}
               timeLabelStyle={{ color: "red", fontWeight: "bold" }}
               timeLabels={{ s: null }}
@@ -139,17 +141,17 @@ class OTPLogin extends React.PureComponent {
             ]}
             onPress={this.clear}
           >
-            <Text>Clear</Text>
+            <Text style={{ fontWeight: "bold", color: "red", fontSize: 18 }}>Clear</Text>
           </TouchableOpacity>
           <LinearGradient colors={["#ff9900", "#ff6600"]} style={[
             styles.btnOTP,
-            { width: width / 2.5, height: 40, marginHorizontal: 10,borderColor:'#ff6600' },
+            { width: width / 2.5, height: 40, marginHorizontal: 10, borderColor: '#ff6600' },
           ]} >
             <TouchableOpacity
 
               onPress={this._signIn}
             >
-              <Text>Submit</Text>
+              <Text style={{ fontSize: 18, fontWeight: 'bold', color: "#fff" }}>Submit</Text>
             </TouchableOpacity>
           </LinearGradient>
 
