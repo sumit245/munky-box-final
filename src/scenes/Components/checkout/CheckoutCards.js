@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { Button } from "react-native-paper";
+import { PaymentIcon } from "react-native-payment-icons";
 import { Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Fontisto";
 import { styles } from "../../styles/CheckoutStyles";
@@ -56,11 +57,12 @@ export default function CheckoutCards({ cardHandler, user, selected }) {
                 justifyContent: "center",
               }}
             >
-              <Icon
-                name={brand === "master-card" ? "mastercard" : brand}
-                size={26}
-                color="#777"
-              />
+              <PaymentIcon type={
+                item.brand === "master-card"
+                  ? "mastercard"
+                  : item.brand
+              }
+                width={50} />
             </View>
             <View>
               <Text style={styles.optionsLabels}>{trimmer(number)}</Text>
