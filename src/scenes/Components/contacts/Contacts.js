@@ -175,7 +175,7 @@ export default function Contacts({ navigation }) {
                     borderColor: "#777",
                     borderWidth: 0.5,
                     borderRadius: 2,
-                    height: 250,
+                    height: 350,
                     padding: 4,
                   },
                 ]}
