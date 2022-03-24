@@ -29,7 +29,6 @@ import About from "./scenes/About";
 import Rate from "./scenes/Components/ratings/Rate";
 import OrderDetails from "./scenes/Components/receipt/OrderDetails";
 import Download from "./scenes/Components/receipt/Download";
-import Policies from "./scenes/Components/Policies"
 import { LinearGradient } from "expo-linear-gradient";
 
 export default function Routes() {
@@ -116,7 +115,7 @@ export default function Routes() {
 
         <Scene
           key="policies"
-          component={Policies}
+          component={About}
           title="About"
           renderLeftButton={() => <BackButton />}
         />

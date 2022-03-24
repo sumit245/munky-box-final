@@ -21,27 +21,16 @@ const CONTENT = [
     content:
       "A Privacy Policy agreement is the agreement where you specify if you collect personal data from your users, what kind of personal data you collect and what you do with that data.",
   },
-  {
-    title: "Return Policy",
-    content:
-      "Our Return & Refund Policy template lets you get started with a Return and Refund Policy agreement. This template is free to download and use.According to TrueShip study, over 60% of customers review a Return/Refund Policy before they make a purchasing decision.",
-  },
 ];
 
 //To make the selector (Something like tabs)
 const SELECTORS = [
-  { title: "T&C", value: 0 },
+  { title: "Terms and Conditions", value: 0 },
   { title: "Privacy Policy", value: 1 },
 ];
 
 const Policies = () => {
   const [activeSections, setActiveSections] = useState([]);
-  const [collapsed, setCollapsed] = useState(true);
-  const [multipleSelect, setMultipleSelect] = useState(false);
-
-  const toggleExpanded = () => {
-    setCollapsed(!collapsed);
-  };
 
   const setSections = (sections) => {
     setActiveSections(sections.includes(undefined) ? [] : sections);
@@ -104,7 +93,6 @@ const Policies = () => {
             activeSections={activeSections}
             sections={CONTENT}
             touchableComponent={TouchableOpacity}
-            expandMultiple={multipleSelect}
             renderHeader={renderHeader}
             renderContent={renderContent}
             duration={400}
