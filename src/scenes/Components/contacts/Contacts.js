@@ -7,6 +7,7 @@ import {
   ScrollView,
   TextInput,
   Dimensions,
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { IconButton, Provider } from "react-native-paper";
@@ -63,11 +64,17 @@ export default function Contacts({ navigation }) {
     );
     const { status } = await response.data;
     if (status === 200) {
-      setDiscard(true);
-      setmsgTitle("Delivered!!!");
-      setmsgContent(
-        "Your message has been sent to the admin. They will contact you soon!!"
-      );
+      Alert.alert(
+        "Delivered!!!",
+        "Your message has been sent to the admin. They will contact you soon!!",
+        [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ])
+      // setDiscard(true);
+      // setmsgTitle("Delivered!!!");
+      // setmsgContent(
+      //   ""
+      // );
     }
   };
   const doneHandler = () => {
@@ -92,7 +99,7 @@ export default function Contacts({ navigation }) {
             elevation: 1,
           }}
         >
-          <View style={{ marginLeft: 8, flexDirection: 'row',alignItems:"center" }}>
+          <View style={{ marginLeft: 8, flexDirection: 'row', alignItems: "center" }}>
             <BackButton />
             <Text style={{ fontWeight: "bold", fontSize: 18 }}>Compose</Text>
           </View>
@@ -192,7 +199,7 @@ export default function Contacts({ navigation }) {
             text={msgContent}
             showDialog={discard}
             doneHandler={doneHandler}
-            // cancelHandler={cancelHandler}
+          // cancelHandler={cancelHandler}
           />
         )}
       </SafeAreaView>
