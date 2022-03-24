@@ -167,11 +167,9 @@ export default class ListCard extends Component {
   };
   componentDidMount() {
     this.fetchUser();
-    this.renderHeader()
   }
   componentDidUpdate() {
     this.fetchUser();
-
   }
   renderAddress = ({ item }, checked) => (
     <PaymentCard
@@ -322,7 +320,7 @@ const styles = StyleSheet.create({
     margin: 4,
     backgroundColor: "#fff",
     borderRadius: 6,
-    borderColor:"#979797",
+    borderColor: "#979797",
     elevation: 4,
     padding: 2,
   },
