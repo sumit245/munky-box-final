@@ -58,7 +58,7 @@ export default function CheckoutCards({ cardHandler, user, selected }) {
               }}
             >
               <PaymentIcon type={
-                item.brand === "master-card"
+                brand === "master-card"
                   ? "mastercard"
                   : item.brand
               }
