@@ -62,6 +62,7 @@ export default styles = StyleSheet.create({
     paddingHorizontal: 8,
     marginHorizontal:4,
     height: 24,
+    width:30,
     borderRadius: 15,
   },
   social: {

@@ -205,12 +205,12 @@ export default class MobileLogin extends Component {
                 returnKeyType: "done",
                 returnKeyLabel: "Done",
                 keyboardType: "number-pad",
+                selectionColor: "#ff6600"
               }}
               containerStyle={styles.btnOTP}
               textContainerStyle={{
                 borderColor: "#fff",
                 height: 48,
-
                 padding: 0,
                 borderRadius: 5,
               }}
@@ -220,13 +220,15 @@ export default class MobileLogin extends Component {
                 this.setState({ phoneNumber: phoneNumber })
               }
             />
-            <TouchableOpacity
-              onPress={this._sendVerificationCode}
-              disabled={!phoneNumber}
-              style={styles.btnOTP}
-            >
-              <Text style={{ fontSize: 20, fontWeight: "bold" }}>Send OTP</Text>
-            </TouchableOpacity>
+            <LinearGradient colors={["#ff9900", "#ff6600"]} style={styles.btnOTP}>
+              <TouchableOpacity
+                onPress={this._sendVerificationCode}
+                disabled={!phoneNumber}
+              >
+                <Text style={{ fontSize: 20, fontWeight: "bold", color: "#fff" }}>Send OTP</Text>
+              </TouchableOpacity>
+            </LinearGradient>
+
           </View>
         ) : (
           <OTPLogin
