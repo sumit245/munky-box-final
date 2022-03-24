@@ -37,8 +37,9 @@ export default function HeaderComponent({
           }}
           onChangeText={onChangeSearch}
           value={searchQuery}
-          iconColor="#226cff"
-          clearIcon={()=>null}
+          iconColor="#000"
+          selectionColor="#ff6600"
+          clearIcon={() => null}
           onSubmitEditing={() => searchTerm(searchQuery)}
         />
       )}
