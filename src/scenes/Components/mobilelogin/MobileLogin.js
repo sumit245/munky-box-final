@@ -200,7 +200,7 @@ export default class MobileLogin extends Component {
           attemptInvisibleVerification={attemptInvisibleVerification}
         />
 
-        {!verificationId ? (
+        {!verificationId || !this.props.otpSent ? (
           <View style={styles.mobin}>
             <PhoneInput
               placeholder="Enter Mobile Number"

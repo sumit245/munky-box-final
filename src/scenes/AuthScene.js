@@ -25,9 +25,14 @@ export default class AuthScene extends Component {
     message: "",
     otpSent: false,
   };
+
   displayHeader = (param) => {
     this.setState({ otpSent: param });
   };
+  backHandler = () => {
+    this.setState({ otpSent: false })
+  }
+
   render() {
     return (
       <ImageBackground
@@ -45,7 +50,19 @@ export default class AuthScene extends Component {
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             {this.state.otpSent ? (
-              <BackButton />
+              <LinearGradient colors={["#ff9900", "#ff6600"]} style={{
+                height: 28,
+                width: 28,
+                marginHorizontal: 4,
+                borderRadius: 14,
+              }}>
+                <TouchableOpacity
+
+                  onPress={this.backHandler}
+                >
+                  <Icon name="chevron-back-sharp" size={28} color="#ffffff" />
+                </TouchableOpacity>
+              </LinearGradient>
             ) : (
               <View />
             )}
@@ -64,6 +81,7 @@ export default class AuthScene extends Component {
           <MobileLogin
             displayHeader={this.displayHeader}
             routeName={this.props.name}
+            otpSent={this.state.otpSent}
           />
           <View>
             <View
