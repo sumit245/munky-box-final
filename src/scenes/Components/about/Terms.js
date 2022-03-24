@@ -4,7 +4,7 @@ import React from 'react'
 export default function Terms() {
     return (
         <ScrollView style={{ flex: 1 }}>
-            <Text style={{ textAlign: "center", textTransform: "uppercase", color="#2246cf", padding: 18 }}>Terms and Conditions</Text>
+            <Text style={{ textAlign: "center", textTransform: "uppercase", color:"#2246cf", padding: 18 }}>Terms and Conditions</Text>
             <Text>
                 Please read the terms and conditions set out below carefully before ordering from this app or website. By ordering any good or services from Feasti via the web, mobile web or through our mobile applications, you agree to be bound by these terms and conditions:
                 Section 1: Introduction
