@@ -60,6 +60,7 @@ export default styles = StyleSheet.create({
     backgroundColor: "#FFF",
     justifyContent: "center",
     paddingHorizontal: 8,
+    marginHorizontal:4,
     height: 24,
     borderRadius: 15,
   },

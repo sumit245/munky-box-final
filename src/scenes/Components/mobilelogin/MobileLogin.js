@@ -12,6 +12,7 @@ import CountDown from "react-native-countdown-component";
 import styles from "../../styles/AuthStyle";
 import axios from "axios";
 import { saveUser } from "../../../services/user/getuser";
+import { LinearGradient } from "expo-linear-gradient";
 
 const { width } = Dimensions.get("window");
 const recaptchaVerifier = React.createRef();
@@ -115,7 +116,6 @@ class OTPLogin extends React.PureComponent {
                   alert("Try again after some time!!!");
                 }
               }}
-              timeLabelStyle={{ color: "#fff" }}
               timeToShow={["S"]}
             />
           </View>
@@ -131,6 +131,7 @@ class OTPLogin extends React.PureComponent {
           </Text>
         </View>
         <View style={styles.buttonWrapper}>
+
           <TouchableOpacity
             style={[
               styles.btnOTP,
@@ -140,15 +141,18 @@ class OTPLogin extends React.PureComponent {
           >
             <Text>Clear</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.btnOTP,
-              { width: width / 2.5, height: 40, marginHorizontal: 10 },
-            ]}
-            onPress={this._signIn}
-          >
-            <Text>Submit</Text>
-          </TouchableOpacity>
+          <LinearGradient colors={["#ff9900", "#ff6600"]} style={[
+            styles.btnOTP,
+            { width: width / 2.5, height: 40, marginHorizontal: 10 },
+          ]} >
+            <TouchableOpacity
+
+              onPress={this._signIn}
+            >
+              <Text>Submit</Text>
+            </TouchableOpacity>
+          </LinearGradient>
+
         </View>
       </View>
     );
@@ -205,13 +209,13 @@ export default class MobileLogin extends Component {
               containerStyle={styles.btnOTP}
               textContainerStyle={{
                 borderColor: "#fff",
-                height:48,
-                
-                padding:0,
+                height: 48,
+
+                padding: 0,
                 borderRadius: 5,
               }}
-              textInputStyle={{fontSize:18,marginTop:-6}}
-              codeTextStyle={{marginTop:-6}}
+              textInputStyle={{ fontSize: 18, marginTop: -6 }}
+              codeTextStyle={{ marginTop: -6 }}
               onChangeFormattedText={(phoneNumber) =>
                 this.setState({ phoneNumber: phoneNumber })
               }

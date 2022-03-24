@@ -15,6 +15,8 @@ import Logo from "./Components/Logo";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ImageBackground } from "react-native";
 import styles from "./styles/AuthStyle";
+import BackButton from "./Components/utility/BackButton";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default class AuthScene extends Component {
   state = {
@@ -43,18 +45,18 @@ export default class AuthScene extends Component {
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             {this.state.otpSent ? (
-              <TouchableOpacity onPress={() => Actions.pop()}>
-                <Icon name="chevron-back-circle" size={34} color="#fcfcfc" />
-              </TouchableOpacity>
+              <BackButton />
             ) : (
               <View />
             )}
-            <TouchableOpacity
-              style={styles.skip}
-              onPress={() => Actions.push("home", { logintype: "" })}
-            >
-              <Text style={{ fontSize: 16, fontWeight: "bold" }}>Skip</Text>
-            </TouchableOpacity>
+            <LinearGradient colors={["#ff9900", "#ff6600"]} style={styles.skip}>
+              <TouchableOpacity
+                onPress={() => Actions.push("home", { logintype: "" })}
+              >
+                <Text style={{ fontSize: 16, fontWeight: "bold",color:"#fff" }}>Skip</Text>
+              </TouchableOpacity>
+            </LinearGradient>
+
           </View>
 
           <Logo />
@@ -77,7 +79,7 @@ export default class AuthScene extends Component {
             {/* Or */}
 
             <EmailLogin />
-           
+
           </View>
           <Text style={styles.termsCondition}>
             By continuing, you agree to our{" "}
