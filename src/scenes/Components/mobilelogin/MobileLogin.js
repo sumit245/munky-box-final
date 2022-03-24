@@ -95,6 +95,7 @@ class OTPLogin extends React.PureComponent {
               keyboardType: "number-pad",
               selectionColor: "#ff6600"
             }}
+            selectionColor="#ff6600"
             returnKeyType="done"
             inputCellLength={1}
             keyboardType="numeric"
