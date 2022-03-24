@@ -223,6 +223,9 @@ export default class ListCard extends Component {
               marginHorizontal: 2,
               elevation: 2,
               borderRadius: 4,
+              borderColor: "#979797",
+              marginBottom:16
+              
             }}
           >
             <View
@@ -253,7 +256,7 @@ export default class ListCard extends Component {
           <View>
             <SwipeableFlatList
               data={cards}
-              contentContainerStyle={{ paddingBottom: 2 }}
+              contentContainerStyle={{ paddingBottom: 2,marginBottom:4 }}
               renderItem={(item) => this.renderAddress(item, checked)}
               ListEmptyComponent={() => {
                 return <ListEmptyContent />;
