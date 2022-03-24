@@ -19,6 +19,7 @@ import * as ImagePicker from "expo-image-picker";
 import { getUser, saveUser } from "../../services/user/getuser";
 import axios from "axios";
 import { USER_URL } from "../../services/EndPoints";
+import BackButton from "./utility/BackButton";
 
 const { width, height } = Dimensions.get("window");
 const Lang = {
@@ -98,7 +99,7 @@ export default class RegistrationForm extends Component {
       .catch((err) => {
         alert(err);
       });
- 
+
   };
   componentDidMount() {
     if (this.props.logintype === "email") {
@@ -131,7 +132,7 @@ export default class RegistrationForm extends Component {
                 marginBottom: 16,
               }}
             >
-              <Icon name="chevron-back" size={18} color="#000" />
+              <BackButton />
             </View>
             <Text style={styles.lightText}>{Lang.lightText}</Text>
 
