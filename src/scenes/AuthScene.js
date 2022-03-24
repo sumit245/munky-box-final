@@ -53,7 +53,7 @@ export default class AuthScene extends Component {
               <TouchableOpacity
                 onPress={() => Actions.push("home", { logintype: "" })}
               >
-                <Text style={{ fontSize: 16, fontWeight: "bold",color:"#fff" }}>Skip</Text>
+                <Text style={{ fontSize: 16, fontWeight: "bold", color: "#fff", textAlign: "center" }}>Skip</Text>
               </TouchableOpacity>
             </LinearGradient>
 
