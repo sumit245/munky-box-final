@@ -9,8 +9,6 @@ import ResultDetails, {
 import PlanChooser from "./scenes/Components/resultdetails/PlanChooser";
 import ReviewScreen from "./scenes/ReviewScreen";
 import CheckOut from "./scenes/Components/checkout/CheckOut";
-import OrderHistory from "./scenes/Components/OrderHistory";
-import Policies from "./scenes/Components/Policies";
 import Rewards from "./scenes/ReviewScreen";
 import Icon from "react-native-vector-icons/Ionicons";
 import UserDetail from "./scenes/Components/UserDetail";
@@ -117,7 +115,7 @@ export default function Routes() {
 
         <Scene
           key="policies"
-          component={About}
+          component={Policies}
           title="About"
           renderLeftButton={() => <BackButton />}
         />

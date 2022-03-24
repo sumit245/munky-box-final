@@ -32,8 +32,6 @@ const CONTENT = [
 const SELECTORS = [
   { title: "T&C", value: 0 },
   { title: "Privacy Policy", value: 1 },
-  { title: "Return Policy", value: 2 },
-  { title: "Reset all" },
 ];
 
 const Policies = () => {
@@ -63,7 +61,6 @@ const Policies = () => {
   };
 
   const renderContent = (section, _, isActive) => {
-    //Accordion Content view
     return (
       <Animatable.View
         duration={400}
