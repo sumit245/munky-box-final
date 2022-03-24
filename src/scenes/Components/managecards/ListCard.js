@@ -245,7 +245,7 @@ export default class ListCard extends Component {
               />
               <Text
                 style={{
-                  fontSize: 28,
+                  fontSize: 24,
                   fontWeight: "bold",
                   textAlign: "center",
                 }}
