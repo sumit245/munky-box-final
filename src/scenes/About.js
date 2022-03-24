@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, SafeAreaView } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
 import WebView from "react-native-webview";
+import AboutUs from "./Components/about/AboutUs";
 import Terms from "./Components/about/Terms";
 
 const PDFReader = ({ url: uri }) => <WebView source={{ uri }} />;
@@ -38,7 +39,7 @@ export default function About() {
         return <Terms />
       case "privacy":
         return (
-          <Text>Hello</Text>
+          <AboutUs />
         );
       default:
         break;
