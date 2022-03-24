@@ -165,9 +165,6 @@ export default class ListCard extends Component {
       });
     });
   };
-  renderHeader = () => (
-    <RenderWalletRightButton wallet_balance={this.state.wallet_balance} />
-  )
   componentDidMount() {
     this.fetchUser();
     this.renderHeader()
