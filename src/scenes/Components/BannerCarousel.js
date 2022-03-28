@@ -22,7 +22,7 @@ export default function BannerCarousel() {
   const [loaded, setLoaded] = useState(false);
   const fetchBanners = async () => {
     const response = await axios.get(
-      "https://munkybox-admin.herokuapp.com/api/promo/active"
+      "http://18.117.221.34:5000/api/promo/active"
     );
     const data = await response.data;
     setPage(data);
@@ -34,7 +34,7 @@ export default function BannerCarousel() {
   const registerClicks = async (restaurant) => {
     const id = restaurant.banner.promo_id;
     const response = await axios.get(
-      "http://munkybox-admin.herokuapp.com/api/chefdashboard/getchefbyidandupdatebannercount/" +
+      "http://18.117.221.34:5000/api/chefdashboard/getchefbyidandupdatebannercount/" +
         id
     );
     Actions.push("details", {

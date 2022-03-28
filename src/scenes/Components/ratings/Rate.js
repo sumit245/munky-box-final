@@ -55,7 +55,7 @@ export default function Rate({ navigation, restaurant, order }) {
       review_at: moment(),
     };
     const response = await axios.post(
-      "http://munkybox-admin.herokuapp.com/api/review/",
+      "http://18.117.221.34:5000/api/review/",
       review
     );
     const { data } = response;

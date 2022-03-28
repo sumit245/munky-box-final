@@ -71,7 +71,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
   const stripeTokenHandler = async (token, amount, id) => {
     const paymentData = { token: token, amount: amount, user_id: id };
     const response = await axios.post(
-      "https://munkybox-admin.herokuapp.com/api/stripe/charge/",
+      "http://18.117.221.34:5000/api/stripe/charge/",
       paymentData
     );
     return response.data;
@@ -111,7 +111,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
           alert("Amount must be greater than zero!!!");
         } else {
           const res = await axios.put(
-            "http://munkybox-admin.herokuapp.com/api/users/" + id,
+            "http://18.117.221.34:5000/api/users/" + id,
             { wallet_balance: parseFloat(balance) + parseFloat(value) }
           );
           const { status, data } = res.data;
@@ -158,7 +158,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
     if (hasBalance) {
       action(addOn);
       const res = await axios.put(
-        "http://munkybox-admin.herokuapp.com/api/users/" + id,
+        "http://18.117.221.34:5000/api/users/" + id,
         { wallet_balance: wb }
       );
       const { status, data } = res.data;

@@ -54,7 +54,7 @@ export default function Contacts({ navigation }) {
       label: "user",
     };
     const response = await axios.post(
-      "http://munkybox-admin.herokuapp.com/api/contacts/",
+      "http://18.117.221.34:5000/api/contacts/",
       mail
     );
     const { status } = await response.data;

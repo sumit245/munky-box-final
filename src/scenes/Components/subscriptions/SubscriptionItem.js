@@ -65,7 +65,7 @@ export default function SubscriptionItem({
   const fetchSubscriptionDetails = async () => {
     setLoaded(false);
     const restaurantorders = await axios.get(
-      "https://munkybox-admin.herokuapp.com/api/newrest/getorders/" +
+      "http://18.117.221.34:5000/api/newrest/getorders/" +
         item.restaurant_id
     );
     const { meals } = await restaurantorders.data;
@@ -113,7 +113,7 @@ export default function SubscriptionItem({
   };
   const getCurrentOrderDetails = async () => {
     const res = await axios.get(
-      "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getOrderDetails/" +
+      "http://18.117.221.34:5000/api/getcurrentorder/getOrderDetails/" +
         item.order_id
     );
     if (res.data !== null) {
@@ -127,7 +127,7 @@ export default function SubscriptionItem({
 
   const placeExtraOrder = async (addOnsPlaced) => {
     const res = await axios.put(
-      "http://munkybox-admin.herokuapp.com/api/getcurrentorder/getandupdateorderstatus/" +
+      "http://18.117.221.34:5000/api/getcurrentorder/getandupdateorderstatus/" +
         item.order_id,
       {
         add_on: addOnsPlaced,
@@ -135,7 +135,7 @@ export default function SubscriptionItem({
     );
     if (res.data.status === 200) {
       const response = await axios.put(
-        "http://munkybox-admin.herokuapp.com/api/orders/" + item._id,
+        "http://18.117.221.34:5000/api/orders/" + item._id,
         { add_on: addOnsPlaced }
       );
       const { data, status, msg } = response.data;

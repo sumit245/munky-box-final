@@ -54,7 +54,7 @@ export default class DeliverySlots extends Component {
     };
   }
   async componentDidMount() {
-    const response = await axios.get("https://munkybox-admin.herokuapp.com/api/slots");
+    const response = await axios.get("http://18.117.221.34:5000/api/slots");
     const slots = await response.data;
     const lunch = await slots[0].lunchSlots;
     const dinner = await slots[0].dinnerSlots;

@@ -73,7 +73,7 @@ export default function CheckOut({
 
   const getchefbynameandupdatecartcount = async (restaurant_id) => {
     let MENU_COUNT_URL =
-      "http://munkybox-admin.herokuapp.com/api/chefdashboard/getchefbynameandupdatecartcount/" +
+      "http://18.117.221.34:5000/api/chefdashboard/getchefbynameandupdatecartcount/" +
       restaurant_id;
     const response = await axios.get(MENU_COUNT_URL);
   };
@@ -128,7 +128,7 @@ export default function CheckOut({
 
   const fetchPaymentIntentClientSecret = async (amount) => {
     const response = await fetch(
-      "https://munkybox-admin.herokuapp.com/api/stripe/create-payment-intent",
+      "http://18.117.221.34:5000/api/stripe/create-payment-intent",
       {
         method: "POST",
         headers: {
@@ -154,7 +154,7 @@ export default function CheckOut({
     };
     console.log(paymentData);
     const response = await axios.post(
-      "https://munkybox-admin.herokuapp.com/api/stripe/pay",
+      "http://18.117.221.34:5000/api/stripe/pay",
       paymentData
     );
     return response.data;

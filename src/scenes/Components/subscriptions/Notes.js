@@ -18,7 +18,7 @@ export default function Notes({ notes, order_id }) {
         notes: thisnotes,
       };
       const response = await axios.put(
-        "http://munkybox-admin.herokuapp.com/api/orders/" + id,
+        "http://18.117.221.34:5000/api/orders/" + id,
         dataToUpload
       );
       const { data, status } = response;
