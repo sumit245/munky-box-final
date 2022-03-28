@@ -42,7 +42,7 @@ class OTPLogin extends React.PureComponent {
       );
       await firebas.auth().signInWithCredential(credential);
       axios
-        .post("http:munkybox-admin.herokuapp.com/api/users/", {
+        .post("http://18.117.221.34:5000/api/users/", {
           phone: phoneNumber,
         })
         .then((res) => {
