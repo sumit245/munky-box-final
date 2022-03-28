@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   Keyboard,
   LogBox,
+  ActivityIndicator
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import CheckoutAddress from "./CheckoutAddress";
@@ -62,12 +63,9 @@ export default function CheckOut({
     total: 0,
     promo_code: "",
   });
-  const [submitted, setSubmitted] = useState(false);
-  const { createPaymentMethod, handleCardAction } = useStripe();
   const [addressLoading, setAddressLoading] = useState(true);
   const [isKeyboardOn, setKeyboardOn] = useState(false);
-  const STRIPE_ERROR = "Payment service error. Try again later.";
-  const SERVER_ERROR = "Server error. Try again later.";
+  const [isOrdering, setOrdering] = useState(false)
   const STRIPE_PUBLISHABLE_KEY =
     "pk_test_51KammvB9SdGdzaTpAZcPCcQVMesbuC5qY3Sng1rdnEfnfo2geOUP8CQ27sw0WBjpiMpdYBRoAQ1eX8czY8BEEWdO00teqn55mD";
 
@@ -126,24 +124,6 @@ export default function CheckOut({
     });
   };
 
-  const fetchPaymentIntentClientSecret = async (amount) => {
-    const response = await fetch(
-      "http://18.117.221.34:5000/api/stripe/create-payment-intent",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: amount,
-          currency: "cad",
-        }),
-      }
-    );
-    const { clientSecret } = await response.json();
-    return clientSecret;
-  };
-
   const stripeTokenHandler = async (token, amount, id, restaurant, plan) => {
     const paymentData = {
       token: token,
@@ -181,6 +161,7 @@ export default function CheckOut({
   };
 
   const orderNow = async () => {
+    setOrdering(true)
     const {
       user,
       restaurant,
@@ -207,6 +188,7 @@ export default function CheckOut({
 
     const result = await getCreditCardToken(card);
     if (result.error) {
+      setOrdering(false)
       console.log("Error in getting card token");
       alert(result.error.message);
     } else {
@@ -252,17 +234,19 @@ export default function CheckOut({
             axios
               .post(ORDER_URL, newOrder)
               .then((response) => {
+                setOrdering(false)
                 const { data } = response;
-
                 Actions.push("thankyou", { id: data.data._id, msg: data.msg });
               })
               .catch((err) => {
+                setOrdering(false)
                 console.log(err);
                 alert("Error ordering food");
               });
           }
         })
         .catch((err) => {
+          setOrdering(false)
           console.log(err);
           alert("Error in stripe");
         });
@@ -426,10 +410,12 @@ export default function CheckOut({
 
             <TouchableOpacity
               onPress={orderNow}
-              disabled={submitted}
             >
-              <LinearGradient colors={["#ff9900", "#ff6600"]} style={styles.button}>
-                <Text style={styles.btnText}>PROCEED TO PAY</Text>
+              <LinearGradient colors={["#ff9900", "#ff6600"]} style={[styles.button, { flexDirection: 'row' }]}>
+                {isOrdering && (
+                  <ActivityIndicator size="small" color="#fff" />
+                )}
+                <Text style={[styles.btnText,{fontSize:isOrdering?16:18,marginLeft:isOrdering?10:26}]}>PROCEED TO PAY</Text>
               </LinearGradient>
             </TouchableOpacity>
           </View>
