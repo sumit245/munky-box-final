@@ -4,17 +4,9 @@ import LogoImage from "../../../assets/logo.png"
 export default class Logo extends Component {
   render() {
     return (
-      <>
-        <View
-          style={{
-            flexDirection: "row",
-            alignSelf: "center",
-            justifyContent: "center",
-          }}
-        >
-<Image source={LogoImage} height={60} width={60} resizeMode="center" />
-        </View>
-      </>
+
+      <Image source={LogoImage} height={60} width={60} resizeMode="center" />
+
     );
   }
 }
