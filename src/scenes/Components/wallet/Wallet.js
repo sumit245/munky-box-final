@@ -71,7 +71,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
   const stripeTokenHandler = async (token, amount, id) => {
     const paymentData = { token: token, amount: amount, user_id: id };
     const response = await axios.post(
-      "http://18.117.221.34:5000/api/stripe/charge/",
+      "https://feasti.com/api/stripe/charge/",
       paymentData
     );
     return response.data;

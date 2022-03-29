@@ -134,7 +134,7 @@ export default function CheckOut({
     };
     console.log(paymentData);
     const response = await axios.post(
-      "http://18.117.221.34:5000/api/stripe/pay",
+      "https://feasti.com/api/stripe/pay",
       paymentData
     );
     return response.data;
