@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
+import Logo from "../../../assets/logo.png"
 export default class Logo extends Component {
   render() {
     return (
@@ -11,9 +12,7 @@ export default class Logo extends Component {
             justifyContent: "center",
           }}
         >
-          <Text style={{ color: "#F15050", fontSize: 30, fontWeight: "bold" }}>
-            Feasti
-          </Text>
+<Image source={Logo} height={60} width={60} resizeMode="center" />
         </View>
       </>
     );
