@@ -11,7 +11,7 @@ export default class Logo extends Component {
             justifyContent: "center",
           }}
         >
-<Image source={LogoImage} resizeMode="contain" style={{height:120,width:120}} />
+<Image source={LogoImage} resizeMode="contain" style={{height:160,width:160}} />
         </View>
     );
   }
