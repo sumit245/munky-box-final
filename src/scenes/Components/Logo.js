@@ -4,9 +4,15 @@ import LogoImage from "../../../assets/logo.png"
 export default class Logo extends Component {
   render() {
     return (
-
-      <Image source={LogoImage} height={60} width={60} resizeMode="center" />
-
+      
+        <View
+          style={{
+            alignSelf: "center",
+            justifyContent: "center",
+          }}
+        >
+<Image source={LogoImage} height={60} width={60} resizeMode="contain" style={{height:60,width:60}} />
+        </View>
     );
   }
 }
