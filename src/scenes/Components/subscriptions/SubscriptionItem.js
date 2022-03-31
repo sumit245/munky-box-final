@@ -149,7 +149,7 @@ export default function SubscriptionItem({
   useEffect(() => {
     getCurrentOrderDetails();
     fetchSubscriptionDetails();
-  }, [item]);
+  }, [item,delivered]);
   useEffect(() => {
     fetchRemaining();
   }, [state.start_date, state.end_date]);
