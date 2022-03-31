@@ -42,7 +42,7 @@ class OTPLogin extends React.PureComponent {
       );
       await firebas.auth().signInWithCredential(credential);
       axios
-        .post("http://18.117.221.34:5000/api/users/", {
+        .post("http://54.146.133.108:5000/api/users/", {
           phone: phoneNumber,
         })
         .then((res) => {

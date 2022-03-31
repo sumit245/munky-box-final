@@ -15,7 +15,7 @@ export default function Favourite() {
     const users = await getUser("user");
     const { _id } = users.data;
     const favoriteResponse = await axios.get(
-      "http://18.117.221.34:5000/api/users/getfavorite/" + _id
+      "http://54.146.133.108:5000/api/users/getfavorite/" + _id
     );
     const favorites = favoriteResponse.data.data;
     setRestaurant(favorites);

@@ -111,7 +111,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
           alert("Amount must be greater than zero!!!");
         } else {
           const res = await axios.put(
-            "http://18.117.221.34:5000/api/users/" + id,
+            "http://54.146.133.108:5000/api/users/" + id,
             { wallet_balance: parseFloat(balance) + parseFloat(value) }
           );
           const { status, data } = res.data;
@@ -158,7 +158,7 @@ export default function Wallet({ total, action, data, isAddOn }) {
     if (hasBalance) {
       action(addOn);
       const res = await axios.put(
-        "http://18.117.221.34:5000/api/users/" + id,
+        "http://54.146.133.108:5000/api/users/" + id,
         { wallet_balance: wb }
       );
       const { status, data } = res.data;

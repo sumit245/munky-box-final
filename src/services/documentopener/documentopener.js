@@ -16,7 +16,7 @@ export const ModalOpener = ({ restaurant_id }) => {
   const [loading, setLoading] = useState(true);
   const fetchPapers = async (id) => {
     const response = await axios.get(
-      "http://18.117.221.34:5000/api/newrest/" + id
+      "http://54.146.133.108:5000/api/newrest/" + id
     );
     const restaurant = await response.data;
     const paper = restaurant.papers;

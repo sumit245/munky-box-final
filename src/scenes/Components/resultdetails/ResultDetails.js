@@ -96,7 +96,7 @@ export default function ResultDetails({ item, promo }) {
 
   const getchefbynameandupdatemenucount = async (restaurant_id) => {
     let MENU_COUNT_URL =
-      "http://18.117.221.34:5000/api/chefdashboard/getchefbynameandupdatemenucount/" +
+      "http://54.146.133.108:5000/api/chefdashboard/getchefbynameandupdatemenucount/" +
       restaurant_id;
     const response = await axios.get(MENU_COUNT_URL);
   };
@@ -106,7 +106,7 @@ export default function ResultDetails({ item, promo }) {
 
   const fetchReview = async () => {
     const response = await axios.get(
-      "http://18.117.221.34:5000/api/review/"
+      "http://54.146.133.108:5000/api/review/"
     );
     const { data } = response;
     let review = data.filter((item) => item.restaurant_id === restaurant_id);

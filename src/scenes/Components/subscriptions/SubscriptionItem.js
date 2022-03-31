@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, ScrollView, ActivityIndicator } from "react-native";
 import axios from "axios";
 import { styles } from "../../styles/subscriptionTabStyle";
 import moment from "moment";
@@ -65,7 +65,7 @@ export default function SubscriptionItem({
   const fetchSubscriptionDetails = async () => {
     setLoaded(false);
     const restaurantorders = await axios.get(
-      "http://18.117.221.34:5000/api/newrest/getorders/" +
+      "http://54.146.133.108:5000/api/newrest/getorders/" +
         item.restaurant_id
     );
     const { meals } = await restaurantorders.data;
@@ -113,7 +113,7 @@ export default function SubscriptionItem({
   };
   const getCurrentOrderDetails = async () => {
     const res = await axios.get(
-      "http://18.117.221.34:5000/api/getcurrentorder/getOrderDetails/" +
+      "http://54.146.133.108:5000/api/getcurrentorder/getOrderDetails/" +
         item.order_id
     );
     if (res.data !== null) {
@@ -127,7 +127,7 @@ export default function SubscriptionItem({
 
   const placeExtraOrder = async (addOnsPlaced) => {
     const res = await axios.put(
-      "http://18.117.221.34:5000/api/getcurrentorder/getandupdateorderstatus/" +
+      "http://54.146.133.108:5000/api/getcurrentorder/getandupdateorderstatus/" +
         item.order_id,
       {
         add_on: addOnsPlaced,
@@ -135,7 +135,7 @@ export default function SubscriptionItem({
     );
     if (res.data.status === 200) {
       const response = await axios.put(
-        "http://18.117.221.34:5000/api/orders/" + item._id,
+        "http://54.146.133.108:5000/api/orders/" + item._id,
         { add_on: addOnsPlaced }
       );
       const { data, status, msg } = response.data;
@@ -304,7 +304,9 @@ export default function SubscriptionItem({
     );
   } else {
     return (
-      <Loader msg="Please wait while we are fetching your subscriptions" />
+      <View style={{flex:1,alignItems:"center",justifyContent:"center"}}>
+        <ActivityIndicator size="large" animating color="#ff6600" style={{marginHorizontal:width/2-50}} />
+      </View>
     );
   }
 }

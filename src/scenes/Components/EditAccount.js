@@ -97,7 +97,7 @@ export default class EditAccount extends Component {
       email_id: email_id,
     };
     const res = await axios.put(
-      "http://18.117.221.34:5000/api/users/" + id,
+      "http://54.146.133.108:5000/api/users/" + id,
       dataToSend
     );
     const response = await res.data;

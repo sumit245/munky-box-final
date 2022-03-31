@@ -155,7 +155,7 @@ export default function Rewards({ restaurant_id }) {
 
   const fetchReview = async () => {
     const response = await axios.get(
-      "http://18.117.221.34:5000/api/review/"
+      "http://54.146.133.108:5000/api/review/"
     );
     const { data } = response;
     let review = data.filter((item) => item.restaurant_id === restaurant_id);

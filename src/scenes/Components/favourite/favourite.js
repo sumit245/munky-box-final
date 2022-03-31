@@ -14,7 +14,7 @@ export const Favourite = ({ restaurant, isFavorite }) => {
         let id = res.data._id;
         axios
           .put(
-            "http://18.117.221.34:5000/api/users/addfavorite/" + id,
+            "http://54.146.133.108:5000/api/users/addfavorite/" + id,
             data
           )
           .then((response) => {

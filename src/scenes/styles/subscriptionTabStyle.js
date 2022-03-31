@@ -30,7 +30,6 @@ export const styles = StyleSheet.create({
     width: width / 3,
   },
   tabContainer: {
-    marginLeft:4,
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 4,

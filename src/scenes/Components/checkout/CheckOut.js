@@ -71,7 +71,7 @@ export default function CheckOut({
 
   const getchefbynameandupdatecartcount = async (restaurant_id) => {
     let MENU_COUNT_URL =
-      "http://18.117.221.34:5000/api/chefdashboard/getchefbynameandupdatecartcount/" +
+      "http://54.146.133.108:5000/api/chefdashboard/getchefbynameandupdatecartcount/" +
       restaurant_id;
     const response = await axios.get(MENU_COUNT_URL);
   };

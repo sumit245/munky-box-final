@@ -18,7 +18,7 @@ export default function Notes({ notes, order_id }) {
         notes: thisnotes,
       };
       const response = await axios.put(
-        "http://18.117.221.34:5000/api/orders/" + id,
+        "http://54.146.133.108:5000/api/orders/" + id,
         dataToUpload
       );
       const { data, status } = response;

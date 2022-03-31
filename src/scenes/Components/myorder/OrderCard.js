@@ -17,7 +17,7 @@ export default function OrderCard({ item, user_id }) {
 
   const fetchRestaurant = async (id) => {
     const restaurant = await axios.get(
-      "http://18.117.221.34:5000/api/newrest/getchefbyId/" + id
+      "http://54.146.133.108:5000/api/newrest/getchefbyId/" + id
     );
     const { data } = restaurant;
     if (data !== null) {
@@ -32,7 +32,7 @@ export default function OrderCard({ item, user_id }) {
 
   const fetchOrderByID = async (id) => {
     const res = await axios.get(
-      "http://18.117.221.34:5000/api/orders/getOrderbyID/" + id
+      "http://54.146.133.108:5000/api/orders/getOrderbyID/" + id
     );
     const { data } = res;
     if (data !== null) {
@@ -46,7 +46,7 @@ export default function OrderCard({ item, user_id }) {
     const user = await getUser("user");
     const { user_id } = await user.data;
     const response = await axios.get(
-      "http://18.117.221.34:5000/api/review/getreviewByUser/" +
+      "http://54.146.133.108:5000/api/review/getreviewByUser/" +
       user_id +
       "/" +
       order_id

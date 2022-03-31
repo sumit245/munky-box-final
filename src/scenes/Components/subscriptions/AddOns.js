@@ -21,7 +21,6 @@ export default function AddOns({
   const [pulled, setPulled] = useState(false);
   const [extrass, setExtras] = useState([]);
   const fetchAddOn = () => {
-    let add_ons = [];
     if (meals !== "undefined" && meals !== null) {
       try {
         const { add_on } = meals;
@@ -41,7 +40,7 @@ export default function AddOns({
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [myaddons]);
 
   useEffect(() => {
     let subt = [];

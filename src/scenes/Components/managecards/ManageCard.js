@@ -50,7 +50,7 @@ export default class ManageCard extends Component {
     };
     const res = await getUser("user")
     let { _id } = await res.data;
-    const response = await axios.put("http://18.117.221.34:5000/api/users/addcard/" + _id, { card });
+    const response = await axios.put("http://54.146.133.108:5000/api/users/addcard/" + _id, { card });
     const { data } = response;
     const updateLocal = await saveUser("user", JSON.stringify(data));
     Alert.alert("Success", data.msg, [{

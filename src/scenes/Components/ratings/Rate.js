@@ -55,7 +55,7 @@ export default function Rate({ navigation, restaurant, order }) {
       review_at: moment(),
     };
     const response = await axios.post(
-      "http://18.117.221.34:5000/api/review/",
+      "http://54.146.133.108:5000/api/review/",
       review
     );
     const { data } = response;
