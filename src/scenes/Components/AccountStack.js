@@ -9,6 +9,7 @@ import {
   Dimensions,
   SafeAreaView,
   StatusBar,
+  Alert,
 } from "react-native";
 import { Provider } from "react-native-paper";
 import { Actions } from "react-native-router-flux";
@@ -38,7 +39,10 @@ export default class AccountStack extends Component {
     this.fetchUser();
   }
   showDialog = () => {
-    this.setState(prevState => ({ signoff: !prevState.signoff }))
+    Alert.alert("Are you sure?", "Are you sure you want to logout", [
+      { text: "No" },
+      { text: "Yes", onPress: () => this.logout() }
+    ])
   }
 
   logout = async () => {
@@ -163,15 +167,6 @@ export default class AccountStack extends Component {
               <Icons name="power-sharp" color={"#fff"} size={28} brand />
             </TouchableOpacity>
           </LinearGradient>
-          {this.state.signoff && (
-            <CustomDialog
-              title="Sign Out"
-              showDialog={this.state.signoff}
-              doneHandler={this.logout}
-              cancelHandler={this.showDialog}
-              text="Are you sure you want to logout?"
-            />
-          )}
         </Provider>
       </SafeAreaView>
     );
