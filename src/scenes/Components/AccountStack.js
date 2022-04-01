@@ -39,7 +39,7 @@ export default class AccountStack extends Component {
     this.fetchUser();
   }
   showDialog = () => {
-    Alert.alert("Are you sure?", "Are you sure you want to logout", [
+    Alert.alert("Sign out?", "Are you sure you want to logout", [
       { text: "No" },
       { text: "Yes", onPress: () => this.logout() }
     ])
