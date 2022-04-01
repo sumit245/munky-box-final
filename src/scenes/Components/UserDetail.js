@@ -51,14 +51,13 @@ export default class RegistrationForm extends Component {
   };
   pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
       base64: true
     });
     if (!result.cancelled) {
-      console.log(result.base64);
       this.setState({ uri: result.uri, profile_picture: result.base64 });
     }
   };
