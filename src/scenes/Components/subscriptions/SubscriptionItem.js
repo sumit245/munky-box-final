@@ -145,7 +145,7 @@ export default function SubscriptionItem({
         Alert.alert("Thank you", `${msg} with order id # ${item.order_id}`, [
           {
             text: "OK",
-            onPress:()=>Actions.popAndPush('Subscriptions')
+            onPress:()=>Actions.popAndPush('home')
           }
         ]);
       }
