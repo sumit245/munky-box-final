@@ -70,7 +70,7 @@ export default function Thankyou({ id, msg }) {
               fontSize: 18,
               textAlign: "center",
               fontWeight: "bold",
-              color: "#226ccf",
+              color: "#ff6600",
               lineHeight: 24
             }}
           >
@@ -81,17 +81,18 @@ export default function Thankyou({ id, msg }) {
             subscription.
           </Text>
           <Text
-            style={{ fontSize: 16, textAlign: "center", fontWeight: "bold", lineHeight: 20, marginTop: 12, flex: 1, flexWrap: 'wrap' }}
+            style={{ fontSize: 16, textAlign: "center", fontWeight: "bold", lineHeight: 20, marginTop: 12 }}
           >
             {state.plan === "twoPlan"
               ? "2"
               : state.plan === "fifteenPlan"
                 ? "15"
                 : "30"}{" "}
-            meals subscription will start from {state.start_date}.
+            meals subscription will start from
+            {state.start_date}.
           </Text>
           <Text
-            style={{ color: "#666", fontWeight: "bold", textAlign: "center" }}
+            style={{ color: "#777", fontWeight: "bold", textAlign: "center" }}
           >
             We have assigned delivery executive to your orders. Your{" "}
             {state.category} will be delivered to you by {state.time} every
