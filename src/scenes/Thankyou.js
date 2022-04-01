@@ -19,13 +19,14 @@ export const DoneRightButton = () => (
     <Text
       style={{
         textTransform: "uppercase",
-        color: "#226cff",
-      fontWeight:"bold"
+        color: "#FF6600",
+        fontWeight: "bold",
+        marginRight: 8
       }}
     >
-      Done
+      Done{" "}
     </Text>
-    
+
   </TouchableOpacity>
 );
 
@@ -70,23 +71,23 @@ export default function Thankyou({ id, msg }) {
               textAlign: "center",
               fontWeight: "bold",
               color: "#226ccf",
-              lineHeight:24
+              lineHeight: 24
             }}
           >
             Thank you for ordering!!!
           </Text>
-          <Text style={{ textAlign: "center",lineHeight:20 }}>
+          <Text style={{ textAlign: "center", lineHeight: 20 }}>
             Do not look into your kitchen, we will provide meals till your
             subscription.
           </Text>
           <Text
-            style={{ fontSize: 16, textAlign: "center", fontWeight: "bold",lineHeight:20,marginTop:12 }}
+            style={{ fontSize: 16, textAlign: "center", fontWeight: "bold", lineHeight: 20, marginTop: 12, flex: 1, flexWrap: 'wrap' }}
           >
             {state.plan === "twoPlan"
               ? "2"
               : state.plan === "fifteenPlan"
-              ? "15"
-              : "30"}{" "}
+                ? "15"
+                : "30"}{" "}
             meals subscription will start from {state.start_date}.
           </Text>
           <Text
