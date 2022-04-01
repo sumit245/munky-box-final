@@ -46,7 +46,7 @@ export default class EditAccount extends Component {
     });
     if (!result.cancelled) {
       console.log(result.base64);
-      this.setState({ uri: result.uri, editProfile: true,profile_picture:result.base64 });
+      this.setState({ uri: result.uri, editProfile: true,profile_picture:`data:image/jpg;base64,${result.base64}` });
     }
   };
   fetchUser = () => {

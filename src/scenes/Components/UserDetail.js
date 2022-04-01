@@ -58,7 +58,7 @@ export default class RegistrationForm extends Component {
       base64: true
     });
     if (!result.cancelled) {
-      this.setState({ uri: result.uri, profile_picture: result.base64 });
+      this.setState({ uri: result.uri, profile_picture: `data:image/jpg;base64,${result.base64}` });
     }
   };
   _nextAction = () => {
