@@ -55,18 +55,18 @@ export default class RegistrationForm extends Component {
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
+      base64: true
     });
     if (!result.cancelled) {
-      
-      // const base64 = await FileSystem.readAsStringAsync(result.uri, { encoding: 'base64' });
+      console.log(result.base64);
       this.setState({ uri: result.uri, profile_picture: result.base64 });
-
     }
   };
   _nextAction = () => {
     const { _id, phone } = this.state;
     const { first_name, last_name, profile_picture, email_id, uri } =
       this.state;
+    console.log(profile_picture);
     if (!first_name) {
       alert("First name is required");
       return;

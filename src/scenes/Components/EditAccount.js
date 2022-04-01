@@ -41,10 +41,12 @@ export default class EditAccount extends Component {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
+      base64:true,
       quality: 1,
     });
     if (!result.cancelled) {
-      this.setState({ uri: result.uri, editProfile: true });
+      console.log(result.base64);
+      this.setState({ uri: result.uri, editProfile: true,profile_picture:result.base64 });
     }
   };
   fetchUser = () => {
@@ -76,7 +78,7 @@ export default class EditAccount extends Component {
   };
   _nextAction = async () => {
     this.setState({ loading: true });
-    const { id, first_name, last_name, phone, email_id, uri } = this.state;
+    const { id, first_name, last_name, phone, email_id,profile_picture, uri } = this.state;
     if (!first_name) {
       alert("First name is required");
       this.setState({ loading: false })
@@ -92,7 +94,7 @@ export default class EditAccount extends Component {
     const dataToSend = {
       first_name: first_name,
       last_name: last_name,
-      profile_picture: uri,
+      profile_picture: profile_picture,
       phone: phone,
       email_id: email_id,
     };
