@@ -35,6 +35,7 @@ const Lang = {
   headerTitle: "Just A Few Clicks Away",
   lightText: "We need some details to serve you better",
 };
+
 export default class RegistrationForm extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +44,6 @@ export default class RegistrationForm extends Component {
       uri: "https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png",
     };
   }
-
   onChangeText = (id) => (e) => {
     this.setState({
       [id]: e,
@@ -57,7 +57,9 @@ export default class RegistrationForm extends Component {
       quality: 1,
     });
     if (!result.cancelled) {
-      this.setState({ uri: result.uri });
+      const base64 = await FileSystem.readAsStringAsync(result.uri, { encoding: 'base64' });
+      this.setState({ uri: result.uri, profile_picture: base64 });
+
     }
   };
   _nextAction = () => {

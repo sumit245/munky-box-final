@@ -15,7 +15,6 @@ import { Provider } from "react-native-paper";
 import { Actions } from "react-native-router-flux";
 import Icons from "react-native-vector-icons/Ionicons";
 import { clearAll, getUser, removeUser } from "../../services/user/getuser";
-import CustomDialog from "./utility/CustomDialog";
 const { width } = Dimensions.get("screen").width;
 export default class AccountStack extends Component {
   constructor(props) {
