@@ -8,12 +8,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { ORDER_URL } from "../services/EndPoints";
-import { styles } from "./styles/CheckoutStyles";
 import { Actions } from "react-native-router-flux";
 
 export const DoneRightButton = () => (
   <TouchableOpacity
-   
     onPress={() => {
       Actions.push("home");
     }}
@@ -51,7 +49,7 @@ export default function Thankyou({ id, msg }) {
       componentMounted = false;
     };
   }, []);
-  //<DoneRightButton />;
+
   return (
     <SafeAreaView
       style={{
@@ -72,16 +70,17 @@ export default function Thankyou({ id, msg }) {
               textAlign: "center",
               fontWeight: "bold",
               color: "#226ccf",
+              lineHeight:24
             }}
           >
             Thank you for ordering!!!
           </Text>
-          <Text style={{ textAlign: "center" }}>
+          <Text style={{ textAlign: "center",lineHeight:20 }}>
             Do not look into your kitchen, we will provide meals till your
             subscription.
           </Text>
           <Text
-            style={{ fontSize: 16, textAlign: "center", fontWeight: "bold" }}
+            style={{ fontSize: 16, textAlign: "center", fontWeight: "bold",lineHeight:20,marginTop:12 }}
           >
             {state.plan === "twoPlan"
               ? "2"
