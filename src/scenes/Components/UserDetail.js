@@ -57,8 +57,9 @@ export default class RegistrationForm extends Component {
       quality: 1,
     });
     if (!result.cancelled) {
-      const base64 = await FileSystem.readAsStringAsync(result.uri, { encoding: 'base64' });
-      this.setState({ uri: result.uri, profile_picture: base64 });
+      
+      // const base64 = await FileSystem.readAsStringAsync(result.uri, { encoding: 'base64' });
+      this.setState({ uri: result.uri, profile_picture: result.base64 });
 
     }
   };
