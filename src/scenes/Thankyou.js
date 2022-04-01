@@ -89,7 +89,7 @@ export default function Thankyou({ id, msg }) {
                 ? "15"
                 : "30"}{" "}
             meals subscription will start from
-            {state.start_date}.
+            {"\n"+state.start_date}.
           </Text>
           <Text
             style={{ color: "#777", fontWeight: "bold", textAlign: "center" }}
