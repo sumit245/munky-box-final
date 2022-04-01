@@ -140,7 +140,6 @@ export default function SubscriptionItem({
         { add_on: addOnsPlaced }
       );
       const { data, status, msg } = response.data;
-      console.log(data);
       if (status === 201) {
         Alert.alert("Thank you", `${msg} with order id # ${item.order_id}`, [
           {

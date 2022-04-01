@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
   },
   confirmLocation: {
     textAlign: "center",
-    fontSize: 18,
+    fontSize: 16,
     color: "#ffffff",
     fontWeight: "bold",
     textTransform: "uppercase",
