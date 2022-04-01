@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, SafeAreaView, ScrollView, ActivityIndicator } from "react-native";
+import { View, Text, SafeAreaView, ScrollView, ActivityIndicator, Alert } from "react-native";
 import axios from "axios";
 import { styles } from "../../styles/subscriptionTabStyle";
 import moment from "moment";
@@ -8,6 +8,7 @@ import AddOns from "./AddOns";
 import FutureMeals from "./FutureMeals";
 import Loader from "../utility/Loader";
 import Notes from "./Notes";
+import { Actions } from "react-native-router-flux";
 
 export default function SubscriptionItem({
   item,
@@ -141,7 +142,12 @@ export default function SubscriptionItem({
       const { data, status, msg } = response.data;
       console.log(data);
       if (status === 201) {
-        alert(`${msg} with order id # ${item.order_id}`);
+        Alert.alert("Thank you", `${msg} with order id # ${item.order_id}`, [
+          {
+            text: "OK",
+            onPress:()=>Actions.popAndPush('Subscriptions')
+          }
+        ]);
       }
     }
   };
