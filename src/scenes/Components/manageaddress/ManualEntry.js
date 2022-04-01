@@ -271,7 +271,6 @@ export default class ManualEntry extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     justifyContent: "space-between",
     borderWidth: 1,
     backgroundColor: "#FFF",
@@ -308,7 +307,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ff6600",
     position: "absolute",
-    bottom: -180,
+    bottom: -140,
     padding: 10,
     height: 48,
     alignItems: "center",
