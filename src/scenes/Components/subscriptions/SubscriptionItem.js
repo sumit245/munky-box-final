@@ -58,7 +58,9 @@ export default function SubscriptionItem({
   const today = moment().weekday();
   const [futuremeals, setFutureMeals] = useState([]);
   const [remaining, setRemaining] = useState(0);
-  const [hasAddOn,setHasAddOn]=useState(false)
+  const [hasAddOn, setHasAddOn] = useState(false)
+  const [currentAddOn, setCurrentAddon] = useState([])
+
   useEffect(() => {
     getCurrentIndex(index);
   }, [index]);
@@ -67,7 +69,7 @@ export default function SubscriptionItem({
     setLoaded(false);
     const restaurantorders = await axios.get(
       "http://54.146.133.108:5000/api/newrest/getorders/" +
-        item.restaurant_id
+      item.restaurant_id
     );
     const { meals } = await restaurantorders.data;
     let todayMeal = meals.find((item) => item.day === days[today]);
@@ -108,14 +110,21 @@ export default function SubscriptionItem({
     setstate({ ...state, ...item });
     setLoaded(true);
   };
+
+  useEffect(() => {
+    setCurrentAddon(item.add_on)
+  }, [item])
+
+
   const fetchRemaining = () => {
     let remaining = moment(state.end_date).diff(moment(), "days") || 0;
     setRemaining(remaining);
   };
+
   const getCurrentOrderDetails = async () => {
     const res = await axios.get(
       "http://54.146.133.108:5000/api/getcurrentorder/getOrderDetails/" +
-        item.order_id
+      item.order_id
     );
     if (res.data !== null) {
       let { delivered, add_on } = res.data;
@@ -127,24 +136,26 @@ export default function SubscriptionItem({
   };
 
   const placeExtraOrder = async (addOnsPlaced) => {
+    let current = [...currentAddOn, addOnsPlaced]
     const res = await axios.put(
       "http://54.146.133.108:5000/api/getcurrentorder/getandupdateorderstatus/" +
-        item.order_id,
+      item.order_id,
       {
         add_on: addOnsPlaced,
       }
     );
+
     if (res.data.status === 200) {
       const response = await axios.put(
         "http://54.146.133.108:5000/api/orders/" + item._id,
-        { add_on: addOnsPlaced }
+        { add_on: current }
       );
       const { data, status, msg } = response.data;
       if (status === 201) {
         Alert.alert("Thank you", `${msg} with order id # ${item.order_id}`, [
           {
             text: "OK",
-            onPress:()=>Actions.pop()
+            onPress: () => Actions.pop()
           }
         ]);
       }
@@ -154,7 +165,8 @@ export default function SubscriptionItem({
   useEffect(() => {
     getCurrentOrderDetails();
     fetchSubscriptionDetails();
-  }, [item,delivered]);
+  }, [item, delivered]);
+
   useEffect(() => {
     fetchRemaining();
   }, [state.start_date, state.end_date]);
@@ -164,6 +176,7 @@ export default function SubscriptionItem({
       state.address;
     return (
       <SafeAreaView style={styles.container}>
+
         <View style={styles.header}>
           <View
             style={{
@@ -177,15 +190,15 @@ export default function SubscriptionItem({
                 {state.plan === "twoPlan"
                   ? "2 Meals"
                   : state.plan === "fifteenPlan"
-                  ? "15 Meals"
-                  : "30 Meals"}{" "}
+                    ? "15 Meals"
+                    : "30 Meals"}{" "}
                 Subscription
               </Text>
               <Text style={styles.headersubtitle}>by {state.restaurant}</Text>
             </View>
           </View>
 
-          <Text style={{ color: item.category==="Lunch"?"#ff9900":"#ff6600", fontWeight: "bold" }}>
+          <Text style={{ color: item.category === "Lunch" ? "#ff9900" : "#ff6600", fontWeight: "bold" }}>
             {item.category}
           </Text>
         </View>
@@ -304,13 +317,14 @@ export default function SubscriptionItem({
               <FutureMeals meals={futuremeals} futuredays={futuredays} />
             </View>
           </View>
+
         </ScrollView>
       </SafeAreaView>
     );
   } else {
     return (
-      <View style={{flex:1,alignItems:"center",justifyContent:"center"}}>
-        <ActivityIndicator size="large" animating color="#ff6600" style={{marginHorizontal:width/2-50}} />
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <ActivityIndicator size="large" animating color="#ff6600" style={{ marginHorizontal: width / 2 - 50 }} />
       </View>
     );
   }
