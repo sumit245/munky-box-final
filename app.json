@@ -4,6 +4,15 @@
     "slug": "foodshood",
     "version": "1.1.4",
     "orientation": "portrait",
+    "plugins":[
+      [
+        "expo-notifications",
+        {
+          "icons":"./assets/adaptive-icon.png"
+        }
+
+    ]
+    ],
      "splash": {   
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -30,6 +39,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
+      "useNextNotificationsApi":true,
       "package": "com.srpgroup.munkybox",
       "googleServicesFile": "./google-services.json",
       "config": {
