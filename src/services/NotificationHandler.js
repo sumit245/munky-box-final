@@ -1,9 +1,18 @@
-import * as Device from 'expo-device';
-import * as Notifications from 'expo-notifications';
+//import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, Button, Platform } from 'react-native';
+import * as Device from "expo-device"
+import {getDevicePushTokenAsync,setNotificationHandler,
+  addNotificationReceivedListener,
+  addNotificationResponseReceivedListener,
+  removeNotificationSubscription,
+  getPermissionsAsync,
+  requestPermissionsAsync,
+  setNotificationChannelAsync
 
-Notifications.setNotificationHandler({
+}from "expo-notifications"
+
+setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: false,
@@ -11,7 +20,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function App() {
+export default function NotificationHandler() {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
@@ -21,18 +30,18 @@ export default function App() {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     // This listener is fired whenever a notification is received while the app is foregrounded
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+    notificationListener.current = addNotificationReceivedListener(notification => {
       setNotification(notification);
     });
 
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+    responseListener.current = addNotificationResponseReceivedListener(response => {
       console.log(response);
     });
 
     return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
-      Notifications.removeNotificationSubscription(responseListener.current);
+removeNotificationSubscription(notificationListener.current);
+      removeNotificationSubscription(responseListener.current);
     };
   }, []);
 
@@ -82,25 +91,25 @@ async function sendPushNotification(expoPushToken) {
 
 async function registerForPushNotificationsAsync() {
   let token;
-  if (Device.isDevice) {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    if(Device.isDevice){
+    const { status: existingStatus } = await getPermissionsAsync();
     let finalStatus = existingStatus;
     if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
+      const { status } = await requestPermissionsAsync();
       finalStatus = status;
     }
     if (finalStatus !== 'granted') {
       alert('Failed to get push token for push notification!');
       return;
     }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
+    token = (await getDevicePushTokenAsync()).data;
     console.log(token);
-  } else {
-    alert('Must use physical device for Push Notifications');
-  }
+    }else{
+      alert("Please try on physical device")
+    }
 
   if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
+    setNotificationChannelAsync('default', {
       name: 'default',
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
