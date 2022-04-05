@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Share } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
-import * as Print from "expo-print"
+// import * as Print from "expo-print"
 import { html } from "./OrderReciept";
 
 export default function Download({ navigation }) {
@@ -11,8 +11,8 @@ export default function Download({ navigation }) {
       fileName: 'test',
       directory: 'Documents',
     };
-    let file = await Print.printToFileAsync(options)
-    console.log(file);
+    // let file = await Print.printToFileAsync(options)
+    // console.log(file);
     try {
       const result = await Share.share({
         message: "Hello world!!!",
