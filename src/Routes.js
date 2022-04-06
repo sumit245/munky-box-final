@@ -30,7 +30,7 @@ import Rate from "./scenes/Components/ratings/Rate";
 import OrderDetails from "./scenes/Components/receipt/OrderDetails";
 import Download from "./scenes/Components/receipt/Download";
 import { LinearGradient } from "expo-linear-gradient";
-import NotificationHandler from "./services/NotificationHandler";
+//import NotificationHandler from "./services/NotificationHandler";
 
 export default function Routes() {
   const [user, setUser] = useState({});
@@ -78,7 +78,7 @@ export default function Routes() {
         />
         <Scene
           key="manageNotifications"
-          component={NotificationHandler}
+          component={NotificationStack}
           hideNavBar={true}
         />
         <Scene
