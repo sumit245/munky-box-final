@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import Routes from "./src/Routes";
+import NotificationServiceHandle from "./src/services/NotificationServiceHandle"
+//import Routes from "./src/Routes";
 
 export default class App extends Component {
   // componentDidMount() {
@@ -10,6 +11,6 @@ export default class App extends Component {
   //     .catch((err) => console.log(err));
   // }
   render() {
-    return <Routes />;
+    return <NotificationServiceHandle/>
   }
 }
