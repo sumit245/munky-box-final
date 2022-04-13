@@ -81,7 +81,7 @@ const PinComponent = ({ navigation, entry, logintype,data  }) => {
     >
       <SafeAreaView style={styles.container}>
         {entry ? (
-          <View style={{position:"absolute",left:10,top:20}}>
+          <View style={{position:"absolute",left:10,top:40}}>
             <BackButton/>
           </View>
         ) : (
