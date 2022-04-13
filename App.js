@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import NotificationServiceHandle from "./src/services/NotificationServiceHandle"
-//import Routes from "./src/Routes";
+import Routes from "./src/Routes";
 
 export default function App() {
   return (
