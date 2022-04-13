@@ -15,7 +15,6 @@ import Logo from "./Components/Logo";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ImageBackground } from "react-native";
 import styles from "./styles/AuthStyle";
-import BackButton from "./Components/utility/BackButton";
 import { LinearGradient } from "expo-linear-gradient";
 
 export default class AuthScene extends Component {
@@ -78,11 +77,11 @@ export default class AuthScene extends Component {
 
           <Logo />
 
-          <MobileLogin
+          {/* <MobileLogin
             displayHeader={this.displayHeader}
             routeName={this.props.name}
             otpSent={this.state.otpSent}
-          />
+          /> */}
           <View>
             <View
               style={{

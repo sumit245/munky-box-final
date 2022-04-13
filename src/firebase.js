@@ -1,4 +1,4 @@
-import * as firebas from "firebase";
+import * as firebase from "firebase";
 const firebaseConfig = {
   apiKey: "AIzaSyDOF5LEigYei-eHd0paS4Rwrf8HlxeDE98",
   authDomain: "munkybox-27525.firebaseapp.com",
@@ -6,5 +6,5 @@ const firebaseConfig = {
   projectId: "munkybox-27525",
   appId: "1:511551702515:android:91002204e01d0bdafffe86",
 };
-firebas.initializeApp(firebaseConfig);
-export default firebas;
+firebase.initializeApp(firebaseConfig);
+export default firebase;

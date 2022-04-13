@@ -39,7 +39,6 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "useNextNotificationsApi":true,
       "package": "com.srpgroup.munkybox",
       "googleServicesFile": "./google-services.json",
       "config": {

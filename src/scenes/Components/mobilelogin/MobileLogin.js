@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, Dimensions, TouchableOpacity } from "react-native";
 import PhoneInput from "react-native-phone-number-input";
-import firebas from "../../../firebas";
+import firebase from "../../../firebase";
 import {
   FirebaseRecaptchaVerifierModal,
   FirebaseRecaptchaBanner,
@@ -17,8 +17,8 @@ import { LinearGradient } from "expo-linear-gradient";
 const { width } = Dimensions.get("window");
 const recaptchaVerifier = React.createRef();
 const attemptInvisibleVerification = true;
-const firebaseConfig = firebas.apps.length
-  ? firebas.app().options
+const firebaseConfig = firebase.apps.length
+  ? firebase.app().options
   : undefined;
 
 class OTPLogin extends React.PureComponent {
@@ -36,11 +36,11 @@ class OTPLogin extends React.PureComponent {
   _signIn = async () => {
     const { verificationCode, verificationId, phoneNumber } = this.state;
     try {
-      const credential = firebas.auth.PhoneAuthProvider.credential(
+      const credential = firebase.auth.PhoneAuthProvider.credential(
         verificationId,
         verificationCode
       );
-      await firebas.auth().signInWithCredential(credential);
+      await firebase.auth().signInWithCredential(credential);
       axios
         .post("http://54.146.133.108:5000/api/users/", {
           phone: phoneNumber,
@@ -172,7 +172,7 @@ export default class MobileLogin extends Component {
   _sendVerificationCode = async () => {
     const { phoneNumber } = this.state;
     try {
-      const phoneProvider = new firebas.auth.PhoneAuthProvider();
+      const phoneProvider = new firebase.auth.PhoneAuthProvider();
       const verificationId = await phoneProvider.verifyPhoneNumber(
         phoneNumber,
         recaptchaVerifier.current
