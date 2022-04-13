@@ -93,28 +93,45 @@ export default function Routes() {
     key="manageCards"
     component={ListCard}
     renderLeftButton={() => <BackButton />}
-
-  />
-  <Scene
-    key="wallet"
-    title="My Wallet"
-    component={Wallet}
-    renderLeftButton={() => <BackButton />}
-  />
-  <Scene key="addCard" component={ManageCard} />
-  <Scene
-    key="manageAddress"
-    component={ManageAddress}
-    hideNavBar={true}
-  />
-  <Scene
-    key="listAddress"
-    renderLeftButton={() => <BackButton />}
-    component={ListAddress}
-    title="Manage Address"
-  />
-  <Scene key="checkout" component={CheckOut} hideNavBar={true} />
-
+/>
+        <Scene key="user_details" component={UserDetail} hideNavBar={true} />
+        <Scene key="contacts" component={Contacts} hideNavBar={true} />
+        <Scene
+          key="documents"
+          component={ModalOpener}
+          title={"Documents"}
+          renderLeftButton={() => <BackButton />}
+        />
+        <Scene
+          key="reviews"
+          component={ReviewScreen}
+          title={"Reviews"}
+          renderLeftButton={() => <BackButton />}
+        />
+        <Scene
+          key="thankyou"
+          component={Thankyou}
+          title={"Order Placed"}
+          renderRightButton={DoneRightButton}
+          rightButtonTextStyle={{ marginTop: 20, fontWeight: "bold" }}
+        />
+        <Scene
+          key="manageNotifications"
+          component={NotificationStack}
+          hideNavBar={true}
+        />
+        <Scene
+          key="editaccount"
+          component={EditAccount}
+          title={"Edit Account"}
+          renderLeftButton={() => <BackButton />}
+        />
+        <Scene key="planchooser" component={PlanChooser} />
+        <Scene
+          key="manageCards"
+          component={ListCard}
+          renderLeftButton={() => <BackButton />}
+/>
   <Scene
     key="policies"
     component={About}
