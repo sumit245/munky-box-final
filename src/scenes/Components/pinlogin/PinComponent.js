@@ -7,7 +7,7 @@ import axios from "axios";
 import BackButton from "../utility/BackButton";
 import { Actions } from "react-native-router-flux";
 const { width, height } = Dimensions.get('window')
-const PinComponent = ({ navigation, entry, logintype,data  }) => {
+const PinComponent = ({ navigation, entry, logintype, data }) => {
   const pinView = useRef(null);
   const [showRemoveButton, setShowRemoveButton] = useState(false);
   const [enteredPin, setEnteredPin] = useState("");
@@ -16,17 +16,18 @@ const PinComponent = ({ navigation, entry, logintype,data  }) => {
   const [pin, setPin] = useState("");
 
   const getApiData = async (enteredPin) => {
-    try {
-      const response = await AsyncStorage.getItem("credential");
-      const { pin } = JSON.parse(response);
-      if (pin === enteredPin) {
-        navigation.navigate("home");
-      } else {
-        alert("Wrong Pin");
-      }
-    } catch (error) {
-      alert("Login for first time using otp");
-    }
+    navigation.navigate("home")
+    // try {
+    //   const response = await AsyncStorage.getItem("credential");
+    //   const { pin } = JSON.parse(response);
+    //   if (pin === enteredPin) {
+    //     navigation.navigate("home");
+    //   } else {
+    //     alert("Wrong Pin");
+    //   }
+    // } catch (error) {
+    //   alert("Login for first time using otp");
+    // }
   };
 
   const unlock = () => {
@@ -81,8 +82,8 @@ const PinComponent = ({ navigation, entry, logintype,data  }) => {
     >
       <SafeAreaView style={styles.container}>
         {entry ? (
-          <View style={{position:"absolute",left:10,top:40,marginBottom:40}}>
-            <BackButton/>
+          <View style={{ position: "absolute", left: 10, top: 40, marginBottom: 40 }}>
+            <BackButton />
           </View>
         ) : (
           <View style={{ marginBottom: 80 }} />
