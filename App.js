@@ -15,7 +15,7 @@ export default function App() {
   //     .then((res) => console.log(res))
   //     .catch((err) => console.log(err));
   // }
-  render() {
-    return <NotificationServiceHandle/>
-  }
-}
+//   render() {
+//     return <NotificationServiceHandle/>
+//   }
+// }
