@@ -50,51 +50,13 @@ export default function Routes() {
     <Router>
       <Scene key="root">
         <Scene key="auth" component={AuthScene} hideNavBar={true} />
-         <Scene
-    key="home"
-    component={HomeScreen}
-    hideNavBar={true}
-    initial={login}
-  />
-  
-  <Scene key="user_details" component={UserDetail} hideNavBar={true} />
-  <Scene key="contacts" component={Contacts} hideNavBar={true} />
-  <Scene
-    key="documents"
-    component={ModalOpener}
-    title={"Documents"}
-    renderLeftButton={() => <BackButton />}
-  />
-  <Scene
-    key="reviews"
-    component={ReviewScreen}
-    title={"Reviews"}
-    renderLeftButton={() => <BackButton />}
-  />
-  <Scene
-    key="thankyou"
-    component={Thankyou}
-    title={"Order Placed"}
-    renderRightButton={DoneRightButton}
-    rightButtonTextStyle={{ marginTop: 20, fontWeight: "bold" }}
-  />
-  <Scene
-    key="manageNotifications"
-    component={NotificationStack}
-    hideNavBar={true}
-  />
-  <Scene
-    key="editaccount"
-    component={EditAccount}
-    title={"Edit Account"}
-    renderLeftButton={() => <BackButton />}
-  />
-  <Scene key="planchooser" component={PlanChooser} />
-  <Scene
-    key="manageCards"
-    component={ListCard}
-    renderLeftButton={() => <BackButton />}
-/>
+        <Scene
+          key="home"
+          component={HomeScreen}
+          hideNavBar={true}
+          initial={login}
+        />
+
         <Scene key="user_details" component={UserDetail} hideNavBar={true} />
         <Scene key="contacts" component={Contacts} hideNavBar={true} />
         <Scene
@@ -128,59 +90,97 @@ export default function Routes() {
           renderLeftButton={() => <BackButton />}
         />
         <Scene key="planchooser" component={PlanChooser} />
-        <Scene key="pinlogin" component={PinComponent}/>
         <Scene
           key="manageCards"
           component={ListCard}
           renderLeftButton={() => <BackButton />}
-/>
-  <Scene
-    key="policies"
-    component={About}
-    title="About"
-    renderLeftButton={() => <BackButton />}
-  />
-  <Scene key="coupons" component={Rewards} hideNavBar={true} />
-  <Scene
-    key="details"
-    component={ResultDetails}
-    renderLeftButton={() => (
-      <LinearGradient colors={["#ff9900", "#ff6600"]} style={{
-        height: 28,
-        width: 28,
-        marginHorizontal: 4,
-        borderRadius: 14,
-      }}>
-        <TouchableOpacity
-          onPress={() => {
-            Actions.pop();
-          }}
-        >
-          <Icon name="chevron-back-sharp" size={28} color="#ffffff" />
-        </TouchableOpacity>
-      </LinearGradient>
-    )}
-    renderRightButton={RenderRightButton}
-  />
-  <Scene
-    key="favorites"
-    component={Favouite}
-    title="My Favorites"
-    renderLeftButton={() => <BackButton />}
-  />
-  <Scene
-    key="ratings"
-    component={Rate}
-    renderLeftButton={() => <BackButton />}
-  />
-  <Scene
-    key="orderDetails"
-    component={OrderDetails}
-    renderLeftButton={() => <BackButton />}
-    renderRightButton={() => <Download />}
-  />
-</Scene>
-      
+        />
+        <Scene key="user_details" component={UserDetail} hideNavBar={true} />
+        <Scene key="contacts" component={Contacts} hideNavBar={true} />
+        <Scene
+          key="documents"
+          component={ModalOpener}
+          title={"Documents"}
+          renderLeftButton={() => <BackButton />}
+        />
+        <Scene
+          key="reviews"
+          component={ReviewScreen}
+          title={"Reviews"}
+          renderLeftButton={() => <BackButton />}
+        />
+        <Scene
+          key="thankyou"
+          component={Thankyou}
+          title={"Order Placed"}
+          renderRightButton={DoneRightButton}
+          rightButtonTextStyle={{ marginTop: 20, fontWeight: "bold" }}
+        />
+        <Scene
+          key="manageNotifications"
+          component={NotificationStack}
+          hideNavBar={true}
+        />
+        <Scene
+          key="editaccount"
+          component={EditAccount}
+          title={"Edit Account"}
+          renderLeftButton={() => <BackButton />}
+        />
+        <Scene key="planchooser" component={PlanChooser} />
+        <Scene key="pinlogin" component={PinComponent} hideNavBar={true} />
+        <Scene
+          key="manageCards"
+          component={ListCard}
+          renderLeftButton={() => <BackButton />}
+        />
+        <Scene
+          key="policies"
+          component={About}
+          title="About"
+          renderLeftButton={() => <BackButton />}
+        />
+        <Scene key="coupons" component={Rewards} hideNavBar={true} />
+        <Scene
+          key="details"
+          component={ResultDetails}
+          renderLeftButton={() => (
+            <LinearGradient colors={["#ff9900", "#ff6600"]} style={{
+              height: 28,
+              width: 28,
+              marginHorizontal: 4,
+              borderRadius: 14,
+            }}>
+              <TouchableOpacity
+                onPress={() => {
+                  Actions.pop();
+                }}
+              >
+                <Icon name="chevron-back-sharp" size={28} color="#ffffff" />
+              </TouchableOpacity>
+            </LinearGradient>
+          )}
+          renderRightButton={RenderRightButton}
+        />
+        <Scene
+          key="favorites"
+          component={Favouite}
+          title="My Favorites"
+          renderLeftButton={() => <BackButton />}
+        />
+        <Scene
+          key="ratings"
+          component={Rate}
+          renderLeftButton={() => <BackButton />}
+        />
+        <Scene
+          key="orderDetails"
+          component={OrderDetails}
+          renderLeftButton={() => <BackButton />}
+          renderRightButton={() => <Download />}
+        />
+      </Scene>
+
     </Router>
   );
 }
