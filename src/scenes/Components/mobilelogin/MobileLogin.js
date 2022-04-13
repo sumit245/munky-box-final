@@ -51,8 +51,9 @@ class OTPLogin extends React.PureComponent {
           let data = res.data;
           if (status === 201) {
             saveUser("user", JSON.stringify(data)).then((response) => {
-              Actions.push("home", {
+              Actions.push("pinlogin", {
                 logintype: "mobile",
+                entry:true,
                 data,
               });
             });
@@ -190,9 +191,7 @@ export default class MobileLogin extends Component {
     this.setState({ verificationId: param });
     this.props.displayHeader(false);
   };
-  componentDidMount(){
-    console.log("I am in");
-  }
+  
   render() {
     const { phoneNumber, verificationId, message } = this.state;
     return (
