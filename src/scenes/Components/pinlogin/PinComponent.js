@@ -1,11 +1,11 @@
 import Icon from "react-native-vector-icons/Ionicons";
 import React, { useEffect, useRef, useState } from "react";
-import { ImageBackground, View, SafeAreaView, Text,StyleSheet, Platform,Dimensions } from "react-native";
+import { ImageBackground, View, SafeAreaView, Text, StyleSheet, Platform, Dimensions } from "react-native";
 import ReactNativePinView from "react-native-pin-view";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import axios from "axios";
-const {width,height}=Dimensions.get('window')
+import BackButton from "../utility/BackButton";
+const { width, height } = Dimensions.get('window')
 const PinComponent = ({ route, navigation, entry }) => {
   const pinView = useRef(null);
   const [showRemoveButton, setShowRemoveButton] = useState(false);
@@ -93,8 +93,7 @@ const PinComponent = ({ route, navigation, entry }) => {
     >
       <SafeAreaView style={styles.container}>
         {entry ? (
-          null
-          //<BackButton goBack={navigation.goBack} />
+          <BackButton/>
         ) : (
           <View style={{ marginBottom: 80 }} />
         )}
