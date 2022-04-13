@@ -48,13 +48,14 @@ export default function Routes() {
   return (
     <Router>
       <Scene key="root">
-        {/* <Scene key="auth" component={AuthScene} hideNavBar={true} /> */}
+        <Scene key="auth" component={AuthScene} hideNavBar={true} />
          <Scene
     key="home"
     component={HomeScreen}
     hideNavBar={true}
     initial={login}
-  />{/*
+  />
+  
   <Scene key="user_details" component={UserDetail} hideNavBar={true} />
   <Scene key="contacts" component={Contacts} hideNavBar={true} />
   <Scene
@@ -159,8 +160,8 @@ export default function Routes() {
     renderLeftButton={() => <BackButton />}
     renderRightButton={() => <Download />}
   />
-</Scene> */}
-      </Scene>
+</Scene>
+      
     </Router>
   );
 }
