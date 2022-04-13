@@ -77,11 +77,11 @@ export default class AuthScene extends Component {
 
           <Logo />
 
-          {/* <MobileLogin
+          <MobileLogin
             displayHeader={this.displayHeader}
             routeName={this.props.name}
             otpSent={this.state.otpSent}
-          /> */}
+          /> 
           <View>
             <View
               style={{

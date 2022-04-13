@@ -190,6 +190,9 @@ export default class MobileLogin extends Component {
     this.setState({ verificationId: param });
     this.props.displayHeader(false);
   };
+  componentDidMount(){
+    console.log("I am in");
+  }
   render() {
     const { phoneNumber, verificationId, message } = this.state;
     return (
