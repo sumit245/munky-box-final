@@ -2,11 +2,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 import React, { useEffect, useRef, useState } from "react";
 import { ImageBackground, View, SafeAreaView, Text } from "react-native";
 import ReactNativePinView from "react-native-pin-view";
-import { useSelector, useDispatch } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { setRestaurant } from "../../actions/actions";
-import { styles } from "./auth.style";
-import BackButton from "../BackButton";
+
 import axios from "axios";
 const PinComponent = ({ route, navigation, entry }) => {
   const pinView = useRef(null);
@@ -15,9 +12,6 @@ const PinComponent = ({ route, navigation, entry }) => {
   const [showCompletedButton, setShowCompletedButton] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
   const [pin, setPin] = useState("");
-  const restaurant = useSelector((state) => state.restaurant);
-
-  const dispatch = useDispatch();
 
   const setLocalData = async () => {
     let rest = JSON.stringify(restaurant);
@@ -93,12 +87,13 @@ const PinComponent = ({ route, navigation, entry }) => {
 
   return (
     <ImageBackground
-      source={require("../../assets/chef-background.jpg")}
+      source={require("../../../../assets/imagebackground.jpg")}
       style={styles.imageBackground}
     >
       <SafeAreaView style={styles.container}>
         {entry ? (
-          <BackButton goBack={navigation.goBack} />
+          null
+          //<BackButton goBack={navigation.goBack} />
         ) : (
           <View style={{ marginBottom: 80 }} />
         )}

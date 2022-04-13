@@ -30,6 +30,7 @@ import Rate from "./scenes/Components/ratings/Rate";
 import OrderDetails from "./scenes/Components/receipt/OrderDetails";
 import Download from "./scenes/Components/receipt/Download";
 import { LinearGradient } from "expo-linear-gradient";
+import PinComponent from "./scenes/Components/pinlogin/PinComponent"
 //import NotificationHandler from "./services/NotificationHandler";
 
 export default function Routes() {
@@ -127,6 +128,7 @@ export default function Routes() {
           renderLeftButton={() => <BackButton />}
         />
         <Scene key="planchooser" component={PlanChooser} />
+        <Scene key="pinlogin" component={PinComponent}/>
         <Scene
           key="manageCards"
           component={ListCard}
