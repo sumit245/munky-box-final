@@ -1,4 +1,3 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 import { Portal, Modal, Button } from 'react-native-paper'
 import Terms from '../about/Terms';
@@ -9,7 +8,7 @@ export default function Termsandconditions({ visible, hideModal }) {
         <Portal>
             <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
                 <Terms />
-                <Button mode='text' onPress={hideModal} >OK</Button>
+                <Button mode='text' onPress={hideModal} >Agree</Button>
             </Modal>
         </Portal>
     )
