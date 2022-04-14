@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { FlatList, View, Text } from "react-native";
+import { FlatList, View, Text, ScrollView, RefreshControl } from "react-native";
 import axios from "axios";
 import { getUser } from "../../services/user/getuser";
 import { MY_ORDER_URL } from "../../services/EndPoints";
@@ -16,16 +16,17 @@ export default function SubscriptionStack({ navigation }) {
   const [user_id, setUserId] = useState("");
 
   const getSubscriptions = async () => {
+    setLoaded(false)
     const user = await getUser("user");
     const { data } = await user;
     const { user_id, cards } = data;
     const response = await axios.get(MY_ORDER_URL + user_id);
     const myorder = await response.data;
     let subscriptions = myorder.filter((item) => item.status === "started");
-    setLoaded(true);
     setMyOrders(subscriptions);
     setCard(cards);
     setUserId(user_id);
+    setLoaded(true);
   };
 
   useEffect(() => {
@@ -50,6 +51,8 @@ export default function SubscriptionStack({ navigation }) {
     />
   );
 
+  const onRefresh = () => { getSubscriptions() }
+
   const ListEmptyComponent = () => (
     <View
       style={{
@@ -63,8 +66,8 @@ export default function SubscriptionStack({ navigation }) {
           textAlign: "center",
           fontSize: 18,
           fontWeight: "bold",
-          color:"#000",
-          marginHorizontal: width/10,
+          color: "#000",
+          marginHorizontal: width / 10,
         }}
       >
         You don't have any active subscriptions.
@@ -74,7 +77,9 @@ export default function SubscriptionStack({ navigation }) {
 
   if (loaded) {
     return (
-      <>
+      <ScrollView refreshControl={
+        <RefreshControl refreshing={!loaded} colors={["#f00", "#0f0", "#00f"]} onRefresh={onRefresh} />
+      } >
         <FlatList
           horizontal
           ref={flatref}
@@ -85,7 +90,7 @@ export default function SubscriptionStack({ navigation }) {
           renderItem={renderItem}
           keyExtractor={(item, index) => index}
         />
-      </>
+      </ScrollView>
     );
   } else {
     return (
