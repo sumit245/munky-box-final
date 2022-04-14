@@ -3,9 +3,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { ImageBackground, View, SafeAreaView, Text } from "react-native";
 import ReactNativePinView from "react-native-pin-view";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import BackButton from "../../../scenes/Components/utility/BackButton"
 
-const PinComponent = ({ route, navigation, entry }) => {
+const PinComponent = ({ navigation, entry, logintype, data }) => {
   const pinView = useRef(null);
   const [showRemoveButton, setShowRemoveButton] = useState(false);
   const [enteredPin, setEnteredPin] = useState("");
@@ -13,27 +13,12 @@ const PinComponent = ({ route, navigation, entry }) => {
   const [confirmation, setConfirmation] = useState(false);
   const [pin, setPin] = useState("");
 
-  const setLocalData = async () => {
-    let rest = JSON.stringify(restaurant);
-    await AsyncStorage.setItem("restaurant", rest);
-  };
-
   const getApiData = async (enteredPin) => {
     try {
       const response = await AsyncStorage.getItem("credential");
       const { pin } = JSON.parse(response);
-
       if (pin === enteredPin) {
-        const rest = await AsyncStorage.getItem("restaurant");
-        const { _id } = JSON.parse(rest);
-        const res = await axios.get(
-          "http://54.146.133.108:5000/api/newrest/" + _id
-        );
-        const restra = res.data;
-        let newrest = JSON.stringify(restra);
-        await AsyncStorage.setItem("restaurant", newrest);
-        dispatch(setRestaurant());
-        navigation.navigate("Main");
+        navigation.navigate("home");
       } else {
         alert("Wrong Pin");
       }
@@ -43,7 +28,7 @@ const PinComponent = ({ route, navigation, entry }) => {
   };
 
   const unlock = () => {
-    if (route.params.entry) {
+    if (entry) {
       setConfirmation(true);
       if (confirmation) {
         if (pin === enteredPin) {
@@ -53,9 +38,11 @@ const PinComponent = ({ route, navigation, entry }) => {
           };
           AsyncStorage.setItem("credential", JSON.stringify(credential)).then(
             () => {
-              setLocalData();
               pinView.current.clearAll();
-              navigation.navigate("Main");
+              navigation.navigate("home", {
+                logintype: logintype,
+                data
+              });
             }
           );
         } else {
@@ -92,8 +79,9 @@ const PinComponent = ({ route, navigation, entry }) => {
     >
       <SafeAreaView style={styles.container}>
         {entry ? (
-          null
-          //<BackButton goBack={navigation.goBack} />
+          <View style={{ position: "absolute", left: 10, top: 40, marginBottom: 40 }}>
+            <BackButton />
+          </View>
         ) : (
           <View style={{ marginBottom: 80 }} />
         )}
@@ -104,7 +92,7 @@ const PinComponent = ({ route, navigation, entry }) => {
               <Text style={styles.pinMsg}>Confirm PIN Code</Text>
             </>
           ) : (
-            route.params.entry && (
+            entry && (
               <>
                 <Text style={styles.pinMsg}>
                   Create a PIN code for your account.
