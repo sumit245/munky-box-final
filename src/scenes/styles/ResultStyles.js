@@ -40,6 +40,7 @@ export const styles = StyleSheet.create({
   },
   menuItem: {
     borderRadius: 5,
+    backgroundColor:"#fff",
     elevation: 2,
     padding: 1,
     margin: 2,
@@ -48,7 +49,7 @@ export const styles = StyleSheet.create({
     width: "100%",
     height: 180,
     marginHorizontal: 1,
-    //resizeMode: "cover",
+    resizeMode: "cover",
   },
   menuTitle: {
     paddingHorizontal: 2,
