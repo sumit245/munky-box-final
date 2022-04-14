@@ -76,19 +76,19 @@ export default function ResultDetails({ item, promo }) {
   const renderScene = ({ route }) => {
     switch (route.key) {
       case "first":
-        return <MenuItem index={1} meals={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem index={route.key} meals={meals.find((o) => o.day === route.title)} />;
       case "second":
-        return <MenuItem index={2} meals={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem index={route.key} meals={meals.find((o) => o.day === route.title)} />;
       case "third":
-        return <MenuItem index={3} meals={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem index={route.key} meals={meals.find((o) => o.day === route.title)} />;
       case "fourth":
-        return <MenuItem index={4} meals={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem index={route.key} meals={meals.find((o) => o.day === route.title)} />;
       case "fifth":
-        return <MenuItem index={5} meals={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem index={route.key} meals={meals.find((o) => o.day === route.title)} />;
       case "sixth":
-        return <MenuItem index={6} meals={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem index={route.key} meals={meals.find((o) => o.day === route.title)} />;
       case "seventh":
-        return <MenuItem index={7} meals={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem index={route.key} meals={meals.find((o) => o.day === route.title)} />;
       default:
         break;
     }
@@ -152,18 +152,20 @@ export default function ResultDetails({ item, promo }) {
           </Text>
         </Text>
       </TouchableOpacity>
+      
+        <TabView
+          lazy
+          swipeEnabled
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          renderTabBar={renderTabBar}
+          initialLayout={{ width: width }}
+        />
+      
 
-      <TabView
-        lazy
-        swipeEnabled
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        renderTabBar={renderTabBar}
-        initialLayout={{ width: width }}
-      />
 
-      <PlanChooser
+      {/* <PlanChooser
         base_2price={base_2price}
         base_15price={base_15price}
         base_30price={base_30price}
@@ -173,11 +175,11 @@ export default function ResultDetails({ item, promo }) {
         meal_type={meal_type}
         category={category}
         promo={promo}
-      />
-      <Text style={styles.header}>About us </Text>
+      /> */}
+      {/* <Text style={styles.header}>About us </Text>
       <View style={styles.about}>
         <Text style={{ fontSize: 16, textAlign: "justify" }}>{about}</Text>
-      </View>
+      </View> */}
     </ScrollView>
   );
 }
