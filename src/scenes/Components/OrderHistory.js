@@ -32,7 +32,7 @@ export default class OrderHistory extends Component {
             <RefreshControl
               refreshing={loading}
               colors={["#f00", "#0f0", "#00f"]}
-              onRefresh={onRefresh}
+              onRefresh={this.onRefresh}
             />
           }
           ListEmptyComponent={() => {
