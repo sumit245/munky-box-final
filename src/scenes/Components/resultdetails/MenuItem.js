@@ -1,12 +1,12 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { Card, Text } from "react-native-paper";
 import { styles } from "../../styles/ResultStyles";
 import Icon from "react-native-vector-icons/Ionicons";
 export default function MenuItem({ index, meals }) {
   useEffect(() => {
-    console.log(index);
+    console.log(meals)
   }, [])
-  
+
   try {
     return (
       <Card style={styles.menuItem} key={index}>
