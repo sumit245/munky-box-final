@@ -32,6 +32,7 @@ export default function ItemCard({ item, isFavorite, isHome }) {
   const { discount, discount_type, plan_name, promo_code } = state;
   useEffect(() => {
     let componentMounted = true;
+    console.log(restaurant_name);
     const fetchProfits = async () => {
       const response = await axios.get(PROFIT_URL);
       const { data } = response;

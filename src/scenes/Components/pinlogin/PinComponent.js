@@ -1,13 +1,11 @@
 import Icon from "react-native-vector-icons/Ionicons";
 import React, { useEffect, useRef, useState } from "react";
-import { ImageBackground, View, SafeAreaView, Text, StyleSheet, Platform, Dimensions } from "react-native";
+import { ImageBackground, View, SafeAreaView, Text } from "react-native";
 import ReactNativePinView from "react-native-pin-view";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import BackButton from "../utility/BackButton";
-import { Actions } from "react-native-router-flux";
-const { width, height } = Dimensions.get('window')
-const PinComponent = ({ navigation, entry, logintype, data }) => {
+
+const PinComponent = ({ route, navigation, entry }) => {
   const pinView = useRef(null);
   const [showRemoveButton, setShowRemoveButton] = useState(false);
   const [enteredPin, setEnteredPin] = useState("");
@@ -15,23 +13,37 @@ const PinComponent = ({ navigation, entry, logintype, data }) => {
   const [confirmation, setConfirmation] = useState(false);
   const [pin, setPin] = useState("");
 
+  const setLocalData = async () => {
+    let rest = JSON.stringify(restaurant);
+    await AsyncStorage.setItem("restaurant", rest);
+  };
+
   const getApiData = async (enteredPin) => {
-    navigation.navigate("home")
-    // try {
-    //   const response = await AsyncStorage.getItem("credential");
-    //   const { pin } = JSON.parse(response);
-    //   if (pin === enteredPin) {
-    //     navigation.navigate("home");
-    //   } else {
-    //     alert("Wrong Pin");
-    //   }
-    // } catch (error) {
-    //   alert("Login for first time using otp");
-    // }
+    try {
+      const response = await AsyncStorage.getItem("credential");
+      const { pin } = JSON.parse(response);
+
+      if (pin === enteredPin) {
+        const rest = await AsyncStorage.getItem("restaurant");
+        const { _id } = JSON.parse(rest);
+        const res = await axios.get(
+          "http://54.146.133.108:5000/api/newrest/" + _id
+        );
+        const restra = res.data;
+        let newrest = JSON.stringify(restra);
+        await AsyncStorage.setItem("restaurant", newrest);
+        dispatch(setRestaurant());
+        navigation.navigate("Main");
+      } else {
+        alert("Wrong Pin");
+      }
+    } catch (error) {
+      alert("Login for first time using otp");
+    }
   };
 
   const unlock = () => {
-    if (entry) {
+    if (route.params.entry) {
       setConfirmation(true);
       if (confirmation) {
         if (pin === enteredPin) {
@@ -41,11 +53,9 @@ const PinComponent = ({ navigation, entry, logintype, data }) => {
           };
           AsyncStorage.setItem("credential", JSON.stringify(credential)).then(
             () => {
+              setLocalData();
               pinView.current.clearAll();
-              Actions.push("home", {
-                logintype: logintype,
-                data,
-              })
+              navigation.navigate("Main");
             }
           );
         } else {
@@ -82,9 +92,8 @@ const PinComponent = ({ navigation, entry, logintype, data }) => {
     >
       <SafeAreaView style={styles.container}>
         {entry ? (
-          <View style={{ position: "absolute", left: 10, top: 40, marginBottom: 40 }}>
-            <BackButton />
-          </View>
+          null
+          //<BackButton goBack={navigation.goBack} />
         ) : (
           <View style={{ marginBottom: 80 }} />
         )}
@@ -95,7 +104,7 @@ const PinComponent = ({ navigation, entry, logintype, data }) => {
               <Text style={styles.pinMsg}>Confirm PIN Code</Text>
             </>
           ) : (
-            entry && (
+            route.params.entry && (
               <>
                 <Text style={styles.pinMsg}>
                   Create a PIN code for your account.
@@ -164,118 +173,4 @@ const PinComponent = ({ navigation, entry, logintype, data }) => {
     </ImageBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "rgba(25,25,25,0.45)",
-    width: width,
-    alignItems: "center",
-  },
-  image: {
-    marginTop: 60,
-    marginBottom: 120,
-    height: "auto",
-    width: "auto",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  TextInput: {
-    textAlign: "left",
-    borderBottomWidth: 1,
-    width: "90%",
-    height: 45,
-    marginBottom: 20,
-  },
-  forgot_button: {
-    color: "#FFF",
-    marginTop: 20,
-    bottom: Platform.OS === "ios" ? -120 : 0,
-    fontWeight: "bold",
-    fontSize: 16,
-    textDecorationLine: "underline",
-  },
-  phoneContainer: {
-    height: 50,
-    width: "96%",
-    borderColor: "black",
-    borderWidth: 1,
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    marginVertical: 6,
-  },
-  loginBtn: {
-    width: "96%",
-    borderRadius: 10,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginVertical: 6,
-  },
-  btnText: {
-    color: "#ffffff",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FFF",
-    textTransform: "uppercase",
-  },
-  errormsg: {
-    color: "#cf6c22",
-  },
-  imageBackground: {
-    width: width,
-    flex: 1,
-    alignItems: "center",
-  },
-  mobin: {
-    marginTop: height / 2 - 200,
-    alignItems: "center",
-    flex: 1,
-  },
-  instructions: {
-    fontSize: 16,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: "#fff",
-    marginTop: 6,
-  },
-  textInputContainer: {
-    marginTop: 8,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  roundedTextInput: {
-    height: 40,
-    width: 40,
-    borderRadius: 6,
-    backgroundColor: "#fff",
-    borderWidth: 0.1,
-  },
-  pinMsg: {
-    fontWeight: "bold",
-    color: "#FFF",
-    fontSize: 16,
-    textAlign: "center",
-  },
-  pinMsgView: {
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    backgroundColor: "rgba(100,100,100,0.5)",
-    paddingHorizontal: 20,
-    width: 296,
-    padding: 10,
-  },
-  pinInputAreaStyle: {
-    marginBottom: 24,
-    backgroundColor: "rgba(100,100,100,0.5)",
-    paddingHorizontal: 60,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    paddingBottom: 10,
-  },
-});
-
 export default PinComponent;

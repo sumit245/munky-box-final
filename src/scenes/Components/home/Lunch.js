@@ -38,6 +38,10 @@ export default function Lunch({ restaurant }) {
       unmounted = true;
     };
   }, [loading]);
+useEffect(() => {
+
+  console.log(restaurant);
+}, [])
 
   return (
     <FlatList
@@ -60,7 +64,7 @@ export default function Lunch({ restaurant }) {
       )}
       showsVerticalScrollIndicator={false}
       renderItem={(item) => renderItem(item, isFavorite)}
-      keyExtractor={(item, index) => 'key' + index}
+      keyExtractor={(item, index) => 'key' +item._id+ index}
     />
   );
 }

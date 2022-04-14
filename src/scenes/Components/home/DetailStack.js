@@ -108,6 +108,7 @@ export default class DetailStack extends Component {
     const cuisine = await cuisineResponse.data;
     const restaurantResponse = await axios.get(RESTAURANT_URL);
     const restaurant = await restaurantResponse.data;
+   // console.log(restaurant);
     this.getFavoriteCount();
     this.setState({
       restaurant: restaurant,
@@ -238,8 +239,9 @@ export default class DetailStack extends Component {
             clearSearch={this.clearSearch}
           />
           {!loading ? (
-            <ScrollView
+         <ScrollView
               style={{ flex: 1 }}
+              contentContainerStyle={{flex:1}}
               refreshControl={
                 <RefreshControl
                   refreshing={this.state.loading}
@@ -247,7 +249,8 @@ export default class DetailStack extends Component {
                   colors={["#f00", "#0f0", "#00f"]}
                 />
               }
-            >
+            > 
+           
               <View>
                 <FlatList
                   contentContainerStyle={{ marginLeft: 4, marginBottom: 12, marginVertical: 8 }}
@@ -293,6 +296,7 @@ export default class DetailStack extends Component {
                 onIndexChange={this._handleIndexChange}
                 style={{ marginTop: -20, marginHorizontal: 2 }}
               />
+              
             </ScrollView>
           ) : (
             <Loader msg={msg} />
