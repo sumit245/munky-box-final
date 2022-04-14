@@ -38,10 +38,6 @@ export default function Lunch({ restaurant }) {
       unmounted = true;
     };
   }, [loading]);
-useEffect(() => {
-
-  console.log(restaurant);
-}, [])
 
   return (
     <FlatList
