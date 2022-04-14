@@ -239,7 +239,7 @@ export default function CheckOut({
                 setOrdering(false)
                 const { data } = response;
                 Actions.push("thankyou", { id: data.data._id, msg: data.msg });
-                sendPushNotification(token)
+                sendPushNotification(token,'Order Placed 🍜',data.msg)
               })
               .catch((err) => {
                 setOrdering(false)
