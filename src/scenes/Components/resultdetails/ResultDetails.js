@@ -90,6 +90,7 @@ export default function ResultDetails({ item, promo }) {
       case "seventh":
         return <MenuItem index={7} meals={meals.find((o) => o.day === route.title)} />;
       default:
+        //return <MenuItem index={7} meals={meals.find((o) => o.day === route.title)} />;
         break;
     }
   };
