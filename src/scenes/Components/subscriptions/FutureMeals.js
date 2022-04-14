@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TabBar, TabView } from "react-native-tab-view";
 import { Item } from "./MealList";
 import { width } from "../../styles/AuthStyle";
+import { View } from "react-native";
 
 export default function FutureMeals({ meals, futuredays }) {
   const [routes] = useState([
@@ -11,7 +12,7 @@ export default function FutureMeals({ meals, futuredays }) {
   ]);
 
   const [index, setIndex] = useState(0);
-  
+
   const renderTabBar = (props) => (
     <TabBar
       {...props}
@@ -45,13 +46,15 @@ export default function FutureMeals({ meals, futuredays }) {
   };
 
   return (
-    <TabView
-      lazy
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      renderTabBar={renderTabBar}
-      onIndexChange={setIndex}
-      initialLayout={{ width: width - 40 }}
-    />
+    <View style={{ height: 300, flex: 1 }}>
+      <TabView
+        lazy
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        renderTabBar={renderTabBar}
+        onIndexChange={setIndex}
+        initialLayout={{ width: width - 40 }}
+      />
+    </View>
   );
 }
