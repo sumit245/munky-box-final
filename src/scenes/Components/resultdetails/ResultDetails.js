@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity, useWindowDimensions } from "react-native";
 import MenuItem from "./MenuItem";
 import { Actions } from "react-native-router-flux";
 import PlanChooser from "./PlanChooser";
@@ -7,7 +7,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { avatarSize, styles } from "../../styles/ResultStyles";
 import { width } from "../../styles/HomeStyles";
 import axios from "axios";
-import { TabView, TabBar } from "react-native-tab-view";
+import { TabView, TabBar,SceneMap } from "react-native-tab-view";
 
 export const RenderRightButton = ({ restaurant_id }) => {
   return (
@@ -32,6 +32,9 @@ export const RenderRightButton = ({ restaurant_id }) => {
     </View>
   );
 };
+
+
+
 export default function ResultDetails({ item, promo }) {
   const [index, setIndex] = useState(0);
   const [review, setReview] = useState([]);
@@ -90,10 +93,11 @@ export default function ResultDetails({ item, promo }) {
       case "seventh":
         return <MenuItem index={route.key} meals={meals.find((o) => o.day === route.title)} />;
       default:
-        //return <MenuItem index={7} meals={meals.find((o) => o.day === route.title)} />;
         break;
     }
   };
+
+  const layout=useWindowDimensions()
 
   const getchefbynameandupdatemenucount = async (restaurant_id) => {
     let MENU_COUNT_URL =
@@ -154,7 +158,8 @@ export default function ResultDetails({ item, promo }) {
         </Text>
       </TouchableOpacity>
       
-        <TabView
+      <View style={{height:300,flex:1}}>
+      <TabView
           lazy
           swipeEnabled
           navigationState={{ index, routes }}
@@ -163,10 +168,15 @@ export default function ResultDetails({ item, promo }) {
           renderTabBar={renderTabBar}
           initialLayout={{ width: width }}
         />
+      </View>
+        
+
+
+       
       
 
 
-      {/* <PlanChooser
+      <PlanChooser
         base_2price={base_2price}
         base_15price={base_15price}
         base_30price={base_30price}
@@ -176,11 +186,11 @@ export default function ResultDetails({ item, promo }) {
         meal_type={meal_type}
         category={category}
         promo={promo}
-      /> */}
-      {/* <Text style={styles.header}>About us </Text>
+      />
+      <Text style={styles.header}>About us </Text>
       <View style={styles.about}>
         <Text style={{ fontSize: 16, textAlign: "justify" }}>{about}</Text>
-      </View> */}
+      </View>
     </ScrollView>
   );
 }
