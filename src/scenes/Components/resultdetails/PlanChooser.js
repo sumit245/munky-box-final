@@ -32,6 +32,7 @@ export default function PlanChooser({
         : restaurant_plans === promo.meal_plan
           ? promo
           : null;
+    
     Actions.push("checkout", {
       restaurant: restaurant,
       restaurant_id: restaurant_id,
@@ -118,7 +119,7 @@ export default function PlanChooser({
               ${parseFloat(base_2price) + parseFloat(plan.twoPlan)}
             </Text>
           </View>
-          <LinearGradient colors={["#ff9900", "#ff6600"]} style={styles.selectoffer} >
+          
             <TouchableOpacity
               onPress={() =>
                 getPlan(
@@ -129,13 +130,14 @@ export default function PlanChooser({
               }
 
             >
+              <LinearGradient colors={["#ff9900", "#ff6600"]} style={styles.selectoffer} >
               <Text
                 style={{ fontSize: 16, fontWeight: "bold", color: "#ffffff" }}
               >
                 CHOOSE
               </Text>
-            </TouchableOpacity>
           </LinearGradient>
+            </TouchableOpacity>
         </View>
       </Card>
       <Card style={styles.planCard}>

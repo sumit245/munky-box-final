@@ -97,6 +97,7 @@ export default function Routes() {
         />
         <Scene key="user_details" component={UserDetail} hideNavBar={true} />
         <Scene key="contacts" component={Contacts} hideNavBar={true} />
+        <Scene key="checkout" component={CheckOut} hideNavBar={true}/>
         <Scene
           key="documents"
           component={ModalOpener}
