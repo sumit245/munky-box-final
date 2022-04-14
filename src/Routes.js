@@ -31,7 +31,7 @@ import OrderDetails from "./scenes/Components/receipt/OrderDetails";
 import Download from "./scenes/Components/receipt/Download";
 import { LinearGradient } from "expo-linear-gradient";
 import PinComponent from "./scenes/Components/pinlogin/PinComponent"
-//import NotificationHandler from "./services/NotificationHandler";
+
 
 export default function Routes() {
   const [user, setUser] = useState({});
