@@ -67,6 +67,7 @@ export default function CheckOut({
   const [addressLoading, setAddressLoading] = useState(true);
   const [isKeyboardOn, setKeyboardOn] = useState(false);
   const [isOrdering, setOrdering] = useState(false)
+  const [token, setToken] = useState("")
   const STRIPE_PUBLISHABLE_KEY =
     "pk_test_51KammvB9SdGdzaTpAZcPCcQVMesbuC5qY3Sng1rdnEfnfo2geOUP8CQ27sw0WBjpiMpdYBRoAQ1eX8czY8BEEWdO00teqn55mD";
 
@@ -238,7 +239,7 @@ export default function CheckOut({
                 setOrdering(false)
                 const { data } = response;
                 Actions.push("thankyou", { id: data.data._id, msg: data.msg });
-                sendPushNotification(notificationToken)
+                sendPushNotification(token)
               })
               .catch((err) => {
                 setOrdering(false)
@@ -283,6 +284,7 @@ export default function CheckOut({
   const getNotificationToken = async () => {
     const token = await AsyncStorage.getItem('notificationToken')
     console.log(token);
+    setToken(token)
   }
 
   useEffect(() => {
@@ -291,7 +293,7 @@ export default function CheckOut({
       fetchUser();
       keyboardShown();
       keyboardHidden();
-      console.log(token);
+      getNotificationToken()
 
     }
     return () => {
