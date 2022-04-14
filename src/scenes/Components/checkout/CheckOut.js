@@ -24,7 +24,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { ORDER_URL } from "../../../services/EndPoints";
 import { Actions } from "react-native-router-flux";
-import { styles, width, height } from "../../styles/CheckoutStyles";
+import { styles, width } from "../../styles/CheckoutStyles";
 import Loader from "../utility/Loader";
 import BackButton from "../utility/BackButton";
 import {
@@ -43,7 +43,6 @@ export default function CheckOut({
   meal_type,
   category,
   promo,
-  notificationToken
 }) {
   const [state, setState] = useState({
     loading: true,
@@ -191,7 +190,6 @@ export default function CheckOut({
     const result = await getCreditCardToken(card);
     if (result.error) {
       setOrdering(false)
-      console.log("Error in getting card token");
       alert(result.error.message);
     } else {
       stripeTokenHandler(
@@ -239,7 +237,7 @@ export default function CheckOut({
                 setOrdering(false)
                 const { data } = response;
                 Actions.push("thankyou", { id: data.data._id, msg: data.msg });
-                sendPushNotification(token,'Order Placed 🍜',data.msg)
+                sendPushNotification(token, 'Order Placed 🍜', data.msg)
               })
               .catch((err) => {
                 setOrdering(false)

@@ -65,7 +65,6 @@ export default class RegistrationForm extends Component {
     const { _id, phone } = this.state;
     const { first_name, last_name, profile_picture, email_id, uri } =
       this.state;
-    console.log(profile_picture);
     if (!first_name) {
       alert("First name is required");
       return;

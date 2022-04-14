@@ -6,14 +6,16 @@ import { TextInput, Chip } from "react-native-paper";
 import { Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ADDRESS_URL } from "../../../services/EndPoints";
+import { sendPushNotification } from "../../../services/NotificationServiceHandle";
 import { getUser, saveUser } from "../../../services/user/getuser";
 import { width } from "../../styles/HomeStyles";
 import Loader from "../utility/Loader";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class ManualEntry extends Component {
   constructor(props) {
     super(props);
-    this.state = { ...this.props, ...this.props.address, loading: false };
+    this.state = { ...this.props, ...this.props.address, loading: false, token: "" };
   }
   onChangeText = (id) => (e) => {
     const data = { [id]: e };
@@ -27,7 +29,13 @@ export default class ManualEntry extends Component {
     };
     this.setState({ address_type: id });
   };
-
+  getNotificationToken = async () => {
+    const token = await AsyncStorage.getItem('notificationToken')
+    this.setState({ token: token })
+  }
+  componentDidMount() {
+    this.getNotificationToken()
+  }
   _confirmLocation = async () => {
     if (!this.state.address_type) {
       alert("Address type is required");
@@ -59,7 +67,7 @@ export default class ManualEntry extends Component {
       let { _id } = await res.data;
       const response = await axios.put(ADDRESS_URL + _id, { address });
       const { data } = response;
-      const updateLocal = await saveUser("user", JSON.stringify(data));
+      await saveUser("user", JSON.stringify(data));
     } else {
       const res = await getUser("user");
       let { addresses } = res.data;
@@ -74,15 +82,20 @@ export default class ManualEntry extends Component {
       let { _id } = await res.data;
       const response = await axios.put(ADDRESS_URL + _id, { address });
       const { data } = response;
-      const updateLocal = await saveUser("user", JSON.stringify(data));
+      await saveUser("user", JSON.stringify(data));
     }
 
     this.setState({ loading: false });
     this.props.entryMethod
-      ? Actions.push("home")
+      ? (
+        sendPushNotification(this.state.token, "Welcome to feasti", "You can now enjoy delicious food from our vast range of homemade foods").then(res =>
+          Actions.push("home")
+        )
+      )
       : Actions.pop({ refresh: {} })
 
   };
+  
   render() {
     const { address_type, loading } = this.state;
     if (!loading) {
