@@ -20,6 +20,7 @@ import BillingTable from "./BillingTable";
 import TipOption from "./TipOption";
 import DeliveryNotes from "./DeliveryNotes";
 import { getUser } from "../../../services/user/getuser";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { ORDER_URL } from "../../../services/EndPoints";
 import { Actions } from "react-native-router-flux";
@@ -27,11 +28,10 @@ import { styles, width, height } from "../../styles/CheckoutStyles";
 import Loader from "../utility/Loader";
 import BackButton from "../utility/BackButton";
 import {
-  useStripe,
-  useConfirmPayment,
   StripeProvider,
 } from "@stripe/stripe-react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { sendPushNotification } from "../../../services/NotificationServiceHandle";
 LogBox.ignoreAllLogs(true);
 export default function CheckOut({
   plan,
@@ -43,6 +43,7 @@ export default function CheckOut({
   meal_type,
   category,
   promo,
+  notificationToken
 }) {
   const [state, setState] = useState({
     loading: true,
@@ -237,6 +238,7 @@ export default function CheckOut({
                 setOrdering(false)
                 const { data } = response;
                 Actions.push("thankyou", { id: data.data._id, msg: data.msg });
+                sendPushNotification(notificationToken)
               })
               .catch((err) => {
                 setOrdering(false)
@@ -278,6 +280,10 @@ export default function CheckOut({
   const keyboardHidden = () => {
     Keyboard.addListener("keyboardDidHide", () => setKeyboardOn(false));
   };
+  const getNotificationToken = async () => {
+    const token = await AsyncStorage.getItem('notificationToken')
+    console.log(token);
+  }
 
   useEffect(() => {
     let componentMounted = true;
@@ -285,11 +291,14 @@ export default function CheckOut({
       fetchUser();
       keyboardShown();
       keyboardHidden();
+      console.log(token);
+
     }
     return () => {
       componentMounted = false;
     };
   }, []);
+
 
   const uri = documents[1].banner_image;
 
@@ -415,7 +424,7 @@ export default function CheckOut({
                 {isOrdering && (
                   <ActivityIndicator size="small" color="#fff" />
                 )}
-                <Text style={[styles.btnText,{fontSize:isOrdering?16:18,marginLeft:isOrdering?10:26}]}>PROCEED TO PAY</Text>
+                <Text style={[styles.btnText, { fontSize: isOrdering ? 16 : 18, marginLeft: isOrdering ? 10 : 26 }]}>PROCEED TO PAY</Text>
               </LinearGradient>
             </TouchableOpacity>
           </View>
