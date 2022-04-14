@@ -118,7 +118,7 @@ export default function PlanChooser({
               ${parseFloat(base_2price) + parseFloat(plan.twoPlan)}
             </Text>
           </View>
-          <LinearGradient colors={["#ff9900", "#ff6600"]} style={styles.selectoffer}>
+          <LinearGradient colors={["#ff9900", "#ff6600"]} style={styles.selectoffer} >
             <TouchableOpacity
               onPress={() =>
                 getPlan(

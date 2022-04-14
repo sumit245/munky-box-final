@@ -76,19 +76,19 @@ export default function ResultDetails({ item, promo }) {
   const renderScene = ({ route }) => {
     switch (route.key) {
       case "first":
-        return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem index={1} meals={meals.find((o) => o.day === route.title)} />;
       case "second":
-        return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem index={2} meals={meals.find((o) => o.day === route.title)} />;
       case "third":
-        return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem index={3} meals={meals.find((o) => o.day === route.title)} />;
       case "fourth":
-        return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem index={4} meals={meals.find((o) => o.day === route.title)} />;
       case "fifth":
-        return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem index={5} meals={meals.find((o) => o.day === route.title)} />;
       case "sixth":
-        return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem index={6} meals={meals.find((o) => o.day === route.title)} />;
       case "seventh":
-        return <MenuItem meals={meals.find((o) => o.day === route.title)} />;
+        return <MenuItem index={7} meals={meals.find((o) => o.day === route.title)} />;
       default:
         break;
     }
@@ -100,6 +100,7 @@ export default function ResultDetails({ item, promo }) {
       restaurant_id;
     const response = await axios.get(MENU_COUNT_URL);
   };
+
   useEffect(() => {
     getchefbynameandupdatemenucount(restaurant_id);
   }, [restaurant_id]);
@@ -112,6 +113,7 @@ export default function ResultDetails({ item, promo }) {
     let review = data.filter((item) => item.restaurant_id === restaurant_id);
     setReview(review);
   };
+
   useEffect(() => {
     fetchReview();
   }, []);
