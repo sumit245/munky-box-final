@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ff6600",
     position: "absolute",
-    bottom: -140,
+    // bottom: -140,
     padding: 10,
     height: 48,
     alignItems: "center",

@@ -90,11 +90,6 @@ export default function Routes() {
           renderLeftButton={() => <BackButton />}
         />
         <Scene key="planchooser" component={PlanChooser} />
-        <Scene
-          key="manageCards"
-          component={ListCard}
-          renderLeftButton={() => <BackButton />}
-        />
         <Scene key="user_details" component={UserDetail} hideNavBar={true} />
         <Scene key="contacts" component={Contacts} hideNavBar={true} />
         <Scene key="checkout" component={CheckOut} hideNavBar={true}/>

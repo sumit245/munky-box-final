@@ -97,8 +97,6 @@ export default function ResultDetails({ item, promo }) {
     }
   };
 
-  const layout=useWindowDimensions()
-
   const getchefbynameandupdatemenucount = async (restaurant_id) => {
     let MENU_COUNT_URL =
       "http://54.146.133.108:5000/api/chefdashboard/getchefbynameandupdatemenucount/" +
