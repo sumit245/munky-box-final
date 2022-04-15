@@ -4,7 +4,7 @@ import axios from "axios";
 import { getUser } from "../../services/user/getuser";
 import { MY_ORDER_URL } from "../../services/EndPoints";
 import Loader from "./utility/Loader";
-import { width } from "../styles/AuthStyle";
+import { height, width } from "../styles/AuthStyle";
 import SubscriptionItem from "./subscriptions/SubscriptionItem";
 
 export default function SubscriptionStack({ navigation }) {
@@ -63,6 +63,7 @@ export default function SubscriptionStack({ navigation }) {
     >
       <Text
         style={{
+          marginTop:height/2,
           textAlign: "center",
           fontSize: 18,
           fontWeight: "bold",

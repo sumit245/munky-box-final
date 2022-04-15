@@ -140,6 +140,7 @@ export default function Routes() {
           component={ManageAddress}
           hideNavBar={true}
         />
+        <Scene key="listAddress" component={ListAddress} title="Manage Address" renderLeftButton={()=><BackButton/>} />
         <Scene
           key="policies"
           component={About}
