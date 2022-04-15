@@ -83,6 +83,7 @@ export default function SubscriptionStack({ navigation }) {
         <FlatList
           horizontal
           ref={flatref}
+          contentContainerStyle={{paddingBottom:10}}
           pagingEnabled={true}
           ListEmptyComponent={ListEmptyComponent}
           showsHorizontalScrollIndicator={false}

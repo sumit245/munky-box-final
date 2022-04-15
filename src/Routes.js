@@ -135,6 +135,11 @@ export default function Routes() {
           component={ListCard}
           renderLeftButton={() => <BackButton />}
         />
+         <Scene
+          key="manageAddress"
+          component={ManageAddress}
+          hideNavBar={true}
+        />
         <Scene
           key="policies"
           component={About}
