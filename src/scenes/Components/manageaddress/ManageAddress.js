@@ -26,7 +26,7 @@ export default class ManageAddress extends Component {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={{ flex: 1 }}
         >
-          {/* <ScrollView > */}
+          <ScrollView >
             <MaterialMapView style={styles.materialMapView}/>
             <ManualEntry
               address={this.props.address}
@@ -34,7 +34,7 @@ export default class ManageAddress extends Component {
               editState={this.props.editState}
               editIndex={this.props.editIndex}
             />
-          {/* </ScrollView> */}
+          </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
     );

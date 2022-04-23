@@ -240,7 +240,7 @@ export default class DetailStack extends Component {
           {!loading ? (
          <ScrollView
               style={{ flex: 1 }}
-              contentContainerStyle={{flexGrow:1}}
+              // contentContainerStyle={{flexGrow:1}}
               refreshControl={
                 <RefreshControl
                   refreshing={this.state.loading}

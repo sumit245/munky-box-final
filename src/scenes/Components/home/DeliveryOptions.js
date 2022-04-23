@@ -31,6 +31,7 @@ export default class DeliveryOptions extends Component {
     await saveUser("user", JSON.stringify(users));
     this.setState({ addresses: addresses,changed:true });
   };
+  
   async fetchandsave() {
     const users = await getUser("user");
     const { _id } = users.data;
