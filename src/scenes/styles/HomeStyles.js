@@ -1,10 +1,9 @@
-import { StyleSheet, Dimensions, StatusBarIOS, StatusBar } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 export const { width, height } = Dimensions.get("window");
 export const styles = StyleSheet.create({
   cuisine: {
     justifyContent: "flex-start",
     width: 70,
-    marginVertical: 10,
   },
   cuisine_name: {
     fontSize: 14,
@@ -25,7 +24,7 @@ export const styles = StyleSheet.create({
     width: 48,
     height: 48,
     alignSelf: "center",
-    
+
   },
   header: {
     flexDirection: "row",
@@ -81,20 +80,20 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 4,
-    
+
   },
   modalText: {
     padding: 2,
-    fontSize:16,
+    fontSize: 16,
     fontWeight: "bold",
     textTransform: "capitalize",
   },
   item: {
     borderRadius: 5,
-    backgroundColor:"#fff",
+    backgroundColor: "#fff",
     padding: 4,
     margin: 2,
-    marginVertical:8
+    marginVertical: 8
   },
   image: {
     width: "99%",
@@ -104,7 +103,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 14,
     fontWeight: "bold",
-    flexWrap:"wrap"
+    flexWrap: "wrap"
   },
   price: {
     borderRightWidth: 0.6,

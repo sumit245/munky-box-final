@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "foodshood",
-    "slug": "foodshood",
-    "version": "1.1.4",
+    "name": "Feasti",
+    "slug": "feasti",
+    "version": "0.0.1",
     "orientation": "portrait",
     "plugins":[
       [

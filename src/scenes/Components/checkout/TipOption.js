@@ -45,8 +45,7 @@ export default function TipOption({ tipHandler }) {
 
   const renderItem = ({ item }, tip_amount) => {
     return (
-      <TouchableOpacity onPress={() => handler(item.option)}
-      >
+      <TouchableOpacity onPress={() => handler(item.option)}>
         <LinearGradient colors={tip_amount === item.option ? ["#ff9900", "#ff6600"] : ["#fff", "transparent"]} style={styles.tipBox}>
           <Text
             style={{

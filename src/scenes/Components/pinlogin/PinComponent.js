@@ -22,7 +22,7 @@ const PinComponent = ({ navigation, entry, logintype, data }) => {
         navigation.navigate("home");
       } else {
         alert("Wrong Pin");
-      }
+      } 
     } catch (error) {
       alert("Login for first time using otp");
     }
@@ -40,6 +40,7 @@ const PinComponent = ({ navigation, entry, logintype, data }) => {
           AsyncStorage.setItem("credential", JSON.stringify(credential)).then(
             () => {
               pinView.current.clearAll();
+              console.log(credential)
               navigation.navigate("home", {
                 logintype: logintype,
                 data

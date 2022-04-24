@@ -184,7 +184,7 @@ export default class MobileLogin extends Component {
       });
       this.props.displayHeader(true);
     } catch (err) {
-      console.error(`Error: ${err.message}`);
+      alert(`${err.message}`);
     }
   };
   setLogin = (param) => {

@@ -6,14 +6,13 @@ import { View } from "react-native";
 import FavoritePicker from "./FavoritePicker";
 import { Searchbar } from "react-native-paper";
 import SearchComponent from "./SearchComponent";
-import Icon from "react-native-vector-icons/Ionicons";
+
 export default function HeaderComponent({
   favCount,
   applyfilter,
   clearfilter,
   searchTerm,
   filterCount,
-  clearSearch,
 }) {
   const [isSearching, setSearching] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
