@@ -239,8 +239,7 @@ export default class DetailStack extends Component {
           />
           {!loading ? (
          <ScrollView
-              style={{ flex: 1 }}
-              // contentContainerStyle={{flexGrow:1}}
+              contentContainerStyle={{flexGrow:1}}
               refreshControl={
                 <RefreshControl
                   refreshing={this.state.loading}
@@ -252,7 +251,7 @@ export default class DetailStack extends Component {
            
               <View>
                 <FlatList
-                  contentContainerStyle={{ marginLeft: 4, marginBottom: 12, marginVertical: 8 }}
+                  contentContainerStyle={{marginBottom:20, marginLeft: 4, }}
                   data={cuisine}
                   ListHeaderComponent={() => (
                     <>
@@ -293,7 +292,7 @@ export default class DetailStack extends Component {
                 renderScene={this.renderScene}
                 renderTabBar={this.renderTabBar}
                 onIndexChange={this._handleIndexChange}
-                style={{ marginTop: -20, marginHorizontal: 2 }}
+                style={{ marginHorizontal: 2 }}
               />
               
             </ScrollView>

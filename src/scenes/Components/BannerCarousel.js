@@ -12,13 +12,12 @@ import {
 import { styles } from "../styles/HomeStyles";
 import axios from "axios";
 import { Actions } from "react-native-router-flux";
-import {LinearGradient} from "expo-linear-gradient"
+import { LinearGradient } from "expo-linear-gradient"
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 export default function BannerCarousel() {
   const [page, setPage] = useState([]);
-  const [images, setImages] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const fetchBanners = async () => {
     const response = await axios.get(
@@ -35,7 +34,7 @@ export default function BannerCarousel() {
     const id = restaurant.banner.promo_id;
     const response = await axios.get(
       "http://54.146.133.108:5000/api/chefdashboard/getchefbyidandupdatebannercount/" +
-        id
+      id
     );
     Actions.push("details", {
       title: restaurant.restaurant.restaurant_name,
@@ -54,7 +53,7 @@ export default function BannerCarousel() {
         key={index}
         style={[
           styles.item,
-          { marginBottom: 16, marginHorizontal: 4, width: width - 20 },
+          { marginBottom: 16, marginHorizontal: 2, width: width - 8, },
         ]}
         onPress={() => registerClicks(image)}
       >
@@ -105,7 +104,7 @@ export default function BannerCarousel() {
             {image.restaurant.restaurant_name}
           </Text>
           <LinearGradient
-            colors={["#ff9900","#ff6600"]}
+            colors={["#ff9900", "#ff6600"]}
             style={{
               borderRadius: 2,
               padding: 2,
@@ -136,7 +135,7 @@ export default function BannerCarousel() {
   };
   if (loaded) {
     return (
-      <View style={{ marginHorizontal: 4, marginBottom: 16 }}>
+      <View style={{ marginHorizontal: 2 }}>
         <Text style={{ marginHorizontal: 4, fontWeight: "bold", fontSize: 16 }}>
           Today's Featured
         </Text>
@@ -148,7 +147,8 @@ export default function BannerCarousel() {
           index={0}
           pageSize={width}
           activePageIndicatorStyle={{ color: "#ff9900" }}
-          pageIndicatorStyle={{backgroundColor:"#ff9900"}}
+          pageIndicatorStyle={{ backgroundColor: "#ff9900" }}
+          // pageIndicatorContainerStyle={{backgroundColor:"#fff",width:width-20,justifyContent:"center",alignItems:"center"}}
         >
           {page.map((image, index) => renderPage(image, index))}
         </Carousel>
