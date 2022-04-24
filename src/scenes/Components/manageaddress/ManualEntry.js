@@ -319,7 +319,7 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     borderWidth: 1,
     borderColor: "#ff6600",
-    position: "absolute",
+    //position: "absolute",
     // bottom: -140,
     padding: 10,
     height: 48,
