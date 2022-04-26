@@ -26,8 +26,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.feasti.feasti-user"
-      
+      "bundleIdentifier": "com.feasti.feasti-user",
+      "googleServicesFile":"./GoogleService-info.plist"
     },
     "android": {
       "adaptiveIcon": {
@@ -36,11 +36,6 @@
       },
       "package": "com.srpgroup.munkybox",
       "googleServicesFile": "./google-services.json",
-      "config": {
-        "googleSignIn": {
-          "certificateHash": "1d:47:2b:8b:d9:11:1e:ad:06:66:d0:9f:09:eb:c0:a8:3e:f0:19:65:78:fa:3a:aa:17:fa:59:00:bf:73:55:02"
-        }
-      },
       "useNextNotificationsApi":true
     },
     "web": {
