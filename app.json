@@ -26,15 +26,16 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.feasti.feasti-user",
-      "googleServicesFile":"./GoogleService-info.plist"
+      "bundleIdentifier": "com.feast.feasti-user",
+      "googleServicesFile":"./GoogleService-Info.plist"
+      
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.srpgroup.munkybox",
+      "package": "com.feasti.feasti_user",
       "googleServicesFile": "./google-services.json",
       "useNextNotificationsApi":true
     },
