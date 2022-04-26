@@ -1,10 +1,10 @@
 import * as firebase from "firebase";
 const firebaseConfig = {
-  apiKey: "AIzaSyDOF5LEigYei-eHd0paS4Rwrf8HlxeDE98",
-  authDomain: "munkybox-27525.firebaseapp.com",
-  databaseURL: "https://munkybox-27525-default-rtdb.firebaseio.com/",
-  projectId: "munkybox-27525",
-  appId: "1:511551702515:android:91002204e01d0bdafffe86",
+  apiKey: "AIzaSyCUKpgq5nEK1NTQXoBXnj5EPH5hkr-07Mg",
+  authDomain: "feasti-user.firebaseapp.com",
+  databaseURL: "https://feasti-user-default-rtdb.firebaseio.com",
+  projectId: "feasti-user",
+  appId: "1:147437295322:android:8d23cf7145d85c3c7977e3",
 };
 firebase.initializeApp(firebaseConfig);
 export default firebase;
