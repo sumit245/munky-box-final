@@ -26,13 +26,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.srpgroup.munkybox",
-      "googleServicesFile": "./GoogleService-Info.plist",
-      "config": {
-        "googleSignIn": {
-          "reservedClientId": "com.googleusercontent.apps.511551702515-lnp1k6hgqd8cukc94d8gsaeicp3l0vpj"
-        }
-      }
+      "bundleIdentifier": "com.feasti.feasti-user"
+      
     },
     "android": {
       "adaptiveIcon": {
