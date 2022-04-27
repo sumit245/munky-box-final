@@ -89,6 +89,7 @@ export default function Routes() {
           title={"Edit Account"}
           renderLeftButton={() => <BackButton />}
         />
+
         <Scene key="planchooser" component={PlanChooser} />
         <Scene key="user_details" component={UserDetail} hideNavBar={true} />
         <Scene key="contacts" component={Contacts} hideNavBar={true} />
@@ -168,6 +169,12 @@ export default function Routes() {
           key="favorites"
           component={Favouite}
           title="My Favorites"
+          renderLeftButton={() => <BackButton />}
+        />
+                <Scene
+          key="wallet"
+          component={Wallet}
+          
           renderLeftButton={() => <BackButton />}
         />
         <Scene
