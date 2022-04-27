@@ -46,13 +46,15 @@ export default function Notes({ notes, order_id }) {
         </TouchableOpacity>
       </View>
       {!pulled ? (
-        <Text>{thisnotes}</Text>
+        <Text style={{backgroundColor:"#fff",flex:1,flexWrap:"wrap"}} >{thisnotes}</Text>
       ) : (
         <TextInput
           mode="outlined"
-            numberOfLines={4}
-            outlineColor="#ff6600"
-            activeOutlineColor="#ff6600"
+          multiline
+          numberOfLines={4}
+          outlineColor="#ff6600"
+          activeOutlineColor="#ff6600"
+          style={{backgroundColor:"#fff",flex:1,flexWrap:"wrap"}}
           label="Notes"
           value={thisnotes}
           onChangeText={(text) => setNotes(text)}
