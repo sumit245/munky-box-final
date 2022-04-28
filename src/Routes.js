@@ -80,7 +80,7 @@ export default function Routes() {
         />
         <Scene
           key="manageNotifications"
-          component={NotificationStack}
+          component={NotificationStack}    
           hideNavBar={true}
         />
         <Scene
@@ -112,17 +112,6 @@ export default function Routes() {
           title={"Order Placed"}
           renderRightButton={DoneRightButton}
           rightButtonTextStyle={{ marginTop: 20, fontWeight: "bold" }}
-        />
-        <Scene
-          key="manageNotifications"
-          component={NotificationStack}
-          hideNavBar={true}
-        />
-        <Scene
-          key="editaccount"
-          component={EditAccount}
-          title={"Edit Account"}
-          renderLeftButton={() => <BackButton />}
         />
         <Scene key="planchooser" component={PlanChooser} />
         <Scene key="pinlogin" component={PinComponent} hideNavBar={true} />

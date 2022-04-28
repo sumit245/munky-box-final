@@ -36,6 +36,7 @@
     "react-native-countdown-component": "^2.7.1",
     "react-native-credit-card-input": "^0.4.1",
     "react-native-elements": "^3.4.2",
+    "expo-mail-composer": "~10.2.2",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-keyboard-spacer": "^0.4.1",
     "react-native-maps": "0.28.0",
