@@ -6,6 +6,9 @@ import {
   View,
   TouchableOpacity,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from "react-native";
 import { LiteCreditCardInput } from "react-native-credit-card-input";
 import { getUser, saveUser } from "../../../services/user/getuser";
@@ -64,6 +67,7 @@ export default class ManageCard extends Component {
     const { visible, title } = this.state;
     return (
       <Portal>
+       
         <Modal
           visible={visible}
           onDismiss={this.hideModal}
@@ -74,6 +78,7 @@ export default class ManageCard extends Component {
             borderRadius: 4,
           }}
         >
+          <KeyboardAvoidingView behavior={Platform.OS==="android"?"height":"padding"} >
           <View
             style={{
               flexDirection: "row",
@@ -125,7 +130,9 @@ export default class ManageCard extends Component {
               onChangeText={this._onChangeText("card_holder")}
             />
           </View>
+        </KeyboardAvoidingView>
         </Modal>
+       
       </Portal>
     );
   }
