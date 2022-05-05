@@ -12,7 +12,6 @@ export default function BackButton() {
       borderRadius: 14,
     }}>
       <TouchableOpacity
-
         onPress={() => {
           Actions.pop();
         }}
