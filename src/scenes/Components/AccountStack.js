@@ -45,10 +45,8 @@ export default class AccountStack extends Component {
   }
 
   logout = async () => {
-    const res = await removeUser("user")
     this.setState({ signoff: false })
-    const response = clearAll();
-    response.then(() => Actions.jump("auth"));
+    Actions.jump("auth")
 
   };
 

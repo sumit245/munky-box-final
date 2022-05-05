@@ -36,7 +36,9 @@ export default function OrderDetails({ order, title }) {
     return parseFloat(accumulator) + parseFloat(a);
   }
   const subtotals =
-    Array.isArray(order.add_on) && order.add_on.map((item) => item.subtotal);
+    Array.isArray(order.add_on) && order.add_on.map(extra=>
+      extra
+      .map((item) => item.subtotal));
   let price = subtotals.reduce(add, 0);
 
   return (
@@ -45,6 +47,7 @@ export default function OrderDetails({ order, title }) {
         justifyContent: "flex-start",
         flex: 1,
         backgroundColor: "#fff",
+        paddingBottom:20
       }}
       contentInsetAdjustmentBehavior="automatic"
     >
@@ -214,6 +217,7 @@ export default function OrderDetails({ order, title }) {
         </Text>
       </View>
       <View style={styles.table}>
+
         <View style={[styles.tableHead, { justifyContent: "flex-end" }]}>
           <Text>Total: ${parseFloat(price).toFixed(2)}</Text>
         </View>
@@ -223,7 +227,9 @@ export default function OrderDetails({ order, title }) {
           <Text style={styles.text}>PRICE</Text>
         </View>
         {Array.isArray(order.add_on) &&
-          order.add_on.map((extra, key) => (
+          order.add_on.map(extra=>
+            extra
+          .map((extra, key) => (
             <View
               style={{
                 flexDirection: "row",
@@ -245,8 +251,10 @@ export default function OrderDetails({ order, title }) {
                 ${parseFloat(extra.subtotal).toFixed(2)}
               </Text>
             </View>
+          )
           ))}
       </View>
+    <View style={{height:120}}/>
     </ScrollView>
   );
 }

@@ -9,6 +9,7 @@ import FutureMeals from "./FutureMeals";
 import Loader from "../utility/Loader";
 import Notes from "./Notes";
 import { Actions } from "react-native-router-flux";
+import { height } from "../../styles/AuthStyle";
 
 export default function SubscriptionItem({
   item,
@@ -176,7 +177,6 @@ export default function SubscriptionItem({
       state.address;
     return (
       <SafeAreaView style={styles.container}>
-
         <View style={styles.header}>
           <View
             style={{
@@ -203,7 +203,7 @@ export default function SubscriptionItem({
           </Text>
         </View>
 
-        <ScrollView>
+        <ScrollView style={{flex:1,height:height,paddingBottom:80}} >
           <View style={styles.tabContainer}>
             <View style={styles.tab}>
               <Text style={{ fontWeight: "bold", color: "#555" }}>STARTED</Text>
@@ -317,7 +317,7 @@ export default function SubscriptionItem({
               <FutureMeals meals={futuremeals} futuredays={futuredays} />
             </View>
           </View>
-
+          <View style={{height:120,backgroundColor:"#fff"}}/>
         </ScrollView>
       </SafeAreaView>
     );

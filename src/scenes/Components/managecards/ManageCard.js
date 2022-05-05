@@ -67,7 +67,6 @@ export default class ManageCard extends Component {
     const { visible, title } = this.state;
     return (
       <Portal>
-       
         <Modal
           visible={visible}
           onDismiss={this.hideModal}
@@ -77,8 +76,9 @@ export default class ManageCard extends Component {
             marginHorizontal: 20,
             borderRadius: 4,
           }}
+          
         >
-          <KeyboardAvoidingView behavior={Platform.OS==="android"?"height":"padding"} >
+          <KeyboardAvoidingView behavior={Platform.OS==="ios"?"position":"padding"} enabled>
           <View
             style={{
               flexDirection: "row",
