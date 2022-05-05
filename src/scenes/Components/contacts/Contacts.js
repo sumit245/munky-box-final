@@ -13,6 +13,7 @@ import { IconButton, Provider } from "react-native-paper";
 import axios from "axios";
 import { getUser } from "../../../services/user/getuser";
 import BackButton from "../utility/BackButton";
+import * as MailComposer from "expo-mail-composer"
 
 const DARKGRAY = "#777";
 const { width, height } = Dimensions.get("window");
@@ -53,6 +54,12 @@ export default function Contacts({ navigation }) {
       phone: info.phone,
       label: "user",
     };
+    MailComposer.composeAsync({
+      subject: info.subject,
+      recipients: ["support@feasti.com","sumitranjan245@gmail.com"],
+      body: info.body
+    })
+
     const response = await axios.post(
       "http://54.146.133.108:5000/api/contacts/",
       mail

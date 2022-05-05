@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import { Card, Switch } from "react-native-paper";
+import { Card } from "react-native-paper";
 import { Actions } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -15,6 +15,7 @@ export default class NotificationStack extends Component {
   state = { isSwitchOn: false };
   onToggleSwitch = () => this.setState({ isSwitchOn: true });
   render() {
+    const {isSwitchOn}=this.state
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
@@ -32,22 +33,24 @@ export default class NotificationStack extends Component {
               <Text style={styles.notificationTitle}>Push Notifications</Text>
               <TouchableOpacity
                 style={{
-                  backgroundColor: "#525",
+                  backgroundColor:isSwitchOn?"#ff9900":"#525",
                   marginLeft: 80,
                   padding: 2,
                   alignItems: "center",
                   paddingHorizontal: 6,
                   borderRadius: 4,
                 }}
+                onPress={this.onToggleSwitch}
               >
-                <Text style={{ fontSize: 16, color: "#fff" }}>OFF</Text>
+                <Text style={{ fontSize: 16, color: "#fff" }}>{isSwitchOn?"OFF":"ON" }</Text>
               </TouchableOpacity>
             </View>
             <Text style={styles.notificationSubTitle}>
               Tap to enable notifications
             </Text>
           </Card>
-          <Card style={styles.notifCard}>
+          
+          {/* <Card style={styles.notifCard}>
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
@@ -124,7 +127,8 @@ export default class NotificationStack extends Component {
                 onValueChange={this.onToggleSwitch}
               />
             </View>
-          </Card>
+          </Card> */}
+
         </ScrollView>
       </SafeAreaView>
     );

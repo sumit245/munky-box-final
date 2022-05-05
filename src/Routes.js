@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Actions, Router, Scene } from "react-native-router-flux";
-import { View, TouchableOpacity, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Router, Scene } from "react-native-router-flux";
+import { ActivityIndicator, TouchableOpacity } from "react-native";
 import AuthScene from "./scenes/AuthScene";
 import HomeScreen from "./scenes/HomeScreen";
 import ResultDetails, {
@@ -10,7 +10,6 @@ import PlanChooser from "./scenes/Components/resultdetails/PlanChooser";
 import ReviewScreen from "./scenes/ReviewScreen";
 import CheckOut from "./scenes/Components/checkout/CheckOut";
 import Rewards from "./scenes/ReviewScreen";
-import Icon from "react-native-vector-icons/Ionicons";
 import UserDetail from "./scenes/Components/UserDetail";
 import ManageAddress from "./scenes/Components/manageaddress/ManageAddress";
 import ManageCard from "./scenes/Components/managecards/ManageCard";
@@ -29,160 +28,64 @@ import About from "./scenes/About";
 import Rate from "./scenes/Components/ratings/Rate";
 import OrderDetails from "./scenes/Components/receipt/OrderDetails";
 import Download from "./scenes/Components/receipt/Download";
-import { LinearGradient } from "expo-linear-gradient";
 import PinComponent from "./scenes/Components/pinlogin/PinComponent"
 
 
 export default function Routes() {
-  const [user, setUser] = useState({});
   const [login, setLogin] = useState(false);
-
-  getUser("user")
-    .then((res) => {
-      if (res !== null) {
-        setLogin(true);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-  return (
-    <Router>
-      <Scene key="root">
-        <Scene key="auth" component={AuthScene} hideNavBar={true} />
-        <Scene
-          key="home"
-          component={HomeScreen}
-          hideNavBar={true}
-          initial={login}
-        />
-
-        <Scene key="user_details" component={UserDetail} hideNavBar={true} />
-        <Scene key="contacts" component={Contacts} hideNavBar={true} />
-        <Scene
-          key="documents"
-          component={ModalOpener}
-          title={"Documents"}
-          renderLeftButton={() => <BackButton />}
-        />
-        <Scene
-          key="reviews"
-          component={ReviewScreen}
-          title={"Reviews"}
-          renderLeftButton={() => <BackButton />}
-        />
-        <Scene
-          key="thankyou"
-          component={Thankyou}
-          title={"Order Placed"}
-          renderRightButton={DoneRightButton}
-          rightButtonTextStyle={{ marginTop: 20, fontWeight: "bold" }}
-        />
-        <Scene
-          key="manageNotifications"
-          component={NotificationStack}
-          hideNavBar={true}
-        />
-        <Scene
-          key="editaccount"
-          component={EditAccount}
-          title={"Edit Account"}
-          renderLeftButton={() => <BackButton />}
-        />
-        <Scene key="planchooser" component={PlanChooser} />
-        <Scene key="user_details" component={UserDetail} hideNavBar={true} />
-        <Scene key="contacts" component={Contacts} hideNavBar={true} />
-        <Scene key="checkout" component={CheckOut} hideNavBar={true}/>
-        <Scene
-          key="documents"
-          component={ModalOpener}
-          title={"Documents"}
-          renderLeftButton={() => <BackButton />}
-        />
-        <Scene
-          key="reviews"
-          component={ReviewScreen}
-          title={"Reviews"}
-          renderLeftButton={() => <BackButton />}
-        />
-        <Scene
-          key="thankyou"
-          component={Thankyou}
-          title={"Order Placed"}
-          renderRightButton={DoneRightButton}
-          rightButtonTextStyle={{ marginTop: 20, fontWeight: "bold" }}
-        />
-        <Scene
-          key="manageNotifications"
-          component={NotificationStack}
-          hideNavBar={true}
-        />
-        <Scene
-          key="editaccount"
-          component={EditAccount}
-          title={"Edit Account"}
-          renderLeftButton={() => <BackButton />}
-        />
-        <Scene key="planchooser" component={PlanChooser} />
-        <Scene key="pinlogin" component={PinComponent} hideNavBar={true} />
-        <Scene
-          key="manageCards"
-          component={ListCard}
-          renderLeftButton={() => <BackButton />}
-        />
-         <Scene
-          key="manageAddress"
-          component={ManageAddress}
-          hideNavBar={true}
-        />
-        <Scene key="listAddress" component={ListAddress} title="Manage Address" renderLeftButton={()=><BackButton/>} />
-        <Scene
-          key="policies"
-          component={About}
-          title="About"
-          renderLeftButton={() => <BackButton />}
-        />
-        <Scene key="coupons" component={Rewards} hideNavBar={true} />
-        <Scene
-          key="details"
-          component={ResultDetails}
-          renderLeftButton={() => (
-            <LinearGradient colors={["#ff9900", "#ff6600"]} style={{
-              height: 28,
-              width: 28,
-              marginHorizontal: 4,
-              borderRadius: 14,
-            }}>
-              <TouchableOpacity
-                onPress={() => {
-                  Actions.pop();
-                }}
-              >
-                <Icon name="chevron-back-sharp" size={28} color="#ffffff" />
-              </TouchableOpacity>
-            </LinearGradient>
-          )}
-          renderRightButton={RenderRightButton}
-        />
-        <Scene
-          key="favorites"
-          component={Favouite}
-          title="My Favorites"
-          renderLeftButton={() => <BackButton />}
-        />
-        <Scene
-          key="ratings"
-          component={Rate}
-          renderLeftButton={() => <BackButton />}
-        />
-        <Scene
-          key="orderDetails"
-          component={OrderDetails}
-          renderLeftButton={() => <BackButton />}
-          renderRightButton={() => <Download />}
-        />
-      </Scene>
-
-    </Router>
-  );
+  const [loaded, setLoading] = useState(false)
+  const setUser = async () => {
+    const res = await getUser("user")
+    if (res !== null) {
+      setLogin(true)
+    }
+  }
+  useEffect(() => {
+    let componentMount = true;
+    if (componentMount) {
+      setUser()
+      setLoading(true)
+    }
+    return () => {
+      componentMount = false
+    }
+  }, [login])
+  if (loaded) {
+    return (
+      <Router>
+        <Scene key="root">
+          <Scene key="auth" component={AuthScene} hideNavBar={true} />
+          <Scene key="home" component={HomeScreen} hideNavBar={true} initial={login} />
+          <Scene key="user_details" component={UserDetail} hideNavBar={true} />
+          <Scene key="contacts" component={Contacts} hideNavBar={true} />
+          <Scene key="documents" component={ModalOpener} title={"Documents"} renderLeftButton={() => <BackButton />} />
+          <Scene key="reviews" component={ReviewScreen} title={"Reviews"} renderLeftButton={() => <BackButton />} />
+          <Scene key="thankyou" component={Thankyou} title={"Order Placed"} renderRightButton={DoneRightButton} rightButtonTextStyle={{ marginTop: 20, fontWeight: "bold" }} />
+          <Scene key="manageNotifications" component={NotificationStack} hideNavBar={true} />
+          <Scene key="editaccount" component={EditAccount} title={"Edit Account"} renderLeftButton={() => <BackButton />} />
+          <Scene key="planchooser" component={PlanChooser} />
+          <Scene key="user_details" component={UserDetail} hideNavBar={true} />
+          <Scene key="contacts" component={Contacts} hideNavBar={true} />
+          <Scene key="checkout" component={CheckOut} hideNavBar={true} />
+          <Scene key="documents" component={ModalOpener} title={"Documents"} renderLeftButton={() => <BackButton />} />
+          <Scene key="reviews" component={ReviewScreen} title={"Reviews"} renderLeftButton={() => <BackButton />} />
+          <Scene key="thankyou" component={Thankyou} title={"Order Placed"} renderRightButton={DoneRightButton} />
+          <Scene key="planchooser" component={PlanChooser} />
+          <Scene key="pinlogin" component={PinComponent} hideNavBar={true} />
+          <Scene key="manageCards" component={ListCard} renderLeftButton={() => <BackButton />} />
+          <Scene key="manageAddress" component={ManageAddress} hideNavBar={true} />
+          <Scene key="listAddress" component={ListAddress} title="Manage Address" renderLeftButton={() => <BackButton />} />
+          <Scene key="policies" component={About} title="About" renderLeftButton={() => <BackButton />} />
+          <Scene key="coupons" component={Rewards} hideNavBar={true} />
+          <Scene key="details" component={ResultDetails} renderLeftButton={() => <BackButton />} renderRightButton={RenderRightButton} />
+          <Scene key="favorites" component={Favouite} title="My Favorites" renderLeftButton={() => <BackButton />} />
+          <Scene key="wallet" component={Wallet} renderLeftButton={() => <BackButton />} />
+          <Scene key="ratings" component={Rate} renderLeftButton={() => <BackButton />} />
+          <Scene key="orderDetails" component={OrderDetails} renderLeftButton={() => <BackButton />} renderRightButton={() => <Download />} />
+        </Scene>
+      </Router>
+    );
+  } else {
+    return <ActivityIndicator size="small" color="#ff9900" />
+  }
 }

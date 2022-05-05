@@ -1,7 +1,12 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, StatusBar } from "react-native";
 export const width = Dimensions.get("window").width;
 export const height = Dimensions.get("window").height;
 export default styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: StatusBar.currentHeight,
+    justifyContent: "space-between",
+  },
   btnOTP: {
     height: 50,
     width: width - 40,
@@ -43,7 +48,7 @@ export default styles = StyleSheet.create({
     color: "#FFF",
     fontWeight: "bold",
     fontSize: 12,
-    textAlign:"center"
+    textAlign: "center"
   },
   orLine: {
     borderBottomColor: "#fff",
@@ -60,9 +65,8 @@ export default styles = StyleSheet.create({
     backgroundColor: "#FFF",
     justifyContent: "center",
     paddingHorizontal: 8,
-    marginHorizontal:4,
     height: 24,
-    width:60,
+    width: 60,
     borderRadius: 15,
   },
   social: {

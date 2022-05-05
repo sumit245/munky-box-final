@@ -30,7 +30,8 @@ export default function DeliveryNotes({ noteHandler,notesprop }) {
           value={notes}
           outlineColor="#ff6600"
           activeOutlineColor="#ff6600"
-          style={{ backgroundColor: "#fff" }}
+          multiline
+          style={{ backgroundColor: "#fff",flex:1,flexWrap:"wrap" }}
           placeholder="Place the delivery at door"
           onChangeText={setNotes}
           onEndEditing={() => noteHandler(notes)}
