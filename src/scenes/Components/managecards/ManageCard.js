@@ -75,10 +75,11 @@ export default class ManageCard extends Component {
             padding: 20,
             marginHorizontal: 20,
             borderRadius: 4,
+            
           }}
-          
+          style={{paddingBottom:120}}
         >
-          <KeyboardAvoidingView behavior={Platform.OS==="ios"?"position":"padding"} enabled>
+          
           <View
             style={{
               flexDirection: "row",
@@ -130,7 +131,7 @@ export default class ManageCard extends Component {
               onChangeText={this._onChangeText("card_holder")}
             />
           </View>
-        </KeyboardAvoidingView>
+        
         </Modal>
        
       </Portal>

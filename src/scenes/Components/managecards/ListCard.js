@@ -5,7 +5,8 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Image
+  Image,
+  KeyboardAvoidingView
 } from "react-native";
 import Icon from "react-native-vector-icons/Fontisto";
 import { Actions } from "react-native-router-flux";
@@ -212,9 +213,10 @@ export default class ListCard extends Component {
     const { cards, checked, modalVisible, selectedcard, title, wallet_balance } = this.state;
 
     return (
-      <ScrollView contentContainerStyle={styles.container}>
-
         <Provider>
+      <ScrollView contentContainerStyle={styles.container} contentInsetAdjustmentBehavior="automatic">
+          {/* <KeyboardAvoidingView behavior="position" enabled> */}
+        
           <View
             style={{
               padding: 10,
@@ -317,9 +319,11 @@ export default class ListCard extends Component {
               card={selectedcard}
               title={title}
             />
+            
           )}
-        </Provider>
+      {/* </KeyboardAvoidingView> */}
       </ScrollView>
+        </Provider>
     );
   }
 }
@@ -327,7 +331,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    justifyContent: "space-between",
+    
   },
   card: {
     margin: 4,
