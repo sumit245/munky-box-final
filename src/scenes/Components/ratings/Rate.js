@@ -9,8 +9,11 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { AirbnbRating } from "react-native-elements";
+import KeyboardSpacer from "react-native-keyboard-spacer";
 import { Chip, Provider } from "react-native-paper";
 import { Actions } from "react-native-router-flux";
 import Loader from "../utility/Loader";
@@ -74,7 +77,8 @@ export default function Rate({ navigation, restaurant, order }) {
   ];
   if (!loaded) {
     return (
-      <Provider>
+     <Provider>
+        
         <SafeAreaView
           style={{
             flex: 1,
@@ -82,8 +86,9 @@ export default function Rate({ navigation, restaurant, order }) {
             backgroundColor: "#fff",
           }}
         >
-          <ScrollView contentInsetAdjustmentBehavior="automatic">
-            <View>
+          <KeyboardAvoidingView behavior="position" enabled>
+          <ScrollView contentInsetAdjustmentBehavior="automatic"   >
+              <View>
               <Text
                 style={{
                   marginTop: 20,
@@ -177,25 +182,33 @@ export default function Rate({ navigation, restaurant, order }) {
               >
                 Leave a comment
               </Text>
+              
               <TextInput
                 style={{
                   height: 120,
                   margin: 12,
                   borderWidth: 1,
                   padding: 10,
+                  flex:1,
+                  flexWrap:"wrap",
                   borderRadius: 4,
                   textAlignVertical: "top",
                 }}
+                multiline
+                textAlignVertical="top"
                 numberOfLines={4}
                 placeholder="Write any comments"
                 onChangeText={(text) => setDetails(text)}
               />
+              
             </View>
+            <View style={{height:120}}/>
           </ScrollView>
+          </KeyboardAvoidingView>
 
           <TouchableOpacity
             onPress={onSubmit}
-          >
+            >
             <LinearGradient style={{
               // width: "96%",
               borderRadius: 6,
@@ -205,7 +218,7 @@ export default function Rate({ navigation, restaurant, order }) {
               height: 44,
               alignItems: "center",
               justifyContent: "center",
-
+              
             }} colors={["#ff9900", "#ff6600"]}>
               <Text
                 style={{
@@ -214,13 +227,14 @@ export default function Rate({ navigation, restaurant, order }) {
                   fontWeight: "bold",
                   fontSize: 20,
                 }}
-              >
+                >
                 Submit
               </Text>
             </LinearGradient>
           </TouchableOpacity>
         </SafeAreaView>
-      </Provider>
+                
+     </Provider>
     );
   } else {
     return <Loader />;
