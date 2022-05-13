@@ -41,6 +41,7 @@ export default function OrderDetails({ order, title }) {
         .map((item) => item.subtotal));
   console.log(subtotals);
   let price = subtotals.reduce(add, 0);
+  console.log(price);
 
   return (
     <ScrollView
