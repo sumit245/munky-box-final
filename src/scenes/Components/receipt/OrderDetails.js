@@ -38,7 +38,8 @@ export default function OrderDetails({ order, title }) {
   const subtotals =
     Array.isArray(order.add_on) && order.add_on.map(extra=>
       extra
-      .map((item) => item.subtotal));
+        .map((item) => item.subtotal));
+  console.log(subtotals);
   let price = subtotals.reduce(add, 0);
 
   return (
