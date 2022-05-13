@@ -35,13 +35,12 @@ export default function OrderDetails({ order, title }) {
   function add(accumulator, a) {
     return parseFloat(accumulator) + parseFloat(a);
   }
+
   const subtotals =
-    Array.isArray(order.add_on) && order.add_on.map(extra=>
+    Array.isArray(order.add_on) && order.add_on.map(extra =>
       extra
         .map((item) => item.subtotal));
-  console.log(subtotals);
   let price = subtotals[0].reduce(add, 0);
-  console.log(price);
 
   return (
     <ScrollView
@@ -49,7 +48,7 @@ export default function OrderDetails({ order, title }) {
         justifyContent: "flex-start",
         flex: 1,
         backgroundColor: "#fff",
-        paddingBottom:20
+        paddingBottom: 20
       }}
       contentInsetAdjustmentBehavior="automatic"
     >
@@ -66,8 +65,8 @@ export default function OrderDetails({ order, title }) {
                     order.status === "accepted"
                       ? "#5ca85c"
                       : order.status === "started"
-                      ? "#ffc300"
-                      : "#ff4300",
+                        ? "#ffc300"
+                        : "#ff4300",
                 }}
               >
                 {order.status}
@@ -118,8 +117,8 @@ export default function OrderDetails({ order, title }) {
               {order.plan === "twoPlan"
                 ? "2 Days"
                 : order.plan === "fifteenPlan"
-                ? "15 Days"
-                : "30 Days"}
+                  ? "15 Days"
+                  : "30 Days"}
             </Text>
             <Text style={styles.normalText}>{order.start_date}</Text>
             <Text style={styles.normalText}>{order.end_date}</Text>
@@ -135,8 +134,8 @@ export default function OrderDetails({ order, title }) {
                   card.brand === "master-card"
                     ? "mastercard"
                     : card.brand === "diners-club"
-                    ? "dinners-club"
-                    : card.brand
+                      ? "dinners-club"
+                      : card.brand
                 }
                 size={20}
                 color="#226ccf"
@@ -229,34 +228,34 @@ export default function OrderDetails({ order, title }) {
           <Text style={styles.text}>PRICE</Text>
         </View>
         {Array.isArray(order.add_on) &&
-          order.add_on.map(extra=>
+          order.add_on.map(extra =>
             extra
-          .map((extra, key) => (
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                borderBottomWidth: 0.5,
-                borderBottomColor: "#777",
-              }}
-              key={key}
-            >
-              <View>
-                <Text style={{ padding: 4 }}>{extra.item}</Text>
-                <Text style={{ padding: 4 }}>
-                  ${parseFloat(extra.rate).toFixed(2) + " x " + extra.qty}
-                </Text>
-              </View>
+              .map((extra, key) => (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    borderBottomWidth: 0.5,
+                    borderBottomColor: "#777",
+                  }}
+                  key={key}
+                >
+                  <View>
+                    <Text style={{ padding: 4 }}>{extra.item}</Text>
+                    <Text style={{ padding: 4 }}>
+                      ${parseFloat(extra.rate).toFixed(2) + " x " + extra.qty}
+                    </Text>
+                  </View>
 
-              <Text style={{ padding: 4 }}>{extra.order_date}</Text>
-              <Text style={{ padding: 4 }}>
-                ${parseFloat(extra.subtotal).toFixed(2)}
-              </Text>
-            </View>
-          )
-          ))}
+                  <Text style={{ padding: 4 }}>{extra.order_date}</Text>
+                  <Text style={{ padding: 4 }}>
+                    ${parseFloat(extra.subtotal).toFixed(2)}
+                  </Text>
+                </View>
+              )
+              ))}
       </View>
-    <View style={{height:120}}/>
+      <View style={{ height: 120 }} />
     </ScrollView>
   );
 }
