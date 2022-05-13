@@ -40,7 +40,7 @@ export default function OrderDetails({ order, title }) {
       extra
         .map((item) => item.subtotal));
   console.log(subtotals);
-  let price = subtotals.reduce(add, 0);
+  let price = subtotals[0].reduce(add, 0);
   console.log(price);
 
   return (
