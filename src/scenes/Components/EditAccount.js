@@ -17,7 +17,7 @@ import * as ImagePicker from "expo-image-picker";
 import { getUser, saveUser } from "../../services/user/getuser";
 import { ActivityIndicator, Button, TextInput } from "react-native-paper";
 import axios from "axios";
-import Loader from "./utility/Loader";
+
 
 const { width, height } = Dimensions.get("window");
 
@@ -132,7 +132,6 @@ export default class EditAccount extends Component {
   render() {
     const {
       uri,
-      id,
       first_name,
       last_name,
       phone,

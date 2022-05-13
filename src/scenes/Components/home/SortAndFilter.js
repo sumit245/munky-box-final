@@ -73,7 +73,6 @@ export default class SortAndFilter extends Component {
       sortVisible,
       filter,
       meal_type,
-      rating,
       price,
       selected,
       filterCount,
