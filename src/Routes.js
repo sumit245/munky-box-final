@@ -61,7 +61,7 @@ export default function Routes() {
           <Scene key="documents" component={ModalOpener} title={"Documents"} renderLeftButton={() => <BackButton />} />
           <Scene key="reviews" component={ReviewScreen} title={"Reviews"} renderLeftButton={() => <BackButton />} />
           <Scene key="thankyou" component={Thankyou} title={"Order Placed"} renderRightButton={DoneRightButton} rightButtonTextStyle={{ marginTop: 20, fontWeight: "bold" }} />
-          <Scene key="manageNotifications" component={NotificationStack} hideNavBar={true} />
+          <Scene key="manageNotifications" component={NotificationStack} title={"Manage Notification"} renderLeftButton={() => <BackButton />} />
           <Scene key="editaccount" component={EditAccount} title={"Edit Account"} renderLeftButton={() => <BackButton />} />
           <Scene key="planchooser" component={PlanChooser} />
           <Scene key="user_details" component={UserDetail} hideNavBar={true} />
