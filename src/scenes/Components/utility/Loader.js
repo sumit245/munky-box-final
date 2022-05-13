@@ -4,7 +4,6 @@ import { View, Text, Image } from "react-native";
 export default function Loader({ msg }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      {/* <ActivityIndicator size="large" color="#777" animating /> */}
       <Image
         source={require("../../../../assets/Loader.gif")}
         style={{ height: 200, width: 200 }}

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "react-native-banner-carousel";
 import {
-  StyleSheet,
   Image,
   View,
   Dimensions,
@@ -148,7 +147,7 @@ export default function BannerCarousel() {
           pageSize={width}
           activePageIndicatorStyle={{ color: "#ff9900" }}
           pageIndicatorStyle={{ backgroundColor: "#ff9900" }}
-          // pageIndicatorContainerStyle={{backgroundColor:"#fff",width:width-20,justifyContent:"center",alignItems:"center"}}
+        // pageIndicatorContainerStyle={{backgroundColor:"#fff",width:width-20,justifyContent:"center",alignItems:"center"}}
         >
           {page.map((image, index) => renderPage(image, index))}
         </Carousel>
