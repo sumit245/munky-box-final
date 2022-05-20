@@ -41,7 +41,7 @@ export default function Lunch({ restaurant }) {
 
   return (
     <FlatList
-      contentContainerStyle={{ paddingBottom: 4,flex:1,height:"100%" }}
+      contentContainerStyle={{ paddingBottom: 4 }}
       
       data={restaurant}
       initialNumToRender={2}
