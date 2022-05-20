@@ -19,7 +19,7 @@ export default function () {
     return (
         <View style={{ marginHorizontal: 4, backgroundColor: "#fff", padding: 4 }}>
             <MarqueeText style={{ fontSize: 18, color: "#f00", fontWeight: 'bold' }} speed={1} marqueeOnStart={true} loop={true} delay={1000}>
-                {promo}% OFF
+                {coupon}% OFF
             </MarqueeText>
         </View>
     )
