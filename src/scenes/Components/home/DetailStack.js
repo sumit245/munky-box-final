@@ -239,7 +239,8 @@ export default class DetailStack extends Component {
           />
           {!loading ? (
          <ScrollView
-              contentContainerStyle={{flexGrow:1}}
+              contentContainerStyle={{ flexGrow: 1 }}
+              scrollEnabled={true}
               refreshControl={
                 <RefreshControl
                   refreshing={this.state.loading}
@@ -285,8 +286,7 @@ export default class DetailStack extends Component {
                   showsHorizontalScrollIndicator={false}
                 />
               </View>
-              <BannerCarousel />
-
+              <BannerCarousel />              
               <TabView
                 navigationState={{ index, routes }}
                 renderScene={this.renderScene}
