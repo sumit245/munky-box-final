@@ -16,6 +16,7 @@ export default class PromoOptions extends Component {
       discount: "",
       pulled: false,
       applied: false,
+      adminApplied:false,
       adminCoupon: "",
       isAdmin: false,
       adminDiscount: "",
@@ -59,7 +60,7 @@ export default class PromoOptions extends Component {
     this.getAdminCoupon()
   }
   applyCoupon = () => {
-    this.setState({ applied: true });
+    this.setState({ applied: true,adminApplied:false });
     const { coupons, price } = this.props;
     let disc = 0;
     if (coupons.discount_type !== "%") {
@@ -70,7 +71,7 @@ export default class PromoOptions extends Component {
     this.props.couponHandler(coupons.promo_code, disc, coupons.promo_id);
   };
   applyAdminCoupon = () => {
-    this.setState({ applied: true });
+    this.setState({ applied: false,adminApplied:false });
     const { promo_code, isAdmin, adminDiscount } = this.state
     this.props.couponHandler(promo_code, adminDiscount, isAdmin)
   }
@@ -126,7 +127,7 @@ export default class PromoOptions extends Component {
                   </Text>
 
                   <Button mode="text" color="#ff6600" onPress={this.applyAdminCoupon}>
-                    {applied ? "APPLIED" : "APPLY"}
+                    {adminApplied ? "APPLIED" : "APPLY"}
                   </Button>
                 </View>
               )}
