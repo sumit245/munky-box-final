@@ -71,7 +71,7 @@ export default class PromoOptions extends Component {
     this.props.couponHandler(coupons.promo_code, disc, coupons.promo_id);
   };
   applyAdminCoupon = () => {
-    this.setState({ applied: false,adminApplied:false });
+    this.setState({ applied: false,adminApplied:true });
     const { promo_code, isAdmin, adminDiscount } = this.state
     this.props.couponHandler(promo_code, adminDiscount, isAdmin)
   }
