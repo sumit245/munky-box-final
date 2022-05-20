@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Text, View, TextInput } from "react-native";
 import { Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/Fontisto";
@@ -17,7 +17,9 @@ export default class PromoOptions extends Component {
       pulled: false,
       applied: false,
       adminCoupon: "",
-      isAdmin: false
+      isAdmin: false,
+      adminDiscount: "",
+      promo_code: ""
     };
   }
   search = (promo, coupon) => {
@@ -50,7 +52,7 @@ export default class PromoOptions extends Component {
     let { promo_text, discount, promo_code, isAdmin } = data[0]
     let promo = promo_text.replace(/X/i, promo_code)
     promo = promo.replace(/y/i, discount);
-    this.setState({ adminCoupon: promo, isAdmin: isAdmin })
+    this.setState({ adminCoupon: promo, isAdmin: isAdmin, promo_code: promo_code, adminDiscount: discount })
   };
   componentDidMount() {
     this.getCoupon();
@@ -67,6 +69,11 @@ export default class PromoOptions extends Component {
     }
     this.props.couponHandler(coupons.promo_code, disc, coupons.promo_id);
   };
+  applyAdminCoupon = () => {
+    this.setState({ applied: true });
+    const { promo_code, isAdmin, adminDiscount } = useState()
+    this.props.couponHandler(promo_code, adminDiscount, isAdmin)
+  }
 
   render() {
     const { error, discount, pulled, applied, isAdmin, adminCoupon } = this.state;
