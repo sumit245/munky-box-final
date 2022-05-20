@@ -16,7 +16,7 @@ export default class PromoOptions extends Component {
       discount: "",
       pulled: false,
       applied: false,
-      adminApplied:false,
+      adminApplied: false,
       adminCoupon: "",
       isAdmin: false,
       adminDiscount: "",
@@ -53,14 +53,19 @@ export default class PromoOptions extends Component {
     let { promo_text, discount, promo_code, isAdmin } = data[0]
     let promo = promo_text.replace(/X/i, promo_code)
     promo = promo.replace(/y/i, discount);
-    this.setState({ adminCoupon: promo, isAdmin: isAdmin, promo_code: promo_code, adminDiscount: discount })
+    this.setState({
+      adminCoupon: promo,
+      isAdmin: isAdmin,
+      promo_code: promo_code,
+      adminDiscount: discount
+    })
   };
   componentDidMount() {
     this.getCoupon();
     this.getAdminCoupon()
   }
   applyCoupon = () => {
-    this.setState({ applied: true,adminApplied:false });
+    this.setState({ applied: true, adminApplied: false });
     const { coupons, price } = this.props;
     let disc = 0;
     if (coupons.discount_type !== "%") {
@@ -70,14 +75,15 @@ export default class PromoOptions extends Component {
     }
     this.props.couponHandler(coupons.promo_code, disc, coupons.promo_id);
   };
+  
   applyAdminCoupon = () => {
-    this.setState({ applied: false,adminApplied:true });
+    this.setState({ applied: false, adminApplied: true });
     const { promo_code, isAdmin, adminDiscount } = this.state
-    this.props.couponHandler(promo_code, adminDiscount, isAdmin)
+    this.props.couponHandler(promo_code, adminDiscount,'PROMOADMIN', isAdmin)
   }
 
   render() {
-    const { error, discount, pulled, applied,adminApplied, isAdmin, adminCoupon } = this.state;
+    const { error, discount, pulled, applied, adminApplied, isAdmin, adminCoupon } = this.state;
     const { coupons } = this.props;
     return (
       <View style={styles.optionCard}>
@@ -107,10 +113,9 @@ export default class PromoOptions extends Component {
             }
           />
         </View>
+
         {pulled && (
-          <View
-            
-          >
+          <View>
             {
               isAdmin && (
                 <View
@@ -120,9 +125,7 @@ export default class PromoOptions extends Component {
                     flex: 1,
                   }}
                 >
-                  <Text
-                    style={{ textAlign: "justify", padding: 4, fontSize: 12 }}
-                  >
+                  <Text style={{ textAlign: "justify", padding: 4, fontSize: 12 }}>
                     {adminCoupon}% OFF
                   </Text>
 
