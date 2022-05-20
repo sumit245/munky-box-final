@@ -108,7 +108,7 @@ export default class PromoOptions extends Component {
         </View>
         {pulled && (
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
+            
           >
             {
               isAdmin && (
