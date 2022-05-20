@@ -111,7 +111,7 @@ export default class PromoOptions extends Component {
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             {
-              isAdmin ? (
+              isAdmin && (
                 <View
                   style={{
                     flexDirection: "row",
@@ -129,36 +129,37 @@ export default class PromoOptions extends Component {
                     {applied ? "APPLIED" : "APPLY"}
                   </Button>
                 </View>
-              ) :
-                coupons !== null ? (
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      flex: 1,
-                    }}
+              )}
+            {
+              coupons !== null ? (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    flex: 1,
+                  }}
+                >
+                  <Text
+                    style={{ textAlign: "justify", padding: 4, fontSize: 12 }}
                   >
-                    <Text
-                      style={{ textAlign: "justify", padding: 4, fontSize: 12 }}
-                    >
-                      Get{" "}
-                      {coupons.discount_type === "$"
-                        ? "$" + coupons.discount
-                        : coupons.discount + "%"}{" "}
-                      off on {coupons.plan_name} plan.
-                      {"\n"}Use Code
-                      <Text style={{ fontWeight: "bold" }}>
-                        {" "}
-                        {coupons.promo_code}
-                      </Text>
+                    Get{" "}
+                    {coupons.discount_type === "$"
+                      ? "$" + coupons.discount
+                      : coupons.discount + "%"}{" "}
+                    off on {coupons.plan_name} plan.
+                    {"\n"}Use Code
+                    <Text style={{ fontWeight: "bold" }}>
+                      {" "}
+                      {coupons.promo_code}
                     </Text>
-                    <Button mode="text" color="#ff6600" onPress={this.applyCoupon}>
-                      {applied ? "APPLIED" : "APPLY"}
-                    </Button>
-                  </View>
-                ) : (
-                  <Text>No valid coupon on this order</Text>
-                )}
+                  </Text>
+                  <Button mode="text" color="#ff6600" onPress={this.applyCoupon}>
+                    {applied ? "APPLIED" : "APPLY"}
+                  </Button>
+                </View>
+              ) : (
+                <Text>No valid coupon on this order</Text>
+              )}
           </View>
         )
         }
