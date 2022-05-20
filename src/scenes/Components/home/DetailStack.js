@@ -26,6 +26,7 @@ import Loader from "../utility/Loader";
 import BannerCarousel from "../BannerCarousel";
 import { StatusBar } from "react-native";
 import { getUser } from "../../../services/user/getuser";
+import AdminCoupon from "./AdminCoupon";
 
 export default class DetailStack extends Component {
   state = {
@@ -286,7 +287,8 @@ export default class DetailStack extends Component {
                   showsHorizontalScrollIndicator={false}
                 />
               </View>
-              <BannerCarousel />              
+              <BannerCarousel /> 
+              <AdminCoupon/>
               <TabView
                 navigationState={{ index, routes }}
                 renderScene={this.renderScene}
