@@ -9,6 +9,10 @@ export default function () {
         const { data } = response
         setCoupon(data[0])
     }
+    useEffect(() => {
+      getAdminCoupon()
+    }, [])
+    
     return (
         <View>
             <MarqueeText style={{ fontSize: 24 }} speed={1} marqueeOnStart={true} loop={true} delay={1000}>
