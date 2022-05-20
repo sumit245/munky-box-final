@@ -125,7 +125,7 @@ export default class PromoOptions extends Component {
                     {adminCoupon}% OFF
                   </Text>
 
-                  <Button mode="text" color="#ff6600" onPress={this.applyCoupon}>
+                  <Button mode="text" color="#ff6600" onPress={this.applyAdminCoupon}>
                     {applied ? "APPLIED" : "APPLY"}
                   </Button>
                 </View>
