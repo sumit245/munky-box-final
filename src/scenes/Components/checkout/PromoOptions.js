@@ -16,6 +16,8 @@ export default class PromoOptions extends Component {
       discount: "",
       pulled: false,
       applied: false,
+      adminCoupon: "",
+      isAdmin: false
     };
   }
   search = (promo, coupon) => {
@@ -40,11 +42,19 @@ export default class PromoOptions extends Component {
   getCoupon = async () => {
     const response = await axios.get(COUPON_URL);
     const coupon = await response.data;
-
     this.setState({ coupons: coupon });
+  };
+  getAdminCoupon = async () => {
+    const response = await axios.get("http://54.146.133.108:5000/api/admin-coupon")
+    const { data } = response
+    let { promo_text, discount, promo_code, isAdmin } = data[0]
+    let promo = promo_text.replace(/X/i, promo_code)
+    promo = promo.replace(/y/i, discount);
+    this.setState({ adminCoupon: promo, isAdmin: isAdmin })
   };
   componentDidMount() {
     this.getCoupon();
+    this.getAdminCoupon()
   }
   applyCoupon = () => {
     this.setState({ applied: true });
@@ -59,7 +69,7 @@ export default class PromoOptions extends Component {
   };
 
   render() {
-    const { error, discount, pulled, applied } = this.state;
+    const { error, discount, pulled, applied, isAdmin, adminCoupon } = this.state;
     const { coupons } = this.props;
     return (
       <View style={styles.optionCard}>
@@ -93,37 +103,58 @@ export default class PromoOptions extends Component {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            {coupons !== null ? (
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  flex: 1,
-                }}
-              >
-                <Text
-                  style={{ textAlign: "justify", padding: 4, fontSize: 12 }}
+            {
+              isAdmin ? (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    flex: 1,
+                  }}
                 >
-                  Get{" "}
-                  {coupons.discount_type === "$"
-                    ? "$" + coupons.discount
-                    : coupons.discount + "%"}{" "}
-                  off on {coupons.plan_name} plan.
-                  {"\n"}Use Code
-                  <Text style={{ fontWeight: "bold" }}>
-                    {" "}
-                    {coupons.promo_code}
+                  <Text
+                    style={{ textAlign: "justify", padding: 4, fontSize: 12 }}
+                  >
+                    {adminCoupon}
                   </Text>
-                </Text>
-                <Button mode="text" color="#ff6600" onPress={this.applyCoupon}>
-                  {applied ? "APPLIED" : "APPLY"}
-                </Button>
-              </View>
-            ) : (
-              <Text>No valid coupon on this order</Text>
-            )}
+
+                  <Button mode="text" color="#ff6600" onPress={this.applyCoupon}>
+                    {applied ? "APPLIED" : "APPLY"}
+                  </Button>
+                </View>
+              ) :
+                coupons !== null ? (
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      flex: 1,
+                    }}
+                  >
+                    <Text
+                      style={{ textAlign: "justify", padding: 4, fontSize: 12 }}
+                    >
+                      Get{" "}
+                      {coupons.discount_type === "$"
+                        ? "$" + coupons.discount
+                        : coupons.discount + "%"}{" "}
+                      off on {coupons.plan_name} plan.
+                      {"\n"}Use Code
+                      <Text style={{ fontWeight: "bold" }}>
+                        {" "}
+                        {coupons.promo_code}
+                      </Text>
+                    </Text>
+                    <Button mode="text" color="#ff6600" onPress={this.applyCoupon}>
+                      {applied ? "APPLIED" : "APPLY"}
+                    </Button>
+                  </View>
+                ) : (
+                  <Text>No valid coupon on this order</Text>
+                )}
           </View>
-        )}
+        )
+        }
       </View>
     );
   }
