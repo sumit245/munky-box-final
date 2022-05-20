@@ -77,7 +77,7 @@ export default class PromoOptions extends Component {
   }
 
   render() {
-    const { error, discount, pulled, applied, isAdmin, adminCoupon } = this.state;
+    const { error, discount, pulled, applied,adminApplied, isAdmin, adminCoupon } = this.state;
     const { coupons } = this.props;
     return (
       <View style={styles.optionCard}>
