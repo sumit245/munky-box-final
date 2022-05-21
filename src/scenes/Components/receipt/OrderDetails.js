@@ -40,7 +40,7 @@ export default function OrderDetails({ order, title }) {
     Array.isArray(order.add_on) && order.add_on.map(extra =>
       extra
         .map((item) => item.subtotal));
-  let price = subtotals[0].reduce(add, 0);
+  let price = subtotals.length!==0 && subtotals[0].reduce(add, 0);
 
   return (
     <ScrollView
