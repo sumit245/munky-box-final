@@ -19,7 +19,7 @@ export default function () {
     return (
         <View style={{ marginHorizontal: 4, justifyContent:"center", padding: 4 }}>
             <MarqueeText style={{ fontSize: 18, color: "#FFA500", fontWeight: 'bold' }} speed={1} marqueeOnStart={true} loop={true}>
-                {coupon}% OFF
+                {coupon}
             </MarqueeText>
         </View>
     )
