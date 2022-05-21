@@ -126,7 +126,7 @@ export default class PromoOptions extends Component {
                   }}
                 >
                   <Text style={{ textAlign: "justify", padding: 4, fontSize: 12 }}>
-                    {adminCoupon}% OFF
+                    {adminCoupon}
                   </Text>
 
                   <Button mode="text" color="#ff6600" onPress={this.applyAdminCoupon}>
