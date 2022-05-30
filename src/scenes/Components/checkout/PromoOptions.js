@@ -49,8 +49,8 @@ export default class PromoOptions extends Component {
   };
   getAdminCoupon = async () => {
     const response = await axios.get("http://54.146.133.108:5000/api/admin-coupon")
-    const { data } = response
-    let { promo_text, discount, promo_code, isAdmin } = data[0]
+    const { coupons } = response.data
+    let { promo_text, discount, promo_code, isAdmin } = coupons[0]
     let promo = promo_text.replace(/X/i, promo_code)
     promo = promo.replace(/y/i, discount);
     this.setState({
@@ -126,7 +126,7 @@ export default class PromoOptions extends Component {
                   }}
                 >
                   <Text style={{ textAlign: "justify", padding: 4, fontSize: 12 }}>
-                    {adminCoupon}
+                    {" "+adminCoupon.split(".")[0]+"\n"+adminCoupon.split(".")[1]}
                   </Text>
 
                   <Button mode="text" color="#ff6600" onPress={this.applyAdminCoupon}>
@@ -135,7 +135,7 @@ export default class PromoOptions extends Component {
                 </View>
               )}
             {
-              coupons !== null ? (
+              coupons !== null && (
                 <View
                   style={{
                     flexDirection: "row",
@@ -161,8 +161,6 @@ export default class PromoOptions extends Component {
                     {applied ? "APPLIED" : "APPLY"}
                   </Button>
                 </View>
-              ) : (
-                <Text>No valid coupon on this order</Text>
               )}
           </View>
         )

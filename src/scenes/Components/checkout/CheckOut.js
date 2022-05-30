@@ -85,7 +85,8 @@ export default function CheckOut({
     setState({ ...state, start_date: startDate, end_date: endDate });
   };
   const couponHandler = (promo, discount, id, isAdmin) => {
-    discount = isAdmin ? parseFloat(state.price) * 0.01 * parseFloat(discount).toFixed(2) : parseFloat(discount).toFixed(2)
+    discount = isAdmin ?parseFloat(parseFloat(state.price)*0.01*parseFloat(discount)).toFixed(2) : parseFloat(discount).toFixed(2)
+    
     setState({
       ...state,
       promo_id: id,
