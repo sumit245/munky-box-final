@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Router, Scene } from "react-native-router-flux";
-import { ActivityIndicator, TouchableOpacity } from "react-native";
+import { ActivityIndicator,  TouchableOpacity } from "react-native";
 import AuthScene from "./scenes/AuthScene";
 import HomeScreen from "./scenes/HomeScreen";
 import ResultDetails, {
@@ -35,10 +35,16 @@ export default function Routes() {
   const [login, setLogin] = useState(false);
   const [loaded, setLoading] = useState(false)
   const setUser = async () => {
-    const res = await getUser("user")
-    if (res !== null) {
-      setLogin(true)
+    try {
+      const res = await getUser("user")
+      if (res !== null) {
+        setLogin(true)
+      }
+      
+    } catch (error) {
+      AsyncStorage.setItem("user",JSON.stringify({user:''}))
     }
+
   }
   useEffect(() => {
     let componentMount = true;

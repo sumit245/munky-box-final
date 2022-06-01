@@ -2,7 +2,7 @@
   "expo": {
     "name": "Feasti-user",
     "slug": "feasti",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "plugins":[
       [
