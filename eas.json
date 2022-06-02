@@ -9,7 +9,6 @@
         "gradleCommand": ":app:assembleDebug"
       },
       "ios": {
-        "buildConfiguration": "Release",
         "image":"latest"
       },
       "developmentClient":true
@@ -17,7 +16,10 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "distribution":"internal",
+      "ios":{"image":"latest"}
+    }
   },
   "submit": {
     "production": {}

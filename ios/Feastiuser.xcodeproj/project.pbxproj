@@ -22,7 +22,6 @@
 		3D8A488428488C5C0037507B /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.proxy.script;
-			dependencyFile = "$(DERIVED_FILES_DIR)/$(INPUT_FILE_PATH).d";
 			fileType = folder.assetcatalog;
 			inputFiles = (
 			);
