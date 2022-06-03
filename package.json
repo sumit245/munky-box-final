@@ -67,6 +67,6 @@
     "@babel/core": "^7.12.9"
   },
   "private": true,
-  "name": "feasti",
+  "name": "feasti-user",
   "version": "1.0.1"
 }
