@@ -9,6 +9,7 @@
         "gradleCommand": ":app:assembleDebug"
       },
       "ios": {
+        "buildConfiguration":"Debug",
         "image":"latest"
       },
       "developmentClient":true
