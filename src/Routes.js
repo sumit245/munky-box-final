@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Router, Scene } from "react-native-router-flux";
-import { ActivityIndicator,  TouchableOpacity } from "react-native";
+import { ActivityIndicator, TouchableOpacity } from "react-native";
 import AuthScene from "./scenes/AuthScene";
 import HomeScreen from "./scenes/HomeScreen";
 import ResultDetails, {
@@ -29,7 +29,7 @@ import Rate from "./scenes/Components/ratings/Rate";
 import OrderDetails from "./scenes/Components/receipt/OrderDetails";
 import Download from "./scenes/Components/receipt/Download";
 import PinComponent from "./scenes/Components/pinlogin/PinComponent"
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Routes() {
   const [login, setLogin] = useState(false);
@@ -40,9 +40,9 @@ export default function Routes() {
       if (res !== null) {
         setLogin(true)
       }
-      
+
     } catch (error) {
-      AsyncStorage.setItem("user",JSON.stringify({user:''}))
+      AsyncStorage.setItem("user", JSON.stringify({ user: '' }))
     }
 
   }
@@ -56,6 +56,7 @@ export default function Routes() {
       componentMount = false
     }
   }, [login])
+
   if (loaded) {
     return (
       <Router>
