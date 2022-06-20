@@ -5,6 +5,7 @@ const firebaseConfig = {
   databaseURL: "https://feasti-user-default-rtdb.firebaseio.com",
   projectId: "feasti-user",
   appId: "1:147437295322:android:8d23cf7145d85c3c7977e3",
+  
 };
 firebase.initializeApp(firebaseConfig);
 export default firebase;
