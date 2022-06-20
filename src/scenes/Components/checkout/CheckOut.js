@@ -79,14 +79,15 @@ export default function CheckOut({
 
   useEffect(() => {
     getchefbynameandupdatecartcount(restaurant_id);
+    getNotificationToken()
   }, []);
 
   const dateHandler = (startDate, endDate) => {
     setState({ ...state, start_date: startDate, end_date: endDate });
   };
   const couponHandler = (promo, discount, id, isAdmin) => {
-    discount = isAdmin ?parseFloat(parseFloat(state.price)*0.01*parseFloat(discount)).toFixed(2) : parseFloat(discount).toFixed(2)
-    
+    discount = isAdmin ? parseFloat(parseFloat(state.price) * 0.01 * parseFloat(discount)).toFixed(2) : parseFloat(discount).toFixed(2)
+
     setState({
       ...state,
       promo_id: id,
@@ -134,7 +135,6 @@ export default function CheckOut({
       restaurant_id: restaurant,
       plan_name: plan,
     };
-    console.log(paymentData);
     const response = await axios.post(
       "https://feasti.com/api/stripe/pay",
       paymentData
@@ -292,8 +292,6 @@ export default function CheckOut({
       fetchUser();
       keyboardShown();
       keyboardHidden();
-      getNotificationToken()
-
     }
     return () => {
       componentMounted = false;
