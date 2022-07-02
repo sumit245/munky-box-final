@@ -54,7 +54,7 @@ export default class DeliveryOptions extends Component {
     return (
       <>
         <View style={styles.sortView}>
-          <Modal
+          <Modal   
             transparent={true}
             visible={modalVisible}
             onRequestClose={this.setModalVisible}
@@ -68,7 +68,7 @@ export default class DeliveryOptions extends Component {
               <View style={styles.modalView}>
                 <TouchableOpacity
                   style={styles.buttonClose}
-                  onPress={this.setModalVisible}
+                  onPress={()=>this.setState({modalVisible:false})}
                 >
                   <Icon name="close-sharp" color="red" size={18} />
                 </TouchableOpacity>
