@@ -34,7 +34,6 @@ export default function DeliveryOptions({ props }) {
   const getLocalAddress = async () => {
     const users = await getUser('user');
     let { addresses } = users.data;
-    console.log(addresses);
     setState({ ...state, addresses: addresses });
   };
   async function fetchandsave() {
@@ -50,10 +49,7 @@ export default function DeliveryOptions({ props }) {
   }
   useEffect(() => {
     fetchandsave();
-  }, []);
-  // useEffect(() => {
-  //   getLocalAddress();
-  // }, [state.addresses]);
+  }, [state.addresses]);
   return (
     <>
       <View style={styles.sortView}>
