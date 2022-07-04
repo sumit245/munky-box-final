@@ -106,8 +106,7 @@ export default class RegistrationForm extends Component {
   };
   componentDidMount() {
     getUser('user').then((response) => {
-      console.log(response);
-      // this.setState({ ...response.data });
+      this.setState({ ...response.data });
     });
   }
   render() {
