@@ -61,13 +61,13 @@ class OTPLogin extends React.PureComponent {
           } else {
             saveUser('user', JSON.stringify(data)).then((response) => {
               console.log(response);
-              // Actions.push('user_details', {
-              //   logintype: 'mobile',
-              //   data,
-              // });
+              Actions.push('user_details', {
+                logintype: 'mobile',
+                data,
+              });
             });
           }
-          // this.props.setLogin(false);
+           this.props.setLogin(false);
         })
         .catch((err) => console.log(err));
       //
