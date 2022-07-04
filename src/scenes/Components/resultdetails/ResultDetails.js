@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, ScrollView, TouchableOpacity, useWindowDimensions } from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import MenuItem from "./MenuItem";
 import { Actions } from "react-native-router-flux";
 import PlanChooser from "./PlanChooser";

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
@@ -11,29 +11,29 @@ import {
   SafeAreaView,
   TextInput,
   StatusBar,
-} from "react-native";
-import { Button } from "react-native-paper";
-import { Actions } from "react-native-router-flux";
-import Icon from "react-native-vector-icons/Ionicons";
-import * as ImagePicker from "expo-image-picker";
-import { getUser, saveUser } from "../../services/user/getuser";
-import axios from "axios";
-import { USER_URL } from "../../services/EndPoints";
-import BackButton from "./utility/BackButton";
+} from 'react-native';
+import { Button } from 'react-native-paper';
+import { Actions } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/Ionicons';
+import * as ImagePicker from 'expo-image-picker';
+import { getUser, saveUser } from '../../services/user/getuser';
+import axios from 'axios';
+import { USER_URL } from '../../services/EndPoints';
+import BackButton from './utility/BackButton';
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get('window');
 const Lang = {
-  name: "First Name",
-  nameError: "Please add a valid name",
-  surname: "Last Name",
-  surnameError: "Please add a valid surname",
-  mobile: "Mobile Number",
-  mobileError: "Please add a valid mobile phone",
-  email: "Email",
-  emailError: "Please add a valid email address",
-  send: "Send",
-  headerTitle: "Just A Few Clicks Away",
-  lightText: "We need some details to serve you better",
+  name: 'First Name',
+  nameError: 'Please add a valid name',
+  surname: 'Last Name',
+  surnameError: 'Please add a valid surname',
+  mobile: 'Mobile Number',
+  mobileError: 'Please add a valid mobile phone',
+  email: 'Email',
+  emailError: 'Please add a valid email address',
+  send: 'Send',
+  headerTitle: 'Just A Few Clicks Away',
+  lightText: 'We need some details to serve you better',
 };
 
 export default class RegistrationForm extends Component {
@@ -41,7 +41,7 @@ export default class RegistrationForm extends Component {
     super(props);
     this.state = {
       ...this.props,
-      uri: "https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png",
+      uri: 'https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png',
     };
   }
   onChangeText = (id) => (e) => {
@@ -55,10 +55,13 @@ export default class RegistrationForm extends Component {
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
-      base64: true
+      base64: true,
     });
     if (!result.cancelled) {
-      this.setState({ uri: result.uri, profile_picture: `data:image/jpg;base64,${result.base64}` });
+      this.setState({
+        uri: result.uri,
+        profile_picture: `data:image/jpg;base64,${result.base64}`,
+      });
     }
   };
   _nextAction = () => {
@@ -66,15 +69,15 @@ export default class RegistrationForm extends Component {
     const { first_name, last_name, profile_picture, email_id, uri } =
       this.state;
     if (!first_name) {
-      alert("First name is required");
+      alert('First name is required');
       return;
     }
     if (!last_name) {
-      alert("Last name is required");
+      alert('Last name is required');
       return;
     }
     if (!email_id) {
-      alert("Email id is required");
+      alert('Email id is required');
       return;
     }
     const dataToSend = {
@@ -89,9 +92,9 @@ export default class RegistrationForm extends Component {
       .put(USER_URL + _id, { ...dataToSend })
       .then((res) => {
         const user = JSON.stringify(res.data);
-        saveUser("user", user)
+        saveUser('user', user)
           .then((data) => {
-            Actions.push("manageAddress", { data, entryMethod: true });
+            Actions.push('manageAddress', { data, entryMethod: true });
           })
           .catch((err) => {
             alert(err);
@@ -100,14 +103,11 @@ export default class RegistrationForm extends Component {
       .catch((err) => {
         alert(err);
       });
-
   };
   componentDidMount() {
-    if (this.props.logintype === "email") {
-      this.setState({ first_name: this.props.first_name });
-    }
-    getUser("user").then((response) => {
-      this.setState({ ...response.data });
+    getUser('user').then((response) => {
+      console.log(response);
+      // this.setState({ ...response.data });
     });
   }
   render() {
@@ -116,7 +116,7 @@ export default class RegistrationForm extends Component {
       <SafeAreaView
         style={{
           flex: 1,
-          backgroundColor: "#fff",
+          backgroundColor: '#fff',
           marginTop: StatusBar.currentHeight,
         }}
       >
@@ -128,8 +128,8 @@ export default class RegistrationForm extends Component {
           <KeyboardAvoidingView>
             <View
               style={{
-                flexDirection: "row",
-                alignItems: "center",
+                flexDirection: 'row',
+                alignItems: 'center',
                 marginBottom: 16,
               }}
             >
@@ -139,12 +139,12 @@ export default class RegistrationForm extends Component {
 
             <View
               style={{
-                flexDirection: "row",
+                flexDirection: 'row',
                 width: width,
-                justifyContent: "space-between",
+                justifyContent: 'space-between',
               }}
             >
-              <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <View style={styles.profilepic}>
                   <Image
                     source={{
@@ -161,16 +161,18 @@ export default class RegistrationForm extends Component {
                 </TouchableOpacity>
               </View>
 
-              <Button onPress={this._nextAction} color="#ff6600">Next</Button>
+              <Button onPress={this._nextAction} color="#ff6600">
+                Next
+              </Button>
             </View>
 
             <View>
               <Text style={styles.label}>
                 First Name
-                <Text style={[styles.label, { color: "#f00" }]}>*</Text>
+                <Text style={[styles.label, { color: '#f00' }]}>*</Text>
               </Text>
               <TextInput
-                onChangeText={this.onChangeText("first_name")}
+                onChangeText={this.onChangeText('first_name')}
                 selectionColor="#ff6600"
                 value={this.state.first_name}
                 style={styles.inputContainer}
@@ -181,11 +183,11 @@ export default class RegistrationForm extends Component {
             <View>
               <Text style={styles.label}>
                 Last Name
-                <Text style={[styles.label, { color: "#f00" }]}>*</Text>
+                <Text style={[styles.label, { color: '#f00' }]}>*</Text>
               </Text>
 
               <TextInput
-                onChangeText={this.onChangeText("last_name")}
+                onChangeText={this.onChangeText('last_name')}
                 value={this.state.last_name}
                 selectionColor="#ff6600"
                 style={styles.inputContainer}
@@ -193,15 +195,15 @@ export default class RegistrationForm extends Component {
               />
             </View>
 
-            {this.props.logintype !== "mobile" && (
+            {this.props.logintype !== 'mobile' && (
               <View>
                 <Text style={styles.label}>
                   Mobile Number
-                  <Text style={[styles.label, { color: "#f00" }]}>*</Text>
+                  <Text style={[styles.label, { color: '#f00' }]}>*</Text>
                 </Text>
 
                 <TextInput
-                  onChangeText={this.onChangeText("phone")}
+                  onChangeText={this.onChangeText('phone')}
                   value={this.state.phone}
                   selectionColor="#ff6600"
                   keyboardType="numeric"
@@ -211,14 +213,14 @@ export default class RegistrationForm extends Component {
               </View>
             )}
 
-            {this.props.logintype !== "email" && (
+            {this.props.logintype !== 'email' && (
               <View>
                 <Text style={styles.label}>
-                  Email <Text style={[styles.label, { color: "#f00" }]}>*</Text>
+                  Email <Text style={[styles.label, { color: '#f00' }]}>*</Text>
                 </Text>
 
                 <TextInput
-                  onChangeText={this.onChangeText("email_id")}
+                  onChangeText={this.onChangeText('email_id')}
                   value={this.state.email_id}
                   selectionColor="#ff6600"
                   style={styles.inputContainer}
@@ -234,14 +236,14 @@ export default class RegistrationForm extends Component {
 }
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     padding: 10,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   lightText: {
-    textAlign: "justify",
+    textAlign: 'justify',
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   profilepic: {
     height: width / 3.8,
@@ -249,9 +251,9 @@ const styles = StyleSheet.create({
     borderRadius: width / 7.6,
     borderWidth: 0.2,
     margin: 4,
-    borderColor: "#CCC",
-    justifyContent: "center",
-    alignItems: "center",
+    borderColor: '#CCC',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   profileimg: {
     height: width / 4,
@@ -259,39 +261,39 @@ const styles = StyleSheet.create({
     borderRadius: width / 8,
   },
   imagePicker: {
-    position: "relative",
+    position: 'relative',
     right: 0,
     top: -40,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     height: 40,
     width: 40,
     borderRadius: 20,
-    borderColor: "#CCC",
+    borderColor: '#CCC',
     elevation: 2,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   inputContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     width: width - 40,
-    borderBottomColor: "#ccc",
+    borderBottomColor: '#ccc',
     borderBottomWidth: 0.5,
     height: 40,
   },
   textContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     width: width - 40,
     paddingHorizontal: 6,
-    alignItems: "baseline",
-    borderColor: "#ccc",
+    alignItems: 'baseline',
+    borderColor: '#ccc',
     borderWidth: 0.5,
     borderRadius: 4,
   },
   label: {
     marginTop: 6,
     marginBottom: 2,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 16,
   },
   formContainer: {

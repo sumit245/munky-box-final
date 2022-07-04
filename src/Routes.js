@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Router, Scene } from 'react-native-router-flux';
-import { ActivityIndicator, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import AuthScene from './scenes/AuthScene';
 import HomeScreen from './scenes/HomeScreen';
 import ResultDetails, {
@@ -12,7 +12,6 @@ import CheckOut from './scenes/Components/checkout/CheckOut';
 import Rewards from './scenes/ReviewScreen';
 import UserDetail from './scenes/Components/UserDetail';
 import ManageAddress from './scenes/Components/manageaddress/ManageAddress';
-import ManageCard from './scenes/Components/managecards/ManageCard';
 import { ModalOpener } from './services/documentopener/documentopener';
 import ListAddress from './scenes/Components/manageaddress/ListAddress';
 import { getUser } from './services/user/getuser';
@@ -30,6 +29,7 @@ import OrderDetails from './scenes/Components/receipt/OrderDetails';
 import Download from './scenes/Components/receipt/Download';
 import PinComponent from './scenes/Components/pinlogin/PinComponent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Sample from '../Sample';
 
 export default function Routes() {
   const [login, setLogin] = useState(false);
@@ -45,7 +45,7 @@ export default function Routes() {
       setLogin(false);
     }
   };
-  
+
   useEffect(() => {
     let componentMount = true;
     if (componentMount) {
@@ -62,13 +62,16 @@ export default function Routes() {
       <Router>
         <Scene key="root">
           <Scene key="auth" component={AuthScene} hideNavBar={true} />
+          <Scene key="sample" component={Sample} />
+          <Scene key="pinlogin" component={PinComponent} hideNavBar={true} />
+          <Scene key="user_details" component={UserDetail} hideNavBar={true} />
           <Scene
             key="home"
             component={HomeScreen}
             hideNavBar={true}
             initial={login}
           />
-          <Scene key="user_details" component={UserDetail} hideNavBar={true} />
+
           <Scene key="contacts" component={Contacts} hideNavBar={true} />
           <Scene
             key="documents"
@@ -124,7 +127,7 @@ export default function Routes() {
             renderRightButton={DoneRightButton}
           />
           <Scene key="planchooser" component={PlanChooser} />
-          <Scene key="pinlogin" component={PinComponent} hideNavBar={true} />
+
           <Scene
             key="manageCards"
             component={ListCard}
